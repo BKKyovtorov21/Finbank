@@ -8,16 +8,16 @@ Rectangle {
     width: 1280
     height: 832
     color: "#ffffff"
-    property alias enter_your_personal_data_to_create_your_accountText: enter_your_personal_data_to_create_your_account.text
-    property alias element6Text: element6.text
-    property alias enter_your_usernameText: enter_your_username.text
     property alias create_your_accountText: create_your_account.text
-    property alias enter_your_passwordText: enter_your_password.text
-    property alias orText: or.text
+    property alias enter_your_personal_data_to_create_your_accountText: enter_your_personal_data_to_create_your_account.text
     property alias sign_up_accountText: sign_up_account.text
-    property alias sign_upText: sign_up.text
-    property alias enter_your_emailText: enter_your_email.text
+    property alias orText: or.text
     property alias already_have_an_account_Text: already_have_an_account_.text
+    property alias element6Text: element6.text
+    property alias signUpButton: signUpButton
+    property alias usernameTextField: usernameTextField
+    property alias emailTextField: emailTextField
+    property alias passwordTextField: passwordTextField
 
     Rectangle {
         id: rectangle_14
@@ -325,97 +325,6 @@ Rectangle {
         }
     }
 
-    Rectangle {
-        id: signUpButton
-        width: 217
-        height: 64
-        color: "transparent"
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: 148
-        anchors.topMargin: 646
-        Rectangle {
-            id: rectangle_18
-            color: "#ffffff"
-            radius: 15
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-        }
-
-        Text {
-            id: sign_up
-            color: "#000000"
-            text: qsTr("Sign up")
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.leftMargin: 58
-            anchors.rightMargin: 78
-            anchors.topMargin: 22
-            anchors.bottomMargin: 23
-            font.pixelSize: 18
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.Wrap
-            font.weight: Font.Bold
-            font.family: "Gelasio"
-        }
-
-        Rectangle {
-            id: formkit_arrowright
-            color: "transparent"
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.leftMargin: 138
-            anchors.rightMargin: 53
-            anchors.topMargin: 29
-            anchors.bottomMargin: 23
-            SvgPathItem {
-                id: element3
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.leftMargin: 5
-                anchors.rightMargin: 5
-                anchors.topMargin: 5
-                anchors.bottomMargin: 5
-                strokeWidth: 1
-                strokeStyle: 1
-                strokeColor: "transparent"
-                path: "M 15.4375 1.3333332538604736 L 0.8125 1.3333332538604736 C 0.35749999806284904 1.3333332538604736 0 1.0399999396006265 0 0.6666666269302368 C 0 0.2933333142598471 0.35749999806284904 0 0.8125 0 L 15.4375 0 C 15.892500001937151 0 16.25 0.2933333142598471 16.25 0.6666666269302368 C 16.25 1.0399999396006265 15.892500001937151 1.3333332538604736 15.4375 1.3333332538604736 Z"
-                joinStyle: 0
-                fillColor: "#1f1f2e"
-                antialiasing: true
-            }
-
-            SvgPathItem {
-                id: element4
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.leftMargin: 15
-                anchors.rightMargin: 3
-                anchors.topMargin: 1
-                anchors.bottomMargin: 1
-                strokeWidth: 1
-                strokeStyle: 1
-                strokeColor: "transparent"
-                path: "M 0.812500554713054 10.69333457946505 C 0.7059398576066549 10.694400475343494 0.6002868609795593 10.677156303355087 0.5023348503308189 10.64271163639175 C 0.40438283968207855 10.608266969428414 0.3162994384312713 10.55738412525317 0.24375000175609038 10.493334440417318 C -0.08124999251390139 10.226667753922142 -0.08124999251390139 9.813333717315505 0.24375000175609038 9.546667030820329 L 5.36250091035189 5.34666665394961 L 0.24375000175609038 1.146666753916077 C -0.08124999251390139 0.8800000674209014 -0.08124999251390139 0.4666667063336115 0.24375000175609038 0.2000000198384358 C 0.5687499960260821 -0.06666666665673993 1.0724999835124116 -0.06666666665673993 1.3974999777824033 0.2000000198384358 L 7.084999986471997 4.86666708317455 C 7.409999980741989 5.1333337696697265 7.409999980741989 5.546667170493448 7.084999986471997 5.813333856988624 L 1.3974999777824033 10.480000801115443 C 1.2349999806474075 10.61333414436303 1.0237509154150601 10.680000940163175 0.828750926117381 10.680000940163175 L 0.812500554713054 10.69333457946505 Z"
-                joinStyle: 0
-                fillColor: "#1f1f2e"
-                antialiasing: true
-            }
-            clip: true
-        }
-    }
-
     Text {
         id: already_have_an_account_
         width: 281
@@ -433,7 +342,6 @@ Rectangle {
         font.weight: Font.Bold
         font.family: "Gelasio"
     }
-
     Item {
         id: usernameGroup
         x: 68
@@ -452,22 +360,20 @@ Rectangle {
             anchors.top: parent.top
         }
 
-        Text {
-            id: enter_your_username
-            width: 221
-            height: 29
+        TextField {
+            id: usernameTextField
+            width: 400
+            height: 51
+            placeholderText: qsTr("Enter your username")
             color: "#999999"
-            text: qsTr("Enter your username")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 3
-            anchors.topMargin: 11
+            anchors.fill: parent
+            anchors.margins: 5
             font.pixelSize: 18
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.Wrap
-            font.weight: Font.Bold
             font.family: "Gelasio"
+            font.bold: true
+            background: Rectangle {
+                color: "transparent"
+            }
         }
     }
 
@@ -490,21 +396,24 @@ Rectangle {
             anchors.leftMargin: 15
         }
 
-        Text {
-            id: enter_your_email
-            width: 221
-            height: 29
+        TextField {
+            id: emailTextField
+            width: 400
+            height: 51
+            placeholderText: qsTr("Enter your email")
             color: "#999999"
-            text: qsTr("Enter your email")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.topMargin: 12
+            anchors.fill: parent
+            anchors.margins: 5
+            anchors.leftMargin: 22
+            anchors.rightMargin: -12
+            anchors.topMargin: 5
+            anchors.bottomMargin: 5
             font.pixelSize: 18
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.Wrap
-            font.weight: Font.Bold
             font.family: "Gelasio"
+            font.bold: true
+            background: Rectangle {
+                color: "transparent"
+            }
         }
     }
 
@@ -526,22 +435,21 @@ Rectangle {
             anchors.top: parent.top
         }
 
-        Text {
-            id: enter_your_password
-            width: 221
-            height: 29
+        TextField {
+            id: passwordTextField
+            width: 400
+            height: 51
+            placeholderText: qsTr("Enter your password")
             color: "#999999"
-            text: qsTr("Enter your password\n")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 3
-            anchors.topMargin: 12
+            anchors.fill: parent
+            anchors.margins: 5
             font.pixelSize: 18
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.Wrap
-            font.weight: Font.Bold
             font.family: "Gelasio"
+            font.bold: true
+            echoMode: TextInput.Password
+            background: Rectangle {
+                color: "transparent"
+            }
         }
     }
 
@@ -575,16 +483,15 @@ Rectangle {
         clip: true
     }
 
-    Rectangle {
-        id: signUpButton1
+    Button {
+        id: signUpButton
         width: 217
         height: 64
-        color: "transparent"
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 148
         anchors.topMargin: 646
-        Rectangle {
+        background: Rectangle {
             id: rectangle_20
             color: "#ffffff"
             radius: 15
@@ -677,32 +584,11 @@ Rectangle {
 
 /*##^##
 Designer {
-    D{i:0;uuid:"f8299c15-d902-5e09-97c8-ee936156cb29"}D{i:1;uuid:"6beaa2a9-05d4-57fc-b2d8-22f80c7e1ac9"}
-D{i:2;uuid:"3be51dd8-a92b-551e-903d-b6509ac2cb49"}D{i:3;uuid:"59385469-3355-5779-81b0-0eda245e565e"}
-D{i:4;uuid:"65b8814c-2819-5b29-ac8a-5db6f2a34585"}D{i:5;uuid:"81d29443-91fe-5d81-9955-d23a5dc656cf"}
-D{i:6;uuid:"8dc6efc3-c204-5327-8f34-fa80076c2623"}D{i:7;uuid:"5249ceec-9149-5e4a-882a-c187434c60dc"}
-D{i:8;uuid:"bb12f4c8-0db6-52ad-bd0d-ba216a307a35"}D{i:9;uuid:"d8614735-c972-54a7-8dd0-e6dd989552e7"}
-D{i:10;uuid:"aec0dce3-6fa1-548f-86a4-c643f9b43ed7"}D{i:11;uuid:"7ba613c8-07de-5d3e-aff6-f9f49c1e630c"}
-D{i:12;uuid:"c9a6c6c5-77d6-5bef-8e85-ad7a7617d475"}D{i:13;uuid:"49bc5ca8-0699-5c01-a1e7-1a417798c83a"}
-D{i:14;uuid:"72033cba-87ef-5e04-8e26-09661ffeb4a5"}D{i:15;uuid:"0a6456c9-3d11-5a5b-b9e8-4f863a502381"}
-D{i:16;uuid:"c8646940-2aeb-5fa9-a1cc-bc4e67fa604f"}D{i:17;uuid:"deae3170-f951-51cb-bbb9-d8e6cdaa37a8"}
-D{i:18;uuid:"b09dcb84-3c0f-549c-9000-ebb56c8574e8"}D{i:19;uuid:"af6ffdcf-9bf6-56d9-8665-aade7a4d827c"}
-D{i:20;uuid:"da35e4de-b3db-54f5-89a9-1da8d77f3630"}D{i:21;uuid:"21cea876-f5db-5de5-85cc-dcb54e944aff"}
-D{i:22;uuid:"62112f15-2833-5d31-9a11-3c9d520d5731"}D{i:23;uuid:"b825b575-52df-5d89-afbb-82ed181d559c"}
-D{i:24;uuid:"0984fc79-1e27-5a04-9ffb-6cb482e8dccb"}D{i:25;uuid:"46c0799f-07c6-57ac-92d9-bdd3da27e2e2"}
-D{i:26;uuid:"c9608b62-4d6e-5ecf-8acb-4e40fa9fc4cd"}D{i:27;uuid:"dafb3f15-a89e-5259-9c6f-c5253f3a6f68"}
-D{i:28;uuid:"494dc771-cbae-5cef-92a8-3b7b6c6f1606"}D{i:29;uuid:"cd1fcfd7-68e7-5259-85aa-85423842786b"}
-D{i:30;uuid:"ff31301f-86d0-519b-9121-fe8e045535b2"}D{i:31;uuid:"23350090-ca47-5b2f-8163-18112d090b8b"}
-D{i:32;uuid:"e9c770b9-19fb-5dc1-98eb-d38bbb7f351c"}D{i:33;uuid:"8017c87c-1be5-5596-86cc-4f7320857b52"}
-D{i:34;uuid:"989329fe-1a70-5286-95a2-09d1115a6107"}D{i:35;uuid:"7b8e0867-b4d3-5e48-b656-ce0f8b3b398f"}
-D{i:36;uuid:"6f2c96ba-2b65-544b-af6e-6c6c5b32c736"}D{i:37;uuid:"e5114e83-60a3-5ea7-a821-192b04777a33"}
-D{i:38;uuid:"3df2bca3-a1f2-5ff7-8726-4db517b88db5"}D{i:39;uuid:"b08ea18d-aace-55bb-88da-aae1860bee11"}
-D{i:40;uuid:"fc29b001-f5fe-5477-a262-c295edd93671"}D{i:41;uuid:"497c777f-13f4-579f-bd87-01c599bf7331"}
-D{i:42;uuid:"0126c860-38c5-5e2d-83d7-38f3a6387c08"}D{i:43;uuid:"5f2d8cd7-befb-5c3f-9cfa-448ed5558067"}
-D{i:44;uuid:"02203419-36c8-555a-b663-de569abcd2b4"}D{i:45;uuid:"48f1fcfb-24ce-589c-9d9f-00063866f40d"}
-D{i:46;uuid:"8b114d48-6bea-5eed-aef9-6e4cd83fd521"}D{i:47;uuid:"cff9a331-a114-5d9a-8305-113e09ff4d96"}
-D{i:48;uuid:"c8fb5be2-08ea-5603-864c-931082db6136"}D{i:49;uuid:"eeac387d-c6ee-5251-868a-e3dbec301f6e"}
-D{i:50;uuid:"ffe482a5-4062-571c-baea-e3efb7fad6b7"}
+    D{i:0;uuid:"f8299c15-d902-5e09-97c8-ee936156cb29"}D{i:2;uuid:"6beaa2a9-05d4-57fc-b2d8-22f80c7e1ac9"}
+D{i:3;uuid:"3be51dd8-a92b-551e-903d-b6509ac2cb49"}D{i:8;uuid:"81d29443-91fe-5d81-9955-d23a5dc656cf"}
+D{i:10;uuid:"5249ceec-9149-5e4a-882a-c187434c60dc"}D{i:11;uuid:"bb12f4c8-0db6-52ad-bd0d-ba216a307a35"}
+D{i:22;uuid:"7ba613c8-07de-5d3e-aff6-f9f49c1e630c"}D{i:35;uuid:"8017c87c-1be5-5596-86cc-4f7320857b52"}
+D{i:36;uuid:"989329fe-1a70-5286-95a2-09d1115a6107"}
 }
 ##^##*/
 

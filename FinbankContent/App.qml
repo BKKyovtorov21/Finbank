@@ -11,7 +11,7 @@ Window {
     visible: true
     title: "Finbank"
 
-    Screen01 {
+    IntroWindow {
         id: mainScreen
     }
 

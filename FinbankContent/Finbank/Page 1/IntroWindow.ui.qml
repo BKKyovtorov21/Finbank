@@ -8,20 +8,24 @@ Rectangle {
     width: 1280
     height: 832
     color: "transparent"
-    property alias save_Manage_and_track_your_money_Open_a_full_bank_account_from_eText: save_Manage_and_track_your_money_Open_a_full_bank_account_from_e.text
-    property alias full_stock_trading_and_investment_utilitiesText: full_stock_trading_and_investment_utilities.text
-    property alias log_inText: log_in.text
-    property alias virtual_cardsText: virtual_cards.text
-    property alias easy_and_taxless_transfersText: easy_and_taxless_transfers.text
-    property alias helpText: help.text
     property alias enText: en.text
-    property alias control_your_finances_anywhereText: control_your_finances_anywhere.text
+    property alias join_nowText: join_now.text
+    property alias personalText: personal.text
+    property alias helpText: help.text
+    property alias save_Manage_and_track_your_money_Open_a_full_bank_account_from_eText: save_Manage_and_track_your_money_Open_a_full_bank_account_from_e.text
+    property alias virtual_cardsText: virtual_cards.text
+    property alias full_stock_trading_and_investment_utilitiesText: full_stock_trading_and_investment_utilities.text
+    property alias sign_upText: sign_up.text
     property alias create_accountText: create_account.text
     property alias companyText: company.text
     property alias businessText: business.text
-    property alias join_nowText: join_now.text
-    property alias sign_upText: sign_up.text
-    property alias personalText: personal.text
+    property alias easy_and_taxless_transfersText: easy_and_taxless_transfers.text
+    property alias log_inText: log_in.text
+    property alias control_your_finances_anywhereText: control_your_finances_anywhere.text
+    property alias joinNow_PB: joinNow_PB
+    property alias createAccount_PB: createAccount_PB
+    property alias signUpButton: signUpButton
+    property alias logInButton: logInButton
 
     Item {
         id: mainWindow_Inside
@@ -83,16 +87,15 @@ Rectangle {
             }
         }
 
-        Rectangle {
+        Button {
             id: joinNow_PB
             width: 131
             height: 53
-            color: "transparent"
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 398
             anchors.topMargin: 269
-            Rectangle {
+            background: Rectangle {
                 id: rectangle_1
                 color: "#ffffff"
                 radius: 30
@@ -123,16 +126,15 @@ Rectangle {
             }
         }
 
-        Rectangle {
+        Button {
             id: createAccount_PB
             width: 197
             height: 53
-            color: "transparent"
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 620
             anchors.topMargin: 269
-            Rectangle {
+            background: Rectangle {
                 id: rectangle_2
                 color: "#00d9d9d9"
                 radius: 30
@@ -690,16 +692,15 @@ Rectangle {
             }
         }
 
-        Rectangle {
+        Button {
             id: signUpButton
             width: 108
             height: 40
-            color: "transparent"
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 1127
             anchors.topMargin: 68
-            Rectangle {
+            background: Rectangle {
                 id: rectangle_5
                 color: "#000000"
                 radius: 30
@@ -731,16 +732,15 @@ Rectangle {
             }
         }
 
-        Rectangle {
+        Button {
             id: logInButton
             width: 108
             height: 40
-            color: "transparent"
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 1249
             anchors.topMargin: 68
-            Rectangle {
+            background: Rectangle {
                 id: rectangle_6
                 color: "#ffffff"
                 radius: 30
@@ -852,9 +852,6 @@ Designer {
     D{i:0;uuid:"bc7b0c70-7356-5722-bcbc-a9e32975173d"}D{i:1;uuid:"88512bcb-1bf2-5f47-a6f4-e0f7d20b6c14"}
 D{i:2;uuid:"b446ccfb-4e17-55e7-8b08-5d12e89c708f"}D{i:3;uuid:"b9786a24-4268-5314-b0cc-703d0470347a"}
 D{i:4;uuid:"9f81aadd-8770-5574-ba80-d0e456e19847"}D{i:5;uuid:"2171e32b-c469-5a5c-baa6-58a23d323a00"}
-D{i:6;uuid:"f25bce35-d43d-5bbc-bf40-5c0a7234e002"}D{i:7;uuid:"71a1b85a-7ea1-5607-83ed-0f388da0d712"}
-D{i:8;uuid:"ef2460fe-77f5-5180-9c0a-9e942f5cfeb7"}D{i:9;uuid:"465673ae-b89e-5078-a430-159b56c09ab4"}
-D{i:10;uuid:"b11643f1-a9c4-5888-96ab-4c18393cd3f1"}D{i:11;uuid:"ad1685e5-a0e3-5fc3-a391-7cb4857bb1ba"}
 D{i:12;uuid:"3c02b048-713a-5541-a66c-0938ceb3984a"}D{i:13;uuid:"21f9f607-6ca1-5553-9017-1ab2e4274c48"}
 D{i:14;uuid:"d001998b-34cb-53c0-af55-7faa3e173be1"}D{i:15;uuid:"19914d00-f68b-5ae0-b1fb-bd517744c155"}
 D{i:16;uuid:"2f00917a-d998-53e7-a51a-66d5579a44c7"}D{i:17;uuid:"4901dec7-257c-5f5d-8c77-ca07cbfbdfd3"}
@@ -874,9 +871,6 @@ D{i:42;uuid:"7d97628f-a26d-5a07-bc29-05d78b6ae3ed"}D{i:43;uuid:"8cf1b3bf-843a-58
 D{i:44;uuid:"a5cf84b6-b178-54ee-9221-f6b7a118bbeb"}D{i:45;uuid:"b770c612-3fe0-532f-a931-ab6612f0e294"}
 D{i:46;uuid:"2ec37727-291c-5b77-aea0-42a473db25d9"}D{i:47;uuid:"5b70fc79-d8a1-5c4d-bb24-4da626ee3c83"}
 D{i:48;uuid:"8311016f-f1af-56be-ae3b-383de1a32d1a"}D{i:49;uuid:"ad8e23bc-e518-591c-8cd3-f38e4b9e37a1"}
-D{i:50;uuid:"65112457-64be-5a5c-a148-e410e1ac33d3"}D{i:51;uuid:"7ce100de-4a4c-5e6e-8508-6cb45c5ed22e"}
-D{i:52;uuid:"7c8c0e6e-77ba-5944-b710-78e32ed383e1"}D{i:53;uuid:"4c10faad-2e5c-524a-9a74-b9b3a3677b83"}
-D{i:54;uuid:"8a777cab-b4d4-5ded-88ca-5969d996ea64"}D{i:55;uuid:"6deb1223-7a34-5ec8-8e3d-cf9b2dedc16f"}
 D{i:56;uuid:"354ac85c-a0d1-5842-a7f5-14d4fe202e0b"}D{i:57;uuid:"b10d76a6-3edb-561a-a91c-f77f1a8583b6"}
 D{i:58;uuid:"acecd595-6cbc-5ee4-833b-50cf37a63f9b"}D{i:59;uuid:"1ccfa2ff-ebd6-5791-8d70-2a47fb6a3bc8"}
 D{i:60;uuid:"f92bfd1f-0ef0-5e7c-83c9-84cf2643b33d"}D{i:61;uuid:"8f470514-c745-5284-b038-334c683920a7"}

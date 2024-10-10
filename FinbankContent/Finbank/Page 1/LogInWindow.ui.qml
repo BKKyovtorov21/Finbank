@@ -8,14 +8,14 @@ Rectangle {
     width: 1280
     height: 832
     color: "#ffffff"
-    property alias log_into_your_accountText: log_into_your_account.text
-    property alias enter_your_personal_data_to_log_into_your_accountText: enter_your_personal_data_to_log_into_your_account.text
-    property alias loginText: login.text
     property alias enter_your_usernameText: enter_your_username.text
-    property alias enter_your_passwordText: enter_your_password.text
-    property alias orText: or.text
-    property alias logInText: logIn.text
+    property alias loginText: login.text
     property alias fINBANKText: fINBANK.text
+    property alias logInText: logIn.text
+    property alias orText: or.text
+    property alias log_into_your_accountText: log_into_your_account.text
+    property alias enter_your_passwordText: enter_your_password.text
+    property alias enter_your_personal_data_to_log_into_your_accountText: enter_your_personal_data_to_log_into_your_account.text
 
     Rectangle {
         id: rectangle_14
