@@ -14,8 +14,6 @@ Rectangle {
     property alias lastNameTextField: lastNameTextField
     property alias birthDateTextField: birthDateTextField
     property alias phoneNumberTextField: phoneNumberTextField
-    property alias maleCheckBox: maleCheckBox
-    property alias femaleCheckBox: femaleCheckBox
     property alias signUp_PB: signUp_PB
 
     Rectangle {
@@ -36,6 +34,29 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 32
         anchors.topMargin: 14
+
+        CheckBox {
+            id: checkBox
+            x: 49
+            y: 543
+            width: 39
+            height: 40
+            text: qsTr(" Male")
+
+            background: Rectangle {
+                color: "#838383" // Set the background color here
+                radius: 5 // Optional: rounded corners
+                width: parent.width
+                height: parent.height
+
+                Text {
+                    text: checkBox.text
+                    anchors.verticalCenterOffset: -2
+                    anchors.horizontalCenterOffset: 57
+                    anchors.centerIn: parent
+                }
+            }
+        }
     }
 
     Item {
@@ -94,40 +115,6 @@ Rectangle {
             font.bold: true
             background: Rectangle {
                 color: "transparent"
-            }
-        }
-    }
-
-    Item {
-        id: femaleGroup
-        x: 275
-        y: 566
-        width: 122
-        height: 34
-
-        CheckBox {
-            id: femaleCheckBox
-            text: qsTr("Female")
-            anchors.fill: parent
-            anchors.margins: 5
-            font.pixelSize: 18
-            font.family: "Gelasio"
-            font.weight: Font.Bold
-            checked: false // Default unchecked
-            indicator: Rectangle {
-                width: 33
-                height: 34
-                border.color: "#838383"
-                border.width: 1
-                color: "#00d9d9d9"
-                radius: 5
-                Rectangle {
-                    visible: parent.CheckBox.checked
-                    anchors.centerIn: parent
-                    width: parent.width - 10
-                    height: parent.height - 10
-                    color: "#4d171716"
-                }
             }
         }
     }
@@ -466,48 +453,10 @@ Rectangle {
         source: "../assets/original_cd5a84919439aa0a6bea83d82eea7dc8_1.png"
     }
 
-    Item {
-        id: maleGroup
-        x: 144
-        y: 566
-        width: 94
-        height: 34
-
-        CheckBox {
-            id: maleCheckBox
-            text: qsTr("Male")
-            anchors.fill: parent
-            anchors.margins: 5
-            anchors.rightMargin: -9
-            font.pixelSize: 18
-            font.family: "Gelasio"
-            font.weight: Font.Bold
-            checked: false // Default unchecked
-            indicator: Rectangle {
-                width: 33
-                height: 34
-                border.color: "#838383"
-                border.width: 1
-                color: "#00d9d9d9"
-                radius: 5
-                Rectangle {
-                    visible: parent.CheckBox.checked
-                    anchors.centerIn: parent
-                    width: parent.width - 10
-                    height: parent.height - 10
-                    color: "#4d171716"
-                }
-            }
-        }
+    CheckBox {
+        id: checkBox1
+        x: 250
+        y: 554
+        text: qsTr("Female")
     }
 }
-
-/*##^##
-Designer {
-    D{i:0;uuid:"1364129f-b840-5f32-b01c-cefc577be2af"}D{i:1;uuid:"91d503fd-c641-5214-b1b7-094cc9bddcb7"}
-D{i:3;uuid:"7ceeca58-436c-5ccf-9bad-61f3fa5e8147"}D{i:25;uuid:"9f959c98-c2ec-5bef-9f8c-adef726201b9"}
-D{i:26;uuid:"e47fc227-5567-5ee1-bce9-2eaedec22fbd"}D{i:29;uuid:"8dabc040-96bd-53d6-88d2-a2828e7e5cf5"}
-D{i:30;uuid:"a36c7186-1d5e-5125-9883-c7c0a9810b24"}
-}
-##^##*/
-
