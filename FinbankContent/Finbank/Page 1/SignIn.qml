@@ -1,5 +1,8 @@
 import QtQuick
 import QtQuick.Controls
+import com.mycompany.login 1.0
+
+
 
 Window {
     visible: true
@@ -14,19 +17,21 @@ Window {
         source: ""  // Start with no source, will load dynamically
     }
 
+    LogIn
+    {
+        id: login;
+    }
+
     // The main component: IntroWindow
-    IntroWindow {
+    LogInWindow {
         id: introwindow
         anchors.fill: parent // Fill the parent window
 
-        // This handles the button click event
-        joinNow_PB.onClicked: {
-            loader.source = "SignUp.qml";  // Load the SignUp.qml on button click
-        }
-
-        logInButton.onClicked:
-        {
-            loader.source = "SignIn.qml"
+        logInButton.onClicked: {
+            var username = usernameField.text;
+            var password = passwordField.text;
+            console.log("sds");
+            login.logInUser(username, password);
         }
     }
 }

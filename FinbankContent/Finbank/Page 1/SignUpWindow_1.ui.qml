@@ -15,6 +15,8 @@ Rectangle {
     property alias birthDateTextField: birthDateTextField
     property alias phoneNumberTextField: phoneNumberTextField
     property alias signUp_PB: signUp_PB
+    property alias maleCheckBox: maleCheckBox
+    property alias femaleCheckBox: femaleCheckBox
 
     Rectangle {
         id: rectangle_14
@@ -34,29 +36,6 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 32
         anchors.topMargin: 14
-
-        CheckBox {
-            id: checkBox
-            x: 49
-            y: 543
-            width: 39
-            height: 40
-            text: qsTr(" Male")
-
-            background: Rectangle {
-                color: "#838383" // Set the background color here
-                radius: 5 // Optional: rounded corners
-                width: parent.width
-                height: parent.height
-
-                Text {
-                    text: checkBox.text
-                    anchors.verticalCenterOffset: -2
-                    anchors.horizontalCenterOffset: 57
-                    anchors.centerIn: parent
-                }
-            }
-        }
     }
 
     Item {
@@ -454,9 +433,16 @@ Rectangle {
     }
 
     CheckBox {
-        id: checkBox1
-        x: 250
-        y: 554
+        id: femaleCheckBox
+        x: 301
+        y: 541
         text: qsTr("Female")
+    }
+
+    CheckBox {
+        id: maleCheckBox
+        x: 148
+        y: 541
+        text: qsTr("Male")
     }
 }

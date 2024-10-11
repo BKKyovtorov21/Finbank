@@ -24,8 +24,10 @@ qt_standard_project_setup()
 
 
 qt_add_executable(${CMAKE_PROJECT_NAME}
-    register.hpp register.cpp
-    databasemanager.hpp databasemanager.cpp
+    App/register.hpp App/register.cpp
+    App/databasemanager.hpp App/databasemanager.cpp
+    App/login.hpp App/login.cpp
+
 )
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     PREFIX "/"

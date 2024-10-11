@@ -7,6 +7,7 @@
 #include "autogen/environment.h"
 #include "register.hpp"
 #include "databasemanager.hpp"
+#include "login.hpp"
 int main(int argc, char *argv[])
 {
     set_qt_environment();
@@ -23,9 +24,11 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
 
     qmlRegisterType<Register>("com.mycompany.register", 1, 0, "Register");
+    qmlRegisterType<LogIn>("com.mycompany.login", 1, 0, "LogIn");
     engine.addImportPath(QCoreApplication::applicationDirPath() + "/qml");
     engine.addImportPath(":/");
     engine.load(url);
+
 
     if (engine.rootObjects().isEmpty())
         return -1;
