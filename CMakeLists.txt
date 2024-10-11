@@ -11,16 +11,22 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOU
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(QT_QML_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/qml)
-set(QML_IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
+set(QML_IMPORT_PATH
+    ${CMAKE_SOURCE_DIR}/App
+    ${CMAKE_BINARY_DIR}/qml
     CACHE STRING "Import paths for Qt Creator's code model"
     FORCE
 )
 
-find_package(Qt6 6.7 REQUIRED COMPONENTS Core Gui Qml Quick)
+
+find_package(Qt6 6.7 REQUIRED COMPONENTS Core Gui Qml Quick Sql)
 qt_standard_project_setup()
 
 
-qt_add_executable(${CMAKE_PROJECT_NAME})
+qt_add_executable(${CMAKE_PROJECT_NAME}
+    register.hpp register.cpp
+    databasemanager.hpp databasemanager.cpp
+)
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
     PREFIX "/"
     FILES

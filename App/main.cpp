@@ -3,16 +3,18 @@
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-
+#include <QtQml>
 #include "autogen/environment.h"
-
+#include "register.hpp"
+#include "databasemanager.hpp"
 int main(int argc, char *argv[])
 {
     set_qt_environment();
     QGuiApplication app(argc, argv);
-
     QQmlApplicationEngine engine;
     const QUrl url(mainQmlFile);
+    DatabaseManager* db = new DatabaseManager();
+    db->OpenConnection();
     QObject::connect(
                 &engine, &QQmlApplicationEngine::objectCreated, &app,
                 [url](QObject *obj, const QUrl &objUrl) {
@@ -20,6 +22,7 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
 
+    qmlRegisterType<Register>("com.mycompany.register", 1, 0, "Register");
     engine.addImportPath(QCoreApplication::applicationDirPath() + "/qml");
     engine.addImportPath(":/");
     engine.load(url);
