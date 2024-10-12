@@ -19,7 +19,7 @@ set(QML_IMPORT_PATH
 )
 
 
-find_package(Qt6 6.7 REQUIRED COMPONENTS Core Gui Qml Quick Sql)
+find_package(Qt6 6.7 REQUIRED COMPONENTS Core Gui Qml Quick Sql NetworkAuth)
 qt_standard_project_setup()
 
 
@@ -27,6 +27,7 @@ qt_add_executable(${CMAKE_PROJECT_NAME}
     App/register.hpp App/register.cpp
     App/databasemanager.hpp App/databasemanager.cpp
     App/login.hpp App/login.cpp
+    App/googlegateway.hpp App/googlegateway.cpp
 
 )
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"

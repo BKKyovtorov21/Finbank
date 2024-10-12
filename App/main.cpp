@@ -8,6 +8,7 @@
 #include "register.hpp"
 #include "databasemanager.hpp"
 #include "login.hpp"
+#include "googlegateway.hpp"
 int main(int argc, char *argv[])
 {
     set_qt_environment();
