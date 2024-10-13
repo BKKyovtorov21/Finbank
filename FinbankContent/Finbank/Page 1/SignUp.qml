@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 
-Window {
+Item {
     visible: true
     id: root
     width: 1280
@@ -33,16 +33,18 @@ Window {
         id: signUpWindow
         anchors.fill: parent // Fill the parent window
 
-        signUpButton.onClicked: {
-            if(usernameTextField.text !== "" && emailTextField.text !== "" && passwordTextField.text !== "") {
-                username = usernameTextField.text;
-                email = emailTextField.text;
-                password = passwordTextField.text;
+        signUp_PB.onClicked: {
+            if(usernameField.text !== "" && emailField.text !== "" && passwordField.text !== "") {
+                username = usernameField.text;
+                email = emailField.text;
+                password = passwordField.text;
 
                 console.log(username + " " + email + " " + password);
 
                 // Load the new QML file
+                signUpWindow.visible = false
                 loader.source = "SignUp1.qml";
+
             }
         }
     }

@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls
-
 Window {
     visible: true
     id: root
@@ -22,10 +21,12 @@ Window {
         // This handles the button click event
         joinNow_PB.onClicked: {
             loader.source = "SignUp.qml";  // Load the SignUp.qml on button click
+            introwindow.visible = false;
         }
 
         logInButton.onClicked:
         {
+            introwindow.visible = false;
             loader.source = "SignIn.qml"
         }
     }

@@ -9,27 +9,35 @@ qt6_add_qml_module(FinbankContent
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
     QML_FILES
-        "Screen01.ui.qml"
-        "App.qml"
+        "Finbank/Page 1/SignUpWindow.ui.qml"
         "Finbank/Page 1/SignUp1.qml"
-        "Finbank/Page 1/SignUp.qml"
+        "Finbank/Page 1/SignIn.qml"
+        "Finbank/Page 1/SignInWindow.ui.qml"
         "Finbank/Page 1/IntroWindow.ui.qml"
+        "Finbank/Page 1/Intro.qml"
+        "Finbank/Page 1/SignUp.qml"
         "Finbank/Page 1/SignUpWindow_1.ui.qml"
         "Finbank/Page 1/LogInWindow.ui.qml"
-        "Finbank/Page 1/Intro.qml"
-        "Finbank/Page 1/SignUpWindow.ui.qml"
-        "Finbank/Page 1/SignIn.qml"
+        "Finbank/Page 1/Gg_credit_card_1.ui.qml"
+        "Finbank/Page 1/Dashboard.ui.qml"
+        "Finbank/Page 1/Gg_credit_card.ui.qml"
     RESOURCES
-        "Finbank/assets/logo1_1.png"
-        "Finbank/assets/credit_card_teller_card_debit_card_icon_vector_illustration_8583.png"
-        "Finbank/assets/logo1.png"
-        "Finbank/assets/original_cd5a84919439aa0a6bea83d82eea7dc8_1.png"
-        "Finbank/assets/logo1_2.png"
-        "Finbank/assets/stocks_market_graph_chart_on_laptop_screen_linear_icon_trading_p.png"
-        "Finbank/assets/rectangle_9.png"
         "Finbank/assets/logo1_3.png"
-        "Finbank/assets/original_cd5a84919439aa0a6bea83d82eea7dc8_2.png"
-        "Finbank/assets/original_cd5a84919439aa0a6bea83d82eea7dc8_3.png"
+        "Finbank/assets/logo1_2.png"
+        "Finbank/assets/rectangle_9.png"
+        "Finbank/assets/logo1_4.png"
+        "Finbank/assets/logo1_1.png"
+        "Finbank/assets/stocks_market_graph_chart_on_laptop_screen_linear_icon_trading_p.png"
+        "Finbank/assets/logo1.png"
+        "Finbank/assets/credit_card_teller_card_debit_card_icon_vector_illustration_8583.png"
+        "Finbank/assets/image.png"
 )
 
 
+qt6_add_resources(FinbankContent FinbankContentBigResource
+    BIG_RESOURCES
+    PREFIX "/qt/qml/FinbankContent"
+    VERSION 1.0
+    FILES 
+    "Finbank/assets/signin.gif"
+)

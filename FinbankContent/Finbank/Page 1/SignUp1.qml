@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import com.mycompany.register 1.0  // Import the C++ class
-Window {
+Item {
     visible: true
     id: root
     width: 1280
@@ -29,20 +29,12 @@ Window {
 
         signUp_PB.onClicked:
         {
-            if(firstNameTextField.text != "" && lastNameTextField.text != "" && birthDateTextField.text != ""){
-                var firstName = firstNameTextField.text;
-                var lastName = lastNameTextField.text;
-                var birth = birthDateTextField.text
-                var phone = phoneNumberTextField.text
-                var gender;
-                if(maleCheckBox.checked)
-                {
-                    gender = "Male";
-                }
-                else if(femaleCheckBox.checked)
-                {
-                    gender = "Female";
-                }
+            if(firstNameField.text != "" && lastNameField.text != "" && birthField.text != ""){
+                var firstName = firstNameField.text;
+                var lastName = lastNameField.text;
+                var birth = birthField.text
+                var phone = phoneField.text
+                var gender = "Male";
 
                 console.log(firstName + " " + lastName + " " + birth + " " + phone);
                 registerObj.registerAccount(username, email, password, firstName, lastName, birth, gender, phone);

@@ -4,7 +4,7 @@ import com.mycompany.login 1.0
 
 
 
-Window {
+Rectangle {
     visible: true
     id: root
     width: 1280
@@ -17,14 +17,10 @@ Window {
         source: ""  // Start with no source, will load dynamically
     }
 
-    LogIn
-    {
-        id: login;
-    }
 
     // The main component: IntroWindow
-    LogInWindow {
-        id: introwindow
+    SignInWindow {
+        id: signInWindow
         anchors.fill: parent // Fill the parent window
 
         logInButton.onClicked: {
@@ -32,6 +28,11 @@ Window {
             var password = passwordField.text;
             console.log("sds");
             login.logInUser(username, password);
+            login.logInSuccessful()
+            {
+                loader.source = "Dashboard.qml";
+                signInWindow.visible = false;
+            }
         }
     }
 }
