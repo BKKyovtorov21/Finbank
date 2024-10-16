@@ -58,7 +58,7 @@ Rectangle {
             placeholderText: qsTr("Enter your first name")
             placeholderTextColor: "white"
             font.pixelSize: 18
-            font.family: "Gelasio"
+
             font.weight: Font.Bold
             color: "#999999"
             background: Rectangle {
@@ -86,7 +86,7 @@ Rectangle {
             placeholderText: qsTr("Enter your last name")
             placeholderTextColor: "white"
             font.pixelSize: 18
-            font.family: "Gelasio"
+
             font.weight: Font.Bold
             color: "#999999"
             background: Rectangle {
@@ -221,7 +221,7 @@ Rectangle {
             placeholderText: qsTr("Enter your date of birth")
             placeholderTextColor: "white"
             font.pixelSize: 18
-            font.family: "Gelasio"
+
             font.weight: Font.Bold
             color: "#999999"
             background: Rectangle {
@@ -280,7 +280,7 @@ Rectangle {
             placeholderText: qsTr("Enter your phone number")
             placeholderTextColor: "white"
             font.pixelSize: 18
-            font.family: "Gelasio"
+
             font.weight: Font.Bold
             color: "#999999"
             background: Rectangle {
@@ -328,7 +328,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Bold
-            font.family: "Gelasio"
         }
     }
 
@@ -347,7 +346,6 @@ Rectangle {
         verticalAlignment: Text.AlignTop
         wrapMode: Text.Wrap
         font.weight: Font.Bold
-        font.family: "Gelasio"
     }
 
     Item {
@@ -370,7 +368,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Bold
-            font.family: "Gelasio"
         }
 
         Text {
@@ -387,7 +384,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Medium
-            font.family: "Gelasio"
         }
     }
 
@@ -415,7 +411,8 @@ Rectangle {
 Designer {
     D{i:0;uuid:"1364129f-b840-5f32-b01c-cefc577be2af"}D{i:1;uuid:"91d503fd-c641-5214-b1b7-094cc9bddcb7"}
 D{i:3;uuid:"d11efce1-23d5-5fac-9dfe-02dc8405a674"}D{i:10;uuid:"9f959c98-c2ec-5bef-9f8c-adef726201b9"}
-D{i:20;uuid:"8dabc040-96bd-53d6-88d2-a2828e7e5cf5"}
+D{i:20;uuid:"8dabc040-96bd-53d6-88d2-a2828e7e5cf5"}D{i:29;uuid:"b004a4c6-b59e-540c-bab0-17f6224dbf67"}
+D{i:30;uuid:"7ebec841-0220-58a0-bc16-819d14dca0eb"}
 }
 ##^##*/
 

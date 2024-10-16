@@ -12,6 +12,8 @@ Rectangle {
     property alias usernameField: usernameField
     property alias emailField: emailField
     property alias passwordField: passwordField
+    property alias googleFast1: googleFast1
+    property alias githubFast: githubFast
     Rectangle {
         id: rectangle_14
         width: 1280
@@ -91,7 +93,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Bold
-            font.family: "Gelasio"
         }
     }
 
@@ -115,7 +116,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Bold
-            font.family: "Gelasio"
         }
 
         Text {
@@ -132,7 +132,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Medium
-            font.family: "Gelasio"
         }
     }
 
@@ -191,7 +190,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Bold
-            font.family: "Gelasio"
         }
     }
 
@@ -210,7 +208,6 @@ Rectangle {
         verticalAlignment: Text.AlignTop
         wrapMode: Text.Wrap
         font.weight: Font.Bold
-        font.family: "Gelasio"
     }
 
     Item {
@@ -228,7 +225,7 @@ Rectangle {
             placeholderText: qsTr("Enter your username")
             placeholderTextColor: "white"
             font.pixelSize: 18
-            font.family: "Gelasio"
+
             font.weight: Font.Bold
             color: "#999999"
             background: Rectangle {
@@ -256,7 +253,7 @@ Rectangle {
             placeholderText: qsTr("Enter your email")
             placeholderTextColor: "white"
             font.pixelSize: 18
-            font.family: "Gelasio"
+
             font.weight: Font.Bold
             color: "#999999"
             background: Rectangle {
@@ -284,7 +281,7 @@ Rectangle {
             placeholderText: qsTr("Enter your password")
             placeholderTextColor: "white"
             font.pixelSize: 18
-            font.family: "Gelasio"
+
             font.weight: Font.Bold
             color: "#999999"
             background: Rectangle {
@@ -362,7 +359,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Bold
-            font.family: "Gelasio"
         }
 
         Rectangle {
@@ -460,15 +456,14 @@ Rectangle {
             }
         }
 
-        Rectangle {
+        Button {
             id: githubFast
             width: 61
             height: 58
-            color: "transparent"
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 75
-            Rectangle {
+            background: Rectangle {
                 id: rectangle_13
                 color: "#525252"
                 radius: 20
@@ -511,14 +506,13 @@ Rectangle {
             }
         }
 
-        Rectangle {
+        Button {
             id: googleFast1
             width: 61
             height: 58
-            color: "transparent"
             anchors.left: parent.left
             anchors.top: parent.top
-            Rectangle {
+            background: Rectangle {
                 id: rectangle_20
                 color: "#525252"
                 radius: 20
@@ -553,14 +547,14 @@ Rectangle {
 /*##^##
 Designer {
     D{i:0;uuid:"f8299c15-d902-5e09-97c8-ee936156cb29"}D{i:1;uuid:"6beaa2a9-05d4-57fc-b2d8-22f80c7e1ac9"}
-D{i:4;uuid:"3be51dd8-a92b-551e-903d-b6509ac2cb49"}D{i:5;uuid:"59385469-3355-5779-81b0-0eda245e565e"}
-D{i:6;uuid:"65b8814c-2819-5b29-ac8a-5db6f2a34585"}D{i:7;uuid:"81d29443-91fe-5d81-9955-d23a5dc656cf"}
-D{i:8;uuid:"8dc6efc3-c204-5327-8f34-fa80076c2623"}D{i:9;uuid:"5249ceec-9149-5e4a-882a-c187434c60dc"}
-D{i:10;uuid:"bb12f4c8-0db6-52ad-bd0d-ba216a307a35"}D{i:11;uuid:"d8614735-c972-54a7-8dd0-e6dd989552e7"}
-D{i:12;uuid:"aec0dce3-6fa1-548f-86a4-c643f9b43ed7"}D{i:13;uuid:"62112f15-2833-5d31-9a11-3c9d520d5731"}
-D{i:14;uuid:"b825b575-52df-5d89-afbb-82ed181d559c"}D{i:15;uuid:"0984fc79-1e27-5a04-9ffb-6cb482e8dccb"}
-D{i:20;uuid:"e9c770b9-19fb-5dc1-98eb-d38bbb7f351c"}D{i:21;uuid:"8017c87c-1be5-5596-86cc-4f7320857b52"}
-D{i:24;uuid:"6f2c96ba-2b65-544b-af6e-6c6c5b32c736"}
+D{i:3;uuid:"3be51dd8-a92b-551e-903d-b6509ac2cb49"}D{i:4;uuid:"59385469-3355-5779-81b0-0eda245e565e"}
+D{i:5;uuid:"65b8814c-2819-5b29-ac8a-5db6f2a34585"}D{i:6;uuid:"81d29443-91fe-5d81-9955-d23a5dc656cf"}
+D{i:7;uuid:"8dc6efc3-c204-5327-8f34-fa80076c2623"}D{i:8;uuid:"5249ceec-9149-5e4a-882a-c187434c60dc"}
+D{i:9;uuid:"bb12f4c8-0db6-52ad-bd0d-ba216a307a35"}D{i:10;uuid:"d8614735-c972-54a7-8dd0-e6dd989552e7"}
+D{i:11;uuid:"aec0dce3-6fa1-548f-86a4-c643f9b43ed7"}D{i:12;uuid:"62112f15-2833-5d31-9a11-3c9d520d5731"}
+D{i:13;uuid:"b825b575-52df-5d89-afbb-82ed181d559c"}D{i:14;uuid:"0984fc79-1e27-5a04-9ffb-6cb482e8dccb"}
+D{i:15;uuid:"46c0799f-07c6-57ac-92d9-bdd3da27e2e2"}D{i:20;uuid:"8017c87c-1be5-5596-86cc-4f7320857b52"}
+D{i:23;uuid:"6f2c96ba-2b65-544b-af6e-6c6c5b32c736"}
 }
 ##^##*/
 

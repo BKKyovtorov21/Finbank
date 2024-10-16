@@ -62,7 +62,6 @@ Rectangle {
         verticalAlignment: Text.AlignTop
         wrapMode: Text.Wrap
         font.weight: Font.Bold
-        font.family: "Gelasio"
     }
 
     Item {
@@ -217,7 +216,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Bold
-            font.family: "Gelasio"
         }
 
         Text {
@@ -234,7 +232,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Medium
-            font.family: "Gelasio"
         }
     }
 
@@ -293,7 +290,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Bold
-            font.family: "Gelasio"
         }
     }
 
@@ -318,7 +314,7 @@ Rectangle {
                 border.width: 1
             }
             font.pixelSize: 18
-            font.family: "Gelasio"
+
             padding: 10
         }
     }
@@ -345,7 +341,7 @@ Rectangle {
                 border.width: 1
             }
             font.pixelSize: 18
-            font.family: "Gelasio"
+
             padding: 10
         }
 
@@ -402,7 +398,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Bold
-            font.family: "Gelasio"
         }
     }
 
@@ -460,7 +455,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Bold
-            font.family: "Gelasio"
         }
 
         Rectangle {

@@ -26,8 +26,7 @@ Rectangle {
         logInButton.onClicked: {
             var username = usernameField.text;
             var password = passwordField.text;
-            console.log("sds");
-            login.logInUser(username, password);
+             login.logInUser(username, password);
             login.logInSuccessful()
             {
                 loader.source = "Dashboard.qml";

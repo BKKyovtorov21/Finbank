@@ -2,39 +2,18 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Studio.Components 1.0
 import QtQuick.Shapes 1.0
+import QtCharts
 
 Rectangle {
     id: dashboard
     width: 1280
     height: 832
     color: "#ffffff"
-    property alias boyan_KiovtorovText: boyan_Kiovtorov.text
-    property alias element10Text: element10.text
-    property alias this_is_your_finance_reportText: this_is_your_finance_report.text
-    property alias monthly_ExpensesText: monthly_Expenses.text
-    property alias element13Text: element13.text
-    property alias dashboard1Text: dashboard1.text
-    property alias searchText: search.text
-    property alias send_moneyText: send_money.text
-    property alias compared_to_last_month1Text: compared_to_last_month1.text
-    property alias element17Text: element17.text
-    property alias my_balanceText: my_balance.text
-    property alias transactionText: transaction.text
-    property alias compared_to_last_monthText: compared_to_last_month.text
-    property alias settingsText: settings.text
-    property alias fText: f.text
-    property alias monthly_IncomeText: monthly_Income.text
-    property alias element9Text: element9.text
-    property alias personal_accountText: personal_account.text
-    property alias copyText: copy.text
-    property alias tradingText: trading.text
-    property alias compared_to_last_month2Text: compared_to_last_month2.text
-    property alias overviewText: overview.text
-    property alias kiovtorovText: kiovtorov.text
-    property alias good_morning_BoyanText: good_morning_Boyan.text
-    property alias request_moneyText: request_money.text
-    property alias chatText: chat.text
-    property alias walletText: wallet.text
+
+    property alias sendMoneyButton: sendMoneyButton
+    property alias requestMoneyButton: requestMoneyButton
+    property alias copyButton: copyButton
+    property alias stackView: stackView
 
     Rectangle {
         id: solar_copy_linear
@@ -134,7 +113,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
-            font.family: "Gelasio"
         }
 
         SvgPathItem {
@@ -189,7 +167,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
-            font.family: "Gelasio"
         }
     }
 
@@ -262,7 +239,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Normal
-            font.family: "Gelasio"
         }
 
         Item {
@@ -314,7 +290,6 @@ Rectangle {
                 verticalAlignment: Text.AlignTop
                 wrapMode: Text.Wrap
                 font.weight: Font.Normal
-                font.family: "Gelasio"
             }
         }
     }
@@ -393,7 +368,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
-            font.family: "Gelasio"
         }
     }
 
@@ -425,7 +399,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
-            font.family: "Gelasio"
         }
 
         Text {
@@ -443,7 +416,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
-            font.family: "Gelasio"
         }
 
         SvgPathItem {
@@ -481,7 +453,6 @@ Rectangle {
         verticalAlignment: Text.AlignTop
         wrapMode: Text.NoWrap
         font.weight: Font.DemiBold
-        font.family: "Gelasio"
     }
 
     Text {
@@ -500,261 +471,6 @@ Rectangle {
         verticalAlignment: Text.AlignTop
         wrapMode: Text.NoWrap
         font.weight: Font.Normal
-        font.family: "Gelasio"
-    }
-
-    Item {
-        id: balanceGroup
-        x: 15
-        y: 254
-        width: 457
-        height: 186
-        Rectangle {
-            id: rectangle_26
-            width: 457
-            height: 186
-            color: "#4dffffff"
-            radius: 15
-            border.color: "#727272"
-            border.width: 1
-            anchors.left: parent.left
-            anchors.top: parent.top
-        }
-
-        Text {
-            id: my_balance
-            width: 96
-            height: 21
-            color: "#b22f2f2f"
-            text: qsTr("My balance")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 16
-            anchors.topMargin: 7
-            font.pixelSize: 18
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.Wrap
-            font.weight: Font.Normal
-            font.family: "Gelasio"
-        }
-
-        Text {
-            id: balance
-            width: 174
-            height: 40
-            color: "#000000"
-            text: "$83,172.64"
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 16
-            anchors.topMargin: 34
-            font.pixelSize: 32
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.NoWrap
-            font.weight: Font.Normal
-        }
-
-        Text {
-            id: element9
-            width: 69
-            height: 29
-            color: "#249226"
-            text: qsTr("+6,7%")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 195
-            anchors.topMargin: 43
-            font.pixelSize: 20
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.Wrap
-            font.weight: Font.Normal
-        }
-
-        Text {
-            id: compared_to_last_month
-            width: 164
-            height: 21
-            color: "#b22f2f2f"
-            text: qsTr("Compared to last month")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 270
-            anchors.topMargin: 47
-            font.pixelSize: 15
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.Wrap
-            font.weight: Font.Normal
-            font.family: "Gelasio"
-        }
-
-        Text {
-            id: element10
-            width: 174
-            height: 23
-            color: "#000000"
-            text: qsTr("6549  7329  9821  2472")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 16
-            anchors.topMargin: 80
-            font.pixelSize: 16
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.NoWrap
-            font.weight: Font.Normal
-        }
-
-        Item {
-            id: copyButton
-            x: 211
-            y: 82
-            width: 50
-            height: 18
-            Rectangle {
-                id: rectangle_27
-                width: 50
-                height: 18
-                color: "#33d9d9d9"
-                radius: 3
-                border.color: "#727272"
-                border.width: 0.3
-                anchors.left: parent.left
-                anchors.top: parent.top
-            }
-
-            Text {
-                id: copy
-                width: 28
-                height: 12
-                color: "#249226"
-                text: qsTr("Copy")
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.leftMargin: 18
-                anchors.topMargin: 3
-                font.pixelSize: 10
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignTop
-                wrapMode: Text.Wrap
-                font.weight: Font.Normal
-                font.family: "Gelasio"
-            }
-
-            Item {
-                id: group_3
-                x: 4
-                y: 2
-                width: 12
-                height: 13
-                SvgPathItem {
-                    id: element11
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    anchors.bottom: parent.bottom
-                    anchors.leftMargin: 2
-                    anchors.topMargin: 2
-                    strokeWidth: 1
-                    strokeStyle: 1
-                    strokeColor: "#249226"
-                    path: "M 0 4.000000224393957 C 0 2.114666739519902 1.1920928955078125e-7 1.1713335376440388 0.586000124613444 0.5860001574871656 C 1.1713334719340005 1.192092962121194e-7 2.1146666208902998 0 4 0 L 6 0 C 7.8853333791097 0 8.828666845957438 1.192092962121194e-7 9.414000193277994 0.5860001574871656 C 10.000000198682148 1.1713335376440388 10 2.114666739519902 10 4.000000224393957 L 10 7.333333744722253 C 10 9.218667229596308 10.000000198682148 10.162000749363628 9.414000193277994 10.747334129520501 C 8.828666845957438 11.333334167798371 7.8853333791097 11.333333969116211 6 11.333333969116211 L 4 11.333333969116211 C 2.1146666208902998 11.333333969116211 1.1713334719340005 11.333334167798371 0.586000124613444 10.747334129520501 C 1.1920928955078125e-7 10.162000749363628 0 9.218667229596308 0 7.333333744722253 L 0 4.000000224393957 Z"
-                    joinStyle: 0
-                    antialiasing: true
-                }
-
-                SvgPathItem {
-                    id: element12
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    anchors.bottom: parent.bottom
-                    anchors.rightMargin: 2
-                    anchors.bottomMargin: 2
-                    strokeWidth: 1
-                    strokeStyle: 1
-                    strokeColor: "#249226"
-                    path: "M 2 11.333333969116211 C 1.4695670207341514 11.33333396911621 0.9608592589696248 11.122620531023431 0.585786501566569 10.74754775257936 C 0.21071374416351318 10.372474974135288 5.921189464667501e-16 9.86376686594157 0 9.333333856919232 L 0 5.333333632525275 C 0 2.819333552528833 -7.947285973752827e-8 1.5620000443926019 0.7813332875569661 0.7813333313885831 C 1.562666654586792 0.000666618384564277 2.8193333943684893 0 5.333333333333333 0 L 8 0 C 8.530432979265848 2.960594898418642e-16 9.039141058921814 0.21071375598423592 9.41421381632487 0.5857865344283067 C 9.789286573727924 0.9608593128723776 9.999999999999998 1.469567103174641 10 2.0000001121969784"
-                    joinStyle: 0
-                    antialiasing: true
-                }
-            }
-        }
-
-        Item {
-            id: sendMoneyButton
-            x: 16
-            y: 118
-            width: 200
-            height: 37
-            Rectangle {
-                id: rectangle_28
-                width: 200
-                height: 37
-                color: "#367c21"
-                radius: 8
-                anchors.left: parent.left
-                anchors.top: parent.top
-            }
-
-            Text {
-                id: send_money
-                width: 125
-                height: 28
-                color: "#ececec"
-                text: qsTr("Send money")
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.leftMargin: 38
-                anchors.topMargin: 7
-                font.pixelSize: 22
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignTop
-                wrapMode: Text.NoWrap
-                font.weight: Font.Medium
-                font.family: "Gelasio"
-            }
-        }
-
-        Item {
-            id: requestMoneyButton
-            x: 241
-            y: 118
-            width: 200
-            height: 37
-            Rectangle {
-                id: rectangle_29
-                width: 200
-                height: 37
-                color: "#33d9d9d9"
-                radius: 8
-                border.color: "#727272"
-                border.width: 0.3
-                anchors.left: parent.left
-                anchors.top: parent.top
-            }
-
-            Text {
-                id: request_money
-                width: 156
-                height: 28
-                color: "#367c21"
-                text: qsTr("Request money")
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.leftMargin: 22
-                anchors.topMargin: 5
-                font.pixelSize: 22
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignTop
-                wrapMode: Text.NoWrap
-                font.weight: Font.Medium
-                font.family: "Gelasio"
-            }
-        }
     }
 
     Item {
@@ -807,7 +523,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
-            font.family: "Gelasio"
         }
 
         Item {
@@ -909,7 +624,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Medium
-            font.family: "Gelasio"
         }
         Text {
             id: income
@@ -979,7 +693,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
-            font.family: "Gelasio"
         }
 
         Item {
@@ -1081,7 +794,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Medium
-            font.family: "Gelasio"
         }
 
         Text {
@@ -1128,6 +840,33 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 28
         anchors.topMargin: 453
+
+        ChartView {
+            id: bar
+            x: 8
+            y: 8
+            width: 902
+            height: 338
+            BarSeries {
+                id: mySeries
+                axisX: BarCategoryAxis {
+                    categories: ["Jan", "Feb", "Mar", "Apr", "Jun"]
+                    gridVisible: false
+                }
+                axisY: ValuesAxis {
+                    labelFormat: "$%.0f" // Format the labels to include '$' before each value
+                }
+
+                BarSet {
+                    label: "Earnings"
+                    values: [800] // Example values for each month
+                }
+                BarSet {
+                    label: "Spendings"
+                    values: [560]
+                }
+            }
+        }
     }
 
     Text {
@@ -1145,7 +884,6 @@ Rectangle {
         verticalAlignment: Text.AlignTop
         wrapMode: Text.NoWrap
         font.weight: Font.Normal
-        font.family: "Gelasio"
     }
 
     Text {
@@ -1163,7 +901,6 @@ Rectangle {
         verticalAlignment: Text.AlignTop
         wrapMode: Text.NoWrap
         font.weight: Font.Normal
-        font.family: "Gelasio"
     }
 
     Text {
@@ -1181,7 +918,6 @@ Rectangle {
         verticalAlignment: Text.AlignTop
         wrapMode: Text.NoWrap
         font.weight: Font.Normal
-        font.family: "Gelasio"
     }
 
     Text {
@@ -1199,7 +935,6 @@ Rectangle {
         verticalAlignment: Text.AlignTop
         wrapMode: Text.NoWrap
         font.weight: Font.Normal
-        font.family: "Gelasio"
     }
 
     Text {
@@ -1217,7 +952,263 @@ Rectangle {
         verticalAlignment: Text.AlignTop
         wrapMode: Text.NoWrap
         font.weight: Font.Normal
-        font.family: "Gelasio"
+    }
+
+    StackView {
+        id: stackView
+        x: 37
+        y: 247
+        width: 425
+        height: 200
+
+        Item {
+            id: balanceGroup
+            x: -16
+            y: 6
+            width: 457
+            height: 186
+            Rectangle {
+                id: rectangle_26
+                width: 457
+                height: 186
+                color: "#4dffffff"
+                radius: 15
+                border.color: "#727272"
+                border.width: 1
+                anchors.left: parent.left
+                anchors.top: parent.top
+            }
+
+            Text {
+                id: my_balance
+                width: 96
+                height: 21
+                color: "#b22f2f2f"
+                text: qsTr("My balance")
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 16
+                anchors.topMargin: 7
+                font.pixelSize: 18
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignTop
+                wrapMode: Text.Wrap
+                font.weight: Font.Normal
+            }
+
+            Text {
+                id: balance
+                width: 174
+                height: 40
+                color: "#000000"
+                text: "$83,172.64"
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 16
+                anchors.topMargin: 34
+                font.pixelSize: 32
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignTop
+                wrapMode: Text.NoWrap
+                font.weight: Font.Normal
+            }
+
+            Text {
+                id: element9
+                width: 69
+                height: 29
+                color: "#249226"
+                text: qsTr("+6,7%")
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 195
+                anchors.topMargin: 43
+                font.pixelSize: 20
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignTop
+                wrapMode: Text.Wrap
+                font.weight: Font.Normal
+            }
+
+            Text {
+                id: compared_to_last_month
+                width: 164
+                height: 21
+                color: "#b22f2f2f"
+                text: qsTr("Compared to last month")
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 270
+                anchors.topMargin: 47
+                font.pixelSize: 15
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignTop
+                wrapMode: Text.Wrap
+                font.weight: Font.Normal
+            }
+
+            Text {
+                id: element10
+                width: 174
+                height: 23
+                color: "#000000"
+                text: qsTr("6549  7329  9821  2472")
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 16
+                anchors.topMargin: 80
+                font.pixelSize: 16
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignTop
+                wrapMode: Text.NoWrap
+                font.weight: Font.Normal
+            }
+
+            Button {
+                id: copyButton
+                x: 211
+                y: 82
+                width: 50
+                height: 18
+                background: Rectangle {
+                    id: rectangle_27
+                    width: 50
+                    height: 18
+                    color: "#33d9d9d9"
+                    radius: 3
+                    border.color: "#727272"
+                    border.width: 0.3
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                }
+
+                Text {
+                    id: copy
+                    width: 28
+                    height: 12
+                    color: "#249226"
+                    text: qsTr("Copy")
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                    anchors.leftMargin: 18
+                    anchors.topMargin: 3
+                    font.pixelSize: 10
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignTop
+                    wrapMode: Text.Wrap
+                    font.weight: Font.Normal
+                }
+
+                Item {
+                    id: group_3
+                    x: 4
+                    y: 2
+                    width: 12
+                    height: 13
+                    SvgPathItem {
+                        id: element11
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+                        anchors.leftMargin: 2
+                        anchors.topMargin: 2
+                        strokeWidth: 1
+                        strokeStyle: 1
+                        strokeColor: "#249226"
+                        path: "M 0 4.000000224393957 C 0 2.114666739519902 1.1920928955078125e-7 1.1713335376440388 0.586000124613444 0.5860001574871656 C 1.1713334719340005 1.192092962121194e-7 2.1146666208902998 0 4 0 L 6 0 C 7.8853333791097 0 8.828666845957438 1.192092962121194e-7 9.414000193277994 0.5860001574871656 C 10.000000198682148 1.1713335376440388 10 2.114666739519902 10 4.000000224393957 L 10 7.333333744722253 C 10 9.218667229596308 10.000000198682148 10.162000749363628 9.414000193277994 10.747334129520501 C 8.828666845957438 11.333334167798371 7.8853333791097 11.333333969116211 6 11.333333969116211 L 4 11.333333969116211 C 2.1146666208902998 11.333333969116211 1.1713334719340005 11.333334167798371 0.586000124613444 10.747334129520501 C 1.1920928955078125e-7 10.162000749363628 0 9.218667229596308 0 7.333333744722253 L 0 4.000000224393957 Z"
+                        joinStyle: 0
+                        antialiasing: true
+                    }
+
+                    SvgPathItem {
+                        id: element12
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+                        anchors.rightMargin: 2
+                        anchors.bottomMargin: 2
+                        strokeWidth: 1
+                        strokeStyle: 1
+                        strokeColor: "#249226"
+                        path: "M 2 11.333333969116211 C 1.4695670207341514 11.33333396911621 0.9608592589696248 11.122620531023431 0.585786501566569 10.74754775257936 C 0.21071374416351318 10.372474974135288 5.921189464667501e-16 9.86376686594157 0 9.333333856919232 L 0 5.333333632525275 C 0 2.819333552528833 -7.947285973752827e-8 1.5620000443926019 0.7813332875569661 0.7813333313885831 C 1.562666654586792 0.000666618384564277 2.8193333943684893 0 5.333333333333333 0 L 8 0 C 8.530432979265848 2.960594898418642e-16 9.039141058921814 0.21071375598423592 9.41421381632487 0.5857865344283067 C 9.789286573727924 0.9608593128723776 9.999999999999998 1.469567103174641 10 2.0000001121969784"
+                        joinStyle: 0
+                        antialiasing: true
+                    }
+                }
+            }
+
+            Button {
+                id: sendMoneyButton
+                x: 16
+                y: 118
+                width: 200
+                height: 37
+                background: Rectangle {
+                    id: rectangle_28
+                    width: 200
+                    height: 37
+                    color: "#367c21"
+                    radius: 8
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                }
+
+                Text {
+                    id: send_money
+                    width: 125
+                    height: 28
+                    color: "#ececec"
+                    text: qsTr("Send money")
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                    anchors.leftMargin: 38
+                    anchors.topMargin: 7
+                    font.pixelSize: 22
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignTop
+                    wrapMode: Text.NoWrap
+                    font.weight: Font.Medium
+                }
+            }
+
+            Button {
+                id: requestMoneyButton
+                x: 241
+                y: 118
+                width: 200
+                height: 37
+                background: Rectangle {
+                    id: rectangle_29
+                    width: 200
+                    height: 37
+                    color: "#33d9d9d9"
+                    radius: 8
+                    border.color: "#727272"
+                    border.width: 0.3
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                }
+
+                Text {
+                    id: request_money
+                    width: 156
+                    height: 28
+                    color: "#367c21"
+                    text: qsTr("Request money")
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                    anchors.leftMargin: 22
+                    anchors.topMargin: 5
+                    font.pixelSize: 22
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignTop
+                    wrapMode: Text.NoWrap
+                    font.weight: Font.Medium
+                }
+            }
+        }
     }
 }
 
@@ -1242,28 +1233,15 @@ D{i:30;uuid:"ff1e29c5-3bcf-58ea-9f8f-f9240bb83ca2"}D{i:31;uuid:"6c9413a6-3ef8-51
 D{i:32;uuid:"d55f1503-4a5d-5ee8-978f-ae023f87db01"}D{i:33;uuid:"4acdecf3-6519-51db-98c6-30e9fe855a3f"}
 D{i:34;uuid:"50ea1538-dd22-51b3-b302-ff08c4009209"}D{i:35;uuid:"b23313f9-490f-5be4-9613-3ec66f8acdd1"}
 D{i:36;uuid:"c3eec844-4b96-5546-b6e6-4486f46c0506"}D{i:37;uuid:"81b95f9d-bdd2-54e6-9c06-cbacbc1294e2"}
-D{i:39;uuid:"5e1feca0-fb74-5dc4-bda8-f4054b020551"}D{i:40;uuid:"20acb00c-6774-5ba8-b68d-96e0e399cbec"}
-D{i:41;uuid:"3958941f-3362-5869-8bd8-9180bb56c776"}D{i:42;uuid:"39d99414-5958-57ca-b57f-6285743a494b"}
-D{i:43;uuid:"7349aa9d-d2a4-5023-92e0-543f1daa4b50"}D{i:44;uuid:"819048f4-9632-5d23-ba31-922c37a46bab"}
-D{i:45;uuid:"76bfc916-8eca-5191-9926-695b7f84019a"}D{i:46;uuid:"8a700335-8ec7-5749-b77c-8e1251c5a1f0"}
-D{i:47;uuid:"26c37d7e-c1c7-5ca8-a6c8-de22fe2af911"}D{i:48;uuid:"b4251975-6b2e-570f-b6b2-f2652f2f0826"}
-D{i:49;uuid:"f35c181b-399e-5a97-8074-b888e356eae9"}D{i:50;uuid:"0cc8ff39-447d-5a37-9470-92480b2e1cc0"}
-D{i:51;uuid:"95231a58-7fdf-5dcd-89f6-5cdeb6d5041a"}D{i:52;uuid:"a3ecf5cf-fe52-54dc-ae20-0267dcf89eda"}
-D{i:53;uuid:"fc09f9b7-38a1-5680-bcf0-e2b1fc5ec451"}D{i:54;uuid:"b55343a4-816c-5987-9eca-1ebe55c6a9f8"}
-D{i:55;uuid:"947eff45-21d8-50d6-a69e-451914eacb57"}D{i:56;uuid:"795a821d-ceaf-5fb2-9f89-edde21fcfafe"}
-D{i:57;uuid:"53290d08-08a0-518e-ae97-e245eb678e78"}D{i:58;uuid:"b390b24d-5340-56a4-a59e-1b30e0aca341"}
-D{i:59;uuid:"e56207d1-eb86-5f1f-a84b-f020504a4a68"}D{i:60;uuid:"ce0ebbe9-3bfe-5d42-a77f-77a743cc63cf"}
-D{i:61;uuid:"4a337095-2573-58f7-94e3-2ca797f7429d"}D{i:62;uuid:"17c0adde-7bf4-528d-864a-47cc9a153932"}
-D{i:63;uuid:"8a6d0efa-6374-546e-b15f-7530c1fffeaa"}D{i:64;uuid:"5b30c5a2-a38a-510c-a18d-eb53c9233002"}
-D{i:66;uuid:"ced99f46-dfe9-5813-ad6a-bf251bde818e"}D{i:67;uuid:"9dae9e0c-abb4-539e-9dae-4b320a4e0cd7"}
-D{i:68;uuid:"6ea38d29-64a8-5499-9c6f-a06eabc3cc80"}D{i:69;uuid:"4e14d1fb-ccb4-5b00-930a-b665ec7b3fc2"}
-D{i:70;uuid:"5ad60879-7d5b-5a01-aeac-bd3e29927243"}D{i:71;uuid:"c8f82b5a-260d-5bd2-bebc-55cd9835d1fb"}
-D{i:72;uuid:"da4ece94-a5d3-5e52-8446-8051d91d4c7e"}D{i:73;uuid:"34fe783c-88d0-5971-8211-68044a3d7c27"}
-D{i:74;uuid:"8c4b1638-5177-5ea4-8581-bc9eeddf9645"}D{i:75;uuid:"d9408526-258e-5f06-94d3-99c516c69e82"}
-D{i:76;uuid:"9cafc389-2e28-5a04-9445-677536d63064"}D{i:77}D{i:78;uuid:"db9450a9-8a8a-5f27-acb7-12e2edc9e720"}
-D{i:79;uuid:"853d4c0f-cb03-505c-a2c6-162da7ecef52"}D{i:80;uuid:"895fba50-7f43-5617-92de-80f41d32e824"}
-D{i:81;uuid:"9daa95fe-b8c6-554d-8a39-6d3eb3733084"}D{i:82;uuid:"c44b1eb9-a30e-5933-bd55-f1a0e075196b"}
-D{i:83;uuid:"aed6bee2-9b65-5ebf-9a01-a50c2e12899c"}D{i:84;uuid:"09e9454d-d337-50c7-a04a-acd01a038294"}
+D{i:45;uuid:"20acb00c-6774-5ba8-b68d-96e0e399cbec"}D{i:46;uuid:"3958941f-3362-5869-8bd8-9180bb56c776"}
+D{i:47;uuid:"b55343a4-816c-5987-9eca-1ebe55c6a9f8"}D{i:48;uuid:"947eff45-21d8-50d6-a69e-451914eacb57"}
+D{i:49;uuid:"795a821d-ceaf-5fb2-9f89-edde21fcfafe"}D{i:50;uuid:"53290d08-08a0-518e-ae97-e245eb678e78"}
+D{i:51;uuid:"b390b24d-5340-56a4-a59e-1b30e0aca341"}D{i:52;uuid:"e56207d1-eb86-5f1f-a84b-f020504a4a68"}
+D{i:53;uuid:"ce0ebbe9-3bfe-5d42-a77f-77a743cc63cf"}D{i:54;uuid:"4a337095-2573-58f7-94e3-2ca797f7429d"}
+D{i:55;uuid:"17c0adde-7bf4-528d-864a-47cc9a153932"}D{i:56;uuid:"8a6d0efa-6374-546e-b15f-7530c1fffeaa"}
+D{i:57;uuid:"5b30c5a2-a38a-510c-a18d-eb53c9233002"}D{i:60;uuid:"db9450a9-8a8a-5f27-acb7-12e2edc9e720"}
+D{i:68;uuid:"9daa95fe-b8c6-554d-8a39-6d3eb3733084"}D{i:69;uuid:"c44b1eb9-a30e-5933-bd55-f1a0e075196b"}
+D{i:70;uuid:"aed6bee2-9b65-5ebf-9a01-a50c2e12899c"}D{i:71;uuid:"09e9454d-d337-50c7-a04a-acd01a038294"}
 }
 ##^##*/
 

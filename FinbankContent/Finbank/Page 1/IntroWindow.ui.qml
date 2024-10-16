@@ -8,20 +8,6 @@ Rectangle {
     width: 1280
     height: 832
     color: "transparent"
-    property alias helpText: help.text
-    property alias sign_upText: sign_up.text
-    property alias enText: en.text
-    property alias companyText: company.text
-    property alias easy_and_taxless_transfersText: easy_and_taxless_transfers.text
-    property alias businessText: business.text
-    property alias virtual_cardsText: virtual_cards.text
-    property alias personalText: personal.text
-    property alias full_stock_trading_and_investment_utilitiesText: full_stock_trading_and_investment_utilities.text
-    property alias control_your_finances_anywhereText: control_your_finances_anywhere.text
-    property alias create_accountText: create_account.text
-    property alias save_Manage_and_track_your_money_Open_a_full_bank_account_from_eText: save_Manage_and_track_your_money_Open_a_full_bank_account_from_e.text
-    property alias log_inText: log_in.text
-    property alias join_nowText: join_now.text
     property alias joinNow_PB: joinNow_PB
     property alias createAccountButton: createAccount_PB
     property alias signUpButton: signUpButton
@@ -64,7 +50,7 @@ Rectangle {
                 verticalAlignment: Text.AlignTop
                 wrapMode: Text.Wrap
                 font.weight: Font.Normal
-                font.family: "Gelasio"
+
             }
 
             Text {
@@ -83,7 +69,7 @@ Rectangle {
                 verticalAlignment: Text.AlignTop
                 wrapMode: Text.Wrap
                 font.weight: Font.Normal
-                font.family: "Gelasio"
+
             }
         }
 
@@ -122,7 +108,7 @@ Rectangle {
                 verticalAlignment: Text.AlignTop
                 wrapMode: Text.Wrap
                 font.weight: Font.Normal
-                font.family: "Gelasio"
+
             }
         }
 
@@ -163,7 +149,7 @@ Rectangle {
                 verticalAlignment: Text.AlignTop
                 wrapMode: Text.Wrap
                 font.weight: Font.Normal
-                font.family: "Gelasio"
+
             }
         }
 
@@ -222,7 +208,7 @@ Rectangle {
                 wrapMode: Text.Wrap
                 rotation: 6.332
                 font.weight: Font.Bold
-                font.family: "Gelasio"
+
             }
         }
 
@@ -283,7 +269,7 @@ Rectangle {
                 wrapMode: Text.Wrap
                 rotation: 0.406
                 font.weight: Font.Bold
-                font.family: "Gelasio"
+
             }
         }
 
@@ -351,7 +337,7 @@ Rectangle {
                 wrapMode: Text.Wrap
                 rotation: -5.721
                 font.weight: Font.Bold
-                font.family: "Gelasio"
+
             }
         }
     }
@@ -398,7 +384,7 @@ Rectangle {
                 verticalAlignment: Text.AlignTop
                 wrapMode: Text.Wrap
                 font.weight: Font.Normal
-                font.family: "Gelasio"
+
             }
         }
 
@@ -425,7 +411,7 @@ Rectangle {
                 verticalAlignment: Text.AlignTop
                 wrapMode: Text.Wrap
                 font.weight: Font.Normal
-                font.family: "Gelasio"
+
             }
 
             Rectangle {
@@ -502,7 +488,7 @@ Rectangle {
                 verticalAlignment: Text.AlignTop
                 wrapMode: Text.Wrap
                 font.weight: Font.Normal
-                font.family: "Gelasio"
+
             }
 
             Rectangle {
@@ -579,7 +565,7 @@ Rectangle {
                 verticalAlignment: Text.AlignTop
                 wrapMode: Text.Wrap
                 font.weight: Font.Normal
-                font.family: "Gelasio"
+
             }
 
             Rectangle {
@@ -688,7 +674,7 @@ Rectangle {
                 verticalAlignment: Text.AlignTop
                 wrapMode: Text.Wrap
                 font.weight: Font.Normal
-                font.family: "Gelasio"
+
             }
         }
 
@@ -728,7 +714,7 @@ Rectangle {
                 verticalAlignment: Text.AlignTop
                 wrapMode: Text.Wrap
                 font.weight: Font.Normal
-                font.family: "Gelasio"
+
             }
         }
 
@@ -770,7 +756,7 @@ Rectangle {
                 verticalAlignment: Text.AlignTop
                 wrapMode: Text.Wrap
                 font.weight: Font.Normal
-                font.family: "Gelasio"
+
             }
         }
 

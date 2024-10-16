@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Controls
-
+import com.mycompany.googlegateway
 Item {
     visible: true
     id: root
@@ -28,6 +28,11 @@ Item {
     property string email: ""
     property string password: ""
 
+    GoogleGateway
+    {
+        id: gogl
+    }
+
     // The main component: IntroWindow
     SignUpWindow {
         id: signUpWindow
@@ -46,6 +51,10 @@ Item {
                 loader.source = "SignUp1.qml";
 
             }
+        }
+
+        googleFast1.onClicked:
+        {
         }
     }
 }

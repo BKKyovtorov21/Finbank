@@ -1,4 +1,4 @@
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QtQml>
 #include "autogen/environment.h"
@@ -6,12 +6,12 @@
 #include "databasemanager.hpp"
 #include "login.hpp"
 #include "googlegateway.hpp"
-
+#include "dashboard.hpp"
 int main(int argc, char *argv[])
 {
     set_qt_environment();  // Set up the Qt environment variables
 
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
     // Initialize and connect the database
@@ -21,6 +21,8 @@ int main(int argc, char *argv[])
     // Register C++ types with QML
     qmlRegisterType<Register>("com.mycompany.register", 1, 0, "Register");
     qmlRegisterType<LogIn>("com.mycompany.login", 1, 0, "LogIn");
+    qmlRegisterType<GoogleGateway>("com.mycompany.googlegateway", 1, 0, "GoogleGateway");
+    qmlRegisterType<Dashboard>("com.mycompany.dashboard", 1, 0, "DashboardClass");
 
     // Set up import paths for QML
     engine.addImportPath(QCoreApplication::applicationDirPath() + "/qml");
@@ -28,7 +30,7 @@ int main(int argc, char *argv[])
 
 
     // Create LogIn object and pass engine to it
-    LogIn login(&engine);
+    LogIn login;
     engine.rootContext()->setContextProperty("login", &login);
 
     // Define the URL of the main QML file
