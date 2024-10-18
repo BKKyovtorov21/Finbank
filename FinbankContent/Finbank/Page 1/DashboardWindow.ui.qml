@@ -14,6 +14,7 @@ Rectangle {
     property alias requestMoneyButton: requestMoneyButton
     property alias copyButton: copyButton
     property alias stackView: stackView
+    property real balanceValue2: 0.0 // Holds the real balance value
 
     Rectangle {
         id: solar_copy_linear
@@ -997,17 +998,17 @@ Rectangle {
             }
 
             Text {
-                id: balance
-                width: 174
+                id: balanceText
+                width: 179
                 height: 40
                 color: "#000000"
-                text: "$83,172.64"
+                text: "$" + balanceValue2.toFixed(2)
                 anchors.left: parent.left
                 anchors.top: parent.top
-                anchors.leftMargin: 16
+                anchors.leftMargin: 27
                 anchors.topMargin: 34
                 font.pixelSize: 32
-                horizontalAlignment: Text.AlignHCenter
+                horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignTop
                 wrapMode: Text.NoWrap
                 font.weight: Font.Normal
@@ -1212,36 +1213,5 @@ Rectangle {
     }
 }
 
-/*##^##
-Designer {
-    D{i:0;uuid:"67f0cbe1-66a1-5835-8ef7-c967aa5ebdb4"}D{i:1;uuid:"8fe0b294-0a3a-5f8e-bcc6-c96a2f15c6e2"}
-D{i:2;uuid:"83805b5e-582f-52cb-9b7e-6e440c7b8d5c"}D{i:3;uuid:"9f7b1b0e-50a4-514d-a961-9b77435ee05a"}
-D{i:4;uuid:"ffb472c9-91a2-5501-973d-4301cca2fe3e"}D{i:5;uuid:"b581d3c4-0549-54f3-8e0f-39d6ce7bd0ae"}
-D{i:6;uuid:"3038da5c-2f14-5939-8479-748557e8ce10"}D{i:7;uuid:"739f6981-0861-59fb-9991-df79e311155a"}
-D{i:8;uuid:"44bd8820-b438-5999-adab-4b5cd01ad39e"}D{i:9;uuid:"f24bc46d-0329-5814-8561-3fc6b5ff209f"}
-D{i:10;uuid:"890a0338-0302-5380-ba75-64b580f2295a"}D{i:11;uuid:"689f4ebe-11b6-50f4-a7be-d1ba604aa6d2"}
-D{i:12;uuid:"7787078d-7914-5f6b-b8fe-c4bf621f9ff0"}D{i:13;uuid:"4673e88c-334f-5a49-af80-f56b44a6835a"}
-D{i:14;uuid:"3637b97b-f8c0-516e-a64e-f0258218d072"}D{i:15;uuid:"7a537fe8-2498-536f-9747-ba5f3d249099"}
-D{i:16;uuid:"5147110c-5ee9-5030-b34e-4650e54576e0"}D{i:17;uuid:"a5ee57b2-b9b4-5b1f-a931-cd592b7e5d66"}
-D{i:18;uuid:"c306ec2f-9ca4-5d45-a842-1b4655d2116f"}D{i:19;uuid:"c6c5477a-7a9f-5621-8ef7-527f4809b355"}
-D{i:20;uuid:"99b7dce9-4b01-5332-95b1-295237cc4843"}D{i:21;uuid:"382d4f35-39f1-5d50-a170-1307fa995036"}
-D{i:22;uuid:"8e72f57f-7537-575a-89cb-774a003999b8"}D{i:23;uuid:"3bde8d73-24c1-548a-941d-c56435f4012f"}
-D{i:24;uuid:"6857523e-9fe7-5928-9f9d-302635819169"}D{i:25;uuid:"05244d3d-78f0-569f-ae67-b49d0115538c"}
-D{i:26;uuid:"6f1f58ab-4aa2-53c0-98fc-f96c450f5fb5"}D{i:27;uuid:"ae7ecd16-66d2-5cc5-8959-d05beb3e09a9"}
-D{i:28;uuid:"fb7d49f1-bcb9-5ac8-937c-7e5ca49ce348"}D{i:29;uuid:"5f2ac0ce-949a-5159-a01e-e508e9e138ba"}
-D{i:30;uuid:"ff1e29c5-3bcf-58ea-9f8f-f9240bb83ca2"}D{i:31;uuid:"6c9413a6-3ef8-5160-bb10-f896b6542c3a"}
-D{i:32;uuid:"d55f1503-4a5d-5ee8-978f-ae023f87db01"}D{i:33;uuid:"4acdecf3-6519-51db-98c6-30e9fe855a3f"}
-D{i:34;uuid:"50ea1538-dd22-51b3-b302-ff08c4009209"}D{i:35;uuid:"b23313f9-490f-5be4-9613-3ec66f8acdd1"}
-D{i:36;uuid:"c3eec844-4b96-5546-b6e6-4486f46c0506"}D{i:37;uuid:"81b95f9d-bdd2-54e6-9c06-cbacbc1294e2"}
-D{i:45;uuid:"20acb00c-6774-5ba8-b68d-96e0e399cbec"}D{i:46;uuid:"3958941f-3362-5869-8bd8-9180bb56c776"}
-D{i:47;uuid:"b55343a4-816c-5987-9eca-1ebe55c6a9f8"}D{i:48;uuid:"947eff45-21d8-50d6-a69e-451914eacb57"}
-D{i:49;uuid:"795a821d-ceaf-5fb2-9f89-edde21fcfafe"}D{i:50;uuid:"53290d08-08a0-518e-ae97-e245eb678e78"}
-D{i:51;uuid:"b390b24d-5340-56a4-a59e-1b30e0aca341"}D{i:52;uuid:"e56207d1-eb86-5f1f-a84b-f020504a4a68"}
-D{i:53;uuid:"ce0ebbe9-3bfe-5d42-a77f-77a743cc63cf"}D{i:54;uuid:"4a337095-2573-58f7-94e3-2ca797f7429d"}
-D{i:55;uuid:"17c0adde-7bf4-528d-864a-47cc9a153932"}D{i:56;uuid:"8a6d0efa-6374-546e-b15f-7530c1fffeaa"}
-D{i:57;uuid:"5b30c5a2-a38a-510c-a18d-eb53c9233002"}D{i:60;uuid:"db9450a9-8a8a-5f27-acb7-12e2edc9e720"}
-D{i:68;uuid:"9daa95fe-b8c6-554d-8a39-6d3eb3733084"}D{i:69;uuid:"c44b1eb9-a30e-5933-bd55-f1a0e075196b"}
-D{i:70;uuid:"aed6bee2-9b65-5ebf-9a01-a50c2e12899c"}D{i:71;uuid:"09e9454d-d337-50c7-a04a-acd01a038294"}
-}
-##^##*/
+
 

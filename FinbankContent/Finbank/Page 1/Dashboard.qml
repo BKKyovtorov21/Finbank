@@ -6,7 +6,8 @@ Item {
     id: root
     width: 1280
     height: 832
-
+    property string username: ""
+    property real balance: 0.0
     // This Loader will load the external QML file when the button is clicked
     Loader {
         id: loader
@@ -17,12 +18,18 @@ Item {
     DashboardClass
     {
         id: dashboardClass
+        Component.onCompleted:
+        {
+            balance = dashboardClass.getBalance(username)
+        }
     }
 
     // The main component: IntroWindow
     DashboardWindow {
         id: introwindow
         anchors.fill: parent
+
+        balanceValue2: balance
 
     }
 }

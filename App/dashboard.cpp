@@ -14,7 +14,6 @@ float Dashboard::getBalance(const QString &username)
     QSqlQuery qry;
     qry.prepare("SELECT balance FROM users WHERE username = :username");
     qry.bindValue(":username", username);
-    qDebug() << username;
     if(qry.exec() && qry.next())
     {
         return qry.value(0).toFloat();
