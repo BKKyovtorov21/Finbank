@@ -9,14 +9,14 @@ Dashboard::Dashboard(QObject *parent)
 
 }
 
-float Dashboard::getBalance(const QString &username)
+float Dashboard::getDbVariable(const QString &username, const QString& dbVariable)
 {
     QSqlQuery qry;
-    qry.prepare("SELECT balance FROM users WHERE username = :username");
+    qry.prepare("SELECT * FROM users WHERE username = :username");
     qry.bindValue(":username", username);
     if(qry.exec() && qry.next())
     {
-        return qry.value(0).toFloat();
+        return qry.value(dbVariable).toFloat();
     }
     else
     {

@@ -14,7 +14,11 @@ Rectangle {
     property alias requestMoneyButton: requestMoneyButton
     property alias copyButton: copyButton
     property alias stackView: stackView
-    property real balanceValue2: 0.0 // Holds the real balance value
+    property alias incomePieValue: incomePie.value
+    property alias expensePieValue: expensesPie.value
+    property real balanceValue: 0.0
+    property real incomeValue: 0.0
+    property real expensesValue: 0.0
 
     Rectangle {
         id: solar_copy_linear
@@ -631,7 +635,7 @@ Rectangle {
             width: 174
             height: 40
             color: "#000000"
-            text: "$16,281.48"
+            text: "$" + incomeValue.toFixed(2)
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 14
@@ -802,7 +806,7 @@ Rectangle {
             width: 174
             height: 40
             color: "#000000"
-            text: "$6,638.72"
+            text: "$" + expensesValue.toFixed(2)
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 8
@@ -827,6 +831,28 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 977
         anchors.topMargin: 180
+
+        ChartView {
+            id: pie
+            x: 4
+            y: 8
+            width: 285
+            height: 320
+            PieSeries {
+                name: "PieSeries"
+                PieSlice {
+                    id: incomePie
+                    value: 13.5
+                    label: "Slice1"
+                }
+
+                PieSlice {
+                    id: expensesPie
+                    value: 10.9
+                    label: "Slice2"
+                }
+            }
+        }
     }
 
     Rectangle {
@@ -1002,7 +1028,7 @@ Rectangle {
                 width: 179
                 height: 40
                 color: "#000000"
-                text: "$" + balanceValue2.toFixed(2)
+                text: "$" + balanceValue.toFixed(2)
                 anchors.left: parent.left
                 anchors.top: parent.top
                 anchors.leftMargin: 27
@@ -1208,6 +1234,35 @@ Rectangle {
                     wrapMode: Text.NoWrap
                     font.weight: Font.Medium
                 }
+            }
+        }
+    }
+
+    ChartView {
+        id: pie1
+        x: 977
+        y: 485
+        width: 293
+        height: 336
+
+        PieSeries {
+            name: "PieSeries"
+            PieSlice {
+                id: stocksPie
+                value: 13.5
+                label: "Stocks"
+            }
+
+            PieSlice {
+                id: cryptoPie
+                value: 10.9
+                label: "Crypto"
+            }
+
+            PieSlice {
+                id: transferPie
+                value: 8.6
+                label: "Transfers"
             }
         }
     }

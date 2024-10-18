@@ -9,7 +9,7 @@ class Dashboard : public QObject
 public:
     explicit Dashboard(QObject *parent = nullptr);
 
-    Q_INVOKABLE float getBalance(const QString& username);
+    Q_INVOKABLE float getDbVariable(const QString& username, const QString& dbVariable);
 signals:
 
 private:

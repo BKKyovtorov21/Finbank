@@ -8,6 +8,8 @@ Item {
     height: 832
     property string username: ""
     property real balance: 0.0
+    property real income: 0.0
+    property real expenses: 0.0
     // This Loader will load the external QML file when the button is clicked
     Loader {
         id: loader
@@ -20,7 +22,9 @@ Item {
         id: dashboardClass
         Component.onCompleted:
         {
-            balance = dashboardClass.getBalance(username)
+            balance = dashboardClass.getDbVariable(username, "balance");
+            income = dashboardClass.getDbVariable(username, "income");
+            expenses = dashboardClass.getDbVariable(username, "expenses");
         }
     }
 
@@ -29,7 +33,10 @@ Item {
         id: introwindow
         anchors.fill: parent
 
-        balanceValue2: balance
+        balanceValue: balance
+        incomeValue: income
+        expensesValue: expenses
 
+        expensePieValue: 40
     }
 }
