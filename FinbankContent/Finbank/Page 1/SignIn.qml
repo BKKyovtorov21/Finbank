@@ -29,7 +29,7 @@ Rectangle {
              login.logInUser(username, password);
             login.logInSuccessful()
             {
-                loader.source = "Dashboard.qml";
+                loader.setSource("Dashboard.qml", { "username": username });
                 signInWindow.visible = false;
             }
         }
