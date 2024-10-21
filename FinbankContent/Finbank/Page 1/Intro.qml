@@ -20,8 +20,8 @@ Window {
 
         // This handles the button click event
         joinNow_PB.onClicked: {
-            loader.source = "SignUp.qml";  // Load the SignUp.qml on button click
             introwindow.visible = false;
+            loader.source = "SignUp.qml";  // Load the SignUp.qml on button click
         }
 
         logInButton.onClicked:

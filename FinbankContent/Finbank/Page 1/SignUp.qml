@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls
-import com.mycompany.googlegateway
 Item {
     visible: true
     id: root
@@ -19,6 +18,9 @@ Item {
                 loader.item.username = username;
                 loader.item.email = email;
                 loader.item.password = password;
+                loader.item.firstNamegoogle = firstNamegoogle;
+                loader.item.lastNamegoogle = lastNamegoogle;
+                loader.item.googleRegister = googleRegister
             }
         }
     }
@@ -27,34 +29,58 @@ Item {
     property string username: ""
     property string email: ""
     property string password: ""
+    property string firstNamegoogle: ""
+    property string lastNamegoogle: ""
+    property bool googleRegister: false
 
-    GoogleGateway
-    {
-        id: gogl
-    }
-
-    // The main component: IntroWindow
     SignUpWindow {
         id: signUpWindow
         anchors.fill: parent // Fill the parent window
 
         signUp_PB.onClicked: {
-            if(usernameField.text !== "" && emailField.text !== "" && passwordField.text !== "") {
-                username = usernameField.text;
-                email = emailField.text;
-                password = passwordField.text;
-
-                console.log(username + " " + email + " " + password);
-
+            if(usernameField !== "" && emailField !== "" && passwordField !== "") {
+                username = usernameField;
+                email = emailField;
+                password = passwordField;
+                if (googlegateway.userFirstName !== undefined) {
+                    firstNamegoogle = googlegateway.userFirstName; // Direct assignment to the email propertyco
+                } else {
+                    console.log("Error: googlegateway.userFirstName is undefined");
+                }
+                if (googlegateway.userLastName !== undefined) {
+                    lastNamegoogle = googlegateway.userLastName; // Direct assignment to the email property
+                } else {
+                    console.log("Error: googlegateway.userFirstName is undefined");
+                }
                 // Load the new QML file
                 signUpWindow.visible = false
                 loader.source = "SignUp1.qml";
-
             }
         }
 
         googleFast1.onClicked:
         {
+            googlegateway.click();
+        }
+        Connections {
+            target: googlegateway
+            onGoogleLoginSuccessful: {
+                signUpWindow.isGoogleRegistration = true; // Set to true for Google registration
+                googleRegister = true;
+                // Ensure that googlegateway.userName and googlegateway.email are not undefined
+                if (googlegateway.userName !== undefined) {
+                    signUpWindow.usernameField = googlegateway.userName;
+                } else {
+                    console.log("Error: googlegateway.userName is undefined");
+                }
+
+                if (googlegateway.userEmail !== undefined) {
+                    signUpWindow.emailField = googlegateway.userEmail; // Direct assignment to the email property
+                } else {
+                    console.log("Error: googlegateway.email is undefined");
+                }
+
+            }
         }
     }
 }

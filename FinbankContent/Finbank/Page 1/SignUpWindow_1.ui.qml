@@ -9,11 +9,12 @@ Rectangle {
     width: 1280
     height: 832
     color: "#292929"
-    property alias firstNameField: firstNameField
-    property alias lastNameField: lastNameField
-    property alias birthField: birthField
-    property alias phoneField: phoneField
+    property alias firstNameField: firstNameField.text
+    property alias lastNameField: lastNameField.text
+    property alias birthField: birthField.text
+    property alias phoneField: phoneField.text
     property alias signUp_PB: signUp_PB
+    property bool isgoogleregistration: false
     Rectangle {
         id: rectangle_14
         width: 1280
@@ -58,7 +59,7 @@ Rectangle {
             placeholderText: qsTr("Enter your first name")
             placeholderTextColor: "white"
             font.pixelSize: 18
-
+            readOnly: isgoogleregistration
             font.weight: Font.Bold
             color: "#999999"
             background: Rectangle {
@@ -86,7 +87,7 @@ Rectangle {
             placeholderText: qsTr("Enter your last name")
             placeholderTextColor: "white"
             font.pixelSize: 18
-
+            readOnly: isgoogleregistration
             font.weight: Font.Bold
             color: "#999999"
             background: Rectangle {

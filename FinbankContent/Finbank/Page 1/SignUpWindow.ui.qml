@@ -9,11 +9,13 @@ Rectangle {
     height: 832
     color: "#292929"
     property alias signUp_PB: signUp_PB
-    property alias usernameField: usernameField
-    property alias emailField: emailField
-    property alias passwordField: passwordField
+    property alias usernameField: usernameField.text
+    property alias emailField: emailField.text
+    property alias passwordField: passwordField.text
     property alias googleFast1: googleFast1
     property alias githubFast: githubFast
+    property bool isGoogleRegistration: false
+
     Rectangle {
         id: rectangle_14
         width: 1280
@@ -225,6 +227,7 @@ Rectangle {
             placeholderText: qsTr("Enter your username")
             placeholderTextColor: "white"
             font.pixelSize: 18
+            readOnly: isGoogleRegistration
 
             font.weight: Font.Bold
             color: "#999999"
@@ -253,7 +256,7 @@ Rectangle {
             placeholderText: qsTr("Enter your email")
             placeholderTextColor: "white"
             font.pixelSize: 18
-
+            readOnly: isGoogleRegistration
             font.weight: Font.Bold
             color: "#999999"
             background: Rectangle {

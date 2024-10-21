@@ -1,9 +1,5 @@
 import QtQuick
 import QtQuick.Controls
-import com.mycompany.login 1.0
-
-
-
 Rectangle {
     visible: true
     id: root
@@ -31,7 +27,12 @@ Rectangle {
             {
                 loader.setSource("Dashboard.qml", { "username": username });
                 signInWindow.visible = false;
+                googlegateway.click();
             }
+        }
+        googleFast.onClicked:
+        {
+            googlegateway.click();
         }
     }
 }

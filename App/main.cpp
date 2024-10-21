@@ -18,12 +18,6 @@ int main(int argc, char *argv[])
     DatabaseManager* db = new DatabaseManager();
     db->OpenConnection();
 
-    // Register C++ types with QML
-    qmlRegisterType<Register>("com.mycompany.register", 1, 0, "Register");
-    qmlRegisterType<LogIn>("com.mycompany.login", 1, 0, "LogIn");
-    qmlRegisterType<GoogleGateway>("com.mycompany.googlegateway", 1, 0, "GoogleGateway");
-    qmlRegisterType<Dashboard>("com.mycompany.dashboard", 1, 0, "DashboardClass");
-
     // Set up import paths for QML
     engine.addImportPath(QCoreApplication::applicationDirPath() + "/qml");
     engine.addImportPath(":/");
@@ -32,6 +26,16 @@ int main(int argc, char *argv[])
     // Create LogIn object and pass engine to it
     LogIn login;
     engine.rootContext()->setContextProperty("login", &login);
+
+    Register registercls;
+    engine.rootContext()->setContextProperty("register", &registercls);
+
+    Dashboard dashboard;
+    engine.rootContext()->setContextProperty("dashboard", &dashboard);
+    GoogleGateway googleGateway;
+    engine.rootContext()->setContextProperty("googlegateway", &googleGateway);
+
+
 
     // Define the URL of the main QML file
     const QUrl url(mainQmlFile);

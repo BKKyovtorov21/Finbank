@@ -17,6 +17,7 @@ Rectangle {
     property alias usernameField: usernameField
     property alias passwordField: passwordField
     property alias logInButton: logInButton
+    property alias googleFast: googleFast
 
     Rectangle {
         id: rectangle_14
@@ -70,14 +71,13 @@ Rectangle {
         y: 290
         width: 136
         height: 58
-        Rectangle {
+        Button {
             id: googleFast
             width: 61
             height: 58
-            color: "transparent"
             anchors.left: parent.left
             anchors.top: parent.top
-            Rectangle {
+            background: Rectangle {
                 id: rectangle_12
                 color: "#525252"
                 radius: 20
@@ -155,43 +155,6 @@ Rectangle {
                     antialiasing: true
                 }
                 clip: true
-            }
-        }
-
-        Rectangle {
-            id: googleFast1
-            width: 61
-            height: 58
-            color: "transparent"
-            anchors.left: parent.left
-            anchors.top: parent.top
-            Rectangle {
-                id: rectangle_15
-                color: "#525252"
-                radius: 20
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-            }
-
-            SvgPathItem {
-                id: element2
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.leftMargin: 15
-                anchors.rightMargin: 14
-                anchors.topMargin: 14
-                anchors.bottomMargin: 14
-                strokeWidth: 1
-                strokeStyle: 1
-                strokeColor: "transparent"
-                path: "M 31.75346749038268 13.65000057220459 L 16.68207651593322 13.65000057220459 L 16.68207651593322 17.744999885559082 L 27.381613452421643 17.744999885559082 C 26.839240530385965 23.459999799728394 21.629173598806492 25.905000686645508 16.698510867136363 25.905000686645508 C 10.403698238430735 25.905000686645508 4.881356151375892 21.375 4.881356151375892 15 C 4.881356151375892 8.850000143051147 10.140729810194802 4.0950000286102295 16.714946785754975 4.0950000286102295 C 21.793529258307814 4.0950000286102295 24.768363521265467 7.049999713897705 24.768363521265467 7.049999713897705 L 27.89111439027489 4.079999685287476 C 27.89111439027489 4.079999685287476 23.880844292261465 0 16.550592301815254 0 C 7.215204478654593 0 0 7.200000286102295 0 15 C 0 22.575000286102295 6.7878792153557335 30 16.79712481143257 30 C 25.590139859502756 30 32 24.494999885559082 32 16.364999771118164 C 32 14.639999806880951 31.75346749038268 13.65000057220459 31.75346749038268 13.65000057220459 Z"
-                joinStyle: 0
-                fillColor: "#1f1f2e"
-                antialiasing: true
             }
         }
     }
@@ -513,9 +476,9 @@ Rectangle {
 /*##^##
 Designer {
     D{i:0;uuid:"8fa215eb-b089-51bb-aca2-27bd5b7dea4e"}D{i:1;uuid:"f9f7f3e4-9618-5d05-b0db-e8bdd16c12d9"}
-D{i:5;uuid:"f633407e-6458-5538-a851-4a3e70010852"}D{i:16;uuid:"09693de0-bcb6-5f80-8dbe-52d43f8cf73e"}
-D{i:19;uuid:"2b4b3838-361a-5f26-aa83-c6e70a6f2dcf"}D{i:23;uuid:"893799af-9856-5936-87e1-3f9178c3d113"}
-D{i:26;uuid:"cf1bb1c8-cca9-5384-820f-6b99d69361a0"}
+D{i:5;uuid:"f633407e-6458-5538-a851-4a3e70010852"}D{i:13;uuid:"09693de0-bcb6-5f80-8dbe-52d43f8cf73e"}
+D{i:16;uuid:"2b4b3838-361a-5f26-aa83-c6e70a6f2dcf"}D{i:20;uuid:"893799af-9856-5936-87e1-3f9178c3d113"}
+D{i:23;uuid:"cf1bb1c8-cca9-5384-820f-6b99d69361a0"}
 }
 ##^##*/
 

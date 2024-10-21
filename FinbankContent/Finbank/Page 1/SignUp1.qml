@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls
-import com.mycompany.register 1.0  // Import the C++ class
 Item {
     visible: true
     id: root
@@ -10,7 +9,9 @@ Item {
     property string username: ""
     property string email: ""
     property string password: ""
-
+    property string firstNamegoogle: ""
+    property string lastNamegoogle: ""
+    property bool googleRegister: false
     // This Loader will load the external QML file when the button is clicked
     Loader {
         id: loader
@@ -18,27 +19,34 @@ Item {
         source: ""  // Start with no source, will load dynamically
     }
 
-    Register {
-            id: registerObj  // Instance of the Register class
-        }
-
     // The main component: IntroWindow
     SignUpWindow_1 {
+
         id: signUpWindow1
         anchors.fill: parent // Fill the parent window
+        firstNameField: firstNamegoogle;
+        lastNameField: lastNamegoogle;
+
+        Component.onCompleted:
+        {
+            signUpWindow1.isgoogleregistration = googleRegister
+        }
 
         signUp_PB.onClicked:
         {
-            if(firstNameField.text != "" && lastNameField.text != "" && birthField.text != ""){
-                var firstName = firstNameField.text;
-                var lastName = lastNameField.text;
-                var birth = birthField.text
-                var phone = phoneField.text
-                var gender = "Male";
+            var birth = birthField
+            var phone = phoneField;
+            var gender = "Male"
 
-                console.log(firstName + " " + lastName + " " + birth + " " + phone);
-                registerObj.registerAccount(username, email, password, firstName, lastName, birth, gender, phone);
-            }
+                var firstName = firstNameField;
+                var lastName = lastNameField;
+                register.registerAccount(username, email, password, firstName, lastName, birth, gender, phone);
+                register.registerSuccessful()
+                {
+                    loader.source = "SignIn.qml";
+                    signUpWindow1.visible = false
+                }
+
 
         }
     }

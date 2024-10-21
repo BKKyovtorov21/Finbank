@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Controls
 import QtCharts
-import com.mycompany.dashboard
 Item {
     id: root
     width: 1280
@@ -17,17 +16,13 @@ Item {
         source: ""  // Start with no source, will load dynamically
     }
 
-    DashboardClass
-    {
-        id: dashboardClass
         Component.onCompleted:
         {
-            balance = dashboardClass.getDbVariable(username, "balance");
-            income = dashboardClass.getDbVariable(username, "income");
-            expenses = dashboardClass.getDbVariable(username, "expenses");
-        }
-    }
+            balance = dashboard.getDbVariable(username, "balance");
+            income = dashboard.getDbVariable(username, "income");
+            expenses = dashboard.getDbVariable(username, "expenses");
 
+        }
     // The main component: IntroWindow
     DashboardWindow {
         id: introwindow
@@ -38,5 +33,10 @@ Item {
         expensesValue: expenses
 
         expensePieValue: 40
+
+        test.onClicked:
+        {
+            console.log("sds");
+        }
     }
 }

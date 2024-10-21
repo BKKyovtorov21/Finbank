@@ -1,100 +1,57 @@
 #include "googlegateway.hpp"
-#include <QObject>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
-#include <QString>
-#include <QFile>
-#include <QDir>
-#include <QUrl>
-#include <QOAuthHttpServerReplyHandler>
-#include <QDesktopServices>
-#include <QDebug>
-#include <QNetworkReply>
 
 GoogleGateway::GoogleGateway(QObject *parent) : QObject(parent)
 {
     this->google = new QOAuth2AuthorizationCodeFlow(this);
-    this->google->setScope("openid email profile https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email");
-    connect(this->google, &QOAuth2AuthorizationCodeFlow::authorizeWithBrowser, &QDesktopServices::openUrl);
 
-    // Load OAuth settings from file
-    QByteArray val;
-    QFile file;
-    file.setFileName(QDir::toNativeSeparators("/Users/boyankiovtorov/Desktop/Finbank/App/auth.json"));
-    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        val = file.readAll();
-        file.close();
-    }
-    else
-    {
-        qDebug() << "Failed to open auth.json file!";
-        return; // Exit if the file could not be opened
-    }
+    // Set Scope or Permissions required from Google
+    this->google->setScope("email profile openid https://www.googleapis.com/auth/drive.readonly");
 
-    QJsonDocument document = QJsonDocument::fromJson(val);
-    QJsonObject object = document.object();
-    const auto settingsObject = object["web"].toObject();
-    const QUrl authUri(settingsObject["auth_uri"].toString());
-    const auto clientId = settingsObject["client_id"].toString();
-    const QUrl tokenUri(settingsObject["token_uri"].toString());
-    const auto clientSecret = settingsObject["client_secret"].toString();
+    connect(this->google, &QOAuth2AuthorizationCodeFlow::authorizeWithBrowser, [=](QUrl url) {
+        QUrlQuery query(url);
+        query.addQueryItem("prompt", "consent");      // Param required to get data everytime
+        query.addQueryItem("access_type", "offline"); // Needed for Refresh Token (as AccessToken expires shortly)
+        url.setQuery(query);
+        QDesktopServices::openUrl(url);
+    });
 
-    const auto redirectUris = settingsObject["redirect_uris"].toArray();
-    const QUrl redirectUri(redirectUris[1].toString());
-    const auto port = static_cast<quint16>(redirectUri.port());
+    // OAuth URLs and Client Identifier (from Google Console)
+    this->google->setAuthorizationUrl(QUrl("https://accounts.google.com/o/oauth2/auth"));
+    this->google->setAccessTokenUrl(QUrl("https://oauth2.googleapis.com/token"));
+    this->google->setClientIdentifier("147188458104-kr1c7m57b191u2v0m5nfnprak3e77rip.apps.googleusercontent.com");
+    this->google->setClientIdentifierSharedKey("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");
 
-    // Log OAuth configuration details
-    qDebug() << "Auth URI:" << authUri;
-    qDebug() << "Client ID:" << clientId;
-    qDebug() << "Token URI:" << tokenUri;
-    qDebug() << "Client Secret:" << clientSecret;
-    qDebug() << "Redirect URI:" << redirectUri;
-
-    this->google->setAuthorizationUrl(authUri);
-    this->google->setClientIdentifier(clientId);
-    this->google->setAccessTokenUrl(tokenUri);
-    this->google->setClientIdentifierSharedKey(clientSecret);
-
-    auto replyHandler = new QOAuthHttpServerReplyHandler(port, this);
+    auto replyHandler = new QOAuthHttpServerReplyHandler(5476, this);
     this->google->setReplyHandler(replyHandler);
 
-    // Connect signals for granted and error before calling grant()
-    connect(this->google, &QOAuth2AuthorizationCodeFlow::granted, [this]() {
-        qDebug() << "Access Granted!";
-        qDebug() << "Access Token:" << this->google->token(); // Log access token
+    connect(this->google, &QOAuth2AuthorizationCodeFlow::granted, [=]() {
 
-        // Make a request to the Google People API to fetch user info
-        QUrl userInfoUrl("https://people.googleapis.com/v1/people/me?personFields=emailAddresses,names,photos");        auto reply = this->google->get(userInfoUrl);
+        // Fetching user info from OpenID Connect endpoint
+        QUrl userInfoUrl("https://www.googleapis.com/oauth2/v3/userinfo");
+        auto reply = this->google->get(userInfoUrl);
 
-        connect(reply, &QNetworkReply::finished, [reply]() {
-            if (reply->error() != QNetworkReply::NoError) {
-                qDebug() << "Network error:" << reply->errorString();
-                qDebug() << "Response code:" << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-                qDebug() << "Response body:" << reply->readAll(); // Log raw response
-                qDebug() << "Reply headers:" << reply->rawHeaderPairs(); // Log headers
-            } else {
-                QByteArray responseData = reply->readAll();
-                qDebug() << "Response body:" << responseData; // Log raw body for debugging
-                QJsonDocument jsonDoc = QJsonDocument::fromJson(responseData);
+        connect(reply, &QNetworkReply::finished, [reply, this]() {
+            if (reply->error() == QNetworkReply::NoError) {
+                QByteArray response = reply->readAll();
+                QJsonDocument jsonDoc = QJsonDocument::fromJson(response);
                 QJsonObject jsonObj = jsonDoc.object();
-
-                // Log parsed user info
-                qDebug() << "User Info:";
-                qDebug() << "Email:" << jsonObj["email"].toString();
-                qDebug() << "Name:" << jsonObj["name"].toString();
-                qDebug() << "Picture URL:" << jsonObj["picture"].toString();
+                m_userEmail = jsonObj["email"].toString();
+                m_userFirstName = jsonObj["given_name"].toString();
+                m_userLastName = jsonObj["family_name"].toString();
+                m_userName = m_userEmail.split('@').first();
+                emit googleLoginSuccessful();
+            } else {
+                qDebug() << "Error fetching user info: " << reply->errorString();
             }
             reply->deleteLater();
         });
     });
+}
 
-    connect(this->google, &QOAuth2AuthorizationCodeFlow::error, [](const QString &errorString) {
-        qDebug() << "Authorization Error:" << errorString;
-    });
+// Call this function to prompt authentication
+// and receive data from Google
 
-    // Now call grant()
-    qDebug() << "Initiating OAuth grant...";
+void GoogleGateway::click()
+{
     this->google->grant();
 }
