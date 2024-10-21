@@ -17,7 +17,6 @@ Rectangle {
     property alias incomePieValue: incomePie.value
     property alias expensePieValue: expensesPie.value
     property alias element10: element10.text
-    property alias test: test
     property real balanceValue: 0.0
     property real incomeValue: 0.0
     property real expensesValue: 0.0

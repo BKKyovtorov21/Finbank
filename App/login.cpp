@@ -9,10 +9,12 @@ LogIn::LogIn(QObject *parent)
 {
 }
 
-void LogIn::logInUser(const QString &username, const QString &password)
+void LogIn::logInUser(const QString &username, const QString &password, const bool& isGoogleRegistered)
 {
     m_username = username;
     QSqlQuery qry;
+    if(!isGoogleRegistered)
+    {
     qry.prepare("SELECT * FROM users WHERE username = :username");
     qry.bindValue(":username", username);
     if (qry.exec() && qry.next())
@@ -29,6 +31,23 @@ void LogIn::logInUser(const QString &username, const QString &password)
             qDebug() << hashedPassword;
             qDebug() << password;
 
+        }
+    }
+    }
+    else
+    {
+        qry.prepare("SELECT * FROM users WHERE username = :username");
+        qry.bindValue(":username", username);
+        if (qry.exec() && qry.next())
+        {
+            if(qry.value("googleRegistered").toBool() == isGoogleRegistered)
+            {
+                emit logInSuccessful();
+            }
+            else
+            {
+                qDebug() << isGoogleRegistered;
+            }
         }
     }
 }

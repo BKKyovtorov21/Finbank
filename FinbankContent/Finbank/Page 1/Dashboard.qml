@@ -33,10 +33,5 @@ Item {
         expensesValue: expenses
 
         expensePieValue: 40
-
-        test.onClicked:
-        {
-            console.log("sds");
-        }
     }
 }

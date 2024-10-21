@@ -9,16 +9,34 @@ Register::Register(QObject *parent)
     : QObject{parent}
 {}
 
-void Register::registerAccount(const QString& username, const QString& email, const QString& password, const QString& firstName, const QString& lastName, const QString& dateOfBirth, const QString& gender, const QString& phone)
+void Register::registerAccount(const QString& username, const QString& email, const QString& password, const QString& firstName, const QString& lastName, const QString& dateOfBirth, const QString& gender, const QString& phone, const bool& isGoogleRegistered)
 {
+    QSqlQuery qry;
 
+    // Check if the username or email is already registered
+    qry.prepare("SELECT COUNT(*) FROM users WHERE username = :username OR email = :email");
+    qry.bindValue(":username", username);
+    qry.bindValue(":email", email);
+
+    if (qry.exec() && qry.next()) {
+        int count = qry.value(0).toInt();
+        if (count > 0) {
+            // Username or email already exists
+            QMessageBox::warning(nullptr, "Registration Failed", "The username or email is already registered. Please choose a different one.");
+            return;
+        }
+    } else {
+        qDebug() << "Error checking for existing username/email:" << qry.lastError();
+        return;
+    }
+
+    // If no user found, proceed with registration
     QString passwordSalt = GenerateSalt();
     QString cardNumber = GenerateCardNumber();
     QString hashedPassword = Hash(password, passwordSalt);
-    QSqlQuery qry;
-    qry.prepare("INSERT INTO users (username, email, password, first_name, last_name, date_of_birth, gender, phone, passwordSalt, cardNumber) "
-                "VALUES (:username, :email, :password, :first_name, :last_name, :date_of_birth, :gender, :phone, :passwordSalt, :cardNumber)");
 
+    qry.prepare("INSERT INTO users (username, email, password, first_name, last_name, date_of_birth, gender, phone, passwordSalt, cardNumber, googleRegistered) "
+                "VALUES (:username, :email, :password, :first_name, :last_name, :date_of_birth, :gender, :phone, :passwordSalt, :cardNumber, :googleRegistered)");
     qry.bindValue(":username", username);
     qry.bindValue(":email", email);
     qry.bindValue(":password", hashedPassword);
@@ -29,13 +47,12 @@ void Register::registerAccount(const QString& username, const QString& email, co
     qry.bindValue(":phone", phone);
     qry.bindValue(":passwordSalt", passwordSalt);
     qry.bindValue(":cardNumber", cardNumber);
+    qry.bindValue(":googleRegistered", isGoogleRegistered);
 
     if (!qry.exec()) {
         qDebug() << "Error inserting into users table:" << qry.lastError();
-    }
-    else
-    {
-        QMessageBox::information(nullptr, "Register successful", "Your registration to Finkbank was successful");
+    } else {
+        QMessageBox::information(nullptr, "Register successful", "Your registration to Finbank was successful");
         emit registerSuccessful();
     }
 }

@@ -8,7 +8,7 @@ class LogIn : public QObject
 public:
     explicit LogIn(QObject *parent = nullptr);
 
-    Q_INVOKABLE void logInUser(const QString& username, const QString& password);
+    Q_INVOKABLE void logInUser(const QString& username, const QString& password, const bool& isGoogleRegistered);
 
     QString getUsername();
 private:

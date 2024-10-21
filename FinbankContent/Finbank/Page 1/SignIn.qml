@@ -22,17 +22,33 @@ Rectangle {
         logInButton.onClicked: {
             var username = usernameField.text;
             var password = passwordField.text;
-             login.logInUser(username, password);
+             login.logInUser(username, password, 0);
             login.logInSuccessful()
             {
                 loader.setSource("Dashboard.qml", { "username": username });
                 signInWindow.visible = false;
-                googlegateway.click();
             }
         }
         googleFast.onClicked:
         {
             googlegateway.click();
+        }
+
+        Connections {
+            target: googlegateway
+            onGoogleLoginSuccessful: {
+                var username = "";
+                var password = "";
+                if (googlegateway.userName !== undefined) {
+                    username = googlegateway.userName;
+                }
+                login.logInUser(username, password, 1);
+                login.logInSuccessful()
+                {
+                    loader.setSource("Dashboard.qml", { "username": username });
+                    signInWindow.visible = false;
+                }
+            }
         }
     }
 }

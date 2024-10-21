@@ -26,11 +26,7 @@ Item {
         anchors.fill: parent // Fill the parent window
         firstNameField: firstNamegoogle;
         lastNameField: lastNamegoogle;
-
-        Component.onCompleted:
-        {
-            signUpWindow1.isgoogleregistration = googleRegister
-        }
+        isgoogleregistration: googleRegister
 
         signUp_PB.onClicked:
         {
@@ -40,14 +36,12 @@ Item {
 
                 var firstName = firstNameField;
                 var lastName = lastNameField;
-                register.registerAccount(username, email, password, firstName, lastName, birth, gender, phone);
+                register.registerAccount(username, email, password, firstName, lastName, birth, gender, phone, isgoogleregistration);
                 register.registerSuccessful()
                 {
                     loader.source = "SignIn.qml";
                     signUpWindow1.visible = false
                 }
-
-
         }
     }
 }

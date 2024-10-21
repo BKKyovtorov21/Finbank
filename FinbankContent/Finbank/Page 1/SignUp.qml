@@ -15,12 +15,13 @@ Item {
         onStatusChanged: {
             if (loader.status === Loader.Ready && loader.item) {
                 // Pass the variables to the loaded QML file
+
                 loader.item.username = username;
                 loader.item.email = email;
                 loader.item.password = password;
                 loader.item.firstNamegoogle = firstNamegoogle;
                 loader.item.lastNamegoogle = lastNamegoogle;
-                loader.item.googleRegister = googleRegister
+                loader.item.googleRegister = googleRegister;
             }
         }
     }
@@ -29,6 +30,7 @@ Item {
     property string username: ""
     property string email: ""
     property string password: ""
+    property string usernameGoogle: ""
     property string firstNamegoogle: ""
     property string lastNamegoogle: ""
     property bool googleRegister: false
@@ -42,16 +44,6 @@ Item {
                 username = usernameField;
                 email = emailField;
                 password = passwordField;
-                if (googlegateway.userFirstName !== undefined) {
-                    firstNamegoogle = googlegateway.userFirstName; // Direct assignment to the email propertyco
-                } else {
-                    console.log("Error: googlegateway.userFirstName is undefined");
-                }
-                if (googlegateway.userLastName !== undefined) {
-                    lastNamegoogle = googlegateway.userLastName; // Direct assignment to the email property
-                } else {
-                    console.log("Error: googlegateway.userFirstName is undefined");
-                }
                 // Load the new QML file
                 signUpWindow.visible = false
                 loader.source = "SignUp1.qml";
@@ -70,6 +62,7 @@ Item {
                 // Ensure that googlegateway.userName and googlegateway.email are not undefined
                 if (googlegateway.userName !== undefined) {
                     signUpWindow.usernameField = googlegateway.userName;
+                    console.log(signUpWindow.usernameField);
                 } else {
                     console.log("Error: googlegateway.userName is undefined");
                 }
@@ -79,6 +72,21 @@ Item {
                 } else {
                     console.log("Error: googlegateway.email is undefined");
                 }
+                if (googlegateway.userFirstName !== undefined) {
+                    firstNamegoogle = googlegateway.userFirstName; // Direct assignment to the email propertyco
+                } else {
+                    console.log("Error: googlegateway.userFirstName is undefined");
+                }
+                if (googlegateway.userLastName !== undefined) {
+                    lastNamegoogle = googlegateway.userLastName; // Direct assignment to the email property
+                } else {
+                    console.log("Error: googlegateway.userLastName is undefined");
+                }
+                signUpWindow.visible = false
+                username = signUpWindow.usernameField;
+                email = signUpWindow.emailField;
+                password = signUpWindow.passwordField;
+                loader.source = "SignUp1.qml";
 
             }
         }
