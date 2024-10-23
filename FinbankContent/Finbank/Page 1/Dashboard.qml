@@ -44,5 +44,11 @@ Item {
         firstName2: firstName
         expensePieValue: expenses  // Hardcoded for now, can be dynamically set
         incomePieValue: income
+
+        transactionButton.onClicked:
+        {
+            introwindow.visible = false;
+            loader.source = "Transactions.qml";
+        }
     }
 }

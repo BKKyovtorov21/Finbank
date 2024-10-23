@@ -22,6 +22,7 @@ Rectangle {
     property real expensesValue: 0.0
     property string debitcard: "7196 9672 6435 3383"
     property string firstName2: "Boyan"
+    property alias transactionButton: transactionButton
 
     Rectangle {
         id: solar_copy_linear
@@ -829,88 +830,144 @@ Rectangle {
         }
     }
 
-    Text {
-        id: overview
-        width: 76
+    Button {
+        id: overViewButton
+        width: 97
         height: 23
-        color: "#367c21"
         text: qsTr("Overview")
         anchors.left: parent.left
         anchors.top: parent.top
-        anchors.leftMargin: 801
+        anchors.leftMargin: 797
         anchors.topMargin: 147
         font.pixelSize: 18
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignTop
-        wrapMode: Text.NoWrap
         font.weight: Font.Normal
-    }
-    Text {
-        id: wallet
-        width: 53
-        height: 23
-        color: "#802f2f2f"
-        text: qsTr("Wallet")
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: 913
-        anchors.topMargin: 147
-        font.pixelSize: 18
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignTop
-        wrapMode: Text.NoWrap
-        font.weight: Font.Normal
-    }
 
-    Text {
-        id: transaction
+        background: Rectangle {
+            color: "transparent" // Transparent background without border
+            border.width: 0
+        }
+
+        contentItem: Text {
+            text: qsTr("Overview")
+            color: "#367c21" // Text color
+            anchors.centerIn: parent
+            font.pixelSize: 18
+            font.weight: Font.Normal
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignTop
+        }
+    }
+    Button {
+        id: cryptoButton
         width: 97
         height: 23
-        color: "#802f2f2f"
+        text: qsTr("Crypto")
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.leftMargin: 889
+        anchors.topMargin: 147
+        font.pixelSize: 18
+        font.weight: Font.Normal
+
+        background: Rectangle {
+            color: "transparent" // Transparent background without border
+            border.width: 0
+        }
+
+        contentItem: Text {
+            text: qsTr("Crypto")
+            color: "#802f2f2f" // Text color
+            anchors.centerIn: parent
+            font.pixelSize: 18
+            font.weight: Font.Normal
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignTop
+        }
+    }
+
+    Button {
+        id: transactionButton
+        width: 97
+        height: 23
         text: qsTr("Transaction")
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 992
         anchors.topMargin: 147
         font.pixelSize: 18
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignTop
-        wrapMode: Text.NoWrap
         font.weight: Font.Normal
+
+        background: Rectangle {
+            color: "transparent" // Transparent background without border
+            border.width: 0
+        }
+
+        contentItem: Text {
+            id: transactionText
+            text: qsTr("Transaction")
+            color: "#802f2f2f" // Text color
+            anchors.centerIn: parent
+            font.pixelSize: 18
+            font.weight: Font.Normal
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignTop
+        }
     }
 
-    Text {
-        id: trading
-        width: 65
+    Button {
+        id: tradingButton
+        width: 97
         height: 23
-        color: "#802f2f2f"
         text: qsTr("Trading")
         anchors.left: parent.left
         anchors.top: parent.top
-        anchors.leftMargin: 1109
+        anchors.leftMargin: 1083
         anchors.topMargin: 147
         font.pixelSize: 18
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignTop
-        wrapMode: Text.NoWrap
         font.weight: Font.Normal
+
+        background: Rectangle {
+            color: "transparent" // Transparent background without border
+            border.width: 0
+        }
+
+        contentItem: Text {
+            text: qsTr("Trading")
+            color: "#802f2f2f" // Text color
+            anchors.centerIn: parent
+            font.pixelSize: 18
+            font.weight: Font.Normal
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignTop
+        }
     }
 
-    Text {
-        id: settings
-        width: 66
+    Button {
+        id: settingsButton
+        width: 97
         height: 23
-        color: "#802f2f2f"
         text: qsTr("Settings")
         anchors.left: parent.left
         anchors.top: parent.top
-        anchors.leftMargin: 1194
+        anchors.leftMargin: 1167
         anchors.topMargin: 147
         font.pixelSize: 18
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignTop
-        wrapMode: Text.NoWrap
         font.weight: Font.Normal
+
+        background: Rectangle {
+            color: "transparent" // Transparent background without border
+            border.width: 0
+        }
+
+        contentItem: Text {
+            text: qsTr("Settings")
+            color: "#802f2f2f" // Text color
+            anchors.centerIn: parent
+            font.pixelSize: 18
+            font.weight: Font.Normal
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignTop
+        }
     }
 
     StackView {
@@ -1222,8 +1279,6 @@ D{i:46;uuid:"b390b24d-5340-56a4-a59e-1b30e0aca341"}D{i:47;uuid:"e56207d1-eb86-5f
 D{i:48;uuid:"ce0ebbe9-3bfe-5d42-a77f-77a743cc63cf"}D{i:49;uuid:"4a337095-2573-58f7-94e3-2ca797f7429d"}
 D{i:50;uuid:"17c0adde-7bf4-528d-864a-47cc9a153932"}D{i:51;uuid:"8a6d0efa-6374-546e-b15f-7530c1fffeaa"}
 D{i:52;uuid:"5b30c5a2-a38a-510c-a18d-eb53c9233002"}D{i:59;uuid:"db9450a9-8a8a-5f27-acb7-12e2edc9e720"}
-D{i:68;uuid:"c44b1eb9-a30e-5933-bd55-f1a0e075196b"}D{i:69;uuid:"aed6bee2-9b65-5ebf-9a01-a50c2e12899c"}
-D{i:70;uuid:"09e9454d-d337-50c7-a04a-acd01a038294"}
 }
 ##^##*/
 
