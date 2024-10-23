@@ -20,6 +20,8 @@ Rectangle {
     property real balanceValue: 0.0
     property real incomeValue: 0.0
     property real expensesValue: 0.0
+    property string debitcard: "7196 9672 6435 3383"
+    property string firstName2: "Boyan"
 
     Rectangle {
         id: solar_copy_linear
@@ -378,7 +380,7 @@ Rectangle {
         width: 388
         height: 44
         color: "#000000"
-        text: qsTr("Good morning, Boyan")
+        text: qsTr("Good morning, " + firstName)
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 28
@@ -1006,14 +1008,16 @@ Rectangle {
 
             Text {
                 id: element10
-                width: 174
+                text: debitcard
+
+                width: 198
                 height: 23
                 color: "#000000"
                 anchors.left: parent.left
                 anchors.top: parent.top
-                anchors.leftMargin: 16
+                anchors.leftMargin: 8
                 anchors.topMargin: 80
-                font.pixelSize: 16
+                font.pixelSize: 18
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignTop
                 wrapMode: Text.NoWrap
@@ -1218,8 +1222,8 @@ D{i:46;uuid:"b390b24d-5340-56a4-a59e-1b30e0aca341"}D{i:47;uuid:"e56207d1-eb86-5f
 D{i:48;uuid:"ce0ebbe9-3bfe-5d42-a77f-77a743cc63cf"}D{i:49;uuid:"4a337095-2573-58f7-94e3-2ca797f7429d"}
 D{i:50;uuid:"17c0adde-7bf4-528d-864a-47cc9a153932"}D{i:51;uuid:"8a6d0efa-6374-546e-b15f-7530c1fffeaa"}
 D{i:52;uuid:"5b30c5a2-a38a-510c-a18d-eb53c9233002"}D{i:59;uuid:"db9450a9-8a8a-5f27-acb7-12e2edc9e720"}
-D{i:69;uuid:"c44b1eb9-a30e-5933-bd55-f1a0e075196b"}D{i:70;uuid:"aed6bee2-9b65-5ebf-9a01-a50c2e12899c"}
-D{i:71;uuid:"09e9454d-d337-50c7-a04a-acd01a038294"}
+D{i:68;uuid:"c44b1eb9-a30e-5933-bd55-f1a0e075196b"}D{i:69;uuid:"aed6bee2-9b65-5ebf-9a01-a50c2e12899c"}
+D{i:70;uuid:"09e9454d-d337-50c7-a04a-acd01a038294"}
 }
 ##^##*/
 
