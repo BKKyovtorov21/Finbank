@@ -7,8 +7,8 @@
 #include "qqmlextensionplugin.h"
 
 Q_IMPORT_QML_PLUGIN(FinbankContentPlugin)
-Q_IMPORT_QML_PLUGIN(Generated_DesignSystemPlugin)
 Q_IMPORT_QML_PLUGIN(FinbankPlugin)
+Q_IMPORT_QML_PLUGIN(Generated_DesignSystemPlugin)
 
 const char mainQmlFile[] = "qrc:/qt/qml/FinbankContent/Finbank/Page 1/Intro.qml";
 

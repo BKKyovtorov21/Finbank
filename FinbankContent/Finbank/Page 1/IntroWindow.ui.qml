@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Studio.Components 1.0
 import QtQuick.Shapes 1.0
+import QtQuick.Timeline 1.0
 
 Rectangle {
     id: introWindow
@@ -830,6 +831,23 @@ Rectangle {
                 source: "../assets/logo1.png"
             }
         }
+    }
+
+    Timeline {
+        id: timeline
+        animations: [
+            TimelineAnimation {
+                id: timelineAnimation
+                running: true
+                loops: 1
+                duration: 1000
+                to: 1000
+                from: 0
+            }
+        ]
+        startFrame: 0
+        endFrame: 1000
+        enabled: true
     }
 }
 

@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Studio.Components 1.0
 import QtQuick.Shapes 1.0
+import QtQuick.Timeline 1.0
 
 Rectangle {
     id: transactions
@@ -952,11 +953,15 @@ Rectangle {
     }
 
     Rectangle {
-        id: rectangle_32
-        width: 250
+        id: rectangle_30
+        x: 1348
+        y: 686
+        width: 300
         height: 6
-        color: "#249226"
-        radius: 2
+        color: "#5c615c"
+        radius: 10
+        border.color: "#b2727272"
+        border.width: 1
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 674
@@ -964,14 +969,15 @@ Rectangle {
     }
 
     Rectangle {
-        id: rectangle_33
-        width: 85
+        id: rectangle_32
+        width: 10
         height: 6
-        color: "#d9d9d9"
-        radius: 1
+        visible: true
+        color: "#0d7b0e"
+        radius: 2
         anchors.left: parent.left
         anchors.top: parent.top
-        anchors.leftMargin: 918
+        anchors.leftMargin: 674
         anchors.topMargin: 343
     }
 
@@ -1678,6 +1684,51 @@ Rectangle {
         wrapMode: Text.Wrap
         font.weight: Font.Bold
     }
+
+    Timeline {
+        id: timeline
+        animations: [
+            TimelineAnimation {
+                id: timelineAnimation
+                running: true
+                loops: 1
+                duration: 1000
+                to: 1000
+                from: 0
+            }
+        ]
+        startFrame: 0
+        endFrame: 1000
+        enabled: true
+
+        KeyframeGroup {
+            target: rectangle_32
+            property: "width"
+            Keyframe {
+                value: 300
+                frame: 540
+            }
+
+            Keyframe {
+                value: 10
+                frame: 0
+            }
+        }
+    }
+
+    Rectangle {
+        id: rectangle_33
+        width: 0
+        height: 6
+        visible: true
+        color: "#074808"
+        radius: 2
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.leftMargin: 674
+        anchors.topMargin: 343
+    }
+
 }
 
 /*##^##
@@ -1716,8 +1767,8 @@ D{i:60;uuid:"feb4888e-3512-5d4b-a3c0-899694656f52"}D{i:61;uuid:"b315c888-8d9a-54
 D{i:62;uuid:"6bdc6c34-a234-5701-9983-9b47fb25e270"}D{i:63;uuid:"650ab467-d1ec-5687-b6de-c9cdd329259d"}
 D{i:64;uuid:"d6d6a8a4-802e-5dd1-8d40-81a350a915ea"}D{i:65;uuid:"af291c23-9671-5a6e-aba5-610eb817db8d"}
 D{i:66;uuid:"e96a2c7a-318d-528d-8fbc-912f420b45e2"}D{i:67;uuid:"55fca9fa-c41e-5ca5-80c3-76e0678b1c28"}
-D{i:68;uuid:"77004f69-0f62-53e1-9ef1-2be7248664f9"}D{i:69;uuid:"ea2466d5-4f95-595d-a2f0-9a6849088f48"}
-D{i:70;uuid:"2b52f587-f669-522d-a039-6c9b7c9aa49a"}D{i:71;uuid:"4a2e90ec-7c14-53b3-9dd9-d6ccfe9058d8"}
+D{i:68;uuid:"77004f69-0f62-53e1-9ef1-2be7248664f9"}D{i:69;uuid:"feab364e-6925-56cd-80a3-6cec314ddff6"}
+D{i:70;uuid:"ea2466d5-4f95-595d-a2f0-9a6849088f48"}D{i:71;uuid:"4a2e90ec-7c14-53b3-9dd9-d6ccfe9058d8"}
 D{i:72;uuid:"9fb82395-26c0-50d8-b4b0-a09ce53c0155"}D{i:73;uuid:"af4de4d8-e0b4-56d8-87e8-886ec6bfa4b7"}
 D{i:74;uuid:"217d2ab7-8f6e-58c9-ac31-77ea85ba05d9"}D{i:75;uuid:"c09ba328-d5ab-5e2f-a2bf-5a640b2f55ed"}
 D{i:76;uuid:"b48d7592-473a-5235-b4cf-ee7806c57f25"}D{i:77;uuid:"ff1118e4-af1e-545c-88e8-a6ecf0140e80"}
@@ -1745,7 +1796,7 @@ D{i:118;uuid:"d95e9ccc-571e-5c48-b964-dcede6f6f79f"}D{i:119;uuid:"7c3c515a-6410-
 D{i:120;uuid:"655ae3ed-dcf2-5d4b-a321-c60e3f67ac5f"}D{i:121;uuid:"155315b4-8bd0-5450-8708-3c4bd964ad83"}
 D{i:122;uuid:"639c9381-d21b-5ff1-b1f2-ea5507701d74"}D{i:123;uuid:"76e4139e-678b-5009-a481-6a6d21c584bf"}
 D{i:124;uuid:"65ee05ea-574f-5c53-b0b4-4eb7c0ed8b7a"}D{i:125;uuid:"49a9537e-23af-5610-8da1-8d677fef1c69"}
-D{i:126;uuid:"894b565b-9759-5cfd-9b6d-87d50fc0bfe6"}
+D{i:126;uuid:"894b565b-9759-5cfd-9b6d-87d50fc0bfe6"}D{i:132;uuid:"ea2466d5-4f95-595d-a2f0-9a6849088f48"}
 }
 ##^##*/
 

@@ -20,6 +20,8 @@
 /Qt_6_7_1_for_iOS_Simulator-Release
 /Qt_6_7_1_for_iOS_Simulator-Profile
 
+*.qtds
+
 # Qt-es
 object_script.*.Release
 object_script.*.Debug

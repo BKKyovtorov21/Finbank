@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Studio.Components 1.0
 import QtQuick.Shapes 1.0
 import QtCharts
+import QtQuick.Timeline 1.0
 
 Rectangle {
     id: dashboard
@@ -17,9 +18,9 @@ Rectangle {
     property alias incomePieValue: incomePie.value
     property alias expensePieValue: expensesPie.value
     property alias element10: element10.text
-    property real balanceValue: 0.0
-    property real incomeValue: 0.0
-    property real expensesValue: 0.0
+    property real balanceValue: 5000.0
+    property real incomeValue: 3000.0
+    property real expensesValue: 2000.0
     property string debitcard: "7196 9672 6435 3383"
     property string firstName2: "Boyan"
     property alias transactionButton: transactionButton
@@ -565,11 +566,12 @@ Rectangle {
             font.weight: Font.Medium
         }
         Text {
+            property real incomeValue: incomeValue
             id: income
             width: 174
             height: 40
             color: "#000000"
-            text: "$" + incomeValue.toFixed(2)
+            text: incomeValue.toFixed(2)
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 14
@@ -579,6 +581,13 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
+            SequentialAnimation on incomeValue {
+                NumberAnimation {
+                    from: 0.0
+                    to: incomeValue
+                    duration: 2000
+                }
+            }
         }
     }
 
@@ -736,7 +745,8 @@ Rectangle {
         }
 
         Text {
-            id: income1
+            property real expensesValue: expensesValue
+            id: expenses
             width: 174
             height: 40
             color: "#000000"
@@ -750,6 +760,14 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
+
+            SequentialAnimation on expensesValue {
+                NumberAnimation {
+                    from: 0.0
+                    to: expensesValue
+                    duration: 2000
+                }
+            }
         }
     }
 
@@ -772,19 +790,45 @@ Rectangle {
             y: 8
             width: 295
             height: 350
+
             PieSeries {
                 name: "PieSeries"
+
                 PieSlice {
                     id: incomePie
-                    value: 13.5
+                    value: 0 // Start at 0 to animate "filling"
                     label: "Income"
                 }
 
                 PieSlice {
                     id: expensesPie
-                    value: 10.9
+                    value: 0 // Start at 0 to animate "filling"
                     label: "Expenses"
                 }
+            }
+        }
+
+        // Sequential animation for "filling" effect
+        SequentialAnimation {
+            running: true // Start automatically
+            loops: 1 // Run once
+
+            NumberAnimation {
+                target: incomePie
+                property: "value"
+                from: 0
+                to: 13.5 // Final value for "Income" slice
+                duration: 1500 // Duration in milliseconds
+                easing.type: Easing.InOutQuad
+            }
+
+            NumberAnimation {
+                target: expensesPie
+                property: "value"
+                from: 0
+                to: 10.9 // Final value for "Expenses" slice
+                duration: 1500 // Duration in milliseconds
+                easing.type: Easing.InOutQuad
             }
         }
     }
@@ -1013,11 +1057,12 @@ Rectangle {
             }
 
             Text {
+                property real balanceValue: balanceValue
                 id: balanceText
                 width: 179
                 height: 40
                 color: "#000000"
-                text: "$" + balanceValue.toFixed(2)
+                text: balanceValue.toFixed(2)
                 anchors.left: parent.left
                 anchors.top: parent.top
                 anchors.leftMargin: 27
@@ -1027,6 +1072,14 @@ Rectangle {
                 verticalAlignment: Text.AlignTop
                 wrapMode: Text.NoWrap
                 font.weight: Font.Normal
+
+                SequentialAnimation on balanceValue {
+                    NumberAnimation {
+                        from: 0.0
+                        to: balanceValue
+                        duration: 2000
+                    }
+                }
             }
 
             Text {
@@ -1085,7 +1138,7 @@ Rectangle {
                 id: copyButton
                 x: 211
                 y: 82
-                width: 50
+                width: 19
                 height: 18
                 background: Rectangle {
                     id: rectangle_27
@@ -1107,7 +1160,7 @@ Rectangle {
                     text: qsTr("Copy")
                     anchors.left: parent.left
                     anchors.top: parent.top
-                    anchors.leftMargin: 18
+                    anchors.leftMargin: 56
                     anchors.topMargin: 3
                     font.pixelSize: 10
                     horizontalAlignment: Text.AlignHCenter
@@ -1237,24 +1290,75 @@ Rectangle {
 
         PieSeries {
             name: "PieSeries"
+
             PieSlice {
                 id: stocksPie
-                value: 13.5
+                value: 0 // Start at 0 to animate "filling"
                 label: "Stocks"
             }
 
             PieSlice {
                 id: cryptoPie
-                value: 10.9
+                value: 0 // Start at 0 to animate "filling"
                 label: "Crypto"
             }
 
             PieSlice {
                 id: transferPie
-                value: 8.6
+                value: 0 // Start at 0 to animate "filling"
                 label: "Transfers"
             }
         }
+    }
+
+    // Sequential animation for "filling" effect
+    SequentialAnimation {
+        running: true // Start automatically
+        loops: 1 // Run once
+
+        NumberAnimation {
+            target: stocksPie
+            property: "value"
+            from: 0
+            to: 13.5 // Final value for "Stocks" slice
+            duration: 1500 // Duration in milliseconds
+            easing.type: Easing.InOutQuad
+        }
+
+        NumberAnimation {
+            target: cryptoPie
+            property: "value"
+            from: 0
+            to: 10.9 // Final value for "Crypto" slice
+            duration: 1500 // Duration in milliseconds
+            easing.type: Easing.InOutQuad
+        }
+
+        NumberAnimation {
+            target: transferPie
+            property: "value"
+            from: 0
+            to: 8.6 // Final value for "Transfers" slice
+            duration: 1500 // Duration in milliseconds
+            easing.type: Easing.InOutQuad
+        }
+    }
+
+    Timeline {
+        id: timeline
+        animations: [
+            TimelineAnimation {
+                id: timelineAnimation
+                running: true
+                loops: 1
+                duration: 1000
+                to: 1000
+                from: 0
+            }
+        ]
+        startFrame: 0
+        endFrame: 1000
+        enabled: true
     }
 }
 
@@ -1273,12 +1377,13 @@ D{i:27;uuid:"d55f1503-4a5d-5ee8-978f-ae023f87db01"}D{i:28;uuid:"4acdecf3-6519-51
 D{i:29;uuid:"50ea1538-dd22-51b3-b302-ff08c4009209"}D{i:30;uuid:"b23313f9-490f-5be4-9613-3ec66f8acdd1"}
 D{i:31;uuid:"c3eec844-4b96-5546-b6e6-4486f46c0506"}D{i:32;uuid:"81b95f9d-bdd2-54e6-9c06-cbacbc1294e2"}
 D{i:40;uuid:"20acb00c-6774-5ba8-b68d-96e0e399cbec"}D{i:41;uuid:"3958941f-3362-5869-8bd8-9180bb56c776"}
-D{i:42;uuid:"b55343a4-816c-5987-9eca-1ebe55c6a9f8"}D{i:43;uuid:"947eff45-21d8-50d6-a69e-451914eacb57"}
-D{i:44;uuid:"795a821d-ceaf-5fb2-9f89-edde21fcfafe"}D{i:45;uuid:"53290d08-08a0-518e-ae97-e245eb678e78"}
-D{i:46;uuid:"b390b24d-5340-56a4-a59e-1b30e0aca341"}D{i:47;uuid:"e56207d1-eb86-5f1f-a84b-f020504a4a68"}
-D{i:48;uuid:"ce0ebbe9-3bfe-5d42-a77f-77a743cc63cf"}D{i:49;uuid:"4a337095-2573-58f7-94e3-2ca797f7429d"}
-D{i:50;uuid:"17c0adde-7bf4-528d-864a-47cc9a153932"}D{i:51;uuid:"8a6d0efa-6374-546e-b15f-7530c1fffeaa"}
-D{i:52;uuid:"5b30c5a2-a38a-510c-a18d-eb53c9233002"}D{i:59;uuid:"db9450a9-8a8a-5f27-acb7-12e2edc9e720"}
+D{i:44;uuid:"b55343a4-816c-5987-9eca-1ebe55c6a9f8"}D{i:45;uuid:"947eff45-21d8-50d6-a69e-451914eacb57"}
+D{i:46;uuid:"795a821d-ceaf-5fb2-9f89-edde21fcfafe"}D{i:47;uuid:"53290d08-08a0-518e-ae97-e245eb678e78"}
+D{i:48;uuid:"b390b24d-5340-56a4-a59e-1b30e0aca341"}D{i:49;uuid:"e56207d1-eb86-5f1f-a84b-f020504a4a68"}
+D{i:50;uuid:"ce0ebbe9-3bfe-5d42-a77f-77a743cc63cf"}D{i:51;uuid:"4a337095-2573-58f7-94e3-2ca797f7429d"}
+D{i:52;uuid:"17c0adde-7bf4-528d-864a-47cc9a153932"}D{i:53;uuid:"8a6d0efa-6374-546e-b15f-7530c1fffeaa"}
+D{i:54;uuid:"5b30c5a2-a38a-510c-a18d-eb53c9233002"}D{i:66;uuid:"db9450a9-8a8a-5f27-acb7-12e2edc9e720"}
+D{i:92}D{i:100}
 }
 ##^##*/
 
