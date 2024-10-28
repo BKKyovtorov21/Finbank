@@ -1,4 +1,6 @@
 #include "googlegateway.hpp"
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
 
 GoogleGateway::GoogleGateway(QObject *parent) : QObject(parent)
 {
@@ -9,7 +11,7 @@ GoogleGateway::GoogleGateway(QObject *parent) : QObject(parent)
 
     connect(this->google, &QOAuth2AuthorizationCodeFlow::authorizeWithBrowser, [=](QUrl url) {
         QUrlQuery query(url);
-        query.addQueryItem("prompt", "consent");      // Param required to get data everytime
+        query.addQueryItem("prompt", "consent");      // Param required to get data every time
         query.addQueryItem("access_type", "offline"); // Needed for Refresh Token (as AccessToken expires shortly)
         url.setQuery(query);
         QDesktopServices::openUrl(url);
@@ -25,10 +27,12 @@ GoogleGateway::GoogleGateway(QObject *parent) : QObject(parent)
     this->google->setReplyHandler(replyHandler);
 
     connect(this->google, &QOAuth2AuthorizationCodeFlow::granted, [=]() {
-
-        // Fetching user info from OpenID Connect endpoint
+        // Using QNetworkAccessManager instead of deprecated get method
+        QNetworkAccessManager *networkManager = new QNetworkAccessManager(this);
         QUrl userInfoUrl("https://www.googleapis.com/oauth2/v3/userinfo");
-        auto reply = this->google->get(userInfoUrl);
+        QNetworkRequest request(userInfoUrl);
+
+        auto reply = networkManager->get(request);
 
         connect(reply, &QNetworkReply::finished, [reply, this]() {
             if (reply->error() == QNetworkReply::NoError) {

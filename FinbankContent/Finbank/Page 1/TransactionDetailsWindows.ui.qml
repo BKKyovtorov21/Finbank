@@ -8,35 +8,6 @@ Rectangle {
     width: 534
     height: 815
     color: "#e1e1e1"
-    property alias attachmentText: attachment.text
-    property alias amount_sendText: amount_send.text
-    property alias completed_onText: completed_on.text
-    property alias transactions_DetailsText: transactions_Details.text
-    property alias todor_AtanasovText: todor_Atanasov.text
-    property alias uSDText: uSD.text
-    property alias add_a_few_notes_to_help_you_laterText: add_a_few_notes_to_help_you_later.text
-    property alias compared_to_last_monthText: compared_to_last_month.text
-    property alias bGNText: bGN.text
-    property alias noteText: note.text
-    property alias click_to_upload_or_drag_and_dropText: click_to_upload_or_drag_and_drop.text
-    property alias request_moneyText: request_money.text
-    property alias bGN_500_00Text: bGN_500_00.text
-    property alias recipentText: recipent.text
-    property alias aug_28_2024_2_40PMText: aug_28_2024_2_40PM.text
-    property alias copyText: copy.text
-    property alias element1Text: element1.text
-    property alias element7Text: element7.text
-    property alias activity_DetailsText: activity_Details.text
-    property alias element2Text: element2.text
-    property alias send_moneyText: send_money.text
-    property alias sentText: sent.text
-    property alias bGN1Text: bGN1.text
-    property alias transaction_NumberText: transaction_Number.text
-    property alias transaction_DateText: transaction_Date.text
-    property alias aug_28_2024_3_40PMText: aug_28_2024_3_40PM.text
-    property alias our_feeText: our_fee.text
-    property alias sending_money_to_Todor_AtanasovText: sending_money_to_Todor_Atanasov.text
-    property alias my_balanceText: my_balance.text
 
     Rectangle {
         id: solar_copy_linear

@@ -22,7 +22,6 @@ Item {
 
     Component.onCompleted: {
         if (username !== "") {
-            // Fetching variables from the backend and assigning to properties
             balance = dashboard.getDbVariable(username, "balance");
             income = dashboard.getDbVariable(username, "income");
             expenses = dashboard.getDbVariable(username, "expenses");
@@ -48,7 +47,7 @@ Item {
         transactionButton.onClicked:
         {
             introwindow.visible = false;
-            loader.source = "Transactions.qml";
+            loader.setSource("Transactions.qml", { "username": username });
         }
     }
 }

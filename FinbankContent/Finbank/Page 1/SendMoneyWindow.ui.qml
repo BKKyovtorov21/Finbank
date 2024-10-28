@@ -4,45 +4,19 @@ import QtQuick.Studio.Components 1.0
 import QtQuick.Shapes 1.0
 
 Rectangle {
+    property real moneySending: 0.00
+    property alias sendingValue: sendingValue.text
+    property alias moneySending_TF: moneySending_TF.text
+    property alias recipentReceiving: recipentReceiving.text
+    property alias currencySending: currencySending.text
+    property alias currencyReceiving: currencyReceiving.text
+    property alias conversionRate: conversionRate.text
+    property alias sendingCurrencyButton: sendingCurrencyButton
+    property alias receivingCurrencyButton: receivingCurrencyButton
     id: transactions_Send_money
     width: 1280
     height: 832
     color: "#ffffff"
-    property alias select_RecipentText: select_Recipent.text
-    property alias uSD1Text: uSD1.text
-    property alias backText: back.text
-    property alias amountText: amount.text
-    property alias kiovtorovText: kiovtorov.text
-    property alias chatText: chat.text
-    property alias element15Text: element15.text
-    property alias element13Text: element13.text
-    property alias uSDText: uSD.text
-    property alias compared_to_last_monthText: compared_to_last_month.text
-    property alias searchText: search.text
-    property alias element8Text: element8.text
-    property alias request_moneyText: request_money.text
-    property alias boyan_KiovtorovText: boyan_Kiovtorov.text
-    property alias element12Text: element12.text
-    property alias you_will_sendText: you_will_send.text
-    property alias recipent_will_getText: recipent_will_get.text
-    property alias personal_accountText: personal_account.text
-    property alias you_will_payText: you_will_pay.text
-    property alias copyText: copy.text
-    property alias internationalText: international.text
-    property alias total_will_be_convertedText: total_will_be_converted.text
-    property alias element14Text: element14.text
-    property alias send_moneyText: send_money.text
-    property alias transactionsText: transactions.text
-    property alias uSD2Text: uSD2.text
-    property alias uSD4Text: uSD4.text
-    property alias finbank_feesText: finbank_fees.text
-    property alias overviewText: overview.text
-    property alias uSD3Text: uSD3.text
-    property alias how_much_do_you_want_to_send_Text: how_much_do_you_want_to_send_.text
-    property alias my_balanceText: my_balance.text
-    property alias same_currencyText: same_currency.text
-    property alias guaranteed_rate_12h_Text: guaranteed_rate_12h_.text
-    property alias element9Text: element9.text
 
     Rectangle {
         id: rectangle_37
@@ -154,7 +128,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
-            font.family: "Gelasio"
         }
 
         SvgPathItem {
@@ -209,7 +182,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
-            font.family: "Gelasio"
         }
     }
 
@@ -282,7 +254,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Normal
-            font.family: "Gelasio"
         }
     }
 
@@ -360,7 +331,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
-            font.family: "Gelasio"
         }
     }
 
@@ -392,7 +362,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
-            font.family: "Gelasio"
         }
 
         Text {
@@ -410,7 +379,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
-            font.family: "Gelasio"
         }
 
         SvgPathItem {
@@ -466,7 +434,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Normal
-            font.family: "Gelasio"
         }
 
         Image {
@@ -511,7 +478,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Normal
-            font.family: "Gelasio"
         }
 
         Text {
@@ -565,7 +531,6 @@ Rectangle {
                 verticalAlignment: Text.AlignTop
                 wrapMode: Text.Wrap
                 font.weight: Font.Normal
-                font.family: "Gelasio"
             }
 
             Item {
@@ -639,7 +604,6 @@ Rectangle {
                 verticalAlignment: Text.AlignTop
                 wrapMode: Text.NoWrap
                 font.weight: Font.Medium
-                font.family: "Gelasio"
             }
         }
 
@@ -676,7 +640,6 @@ Rectangle {
                 verticalAlignment: Text.AlignTop
                 wrapMode: Text.NoWrap
                 font.weight: Font.Medium
-                font.family: "Gelasio"
             }
         }
     }
@@ -696,7 +659,6 @@ Rectangle {
         verticalAlignment: Text.AlignTop
         wrapMode: Text.NoWrap
         font.weight: Font.Bold
-        font.family: "Gelasio"
     }
 
     Rectangle {
@@ -726,7 +688,6 @@ Rectangle {
         verticalAlignment: Text.AlignTop
         wrapMode: Text.NoWrap
         font.weight: Font.DemiBold
-        font.family: "Gelasio"
     }
 
     Rectangle {
@@ -755,7 +716,6 @@ Rectangle {
         verticalAlignment: Text.AlignTop
         wrapMode: Text.NoWrap
         font.weight: Font.DemiBold
-        font.family: "Gelasio"
     }
 
     Text {
@@ -773,7 +733,6 @@ Rectangle {
         verticalAlignment: Text.AlignTop
         wrapMode: Text.NoWrap
         font.weight: Font.Medium
-        font.family: "Gelasio"
     }
 
     Item {
@@ -792,24 +751,35 @@ Rectangle {
             border.width: 1
             anchors.left: parent.left
             anchors.top: parent.top
+
+            Button {
+                id: sendingCurrencyButton
+                x: 541
+                y: 0
+                width: 111
+                height: 48
+                opacity: 0
+            }
         }
 
-        Text {
-            id: element12
-            width: 82
-            height: 26
+        TextField {
+            id: moneySending_TF
+            width: 522
+            height: 36
             color: "#000000"
-            text: qsTr("1000.00")
+            placeholderText: qsTr("1000.00")
             anchors.left: parent.left
             anchors.top: parent.top
-            anchors.leftMargin: 18
-            anchors.topMargin: 11
+            anchors.leftMargin: 11
+            anchors.topMargin: 4
             font.pixelSize: 20
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignTop
-            wrapMode: Text.Wrap
             font.weight: Font.Medium
-            font.family: "Gelasio"
+            background: Rectangle {
+                // Customize background if needed
+                color: "transparent"
+            }
         }
 
         SvgPathItem {
@@ -831,7 +801,7 @@ Rectangle {
         }
 
         Text {
-            id: uSD
+            id: currencySending
             width: 40
             height: 23
             color: "#000000"
@@ -845,16 +815,18 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Medium
-            font.family: "Gelasio"
         }
 
         Image {
             id: image_2
+            width: 30
+            height: 30
+
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 547
             anchors.topMargin: 8
-            source: "../assets/image_2_1.png"
+            source: "../assets/usd.png"
         }
     }
 
@@ -873,7 +845,6 @@ Rectangle {
         verticalAlignment: Text.AlignTop
         wrapMode: Text.NoWrap
         font.weight: Font.Medium
-        font.family: "Gelasio"
     }
 
     Item {
@@ -892,24 +863,33 @@ Rectangle {
             border.width: 1
             anchors.left: parent.left
             anchors.top: parent.top
+
+            Button {
+                id: receivingCurrencyButton
+                x: 544
+                y: 4
+                opacity: 0
+            }
         }
 
-        Text {
-            id: element13
-            width: 82
-            height: 26
+        TextField {
+            id: recipentReceiving
+            width: 533
+            height: 36
             color: "#000000"
-            text: qsTr("1364.83")
             anchors.left: parent.left
             anchors.top: parent.top
-            anchors.leftMargin: 18
-            anchors.topMargin: 11
+            anchors.leftMargin: 8
+            anchors.topMargin: 8
             font.pixelSize: 20
-            horizontalAlignment: Text.AlignHCenter
+            readOnly: true
+            horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignTop
-            wrapMode: Text.Wrap
             font.weight: Font.Medium
-            font.family: "Gelasio"
+            background: Rectangle {
+                // Customize background if needed
+                color: "transparent"
+            }
         }
 
         SvgPathItem {
@@ -931,11 +911,11 @@ Rectangle {
         }
 
         Text {
-            id: uSD1
+            id: currencyReceiving
             width: 40
             height: 23
             color: "#000000"
-            text: qsTr("USD")
+            text: qsTr("CAD")
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 586
@@ -945,16 +925,17 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Medium
-            font.family: "Gelasio"
         }
 
         Image {
             id: image1
+            width: 30
+            height: 30
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 547
             anchors.topMargin: 8
-            source: "../assets/image1.png"
+            source: "../assets/cad.png"
         }
     }
 
@@ -973,11 +954,10 @@ Rectangle {
     }
 
     Text {
-        id: element14
+        id: conversionRate
         width: 95
         height: 25
         color: "#000000"
-        text: qsTr("1.3823901")
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 896
@@ -987,7 +967,6 @@ Rectangle {
         verticalAlignment: Text.AlignTop
         wrapMode: Text.NoWrap
         font.weight: Font.Medium
-        font.family: "Gelasio"
     }
 
     Text {
@@ -1005,7 +984,6 @@ Rectangle {
         verticalAlignment: Text.AlignTop
         wrapMode: Text.NoWrap
         font.weight: Font.Medium
-        font.family: "Gelasio"
     }
 
     Text {
@@ -1023,7 +1001,6 @@ Rectangle {
         verticalAlignment: Text.AlignTop
         wrapMode: Text.NoWrap
         font.weight: Font.Medium
-        font.family: "Gelasio"
     }
 
     Text {
@@ -1041,7 +1018,6 @@ Rectangle {
         verticalAlignment: Text.AlignTop
         wrapMode: Text.NoWrap
         font.weight: Font.Medium
-        font.family: "Gelasio"
     }
 
     Item {
@@ -1051,20 +1027,19 @@ Rectangle {
         width: 620
         height: 32
         Text {
-            id: uSD3
-            width: 150
+            id: sendingValue
+            width: 138
             height: 32
             color: "#000000"
-            text: qsTr("$ 1005 USD")
             anchors.left: parent.left
             anchors.top: parent.top
-            anchors.leftMargin: 471
+            anchors.leftMargin: 496
+            anchors.topMargin: 0
             font.pixelSize: 25
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Bold
-            font.family: "Gelasio"
         }
 
         Text {
@@ -1080,7 +1055,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Medium
-            font.family: "Gelasio"
         }
     }
 
@@ -1104,7 +1078,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Medium
-            font.family: "Gelasio"
         }
 
         Text {
@@ -1120,7 +1093,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Medium
-            font.family: "Gelasio"
         }
     }
 
@@ -1173,7 +1145,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Medium
-            font.family: "Gelasio"
         }
 
         Item {
@@ -1257,7 +1228,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Medium
-            font.family: "Gelasio"
         }
     }
 
@@ -1295,7 +1265,6 @@ Rectangle {
         verticalAlignment: Text.AlignTop
         wrapMode: Text.NoWrap
         font.weight: Font.Medium
-        font.family: "Gelasio"
     }
 
     SvgPathItem {
@@ -1330,7 +1299,6 @@ Rectangle {
         verticalAlignment: Text.AlignTop
         wrapMode: Text.NoWrap
         font.weight: Font.Bold
-        font.family: "Gelasio"
     }
 
     SvgPathItem {
@@ -1365,7 +1333,6 @@ Rectangle {
         verticalAlignment: Text.AlignTop
         wrapMode: Text.NoWrap
         font.weight: Font.Bold
-        font.family: "Gelasio"
     }
 }
 
@@ -1399,26 +1366,25 @@ D{i:48;uuid:"d01f0d0f-54e3-52d7-85f4-b48969166710"}D{i:49;uuid:"09a8f056-ef2f-58
 D{i:50;uuid:"9accedab-a86d-58aa-9dfe-882f67d54440"}D{i:51;uuid:"f7d15ecf-312d-5d64-a793-28ff92bbee3f"}
 D{i:52;uuid:"9ed8f816-7e76-5a80-94c7-d624fc3abf35"}D{i:53;uuid:"2929f021-41bd-50f6-b96c-c2fb0a6f612d"}
 D{i:54;uuid:"0d1c7aae-0095-5820-8558-69102353f502"}D{i:55;uuid:"f7c8a4ee-b2e6-5897-b1c0-885494baa86d"}
-D{i:56;uuid:"a20927e2-0210-5c3f-97ef-8d70adb18296"}D{i:57;uuid:"780b8a8d-0d26-54ba-a970-bb93111c0e25"}
-D{i:58;uuid:"a4949276-b9d1-5390-9200-71594a74a0f9"}D{i:59;uuid:"9af88c83-d540-5af7-af8a-3ca80ddb8de9"}
-D{i:60;uuid:"06d367c7-77b3-5359-af90-4c23276adc77"}D{i:61;uuid:"a1f3f8d2-518c-5309-b525-b14551e95655"}
-D{i:62;uuid:"25d38c18-88fa-5e5f-aa9d-138df2179b99"}D{i:63;uuid:"a39577b9-d4d7-5ef2-9a71-09b3857648a0"}
-D{i:64;uuid:"dfe98943-3353-58b6-bf54-e3dc41e1d1f4"}D{i:65;uuid:"4079f0d1-511d-5312-b91b-98b263f78339"}
-D{i:66;uuid:"7ade5d94-5609-5570-b983-548435d25953"}D{i:67;uuid:"0767a455-8cdf-5762-b1b0-c6c7776011f2"}
-D{i:68;uuid:"d149afff-2d86-5d8b-9f1a-b34e31f30a0b"}D{i:69;uuid:"8ccb74a2-03c3-5ed5-80eb-0b0592a0600c"}
-D{i:70;uuid:"74bce3c0-58e1-57a5-8cd0-5076d99a1eca"}D{i:71;uuid:"e201cbe4-06df-5f6b-adfd-3531895a71ab"}
-D{i:72;uuid:"d31f3365-4ffe-5400-be3f-c20ac0953425"}D{i:73;uuid:"338c9d19-8766-5e15-ad48-3c949986b1d7"}
-D{i:74;uuid:"c6ac70e3-29f3-5823-bb70-ef8f96fbb40c"}D{i:75;uuid:"8c5367f2-df4b-5752-8839-4ab05d399471"}
-D{i:76;uuid:"164cf006-03c3-5656-ac5c-75688f64bddd"}D{i:77;uuid:"584353ed-2b2c-5155-a915-ca2cb1b36f04"}
-D{i:78;uuid:"383099f2-19d9-51fb-9d72-a93eeeb09e36"}D{i:79;uuid:"c1a3940a-2bb3-589d-8b82-ae1c4eeb2493"}
-D{i:80;uuid:"c670b45e-d207-5c95-8e79-0f8fdad2b991"}D{i:81;uuid:"001d1dbf-25cc-574c-8c71-c5266c3b5386"}
-D{i:82;uuid:"03539acd-0abc-5799-8f0f-5a8c72982593"}D{i:83;uuid:"0fa8ac20-2347-5f5b-80fc-8a914d68071d"}
-D{i:84;uuid:"37d71e59-ba21-503d-a25b-0d869cac9b7a"}D{i:85;uuid:"c664e8e2-37e0-57b8-933a-62d3d1ff896e"}
-D{i:86;uuid:"80c280da-354e-57b2-bf62-a704cb8b3a5e"}D{i:87;uuid:"1133d749-50c3-5a01-8c9d-8d5755a3144f"}
-D{i:88;uuid:"2a5d7f69-7525-527d-b0c8-c8f23e2c832d"}D{i:89;uuid:"35eb9c6b-3640-5b3f-9fae-33414dfdaab0"}
-D{i:90;uuid:"c6d35ba3-1c67-544b-a2be-46dc7da8ca49"}D{i:91;uuid:"5afa5fd1-b43f-5c05-8005-d030142d20c6"}
-D{i:92;uuid:"63fd0a73-30bb-5db9-aef5-8deee351b19b"}D{i:93;uuid:"61ab5e80-fc15-5573-8f22-a05328c94254"}
-D{i:94;uuid:"dc418a0a-8ccf-5e76-a2f4-10114e96ba4c"}
+D{i:56;uuid:"a20927e2-0210-5c3f-97ef-8d70adb18296"}D{i:60;uuid:"a4949276-b9d1-5390-9200-71594a74a0f9"}
+D{i:61;uuid:"9af88c83-d540-5af7-af8a-3ca80ddb8de9"}D{i:62;uuid:"06d367c7-77b3-5359-af90-4c23276adc77"}
+D{i:63;uuid:"a1f3f8d2-518c-5309-b525-b14551e95655"}D{i:64;uuid:"25d38c18-88fa-5e5f-aa9d-138df2179b99"}
+D{i:65;uuid:"a39577b9-d4d7-5ef2-9a71-09b3857648a0"}D{i:69;uuid:"4079f0d1-511d-5312-b91b-98b263f78339"}
+D{i:70;uuid:"7ade5d94-5609-5570-b983-548435d25953"}D{i:71;uuid:"0767a455-8cdf-5762-b1b0-c6c7776011f2"}
+D{i:72;uuid:"d149afff-2d86-5d8b-9f1a-b34e31f30a0b"}D{i:73;uuid:"8ccb74a2-03c3-5ed5-80eb-0b0592a0600c"}
+D{i:74;uuid:"74bce3c0-58e1-57a5-8cd0-5076d99a1eca"}D{i:75;uuid:"e201cbe4-06df-5f6b-adfd-3531895a71ab"}
+D{i:76;uuid:"d31f3365-4ffe-5400-be3f-c20ac0953425"}D{i:77;uuid:"338c9d19-8766-5e15-ad48-3c949986b1d7"}
+D{i:78;uuid:"c6ac70e3-29f3-5823-bb70-ef8f96fbb40c"}D{i:79;uuid:"8c5367f2-df4b-5752-8839-4ab05d399471"}
+D{i:80;uuid:"164cf006-03c3-5656-ac5c-75688f64bddd"}D{i:81;uuid:"584353ed-2b2c-5155-a915-ca2cb1b36f04"}
+D{i:82;uuid:"383099f2-19d9-51fb-9d72-a93eeeb09e36"}D{i:83;uuid:"c1a3940a-2bb3-589d-8b82-ae1c4eeb2493"}
+D{i:84;uuid:"c670b45e-d207-5c95-8e79-0f8fdad2b991"}D{i:85;uuid:"001d1dbf-25cc-574c-8c71-c5266c3b5386"}
+D{i:86;uuid:"03539acd-0abc-5799-8f0f-5a8c72982593"}D{i:87;uuid:"0fa8ac20-2347-5f5b-80fc-8a914d68071d"}
+D{i:88;uuid:"37d71e59-ba21-503d-a25b-0d869cac9b7a"}D{i:89;uuid:"c664e8e2-37e0-57b8-933a-62d3d1ff896e"}
+D{i:90;uuid:"80c280da-354e-57b2-bf62-a704cb8b3a5e"}D{i:91;uuid:"1133d749-50c3-5a01-8c9d-8d5755a3144f"}
+D{i:92;uuid:"2a5d7f69-7525-527d-b0c8-c8f23e2c832d"}D{i:93;uuid:"35eb9c6b-3640-5b3f-9fae-33414dfdaab0"}
+D{i:94;uuid:"c6d35ba3-1c67-544b-a2be-46dc7da8ca49"}D{i:95;uuid:"5afa5fd1-b43f-5c05-8005-d030142d20c6"}
+D{i:96;uuid:"63fd0a73-30bb-5db9-aef5-8deee351b19b"}D{i:97;uuid:"61ab5e80-fc15-5573-8f22-a05328c94254"}
+D{i:98;uuid:"dc418a0a-8ccf-5e76-a2f4-10114e96ba4c"}
 }
 ##^##*/
 
