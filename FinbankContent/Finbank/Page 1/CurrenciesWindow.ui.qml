@@ -3,10 +3,12 @@ import QtQuick.Controls
 
 Rectangle {
     id: currencies
-    width: 441
-    height: 231
+    width: 247
+    height: 450
+
     color: "#ffffff"
     radius: 30
+    border.width: 1
 
     property alias usdButton: usdButton
     property alias cadButton: cadButton
@@ -51,7 +53,7 @@ Rectangle {
 
     Item {
         id: group_28
-        x: 128
+        x: 151
         y: 15
         width: 63
         height: 79
@@ -83,8 +85,8 @@ Rectangle {
 
     Item {
         id: group_29
-        x: 242
-        y: 15
+        x: 151
+        y: 351
         width: 63
         height: 79
         Image {
@@ -115,8 +117,8 @@ Rectangle {
 
     Item {
         id: group_30
-        x: 356
-        y: 15
+        x: 151
+        y: 237
         width: 63
         height: 82
         Image {
@@ -179,7 +181,7 @@ Rectangle {
 
     Item {
         id: group_32
-        x: 128
+        x: 151
         y: 124
         width: 63
         height: 79
@@ -211,8 +213,8 @@ Rectangle {
 
     Item {
         id: group_33
-        x: 242
-        y: 124
+        x: 10
+        y: 348
         width: 63
         height: 82
         Image {
@@ -243,8 +245,8 @@ Rectangle {
 
     Item {
         id: group_34
-        x: 356
-        y: 124
+        x: 14
+        y: 237
         width: 63
         height: 82
         Image {
@@ -284,7 +286,7 @@ Rectangle {
 
     Button {
         id: cadButton
-        x: 122
+        x: 142
         y: 8
         width: 82
         height: 94
@@ -293,8 +295,8 @@ Rectangle {
 
     Button {
         id: eurButton
-        x: 233
-        y: 8
+        x: 142
+        y: 342
         width: 82
         height: 94
         opacity: 0
@@ -302,8 +304,8 @@ Rectangle {
 
     Button {
         id: gbpButton
-        x: 347
-        y: 8
+        x: 142
+        y: 225
         width: 82
         height: 94
         opacity: 0
@@ -311,8 +313,8 @@ Rectangle {
 
     Button {
         id: jpyButton
-        x: 14
-        y: 124
+        x: 8
+        y: 116
         width: 82
         height: 94
         opacity: 0
@@ -320,8 +322,8 @@ Rectangle {
 
     Button {
         id: audButton
-        x: 122
-        y: 124
+        x: 145
+        y: 116
         width: 82
         height: 94
         opacity: 0
@@ -329,8 +331,8 @@ Rectangle {
 
     Button {
         id: sekButton
-        x: 233
-        y: 124
+        x: 8
+        y: 344
         width: 82
         height: 94
         opacity: 0
@@ -338,8 +340,8 @@ Rectangle {
 
     Button {
         id: bgnButton
-        x: 347
-        y: 124
+        x: 8
+        y: 231
         width: 82
         height: 94
         opacity: 0
@@ -360,8 +362,7 @@ D{i:16;uuid:"b2a2c04e-18de-5704-a1b6-180c81ed9d33"}D{i:17;uuid:"e4517483-f19a-56
 D{i:18;uuid:"17e93aad-0f9b-5181-a1f7-51aac21c98d6"}D{i:19;uuid:"34687452-82bc-57ed-9b20-b5033d6cd384"}
 D{i:20;uuid:"1e10024e-9e93-59f6-b6af-ed313635d58c"}D{i:21;uuid:"92b073a4-55dd-5ee8-96eb-c90e8b64481e"}
 D{i:22;uuid:"f01fb958-aca1-56a8-a3e7-53f1864e42f5"}D{i:23;uuid:"623a94f6-06cb-5b71-a04e-585a52c74cca"}
-D{i:24;uuid:"9d233a89-4285-5e10-9c3f-97e0e29e1157"}D{i:27}D{i:28}D{i:29}D{i:30}D{i:31}
-D{i:32}
+D{i:24;uuid:"9d233a89-4285-5e10-9c3f-97e0e29e1157"}
 }
 ##^##*/
 

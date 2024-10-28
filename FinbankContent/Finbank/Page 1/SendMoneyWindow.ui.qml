@@ -13,6 +13,7 @@ Rectangle {
     property alias conversionRate: conversionRate.text
     property alias sendingCurrencyButton: sendingCurrencyButton
     property alias receivingCurrencyButton: receivingCurrencyButton
+    property alias currencySendingImage: currencySendingImage.source
     id: transactions_Send_money
     width: 1280
     height: 832
@@ -818,15 +819,14 @@ Rectangle {
         }
 
         Image {
-            id: image_2
+            id: currencySendingImage
             width: 30
             height: 30
-
+            source: "../assets/usd.png" // default image
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 547
             anchors.topMargin: 8
-            source: "../assets/usd.png"
         }
     }
 
