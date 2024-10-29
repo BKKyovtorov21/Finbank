@@ -14,6 +14,7 @@ Rectangle {
     property alias sendingCurrencyButton: sendingCurrencyButton
     property alias receivingCurrencyButton: receivingCurrencyButton
     property alias currencySendingImage: currencySendingImage.source
+    property alias currencyReceivingImage: currencyReceivingImage.source
     id: transactions_Send_money
     width: 1280
     height: 832
@@ -928,7 +929,7 @@ Rectangle {
         }
 
         Image {
-            id: image1
+            id: currencyReceivingImage
             width: 30
             height: 30
             anchors.left: parent.left
