@@ -7,6 +7,7 @@
 #include "login.hpp"
 #include "googlegateway.hpp"
 #include "dashboard.hpp"
+#include "searchrecipent.hpp"
 int main(int argc, char *argv[])
 {
     set_qt_environment();  // Set up the Qt environment variables
@@ -34,6 +35,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("dashboard", &dashboard);
     GoogleGateway googleGateway;
     engine.rootContext()->setContextProperty("googlegateway", &googleGateway);
+    SearchRecipent searchrecipent;
+    engine.rootContext()->setContextProperty("searchrecipent", &searchrecipent);
 
 
 

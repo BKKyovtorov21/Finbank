@@ -9,6 +9,7 @@ Rectangle {
     height: 815
     color: "#e1e1e1"
 
+
     Rectangle {
         id: solar_copy_linear
         width: 16

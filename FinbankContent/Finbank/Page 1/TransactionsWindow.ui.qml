@@ -396,12 +396,6 @@ Rectangle {
         y: 20
         width: 181
         height: 52
-        Image {
-            id: image
-            anchors.left: parent.left
-            anchors.top: parent.top
-            source: "../assets/image.png"
-        }
 
         Text {
             id: boyan_Kiovtorov
@@ -852,14 +846,6 @@ Rectangle {
         font.weight: Font.Normal
     }
 
-    Image {
-        id: image_2
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: 144
-        anchors.topMargin: 287
-        source: "../assets/image_2.png"
-    }
 
     Text {
         id: uSD

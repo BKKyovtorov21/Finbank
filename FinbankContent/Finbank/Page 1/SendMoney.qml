@@ -44,7 +44,6 @@ Item {
                // Check if the selected currencies are in the map
                if (root.exchangeRates[currencySending] && root.exchangeRates[currencySending][currencyReceiving]) {
                    conversionRate = exchangeRates[currencySending][currencyReceiving];
-                   console.log(conversionRate)
                } else {
                    conversionRate = 1; // Default to 1 if conversion is not found
                }

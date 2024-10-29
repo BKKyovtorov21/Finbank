@@ -29,6 +29,8 @@ qt_add_executable(${CMAKE_PROJECT_NAME}
     App/login.hpp App/login.cpp
     App/googlegateway.hpp App/googlegateway.cpp
     App/dashboard.hpp App/dashboard.cpp
+    App/searchrecipent.hpp App/searchrecipent.cpp
+
 
 )
 qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"

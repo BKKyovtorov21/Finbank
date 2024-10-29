@@ -4,33 +4,12 @@ import QtQuick.Studio.Components 1.0
 import QtQuick.Shapes 1.0
 
 Rectangle {
-    property real moneySending: 0.00
-    property alias sendingValue: sendingValue.text
-    property alias moneySending_TF: moneySending_TF.text
-    property alias recipentReceiving: recipentReceiving.text
-    property alias currencySending: currencySending.text
-    property alias currencyReceiving: currencyReceiving.text
-    property alias conversionRate: conversionRate.text
-    property alias sendingCurrencyButton: sendingCurrencyButton
-    property alias receivingCurrencyButton: receivingCurrencyButton
-    property alias currencySendingImage: currencySendingImage.source
-    property alias currencyReceivingImage: currencyReceivingImage.source
-    id: transactions_Send_money
+    property alias searchbarUser: searchbarUser
+
+    id: selectRecipent
     width: 1280
     height: 832
     color: "#ffffff"
-
-    Rectangle {
-        id: rectangle_37
-        width: 610
-        height: 56
-        color: "#33d9d9d9"
-        radius: 10
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: 367
-        anchors.topMargin: 193
-    }
 
     Rectangle {
         id: solar_copy_linear
@@ -259,6 +238,44 @@ Rectangle {
         }
     }
 
+    TextField {
+        id: searchbarUser
+        x: 234
+        y: 132
+        width: 387
+        height: 52
+        placeholderText: qsTr("Search")
+        font.pixelSize: 18
+        color: "#802f2f2f"
+        padding: 38 // Offset for placeholder text to align with original position
+
+        background: Rectangle {
+            id: rectangle_24
+            width: 387
+            height: 52
+            color: "#4dececec"
+            border.color: "#727272"
+            border.width: 0.1
+            radius: 8 // Optional: round the corners if needed
+        }
+
+        // SVG icon on the left side of the TextField
+        SvgPathItem {
+            id: element4
+            width: 20
+            height: 18
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.leftMargin: 13
+            strokeWidth: 1
+            strokeStyle: 1
+            strokeColor: "#000000"
+            path: "M 18 17 L 13.6570492891393 12.898324328631562 M 13.6570492891393 12.898324328631562 C 14.399928642135901 12.196716107094069 14.989212248995793 11.363786352191921 15.39125566952893 10.447090966349245 C 15.793299090062066 9.53039558050657 16.00022887138912 8.547887578608355 16.000228879216625 7.55566363740785 C 16.00022888704413 6.563439696207345 15.79330096758689 5.58093169430913 15.391257576855734 4.664236308466454 C 14.98921418612458 3.747540922623778 14.399928642135901 2.9146109988437363 13.6570492891393 2.2130027210136127 C 12.914169936142699 1.5113944431834894 12.032244372909094 0.9548483359951139 11.061625729075672 0.5751406891934678 C 10.09100708524225 0.19543304239182174 9.050704494997083 -7.392641508222264e-9 8.000114439608312 4.1941278728217626e-16 C 6.949524384219542 7.3926457023501376e-9 5.909221793974374 0.19543301424550608 4.938603150140952 0.5751406891934678 C 3.96798450630753 0.9548483641414296 3.0860584066382604 1.5113944431834894 2.343179113245622 2.2130027210136127 C 0.8428666692733466 3.6299645862393577 -1.5808361118645898e-8 5.551777008701226 0 7.55566363740785 C 1.5808361118645898e-8 9.559550266114474 0.8428666692733466 11.48136257599108 2.343179113245622 12.898324328631562 C 3.843491557217897 14.315286081272044 5.878352126860122 15.11132725988558 8.000114439608312 15.1113272748157 C 10.121876752356503 15.11132728974582 12.1567367259591 14.315286081272044 13.6570492891393 12.898324328631562 Z"
+            joinStyle: 2
+            antialiasing: true
+        }
+    }
+
     Item {
         id: chatButton
         x: 977
@@ -266,7 +283,7 @@ Rectangle {
         width: 87
         height: 48
         Rectangle {
-            id: rectangle_24
+            id: rectangle_25
             width: 87
             height: 48
             color: "#4dececec"
@@ -284,7 +301,7 @@ Rectangle {
             width: 23
             height: 21
             SvgPathItem {
-                id: element4
+                id: element5
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
@@ -299,7 +316,7 @@ Rectangle {
             }
 
             SvgPathItem {
-                id: element5
+                id: element6
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
@@ -342,6 +359,12 @@ Rectangle {
         y: 20
         width: 181
         height: 52
+        Image {
+            id: image
+            anchors.left: parent.left
+            anchors.top: parent.top
+            source: "../assets/image_1.png"
+        }
 
         Text {
             id: boyan_Kiovtorov
@@ -378,7 +401,7 @@ Rectangle {
         }
 
         SvgPathItem {
-            id: element6
+            id: element7
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: parent.top
@@ -404,7 +427,7 @@ Rectangle {
         height: 186
         visible: false
         Rectangle {
-            id: rectangle_25
+            id: rectangle_26
             width: 457
             height: 186
             color: "#4dffffff"
@@ -433,16 +456,16 @@ Rectangle {
         }
 
         Image {
-            id: element7
+            id: element8
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 15
             anchors.topMargin: 32
-            source: "../assets/element7.png"
+            source: "../assets/element8.png"
         }
 
         Text {
-            id: element8
+            id: element9
             width: 53
             height: 29
             color: "#249226"
@@ -456,7 +479,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Normal
-            font.family: "Hanuman"
         }
 
         Text {
@@ -477,7 +499,7 @@ Rectangle {
         }
 
         Text {
-            id: element9
+            id: element10
             width: 174
             height: 23
             color: "#000000"
@@ -491,7 +513,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
-            font.family: "Hanuman"
         }
 
         Item {
@@ -501,7 +522,7 @@ Rectangle {
             width: 50
             height: 18
             Rectangle {
-                id: rectangle_26
+                id: rectangle_27
                 width: 50
                 height: 18
                 color: "#33d9d9d9"
@@ -536,7 +557,7 @@ Rectangle {
                 width: 12
                 height: 13
                 SvgPathItem {
-                    id: element10
+                    id: element11
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.top: parent.top
@@ -552,7 +573,7 @@ Rectangle {
                 }
 
                 SvgPathItem {
-                    id: element11
+                    id: element12
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.top: parent.top
@@ -576,7 +597,7 @@ Rectangle {
             width: 200
             height: 37
             Rectangle {
-                id: rectangle_27
+                id: rectangle_28
                 width: 200
                 height: 37
                 color: "#367c21"
@@ -610,7 +631,7 @@ Rectangle {
             width: 200
             height: 37
             Rectangle {
-                id: rectangle_28
+                id: rectangle_29
                 width: 200
                 height: 37
                 color: "#33d9d9d9"
@@ -640,475 +661,6 @@ Rectangle {
         }
     }
 
-    Text {
-        id: how_much_do_you_want_to_send_
-        width: 582
-        height: 44
-        color: "#000000"
-        text: qsTr("How much do you want to send?")
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: 350
-        anchors.topMargin: 118
-        font.pixelSize: 35
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignTop
-        wrapMode: Text.NoWrap
-        font.weight: Font.Bold
-    }
-
-    Rectangle {
-        id: rectangle_38
-        width: 325
-        height: 51
-        color: "#ffffff"
-        radius: 10
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: 372
-        anchors.topMargin: 195
-    }
-
-    Text {
-        id: international
-        width: 134
-        height: 25
-        color: "#000000"
-        text: qsTr("International")
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: 464
-        anchors.topMargin: 212
-        font.pixelSize: 20
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignTop
-        wrapMode: Text.NoWrap
-        font.weight: Font.DemiBold
-    }
-
-    Rectangle {
-        id: rectangle_39
-        width: 194
-        height: 64
-        color: "#00d9d9d9"
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: 737
-        anchors.topMargin: 193
-    }
-
-    Text {
-        id: same_currency
-        width: 148
-        height: 25
-        color: "#000000"
-        text: qsTr("Same currency")
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: 758
-        anchors.topMargin: 212
-        font.pixelSize: 20
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignTop
-        wrapMode: Text.NoWrap
-        font.weight: Font.DemiBold
-    }
-
-    Text {
-        id: you_will_send
-        width: 123
-        height: 25
-        color: "#000000"
-        text: qsTr("You will send")
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: 350
-        anchors.topMargin: 282
-        font.pixelSize: 20
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignTop
-        wrapMode: Text.NoWrap
-        font.weight: Font.Medium
-    }
-
-    Item {
-        id: group_23
-        x: 350
-        y: 319
-        width: 652
-        height: 48
-        Rectangle {
-            id: rectangle_40
-            width: 652
-            height: 48
-            color: "#ffffff"
-            radius: 10
-            border.color: "#aba4a4"
-            border.width: 1
-            anchors.left: parent.left
-            anchors.top: parent.top
-
-            Button {
-                id: sendingCurrencyButton
-                x: 541
-                y: 0
-                width: 111
-                height: 48
-                opacity: 0
-            }
-        }
-
-        TextField {
-            id: moneySending_TF
-            width: 522
-            height: 36
-            color: "#000000"
-            placeholderText: qsTr("1000.00")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 11
-            anchors.topMargin: 4
-            font.pixelSize: 20
-            horizontalAlignment: Text.AlignLeft
-            verticalAlignment: Text.AlignTop
-            font.weight: Font.Medium
-            background: Rectangle {
-                // Customize background if needed
-                color: "transparent"
-            }
-        }
-
-        SvgPathItem {
-            id: line_6_Stroke_
-            width: 40
-            height: 1
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 519
-            anchors.topMargin: 24
-            strokeWidth: 1
-            strokeStyle: 1
-            strokeColor: "transparent"
-            rotation: 90
-            path: "M 40 1 L 0 1 L 0 0 L 40 0 L 40 1 Z"
-            joinStyle: 0
-            fillColor: "#838383"
-            antialiasing: true
-        }
-
-        Text {
-            id: currencySending
-            width: 40
-            height: 23
-            color: "#000000"
-            text: qsTr("USD")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 586
-            anchors.topMargin: 11
-            font.pixelSize: 18
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.NoWrap
-            font.weight: Font.Medium
-        }
-
-        Image {
-            id: currencySendingImage
-            width: 30
-            height: 30
-            source: "../assets/usd.png" // default image
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 547
-            anchors.topMargin: 8
-        }
-    }
-
-    Text {
-        id: recipent_will_get
-        width: 153
-        height: 25
-        color: "#000000"
-        text: qsTr("Recipent will get")
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: 350
-        anchors.topMargin: 379
-        font.pixelSize: 20
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignTop
-        wrapMode: Text.NoWrap
-        font.weight: Font.Medium
-    }
-
-    Item {
-        id: group_24
-        x: 350
-        y: 416
-        width: 652
-        height: 48
-        Rectangle {
-            id: rectangle_41
-            width: 652
-            height: 48
-            color: "#ffffff"
-            radius: 10
-            border.color: "#aba4a4"
-            border.width: 1
-            anchors.left: parent.left
-            anchors.top: parent.top
-
-            Button {
-                id: receivingCurrencyButton
-                x: 544
-                y: 4
-                opacity: 0
-            }
-        }
-
-        TextField {
-            id: recipentReceiving
-            width: 533
-            height: 36
-            color: "#000000"
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 8
-            anchors.topMargin: 8
-            font.pixelSize: 20
-            readOnly: true
-            horizontalAlignment: Text.AlignLeft
-            verticalAlignment: Text.AlignTop
-            font.weight: Font.Medium
-            background: Rectangle {
-                // Customize background if needed
-                color: "transparent"
-            }
-        }
-
-        SvgPathItem {
-            id: line_6_Stroke_1
-            width: 40
-            height: 1
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 519
-            anchors.topMargin: 24
-            strokeWidth: 1
-            strokeStyle: 1
-            strokeColor: "transparent"
-            rotation: 90
-            path: "M 40 1 L 0 1 L 0 0 L 40 0 L 40 1 Z"
-            joinStyle: 0
-            fillColor: "#838383"
-            antialiasing: true
-        }
-
-        Text {
-            id: currencyReceiving
-            width: 40
-            height: 23
-            color: "#000000"
-            text: qsTr("CAD")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 586
-            anchors.topMargin: 11
-            font.pixelSize: 18
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.NoWrap
-            font.weight: Font.Medium
-        }
-
-        Image {
-            id: currencyReceivingImage
-            width: 30
-            height: 30
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 547
-            anchors.topMargin: 8
-            source: "../assets/cad.png"
-        }
-    }
-
-    Rectangle {
-        id: rectangle_42
-        width: 652
-        height: 223
-        color: "#ffffff"
-        radius: 10
-        border.color: "#aba4a4"
-        border.width: 1
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: 350
-        anchors.topMargin: 485
-    }
-
-    Text {
-        id: conversionRate
-        width: 95
-        height: 25
-        color: "#000000"
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: 896
-        anchors.topMargin: 648
-        font.pixelSize: 20
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignTop
-        wrapMode: Text.NoWrap
-        font.weight: Font.Medium
-    }
-
-    Text {
-        id: guaranteed_rate_12h_
-        width: 198
-        height: 25
-        color: "#000000"
-        text: qsTr("Guaranteed rate(12h)")
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: 368
-        anchors.topMargin: 647
-        font.pixelSize: 20
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignTop
-        wrapMode: Text.NoWrap
-        font.weight: Font.Medium
-    }
-
-    Text {
-        id: uSD2
-        width: 108
-        height: 25
-        color: "#000000"
-        text: qsTr("$1000 USD")
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: 888
-        anchors.topMargin: 605
-        font.pixelSize: 20
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignTop
-        wrapMode: Text.NoWrap
-        font.weight: Font.Medium
-    }
-
-    Text {
-        id: total_will_be_converted
-        width: 209
-        height: 25
-        color: "#000000"
-        text: qsTr("Total will be converted")
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: 366
-        anchors.topMargin: 605
-        font.pixelSize: 20
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignTop
-        wrapMode: Text.NoWrap
-        font.weight: Font.Medium
-    }
-
-    Item {
-        id: group_26
-        x: 366
-        y: 538
-        width: 620
-        height: 32
-        Text {
-            id: sendingValue
-            width: 138
-            height: 32
-            color: "#000000"
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 496
-            anchors.topMargin: 0
-            font.pixelSize: 25
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.NoWrap
-            font.weight: Font.Bold
-        }
-
-        Text {
-            id: you_will_pay
-            width: 124
-            height: 25
-            color: "#000000"
-            text: qsTr("You will pay")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            font.pixelSize: 20
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.Wrap
-            font.weight: Font.Medium
-        }
-    }
-
-    Item {
-        id: group_25
-        x: 366
-        y: 498
-        width: 607
-        height: 25
-        Text {
-            id: uSD4
-            width: 72
-            height: 25
-            color: "#000000"
-            text: qsTr("$5 USD")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 536
-            font.pixelSize: 20
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.NoWrap
-            font.weight: Font.Medium
-        }
-
-        Text {
-            id: finbank_fees
-            width: 136
-            height: 25
-            color: "#000000"
-            text: qsTr("Finbank + fees")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            font.pixelSize: 20
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.NoWrap
-            font.weight: Font.Medium
-        }
-    }
-
-    SvgPathItem {
-        id: line_7_Stroke_
-        width: 585
-        height: 1
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: 372
-        anchors.topMargin: 583
-        strokeWidth: 1
-        strokeStyle: 1
-        strokeColor: "transparent"
-        rotation: 0.014
-        path: "M 585 1 L 0 1 L 0 0 L 585 0 L 585 1 Z"
-        joinStyle: 0
-        fillColor: "#b2b2b2"
-        antialiasing: true
-    }
-
     Item {
         id: sendButton
         x: 1055
@@ -1126,7 +678,7 @@ Rectangle {
         }
 
         Text {
-            id: element15
+            id: element13
             width: 68
             height: 20
             color: "#ffffff"
@@ -1149,7 +701,7 @@ Rectangle {
             width: 14
             height: 27
             SvgPathItem {
-                id: element16
+                id: element14
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
@@ -1169,7 +721,7 @@ Rectangle {
             }
 
             SvgPathItem {
-                id: element17
+                id: element15
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
@@ -1227,21 +779,19 @@ Rectangle {
     }
 
     SvgPathItem {
-        id: element18
+        id: line_10_Stroke_
+        width: 20
+        height: 2
         anchors.left: parent.left
-        anchors.right: parent.right
         anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.leftMargin: 43
-        anchors.rightMargin: 1222
-        anchors.topMargin: 210
-        anchors.bottomMargin: 607
-        strokeWidth: 0.66667
+        anchors.leftMargin: 33
+        anchors.topMargin: 258
+        strokeWidth: 1.5
         strokeStyle: 1
         strokeColor: "transparent"
-        path: "M 15 1.5771810553199384 L 4.714285714285714 15 L 0 8.847874650354973 L 1.208571297781808 7.270693595035034 L 4.714285714285714 11.83445195088627 L 13.791428702218191 0 L 15 1.5771810553199384 Z"
+        path: "M 20 1.5 L 0 1.5 L 0 0 L 20 0 L 20 1.5 Z"
         joinStyle: 0
-        fillColor: "#11c465"
+        fillColor: "#4d171716"
         antialiasing: true
     }
 
@@ -1269,7 +819,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 33
-        anchors.topMargin: 258
+        anchors.topMargin: 219
         strokeWidth: 1.5
         strokeStyle: 1
         strokeColor: "transparent"
@@ -1283,7 +833,7 @@ Rectangle {
         id: amount
         width: 68
         height: 20
-        color: "#000000"
+        color: "#4d303030"
         text: qsTr("Amount")
         anchors.left: parent.left
         anchors.top: parent.top
@@ -1302,8 +852,8 @@ Rectangle {
         height: 2
         anchors.left: parent.left
         anchors.top: parent.top
-        anchors.leftMargin: 43
-        anchors.topMargin: 301
+        anchors.leftMargin: 33
+        anchors.topMargin: 302
         strokeWidth: 1.5
         strokeStyle: 1
         strokeColor: "transparent"
@@ -1321,7 +871,7 @@ Rectangle {
         text: qsTr("Overview")
         anchors.left: parent.left
         anchors.top: parent.top
-        anchors.leftMargin: 92
+        anchors.leftMargin: 74
         anchors.topMargin: 293
         font.pixelSize: 16
         horizontalAlignment: Text.AlignHCenter
@@ -1329,57 +879,63 @@ Rectangle {
         wrapMode: Text.NoWrap
         font.weight: Font.Bold
     }
+
+    Rectangle {
+        id: rectangle_41
+        width: 1055
+        height: 541
+        color: "#ffffff"
+        radius: 20
+        border.color: "#727272"
+        border.width: 1
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.leftMargin: 200
+        anchors.topMargin: 210
+
+        Column {
+            id: userColumn
+            anchors.fill: parent
+            anchors.bottomMargin: 0
+            spacing: 10
+        }
+    }
 }
 
 /*##^##
 Designer {
-    D{i:0;uuid:"ff6bfaed-f63c-5fb8-b41d-a26b0a1a9c0c"}D{i:1;uuid:"308a1a67-f28f-528f-b890-f8e1967af485"}
-D{i:2;uuid:"1c11ca14-d9f6-57c1-a046-1f0928e527ec"}D{i:3;uuid:"18f2a1d3-ec8b-56ed-9c72-6d934331198a"}
-D{i:4;uuid:"2a3f7379-ef36-5da5-bea4-b4c77f3091d1"}D{i:5;uuid:"e8ce5175-0c5e-5d39-959c-de02f54caef3"}
-D{i:6;uuid:"74c66643-3f50-5a92-9392-112435e5a52a"}D{i:7;uuid:"d4d12ab6-63da-56ad-a0b7-e501488779ca"}
-D{i:8;uuid:"3197396e-66af-59ee-a823-f52cccda6d4a"}D{i:9;uuid:"4a50b329-98db-557e-9c3b-c296a26a35f8"}
-D{i:10;uuid:"b9ed038f-a314-57d2-98e5-4db61fcbaf55"}D{i:11;uuid:"5b8d38bf-17f5-5427-b993-7816d40be20f"}
-D{i:12;uuid:"5be03c19-43b7-5edd-9063-9d0a255302d1"}D{i:13;uuid:"4bd06dc1-c182-57df-a575-6dc7f07f91d4"}
-D{i:14;uuid:"bdb7da72-10e5-58a9-9f52-c0d69e5b60cf"}D{i:15;uuid:"d3289421-2cc1-5826-b2e8-b0149e18825c"}
-D{i:16;uuid:"f0ae6478-a27c-54fb-8651-0e44528e4cfe"}D{i:17;uuid:"23dfdaed-8283-5b70-98d8-632cc03d5942"}
-D{i:18;uuid:"fd161bc0-26a7-547a-a93b-8cc7cbba3d79"}D{i:19;uuid:"a6568cff-3781-51fc-a4f8-2fe87a9f8ae3"}
-D{i:20;uuid:"9f07b5ef-df53-529c-b134-7fd4ebf38c4a"}D{i:21;uuid:"3eaf26e9-47a0-51cf-ae32-da5ff7d012ff"}
-D{i:22;uuid:"33368870-73d7-5909-81f3-5144f2ace04b"}D{i:23;uuid:"e855bf77-b5ca-58a7-ab62-622023fc5b79"}
-D{i:24;uuid:"de6265ec-3fe5-5cad-b18b-16e4f0e986ed"}D{i:25;uuid:"f5a085b2-5449-5451-b8b2-6fffa7558572"}
-D{i:26;uuid:"c52a2bc8-ffe7-54c8-9228-705d1427c7c2"}D{i:27;uuid:"104be414-737c-5c41-b57a-3cb350a1e193"}
-D{i:28;uuid:"91692c7e-8c83-57a6-a3a8-c5e262a2f5d4"}D{i:29;uuid:"6aab1c09-d111-5fb9-be48-a7c4fa1904a8"}
-D{i:30;uuid:"70c121ca-268a-562e-9992-1045c15c4847"}D{i:31;uuid:"8e43598a-8443-58f5-87b6-4bd3daa8c755"}
-D{i:32;uuid:"23459f13-ae8b-516e-a953-6b202a9d6b2d"}D{i:33;uuid:"d02e999e-0549-5d1a-86c9-9dee6a8a4094"}
-D{i:34;uuid:"cb27757f-1780-5bcb-962a-6d1c8bc42cbd"}D{i:35;uuid:"bdd5554e-fd3d-5ba5-bfdd-ac881104fad9"}
-D{i:36;uuid:"a0731193-ae29-5a7a-859e-be24c844b156"}D{i:37;uuid:"54742b20-98d9-559c-a2b8-361192c80b52"}
-D{i:38;uuid:"0a5af325-2d94-5de7-be77-e9fb0d42a644"}D{i:39;uuid:"027a8257-de89-5ee5-a54b-6e475a042620"}
-D{i:40;uuid:"af3a9e17-bcbe-5a5b-b0fb-ea6caaea541d"}D{i:41;uuid:"3b85d90a-21f4-538e-83bc-21b8dce0b46b"}
-D{i:42;uuid:"b4910476-82ba-53ec-8127-7637a25b8421"}D{i:43;uuid:"16929536-6d4a-5788-b24b-4e88fe6e8954"}
-D{i:44;uuid:"dc7f0462-390a-536a-ab0b-da9f99d328d9"}D{i:45;uuid:"0ee76805-cab6-5b5a-8185-a06c334f31a8"}
-D{i:46;uuid:"0181ef18-68d5-5908-b9b7-cfbe62e10ace"}D{i:47;uuid:"00d3b3c5-d5a3-5bc9-9f4a-8d28509d295a"}
-D{i:48;uuid:"d01f0d0f-54e3-52d7-85f4-b48969166710"}D{i:49;uuid:"09a8f056-ef2f-58bc-95a0-f7088dccefae"}
-D{i:50;uuid:"9accedab-a86d-58aa-9dfe-882f67d54440"}D{i:51;uuid:"f7d15ecf-312d-5d64-a793-28ff92bbee3f"}
-D{i:52;uuid:"9ed8f816-7e76-5a80-94c7-d624fc3abf35"}D{i:53;uuid:"2929f021-41bd-50f6-b96c-c2fb0a6f612d"}
-D{i:54;uuid:"0d1c7aae-0095-5820-8558-69102353f502"}D{i:55;uuid:"f7c8a4ee-b2e6-5897-b1c0-885494baa86d"}
-D{i:56;uuid:"a20927e2-0210-5c3f-97ef-8d70adb18296"}D{i:60;uuid:"a4949276-b9d1-5390-9200-71594a74a0f9"}
-D{i:61;uuid:"9af88c83-d540-5af7-af8a-3ca80ddb8de9"}D{i:62;uuid:"06d367c7-77b3-5359-af90-4c23276adc77"}
-D{i:63;uuid:"a1f3f8d2-518c-5309-b525-b14551e95655"}D{i:64;uuid:"25d38c18-88fa-5e5f-aa9d-138df2179b99"}
-D{i:65;uuid:"a39577b9-d4d7-5ef2-9a71-09b3857648a0"}D{i:69;uuid:"4079f0d1-511d-5312-b91b-98b263f78339"}
-D{i:70;uuid:"7ade5d94-5609-5570-b983-548435d25953"}D{i:71;uuid:"0767a455-8cdf-5762-b1b0-c6c7776011f2"}
-D{i:72;uuid:"d149afff-2d86-5d8b-9f1a-b34e31f30a0b"}D{i:73;uuid:"8ccb74a2-03c3-5ed5-80eb-0b0592a0600c"}
-D{i:74;uuid:"74bce3c0-58e1-57a5-8cd0-5076d99a1eca"}D{i:75;uuid:"e201cbe4-06df-5f6b-adfd-3531895a71ab"}
-D{i:76;uuid:"d31f3365-4ffe-5400-be3f-c20ac0953425"}D{i:77;uuid:"338c9d19-8766-5e15-ad48-3c949986b1d7"}
-D{i:78;uuid:"c6ac70e3-29f3-5823-bb70-ef8f96fbb40c"}D{i:79;uuid:"8c5367f2-df4b-5752-8839-4ab05d399471"}
-D{i:80;uuid:"164cf006-03c3-5656-ac5c-75688f64bddd"}D{i:81;uuid:"584353ed-2b2c-5155-a915-ca2cb1b36f04"}
-D{i:82;uuid:"383099f2-19d9-51fb-9d72-a93eeeb09e36"}D{i:83;uuid:"c1a3940a-2bb3-589d-8b82-ae1c4eeb2493"}
-D{i:84;uuid:"c670b45e-d207-5c95-8e79-0f8fdad2b991"}D{i:85;uuid:"001d1dbf-25cc-574c-8c71-c5266c3b5386"}
-D{i:86;uuid:"03539acd-0abc-5799-8f0f-5a8c72982593"}D{i:87;uuid:"0fa8ac20-2347-5f5b-80fc-8a914d68071d"}
-D{i:88;uuid:"37d71e59-ba21-503d-a25b-0d869cac9b7a"}D{i:89;uuid:"c664e8e2-37e0-57b8-933a-62d3d1ff896e"}
-D{i:90;uuid:"80c280da-354e-57b2-bf62-a704cb8b3a5e"}D{i:91;uuid:"1133d749-50c3-5a01-8c9d-8d5755a3144f"}
-D{i:92;uuid:"2a5d7f69-7525-527d-b0c8-c8f23e2c832d"}D{i:93;uuid:"35eb9c6b-3640-5b3f-9fae-33414dfdaab0"}
-D{i:94;uuid:"c6d35ba3-1c67-544b-a2be-46dc7da8ca49"}D{i:95;uuid:"5afa5fd1-b43f-5c05-8005-d030142d20c6"}
-D{i:96;uuid:"63fd0a73-30bb-5db9-aef5-8deee351b19b"}D{i:97;uuid:"61ab5e80-fc15-5573-8f22-a05328c94254"}
-D{i:98;uuid:"dc418a0a-8ccf-5e76-a2f4-10114e96ba4c"}
+    D{i:0;uuid:"8648afb8-df09-54b4-a347-332d0bf8ce52"}D{i:1;uuid:"e0f33fee-57c8-5842-a1d9-5d0c7bc97bdd"}
+D{i:2;uuid:"57818263-ba59-5b6b-9871-1581302b4a46"}D{i:3;uuid:"1624f9d6-55ff-592e-8fea-df62f6abd2cc"}
+D{i:4;uuid:"aa79d9be-836c-5d15-ae83-a006a797015c"}D{i:5;uuid:"eae205ad-e292-5016-8017-aaabbb267209"}
+D{i:6;uuid:"335f2627-20dd-5f71-9833-79a6bddad12a"}D{i:7;uuid:"10e00c6f-e467-546c-acf6-e55dd6543fcf"}
+D{i:8;uuid:"deca195c-db4f-5b5b-8c40-35d0bdb2a174"}D{i:9;uuid:"562ab7a5-518d-5fc8-a2cc-c0113e500469"}
+D{i:10;uuid:"89242808-8bf9-5611-bfff-1c9e92dc3446"}D{i:11;uuid:"d29d54a9-35f7-5b7a-a53d-40cfc1596d68"}
+D{i:12;uuid:"780569e9-4b8f-55aa-a655-6a90fb63a6fb"}D{i:13;uuid:"d8066a55-05c5-5068-a801-39288e2aac84"}
+D{i:14;uuid:"08a2fed3-6813-55b8-89ef-f4bd1c8a4c10"}D{i:15;uuid:"d0d6dbf5-9bab-5ce7-9e30-eb259737d892"}
+D{i:16;uuid:"6ace2561-7cb4-5ee7-aa2a-f3600742d288"}D{i:17;uuid:"03a26348-af76-5d28-994f-a57ebe4e8c5d"}
+D{i:21;uuid:"b0971aa2-cd3b-5555-ac36-0b55c4d6f3e8"}D{i:22;uuid:"1a8653a9-db99-513d-8b3a-674649cc7602"}
+D{i:23;uuid:"adbab07c-c218-5281-b450-0a6d51236c43"}D{i:24;uuid:"71ac856e-f045-55bc-b000-d16bdb19dd5d"}
+D{i:25;uuid:"d07fc62d-0e63-5269-b086-749ab55f095d"}D{i:26;uuid:"584d29be-ec56-542d-9323-9fc258f75516"}
+D{i:27;uuid:"3dd4e0cd-12b2-52b4-b471-fec4be0aeac8"}D{i:28;uuid:"fc085bd1-6f17-566d-9b02-2ab4cb7419f4"}
+D{i:29;uuid:"86db12f6-4c70-58e6-bde2-a004053d2d9a"}D{i:30;uuid:"97d4bc5a-ccf1-587f-8d10-45800c1fbfb7"}
+D{i:31;uuid:"4ba178cf-780e-5600-a4d5-d1fae9224304"}D{i:32;uuid:"db1b92d3-2b74-5437-adbe-d9a0b257c0ce"}
+D{i:33;uuid:"6818ff33-d0f7-5c0c-9d90-7fc6aa1cd095"}D{i:34;uuid:"0f4b0897-5ba2-5d0d-adb9-9d805c60285d"}
+D{i:35;uuid:"9b62e8dc-4ce9-544f-8922-2edd6991f4de"}D{i:36;uuid:"4c0bf715-1d34-5250-9c8b-7967b15e9cea"}
+D{i:37;uuid:"ed2175b3-7c6c-568e-8c14-3b39ce36e445"}D{i:38;uuid:"db4afc5b-3c18-5060-801a-06b960f71871"}
+D{i:39;uuid:"925dda8b-dffe-5be0-9eaa-0c6840c24d14"}D{i:40;uuid:"d242d428-456e-5675-9e97-2b780a5e7c78"}
+D{i:41;uuid:"c7e58f83-a0be-5de3-b69f-753c3d0c0567"}D{i:42;uuid:"20884803-e163-5c32-97aa-bda711a634cd"}
+D{i:43;uuid:"aee8ecc3-5498-5a89-a1cd-1814ae203991"}D{i:44;uuid:"be3a7d5a-f24a-5d6a-9e9e-1207a2351026"}
+D{i:45;uuid:"1297679c-1eec-5e77-91f5-472ef39ae097"}D{i:46;uuid:"40dfced0-5499-549c-af59-aea6b5f8a2b2"}
+D{i:47;uuid:"628acf7d-0227-5a28-bb06-762a662dee8b"}D{i:48;uuid:"3cdc1d00-1a97-5a1b-86c8-b22f66148f97"}
+D{i:49;uuid:"1ae82675-cbce-5b2e-bbfe-3dacf46c4c7f"}D{i:50;uuid:"b9c658cb-4aa2-53fd-b25d-9b581019828a"}
+D{i:51;uuid:"d82e256f-4050-59d9-9784-9daa57bebaea"}D{i:52;uuid:"56541be5-eaf5-558e-9935-514d191db69e"}
+D{i:53;uuid:"5594946b-2a50-5e16-8d4d-44b7ab016b63"}D{i:54;uuid:"4ede3ebb-0f01-5a53-bae8-993cbfacd387"}
+D{i:55;uuid:"02db67f8-757c-556a-b36f-7e285958cdb4"}D{i:56;uuid:"e44cd2cc-6f23-5703-9924-90de8a7b090d"}
+D{i:57;uuid:"69f9c0c4-34b2-5662-b90c-5a58e5a6fbb3"}D{i:58;uuid:"643f82ff-e702-595a-bd40-56ed2bb56a9c"}
+D{i:59;uuid:"78949f89-7f10-5307-b591-7b6a05f27b71"}D{i:60;uuid:"9ff1f02b-eb47-5161-a1f1-3045ee251c5c"}
+D{i:61;uuid:"849e1236-1767-58fe-8114-9c75246aef2b"}D{i:62;uuid:"f2597518-7acb-57c9-9e5d-0da95f526f6d"}
+D{i:63;uuid:"eef48a8c-2ac3-52ae-a122-a48ccfbac985"}D{i:64;uuid:"a43995fb-ccad-5bba-ac71-3bdf1ad15fa1"}
+D{i:65;uuid:"379e0ebe-e8b7-5041-9f8f-ed44875569c7"}D{i:66;uuid:"f6607057-8642-5b8a-9e93-d8fa9771940a"}
 }
 ##^##*/
 

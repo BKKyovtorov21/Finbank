@@ -56,7 +56,7 @@ Item {
         }
         Connections {
             target: googlegateway
-            onGoogleLoginSuccessful: {
+            onGoogleinSuccessful: {
                 signUpWindow.isGoogleRegistration = true; // Set to true for Google registration
                 googleRegister = true;
                 // Ensure that googlegateway.userName and googlegateway.email are not undefined

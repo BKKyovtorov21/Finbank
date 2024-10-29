@@ -60,7 +60,7 @@ Rectangle {
             anchors.right: parent.right
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            source: "../assets/logo1_1.png"
+            source: "../assets/logo2.png"
         }
     }
 

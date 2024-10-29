@@ -28,7 +28,7 @@ Item {
         sendButton.onClicked:
         {
             transactionwindow.visible = false;
-            loader.source = "SendMoney.qml";
+            loader.source = "SelectRecipent.qml";
         }
 
     }
