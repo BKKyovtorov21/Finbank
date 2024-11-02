@@ -11,6 +11,7 @@ Item {
     property string password: ""
     property string firstNamegoogle: ""
     property string lastNamegoogle: ""
+    property string pfp: ""
     property bool googleRegister: false
     // This Loader will load the external QML file when the button is clicked
     Loader {
@@ -36,7 +37,7 @@ Item {
 
                 var firstName = firstNameField;
                 var lastName = lastNameField;
-                register.registerAccount(username, email, password, firstName, lastName, birth, gender, phone, isgoogleregistration);
+                register.registerAccount(username, email, password, firstName, lastName, birth, gender, phone, isgoogleregistration, pfp);
                 register.registerSuccessful()
                 {
                     loader.source = "SignIn.qml";

@@ -22,6 +22,7 @@ Item {
                 loader.item.firstNamegoogle = firstNamegoogle;
                 loader.item.lastNamegoogle = lastNamegoogle;
                 loader.item.googleRegister = googleRegister;
+                loader.item.pfp = pfp
             }
         }
     }
@@ -34,6 +35,7 @@ Item {
     property string firstNamegoogle: ""
     property string lastNamegoogle: ""
     property bool googleRegister: false
+    property string pfp: ""
 
     SignUpWindow {
         id: signUpWindow
@@ -56,7 +58,7 @@ Item {
         }
         Connections {
             target: googlegateway
-            onGoogleinSuccessful: {
+            onGoogleLoginSuccessful: {
                 signUpWindow.isGoogleRegistration = true; // Set to true for Google registration
                 googleRegister = true;
                 // Ensure that googlegateway.userName and googlegateway.email are not undefined
@@ -82,6 +84,8 @@ Item {
                 } else {
                     console.log("Error: googlegateway.userLastName is undefined");
                 }
+
+                pfp = googlegateway.userPicture
                 signUpWindow.visible = false
                 username = signUpWindow.usernameField;
                 email = signUpWindow.emailField;
