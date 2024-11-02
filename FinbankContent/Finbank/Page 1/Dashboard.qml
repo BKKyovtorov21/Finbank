@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Controls
 import QtCharts
-
 Item {
     id: root
     width: 1280
@@ -49,5 +48,8 @@ Item {
             introwindow.visible = false;
             loader.setSource("Transactions.qml", { "username": username });
         }
+
+        imageSource: googlegateway.userPicture
+
     }
 }
