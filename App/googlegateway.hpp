@@ -19,6 +19,7 @@ class GoogleGateway : public QObject
     Q_PROPERTY(QString userEmail READ userEmail NOTIFY googleLoginSuccessful)
     Q_PROPERTY(QString userFirstName READ userFirstName NOTIFY googleLoginSuccessful)
     Q_PROPERTY(QString userLastName READ userLastName NOTIFY googleLoginSuccessful)
+    Q_PROPERTY(QString userPicture READ userPicture NOTIFY googleLoginSuccessful)
 
 public:
     explicit GoogleGateway(QObject *parent = nullptr);
@@ -29,6 +30,7 @@ public:
     QString userEmail() const { return m_userEmail; }
     QString userFirstName() const { return m_userFirstName; }
     QString userLastName() const { return m_userLastName; }
+    QString userPicture() const {return m_userPicture;}
 
 private:
     QOAuth2AuthorizationCodeFlow* google;
@@ -36,6 +38,7 @@ private:
     QString m_userEmail;
     QString m_userFirstName;
     QString m_userLastName;
+    QString m_userPicture;
 
 signals:
     void googleLoginSuccessful();

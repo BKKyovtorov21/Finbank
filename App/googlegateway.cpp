@@ -1,6 +1,11 @@
 #include "googlegateway.hpp"
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QUrlQuery>
+#include <QDesktopServices>
 
 GoogleGateway::GoogleGateway(QObject *parent) : QObject(parent)
 {
@@ -32,6 +37,10 @@ GoogleGateway::GoogleGateway(QObject *parent) : QObject(parent)
         QUrl userInfoUrl("https://www.googleapis.com/oauth2/v3/userinfo");
         QNetworkRequest request(userInfoUrl);
 
+        // Add the Authorization header with Bearer token
+        QString accessToken = this->google->token();
+        request.setRawHeader("Authorization", "Bearer " + accessToken.toUtf8());
+
         auto reply = networkManager->get(request);
 
         connect(reply, &QNetworkReply::finished, [reply, this]() {
@@ -42,6 +51,7 @@ GoogleGateway::GoogleGateway(QObject *parent) : QObject(parent)
                 m_userEmail = jsonObj["email"].toString();
                 m_userFirstName = jsonObj["given_name"].toString();
                 m_userLastName = jsonObj["family_name"].toString();
+                m_userPicture = jsonObj["picture"].toString();
                 m_userName = m_userEmail.split('@').first();
                 emit googleLoginSuccessful();
             } else {
@@ -54,7 +64,6 @@ GoogleGateway::GoogleGateway(QObject *parent) : QObject(parent)
 
 // Call this function to prompt authentication
 // and receive data from Google
-
 void GoogleGateway::click()
 {
     this->google->grant();
