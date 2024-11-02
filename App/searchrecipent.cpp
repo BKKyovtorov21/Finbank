@@ -8,7 +8,7 @@ void SearchRecipent::SearchUser(const QString& partialInput)
 {
     QSqlQuery query;
 
-    query.prepare("SELECT first_name, last_name, username, email "
+    query.prepare("SELECT first_name, last_name, username, email, pfp "
                   "FROM users "
                   "WHERE username LIKE :input "
                   "OR first_name LIKE :input "
@@ -25,8 +25,9 @@ void SearchRecipent::SearchUser(const QString& partialInput)
             QString lastname = query.value("last_name").toString();
             QString username = query.value("username").toString();
             QString email = query.value("email").toString();
+            QString pfp = query.value("pfp").toString();
 
-            emit userFound(firstname, lastname, email, username);
+            emit userFound(firstname, lastname, email, username, pfp);
         }
 
         if (!foundUser) {

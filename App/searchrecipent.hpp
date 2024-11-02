@@ -19,6 +19,6 @@ private:
     QSqlQuery m_qry;
 
 signals:
-    void userFound(const QString &firstname, const QString &lastname, const QString &email, const QString &username);  // Signal with parameters
+    void userFound(const QString &firstname, const QString &lastname, const QString &email, const QString &username, const QString& pfp);  // Signal with parameters
 };
 
