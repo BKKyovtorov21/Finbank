@@ -9,7 +9,7 @@ Register::Register(QObject *parent)
     : QObject{parent}
 {}
 
-void Register::registerAccount(const QString& username, const QString& email, const QString& password, const QString& firstName, const QString& lastName, const QString& dateOfBirth, const QString& gender, const QString& phone, const bool& isGoogleRegistered)
+void Register::registerAccount(const QString& username, const QString& email, const QString& password, const QString& firstName, const QString& lastName, const QString& dateOfBirth, const QString& gender, const QString& phone, const bool& isGoogleRegistered, const QString& pfp)
 {
     QSqlQuery qry;
 
@@ -35,8 +35,8 @@ void Register::registerAccount(const QString& username, const QString& email, co
     QString cardNumber = GenerateCardNumber();
     QString hashedPassword = Hash(password, passwordSalt);
 
-    qry.prepare("INSERT INTO users (username, email, password, first_name, last_name, date_of_birth, gender, phone, passwordSalt, cardNumber, googleRegistered) "
-                "VALUES (:username, :email, :password, :first_name, :last_name, :date_of_birth, :gender, :phone, :passwordSalt, :cardNumber, :googleRegistered)");
+    qry.prepare("INSERT INTO users (username, email, password, first_name, last_name, date_of_birth, gender, phone, passwordSalt, cardNumber, googleRegistered, pfp) "
+                "VALUES (:username, :email, :password, :first_name, :last_name, :date_of_birth, :gender, :phone, :passwordSalt, :cardNumber, :googleRegistered, :pfp)");
     qry.bindValue(":username", username);
     qry.bindValue(":email", email);
     qry.bindValue(":password", hashedPassword);
@@ -48,6 +48,7 @@ void Register::registerAccount(const QString& username, const QString& email, co
     qry.bindValue(":passwordSalt", passwordSalt);
     qry.bindValue(":cardNumber", cardNumber);
     qry.bindValue(":googleRegistered", isGoogleRegistered);
+    qry.bindValue(":pfp", pfp);
 
     if (!qry.exec()) {
         qDebug() << "Error inserting into users table:" << qry.lastError();
