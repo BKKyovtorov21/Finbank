@@ -846,7 +846,6 @@ Rectangle {
         font.weight: Font.Normal
     }
 
-
     Text {
         id: uSD
         width: 188
@@ -1751,6 +1750,15 @@ Rectangle {
         visible: true
         opacity: 0
     }
+
+    Image {
+        id: image
+        x: 132
+        y: 285
+        width: 49
+        height: 50
+        source: "../assets/usd.png"
+    }
 }
 
 /*##^##
@@ -1812,7 +1820,7 @@ D{i:119;uuid:"655ae3ed-dcf2-5d4b-a321-c60e3f67ac5f"}D{i:120;uuid:"155315b4-8bd0-
 D{i:121;uuid:"639c9381-d21b-5ff1-b1f2-ea5507701d74"}D{i:122;uuid:"76e4139e-678b-5009-a481-6a6d21c584bf"}
 D{i:123;uuid:"65ee05ea-574f-5c53-b0b4-4eb7c0ed8b7a"}D{i:124;uuid:"49a9537e-23af-5610-8da1-8d677fef1c69"}
 D{i:125;uuid:"894b565b-9759-5cfd-9b6d-87d50fc0bfe6"}D{i:131;uuid:"ea2466d5-4f95-595d-a2f0-9a6849088f48"}
-D{i:132;uuid:"49a9537e-23af-5610-8da1-8d677fef1c69"}D{i:133;uuid:"49a9537e-23af-5610-8da1-8d677fef1c69"}
+D{i:132;uuid:"49a9537e-23af-5610-8da1-8d677fef1c69"}
 }
 ##^##*/
 
