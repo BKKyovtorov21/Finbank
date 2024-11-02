@@ -661,123 +661,6 @@ Rectangle {
         }
     }
 
-    Item {
-        id: sendButton
-        x: 1055
-        y: 757
-        width: 141
-        height: 51
-        Rectangle {
-            id: rectangle_34
-            width: 141
-            height: 51
-            color: "#1c1f31"
-            radius: 20
-            anchors.left: parent.left
-            anchors.top: parent.top
-        }
-
-        Text {
-            id: element13
-            width: 68
-            height: 20
-            color: "#ffffff"
-            text: qsTr("Continue")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 18
-            anchors.topMargin: 15
-            font.pixelSize: 16
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.NoWrap
-            font.weight: Font.Medium
-        }
-
-        Item {
-            id: group_6
-            x: 122
-            y: 18
-            width: 14
-            height: 27
-            SvgPathItem {
-                id: element14
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.leftMargin: -16
-                anchors.rightMargin: 28
-                anchors.topMargin: -5
-                anchors.bottomMargin: 8
-                strokeWidth: 1
-                strokeStyle: 1
-                strokeColor: "transparent"
-                rotation: 90
-                path: "M 0.8951799869537354 24.627973556518555 C 0.39387919212536815 24.627973556518555 0 24.086158141211033 0 23.39657487869263 L 0 1.2313986778259278 C 0 0.541815415307525 0.39387919212536815 0 0.8951799869537354 0 C 1.3964807817821026 0 1.7903599739074707 0.541815415307525 1.7903599739074707 1.2313986778259278 L 1.7903599739074707 23.39657487869263 C 1.7903599739074707 24.086158141211033 1.3964807817821026 24.627973556518555 0.8951799869537354 24.627973556518555 Z"
-                joinStyle: 0
-                fillColor: "#ffffff"
-                antialiasing: true
-            }
-
-            SvgPathItem {
-                id: element15
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.leftMargin: -13
-                anchors.rightMargin: 13
-                anchors.topMargin: 2
-                anchors.bottomMargin: 14
-                strokeWidth: 1
-                strokeStyle: 1
-                strokeColor: "transparent"
-                rotation: 90
-                path: "M 13.445603174793371 11.10721576356447 C 13.328198864620976 11.109184577663754 13.211794569142205 11.07733407716977 13.103874965080944 11.013711403197513 C 12.995955361019684 10.950088729225257 12.898909449437312 10.856101957357273 12.818977384449592 10.737795915360273 L 7.179343563935342 2.979984094073765 L 1.539709529993562 10.737795915360273 C 1.1816375468945577 11.23035540714469 0.6266259770928676 11.23035540714469 0.2685539939938634 10.737795915360273 C -0.08951798910514075 10.245236423575856 -0.08951798910514075 9.481769730594369 0.2685539939938634 8.989210238809951 L 6.534813338067479 0.36941962801294864 C 6.8928853211664824 -0.12313986377146913 7.447897371180117 -0.12313986377146913 7.805969354279121 0.36941962801294864 L 14.072229818847271 8.989210238809951 C 14.430301801946275 9.481769730594369 14.430301801946275 10.245236423575856 14.072229818847271 10.737795915360273 C 13.893193827297768 10.984075661252483 13.660446356649242 11.10721576356447 13.445603174793371 11.10721576356447 Z"
-                joinStyle: 0
-                fillColor: "#ffffff"
-                antialiasing: true
-            }
-        }
-    }
-
-    Item {
-        id: sendButton1
-        x: 888
-        y: 757
-        width: 141
-        height: 51
-        Rectangle {
-            id: rectangle_35
-            width: 141
-            height: 51
-            color: "#ffffff"
-            radius: 25
-            border.color: "#000000"
-            border.width: 1
-            anchors.left: parent.left
-            anchors.top: parent.top
-        }
-
-        Text {
-            id: back
-            width: 37
-            height: 20
-            color: "#000000"
-            text: qsTr("Back")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 51
-            anchors.topMargin: 16
-            font.pixelSize: 16
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.NoWrap
-            font.weight: Font.Medium
-        }
-    }
-
     SvgPathItem {
         id: line_10_Stroke_
         width: 20
@@ -928,14 +811,10 @@ D{i:43;uuid:"aee8ecc3-5498-5a89-a1cd-1814ae203991"}D{i:44;uuid:"be3a7d5a-f24a-5d
 D{i:45;uuid:"1297679c-1eec-5e77-91f5-472ef39ae097"}D{i:46;uuid:"40dfced0-5499-549c-af59-aea6b5f8a2b2"}
 D{i:47;uuid:"628acf7d-0227-5a28-bb06-762a662dee8b"}D{i:48;uuid:"3cdc1d00-1a97-5a1b-86c8-b22f66148f97"}
 D{i:49;uuid:"1ae82675-cbce-5b2e-bbfe-3dacf46c4c7f"}D{i:50;uuid:"b9c658cb-4aa2-53fd-b25d-9b581019828a"}
-D{i:51;uuid:"d82e256f-4050-59d9-9784-9daa57bebaea"}D{i:52;uuid:"56541be5-eaf5-558e-9935-514d191db69e"}
-D{i:53;uuid:"5594946b-2a50-5e16-8d4d-44b7ab016b63"}D{i:54;uuid:"4ede3ebb-0f01-5a53-bae8-993cbfacd387"}
-D{i:55;uuid:"02db67f8-757c-556a-b36f-7e285958cdb4"}D{i:56;uuid:"e44cd2cc-6f23-5703-9924-90de8a7b090d"}
-D{i:57;uuid:"69f9c0c4-34b2-5662-b90c-5a58e5a6fbb3"}D{i:58;uuid:"643f82ff-e702-595a-bd40-56ed2bb56a9c"}
-D{i:59;uuid:"78949f89-7f10-5307-b591-7b6a05f27b71"}D{i:60;uuid:"9ff1f02b-eb47-5161-a1f1-3045ee251c5c"}
-D{i:61;uuid:"849e1236-1767-58fe-8114-9c75246aef2b"}D{i:62;uuid:"f2597518-7acb-57c9-9e5d-0da95f526f6d"}
-D{i:63;uuid:"eef48a8c-2ac3-52ae-a122-a48ccfbac985"}D{i:64;uuid:"a43995fb-ccad-5bba-ac71-3bdf1ad15fa1"}
-D{i:65;uuid:"379e0ebe-e8b7-5041-9f8f-ed44875569c7"}D{i:66;uuid:"f6607057-8642-5b8a-9e93-d8fa9771940a"}
+D{i:51;uuid:"9ff1f02b-eb47-5161-a1f1-3045ee251c5c"}D{i:52;uuid:"849e1236-1767-58fe-8114-9c75246aef2b"}
+D{i:53;uuid:"f2597518-7acb-57c9-9e5d-0da95f526f6d"}D{i:54;uuid:"eef48a8c-2ac3-52ae-a122-a48ccfbac985"}
+D{i:55;uuid:"a43995fb-ccad-5bba-ac71-3bdf1ad15fa1"}D{i:56;uuid:"379e0ebe-e8b7-5041-9f8f-ed44875569c7"}
+D{i:57;uuid:"f6607057-8642-5b8a-9e93-d8fa9771940a"}
 }
 ##^##*/
 

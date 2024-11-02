@@ -28,10 +28,17 @@ Item {
             onCurrencyReceivingChanged: updateConversionRate()
 
         sendingCurrencyButton.onClicked: {
+            loader.height = 450
+            loader.width = 246
+            loader.x = 1019
+            loader.y = 258
+            loader.z = 1
             loader.source = "";  // Clear the source to unload
             loader.source = "Currencies.qml";
             loader.visible = true;
             loader.item.sending = true;
+            loader.item.sendMoneyWindowRef = sendmoneywindow // Pass the SendMoneyWindow reference
+
         }
 
         receivingCurrencyButton.onClicked: {
@@ -39,7 +46,18 @@ Item {
             loader.source = "Currencies.qml";
             loader.visible = true;
             loader.item.sending = false
+            loader.item.sendMoneyWindowRef = sendmoneywindow // Pass the SendMoneyWindow reference
+
         }
+        continueButton.onClicked:
+        {
+            loader.source = "";
+            loader.source = "RecipentDescription.qml"
+            loader.visible = true;
+            sendmoneywindow.visible = false;
+
+        }
+
         function updateConversionRate() {
                // Check if the selected currencies are in the map
                if (root.exchangeRates[currencySending] && root.exchangeRates[currencySending][currencyReceiving]) {
@@ -57,18 +75,7 @@ Item {
     // Loader to display Currencies.qml as an overlay
     Loader {
             id: loader
-            x: 1019
-            y: 258
-            width:247
 
-            height:450
-            z: 1  // Ensures Currencies.qml appears above SendMoneyWindow
             visible: false  // Start hidden; shown only when needed
-
-            onLoaded:
-            {
-                loader.item.sendMoneyWindowRef = sendmoneywindow // Pass the SendMoneyWindow reference
-
-            }
         }
 }

@@ -7,42 +7,58 @@ Rectangle {
     color: "lightgrey"  // Background color for visibility
 
     property var foundUsers: []  // Holds created user instances
+    Loader {
+        id: loader
+        anchors.fill: parent
+        source: ""  // Start with no source, will load dynamically
+    }
+
 
     SelectRecipentWindow {
-        id: currenciesWindow
+        id: recipentsWindow
         x: 0
         y: 0
         visible: true
 
         function findUser() {
-            if (currenciesWindow.searchbarUser.text === "") {
-                // If input is empty, clear previous instances and skip the search
+            if (recipentsWindow.searchbarUser.text === "") {
                 clearFoundUsers();
                 return;
             }
-            clearFoundUsers();  // Clear previous instances before searching
-            searchrecipent.SearchUser(currenciesWindow.searchbarUser.text);
+            clearFoundUsers();
+            searchrecipent.SearchUser(recipentsWindow.searchbarUser.text);
         }
 
-        // Function to clear all found user instances
         function clearFoundUsers() {
             for (var i = 0; i < foundUsers.length; i++) {
-                foundUsers[i].destroy();  // Destroy each instance
+                foundUsers[i].destroy();
             }
-            foundUsers = [];  // Reset the array
+            foundUsers = [];
+        }
+
+        function handleUserClick(userInstance) {
+            recipentsWindow.visible = false;
+            recipentsWindow.clearFoundUsers();
+            loader.source = "SendMoney.qml";
         }
 
         Connections {
             target: searchrecipent
-            onUserFound: function(firstname, lastname, email, username) {
+            onUserFound: function(firstname, lastname, email, username, pfp) {
                 var userComponent = Qt.createComponent("FoundUser.qml");
                 if (userComponent.status === Component.Ready) {
                     var userInstance = userComponent.createObject(userFlow, {
                         userFullname: firstname + " " + lastname,
-                        userEmail: email
+                        userEmail: email,
+                        userPfp: pfp
                     });
                     if (userInstance) {
                         foundUsers.push(userInstance);
+
+                        // Connect the button's onClicked to handleUserClick
+                        userInstance.onClicked.connect(function() {
+                            recipentsWindow.handleUserClick(userInstance);
+                        });
                     } else {
                         console.error("Error: User instance creation failed.");
                     }
@@ -52,20 +68,19 @@ Rectangle {
             }
         }
 
-        // Trigger findUser when the text changes
         searchbarUser.onTextChanged: findUser()
     }
 
     Flow {
         id: userFlow
         y: 271
-        anchors.top: currenciesWindow.bottom
+        anchors.top: recipentsWindow.bottom
         anchors.topMargin: -621
         anchors.horizontalCenterOffset: 80
         anchors.horizontalCenter: parent.horizontalCenter
         width: 1007
         height: 529
-        spacing: 10  // Set spacing between each item in the Flow
+        spacing: 10
         visible: true
         z: 10
         clip: true
