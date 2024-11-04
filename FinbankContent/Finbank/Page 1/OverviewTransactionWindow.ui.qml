@@ -4,6 +4,16 @@ import QtQuick.Studio.Components 1.0
 import QtQuick.Shapes 1.0
 
 Rectangle {
+    property alias rectangle_44: rectangle_44
+    property alias moneySending: moneySending.text
+    property alias sendingAndFees: sendingAndFees.text
+    property alias recipentNameReceiving: recipentNameReceiving.text
+    property alias conversion: conversion.text
+    property alias recipentReceiving: recipentReceiving.text
+    property alias recipentEmail: recipentEmail.text
+    property alias recipentFullname: recipentFullname.text
+    property alias recipentIBAN: recipentIBAN.text
+    property alias sendButton: sendButton
     id: overviewTransactionWindow
     width: 1280
     height: 832
@@ -51,7 +61,7 @@ Rectangle {
             anchors.right: parent.right
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            source: "../assets/logo1_2.png"
+            source: "../assets/logo1.png"
         }
     }
 
@@ -385,262 +395,13 @@ Rectangle {
         }
     }
 
-    Item {
-        id: balanceGroup
-        x: 15
-        y: 254
-        width: 457
-        height: 186
-        visible: false
-        Rectangle {
-            id: rectangle_25
-            width: 457
-            height: 186
-            color: "#4dffffff"
-            radius: 15
-            border.color: "#727272"
-            border.width: 1
-            anchors.left: parent.left
-            anchors.top: parent.top
-        }
-
-        Text {
-            id: my_balance
-            width: 96
-            height: 21
-            color: "#b22f2f2f"
-            text: qsTr("My balance")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 16
-            anchors.topMargin: 7
-            font.pixelSize: 18
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.Wrap
-            font.weight: Font.Normal
-            font.family: "Gelasio"
-        }
-
-        Image {
-            id: element7
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 15
-            anchors.topMargin: 32
-            source: "../assets/element7_2.png"
-        }
-
-        Text {
-            id: element8
-            width: 53
-            height: 29
-            color: "#249226"
-            text: qsTr("+6,7%")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 195
-            anchors.topMargin: 43
-            font.pixelSize: 20
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.Wrap
-            font.weight: Font.Normal
-            font.family: "Hanuman"
-        }
-
-        Text {
-            id: compared_to_last_month
-            width: 164
-            height: 21
-            color: "#b22f2f2f"
-            text: qsTr("Compared to last month")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 270
-            anchors.topMargin: 47
-            font.pixelSize: 15
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.Wrap
-            font.weight: Font.Normal
-            font.family: "Gelasio"
-        }
-
-        Text {
-            id: element9
-            width: 174
-            height: 23
-            color: "#000000"
-            text: qsTr("6549  7329  9821  2472")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 16
-            anchors.topMargin: 80
-            font.pixelSize: 16
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.NoWrap
-            font.weight: Font.Normal
-            font.family: "Hanuman"
-        }
-
-        Item {
-            id: copyButton
-            x: 211
-            y: 82
-            width: 50
-            height: 18
-            Rectangle {
-                id: rectangle_26
-                width: 50
-                height: 18
-                color: "#33d9d9d9"
-                radius: 3
-                border.color: "#727272"
-                border.width: 0.3
-                anchors.left: parent.left
-                anchors.top: parent.top
-            }
-
-            Text {
-                id: copy
-                width: 28
-                height: 12
-                color: "#249226"
-                text: qsTr("Copy")
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.leftMargin: 18
-                anchors.topMargin: 3
-                font.pixelSize: 10
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignTop
-                wrapMode: Text.Wrap
-                font.weight: Font.Normal
-                font.family: "Gelasio"
-            }
-
-            Item {
-                id: group_3
-                x: 4
-                y: 2
-                width: 12
-                height: 13
-                SvgPathItem {
-                    id: element10
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    anchors.bottom: parent.bottom
-                    anchors.leftMargin: 2
-                    anchors.topMargin: 2
-                    strokeWidth: 1
-                    strokeStyle: 1
-                    strokeColor: "#249226"
-                    path: "M 0 4.000000224393957 C 0 2.114666739519902 1.1920928955078125e-7 1.1713335376440388 0.586000124613444 0.5860001574871656 C 1.1713334719340005 1.192092962121194e-7 2.1146666208902998 0 4 0 L 6 0 C 7.8853333791097 0 8.828666845957438 1.192092962121194e-7 9.414000193277994 0.5860001574871656 C 10.000000198682148 1.1713335376440388 10 2.114666739519902 10 4.000000224393957 L 10 7.333333744722253 C 10 9.218667229596308 10.000000198682148 10.162000749363628 9.414000193277994 10.747334129520501 C 8.828666845957438 11.333334167798371 7.8853333791097 11.333333969116211 6 11.333333969116211 L 4 11.333333969116211 C 2.1146666208902998 11.333333969116211 1.1713334719340005 11.333334167798371 0.586000124613444 10.747334129520501 C 1.1920928955078125e-7 10.162000749363628 0 9.218667229596308 0 7.333333744722253 L 0 4.000000224393957 Z"
-                    joinStyle: 0
-                    antialiasing: true
-                }
-
-                SvgPathItem {
-                    id: element11
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    anchors.bottom: parent.bottom
-                    anchors.rightMargin: 2
-                    anchors.bottomMargin: 2
-                    strokeWidth: 1
-                    strokeStyle: 1
-                    strokeColor: "#249226"
-                    path: "M 2 11.333333969116211 C 1.4695670207341514 11.33333396911621 0.9608592589696248 11.122620531023431 0.585786501566569 10.74754775257936 C 0.21071374416351318 10.372474974135288 5.921189464667501e-16 9.86376686594157 0 9.333333856919232 L 0 5.333333632525275 C 0 2.819333552528833 -7.947285973752827e-8 1.5620000443926019 0.7813332875569661 0.7813333313885831 C 1.562666654586792 0.000666618384564277 2.8193333943684893 0 5.333333333333333 0 L 8 0 C 8.530432979265848 2.960594898418642e-16 9.039141058921814 0.21071375598423592 9.41421381632487 0.5857865344283067 C 9.789286573727924 0.9608593128723776 9.999999999999998 1.469567103174641 10 2.0000001121969784"
-                    joinStyle: 0
-                    antialiasing: true
-                }
-            }
-        }
-
-        Item {
-            id: sendMoneyButton
-            x: 16
-            y: 118
-            width: 200
-            height: 37
-            Rectangle {
-                id: rectangle_27
-                width: 200
-                height: 37
-                color: "#367c21"
-                radius: 8
-                anchors.left: parent.left
-                anchors.top: parent.top
-            }
-
-            Text {
-                id: send_money
-                width: 125
-                height: 28
-                color: "#ececec"
-                text: qsTr("Send money")
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.leftMargin: 38
-                anchors.topMargin: 7
-                font.pixelSize: 22
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignTop
-                wrapMode: Text.NoWrap
-                font.weight: Font.Medium
-                font.family: "Gelasio"
-            }
-        }
-
-        Item {
-            id: requestMoneyButton
-            x: 241
-            y: 118
-            width: 200
-            height: 37
-            Rectangle {
-                id: rectangle_28
-                width: 200
-                height: 37
-                color: "#33d9d9d9"
-                radius: 8
-                border.color: "#727272"
-                border.width: 0.3
-                anchors.left: parent.left
-                anchors.top: parent.top
-            }
-
-            Text {
-                id: request_money
-                width: 156
-                height: 28
-                color: "#367c21"
-                text: qsTr("Request money")
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.leftMargin: 22
-                anchors.topMargin: 5
-                font.pixelSize: 22
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignTop
-                wrapMode: Text.NoWrap
-                font.weight: Font.Medium
-                font.family: "Gelasio"
-            }
-        }
-    }
-
-    Item {
+    Button {
         id: sendButton
         x: 1088
         y: 761
         width: 141
         height: 51
-        Rectangle {
+        background: Rectangle {
             id: rectangle_34
             width: 141
             height: 51
@@ -655,7 +416,7 @@ Rectangle {
             width: 68
             height: 20
             color: "#ffffff"
-            text: qsTr("Continue")
+            text: qsTr("Send")
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 18
@@ -983,84 +744,6 @@ Rectangle {
             anchors.left: parent.left
             anchors.top: parent.top
         }
-
-        Item {
-            id: group_35
-            x: 9
-            y: 8
-            width: 60
-            height: 60
-            ArcItem {
-                id: ellipse_7
-                width: 60
-                height: 60
-                anchors.left: parent.left
-                anchors.top: parent.top
-                strokeWidth: 0
-                strokeStyle: 0
-                strokeColor: "transparent"
-                outlineArc: true
-                fillColor: "#f19e38"
-                end: 450.00001
-                begin: 90
-                arcWidth: 30
-                antialiasing: true
-            }
-
-            Text {
-                id: b
-                width: 17
-                height: 25
-                color: "#ffffff"
-                text: qsTr("B")
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.leftMargin: 22
-                anchors.topMargin: 17
-                font.pixelSize: 20
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignTop
-                wrapMode: Text.NoWrap
-                font.weight: Font.Bold
-                font.family: "Gelasio"
-            }
-        }
-
-        Text {
-            id: boyan_Kiovtorov1
-            width: 163
-            height: 28
-            color: "#000000"
-            text: qsTr("Boyan Kiovtorov")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 85
-            anchors.topMargin: 17
-            font.pixelSize: 18
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.Wrap
-            font.weight: Font.Bold
-            font.family: "Gelasio"
-        }
-
-        Text {
-            id: boyankiovtorov_gmail_com
-            width: 188
-            height: 24
-            color: "#727272"
-            text: qsTr("boyankiovtorov@gmail.com")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 85
-            anchors.topMargin: 43
-            font.pixelSize: 14
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.Wrap
-            font.weight: Font.Medium
-            font.family: "Gelasio"
-        }
     }
 
     Rectangle {
@@ -1194,7 +877,7 @@ Rectangle {
         }
 
         Text {
-            id: uSD
+            id: moneySending
             width: 89
             height: 24
             color: "#000000"
@@ -1235,7 +918,7 @@ Rectangle {
         }
 
         Text {
-            id: uSD1
+            id: sendingAndFees
             width: 107
             height: 24
             color: "#000000"
@@ -1463,16 +1146,16 @@ Rectangle {
         }
 
         Text {
-            id: vichovichev07_gmail_com
-            width: 173
+            id: recipentEmail
+            width: 298
             height: 24
             color: "#000000"
             text: qsTr("vichovichev07@gmail.com")
             anchors.left: parent.left
             anchors.top: parent.top
-            anchors.leftMargin: 345
+            anchors.leftMargin: 220
             font.pixelSize: 14
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Medium
@@ -1543,16 +1226,16 @@ Rectangle {
         }
 
         Text {
-            id: vicho_Vichev
-            width: 89
+            id: recipentFullname
+            width: 264
             height: 24
             color: "#000000"
             text: qsTr("Vicho Vichev")
             anchors.left: parent.left
             anchors.top: parent.top
-            anchors.leftMargin: 400
+            anchors.leftMargin: 225
             font.pixelSize: 14
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Medium
@@ -1571,11 +1254,13 @@ Rectangle {
             width: 142
             height: 15
             color: "#000000"
-            text: qsTr("Routing number")
+            text: qsTr("IBAN")
             anchors.left: parent.left
             anchors.top: parent.top
+            anchors.leftMargin: 21
+            anchors.topMargin: 0
             font.pixelSize: 14
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Medium
@@ -1583,16 +1268,16 @@ Rectangle {
         }
 
         Text {
-            id: element23
-            width: 89
+            id: recipentIBAN
+            width: 371
             height: 24
             color: "#000000"
             text: qsTr("**** 4238")
             anchors.left: parent.left
             anchors.top: parent.top
-            anchors.leftMargin: 419
+            anchors.leftMargin: 137
             font.pixelSize: 14
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Medium
@@ -1620,17 +1305,17 @@ Rectangle {
         }
 
         Text {
-            id: vicho_will_get
-            width: 80
+            id: recipentNameReceiving
+            width: 261
             height: 16
             color: "#000000"
             text: qsTr("Vicho will get")
             anchors.left: parent.left
             anchors.top: parent.top
-            anchors.leftMargin: 13
-            anchors.topMargin: 12
+            anchors.leftMargin: 20
+            anchors.topMargin: 10
             font.pixelSize: 12
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Medium
@@ -1638,16 +1323,17 @@ Rectangle {
         }
 
         Text {
-            id: conversion_rate_1_CAD_11_205_44_IDR
-            width: 227
+            id: conversion
+            width: 466
             height: 11
             color: "#4d000000"
             text: qsTr("Conversion rate  1 CAD = 11.205,44 IDR ")
             anchors.left: parent.left
             anchors.top: parent.top
+            anchors.leftMargin: 13
             anchors.topMargin: 32
             font.pixelSize: 11
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Medium
@@ -1655,7 +1341,7 @@ Rectangle {
         }
 
         Text {
-            id: cAD
+            id: recipentReceiving
             width: 115
             height: 23
             color: "#000000"
@@ -1690,53 +1376,38 @@ D{i:20;uuid:"b19975ea-1e36-5f8a-b6ff-6458bb7895cc"}D{i:21;uuid:"5e6864b4-b898-53
 D{i:22;uuid:"4e8d3bf1-7029-544e-8af2-48f0f63ecf81"}D{i:23;uuid:"aaeda682-4e09-599e-b33e-60a7e1354c5a"}
 D{i:24;uuid:"de5628d5-1625-5a91-b716-746b841008b7"}D{i:25;uuid:"55fe97da-ac7a-5cdd-93dd-29ff79624d64"}
 D{i:26;uuid:"eeeb6328-d7da-5505-a92b-f50e5a536afe"}D{i:27;uuid:"bd71cfc3-59b5-51ed-a350-f653f979a5e8"}
-D{i:28;uuid:"bbfdef8e-8b09-532e-985c-340270304fb5"}D{i:29;uuid:"76294349-ed59-55c4-9e8c-ac75099e9f5e"}
-D{i:30;uuid:"9318d5e5-4ef9-555e-9414-cbd09487cb5d"}D{i:31;uuid:"aab5c602-8cb0-561f-8e16-ac2d1f581444"}
-D{i:32;uuid:"7aad0f24-032d-5831-897d-5072993e5b8e"}D{i:33;uuid:"547fdf24-6b67-5ff9-98a2-9b262e047a61"}
-D{i:34;uuid:"6edd9dba-3aff-52c9-a682-ea14d547db39"}D{i:35;uuid:"41db0b1e-55ce-503d-ade3-8ca122933598"}
-D{i:36;uuid:"178b613a-6af2-537f-8d54-cb36c8fa421c"}D{i:37;uuid:"6c73cb61-6566-5043-8a6e-ca0cfe3d4a62"}
-D{i:38;uuid:"3b49f9a3-10f1-5c8e-bf6d-8a9e236bcc63"}D{i:39;uuid:"297e392b-f6e8-5a03-8d50-6064e63cab3f"}
-D{i:40;uuid:"d002ee3c-259b-56f7-b5c4-dc8453cdf801"}D{i:41;uuid:"a3db0f08-e907-5311-80c8-89e50536a6c8"}
-D{i:42;uuid:"a55b3894-7af3-5be7-8653-26dd25449d1e"}D{i:43;uuid:"cd014b5b-ee7a-5680-b36f-8aefad641ad1"}
-D{i:44;uuid:"96c39fdb-158c-551e-bea3-30336099bd2a"}D{i:45;uuid:"95aa390a-5958-5fa2-8403-c09960e3465e"}
-D{i:46;uuid:"fdfbb36c-ab34-5891-9cca-affff4709bc9"}D{i:47;uuid:"e6ace521-6f67-578b-a1cd-7588068fac73"}
-D{i:48;uuid:"04f4bafc-6083-50da-93ee-5ba523807d30"}D{i:49;uuid:"567f77ad-4394-59f1-afe2-db536590ef78"}
-D{i:50;uuid:"86ce97a4-589b-57f4-8e4d-28d3f5b097a6"}D{i:51;uuid:"333ba198-7c11-5213-b889-12dfc60192f2"}
-D{i:52;uuid:"21f59d03-e908-5ae8-a47f-13ba60c2f44f"}D{i:53;uuid:"6eaf8de9-4632-5772-b663-fad30196613f"}
-D{i:54;uuid:"ab972e61-28a0-51d5-ae05-c2c1078d4a3b"}D{i:55;uuid:"a0209b3d-56dd-5753-a212-b9ba462c11ae"}
-D{i:56;uuid:"f25186fa-bf88-5b66-942c-19afbb50fc3b"}D{i:57;uuid:"277c9e65-ef0c-5d98-b5dc-18936ad0d8c3"}
-D{i:58;uuid:"47ffb1fc-dc4c-5d0e-ba20-7ca3e285991c"}D{i:59;uuid:"efb36045-a495-5433-8b30-81148bebe1bf"}
-D{i:60;uuid:"c883790e-da13-5cf9-b30c-60d31f4d77b2"}D{i:61;uuid:"974c2070-8341-5ffa-8eac-271043f2792f"}
-D{i:62;uuid:"2300d09e-d957-5673-8e65-ff7765517e42"}D{i:63;uuid:"ebf32042-6b30-526a-8a0d-13548bb57ff0"}
-D{i:64;uuid:"8b2ed04d-0018-51ec-b72e-d03f98b999e1"}D{i:65;uuid:"9c47d832-a346-5292-87bc-943cdf0eca1e"}
-D{i:66;uuid:"bd95bac8-ead4-5cfa-a00d-7cf65f8b220b"}D{i:67;uuid:"cdbe51e8-4f31-5d80-a836-cd14b83ec757"}
-D{i:68;uuid:"b5f81695-c73b-5865-bacf-39eb0ee5da48"}D{i:69;uuid:"fc7a76d1-85a2-5624-85f5-a83f3cc95cf7"}
-D{i:70;uuid:"a16ed94a-0851-5a68-99bd-27d477245f25"}D{i:71;uuid:"8d99fed4-0d6a-5ea1-a55a-b0211e6dd942"}
-D{i:72;uuid:"ef2407f9-b2f2-5ea0-ada4-0f783d9305db"}D{i:73;uuid:"521e5123-a385-53a4-bc6d-37c3564dd774"}
-D{i:74;uuid:"e592cb65-f188-578e-bc3f-8c4a6bec12c9"}D{i:75;uuid:"f87a8e71-8af0-575e-b700-6fb823d416ee"}
-D{i:76;uuid:"b58eddc6-2e40-5063-b10f-a2f074068810"}D{i:77;uuid:"8fb67995-fcb7-5fa6-99d1-60ff7b2a5f5e"}
-D{i:78;uuid:"c0deaf5e-f0ac-580f-9325-1840ccf28a2f"}D{i:79;uuid:"88cecd1b-0c41-5097-9dc9-dddd391247d1"}
-D{i:80;uuid:"bb149b0e-d24e-5d87-830f-07502946140c"}D{i:81;uuid:"eacb03ba-06ab-5fda-aafa-88f1764b4d8a"}
-D{i:82;uuid:"095da311-a241-57e7-b8ea-98b837db0257"}D{i:83;uuid:"fe726ab1-3520-5322-b00e-cd60cbf363ce"}
-D{i:84;uuid:"d4513642-a3f8-5562-8eaf-9dfed429c5c6"}D{i:85;uuid:"fc42bc69-ccaa-524d-b508-be465ba31aa3"}
-D{i:86;uuid:"d94dd950-fcd2-5560-a7be-7b0303dd8b8f"}D{i:87;uuid:"763dba48-1645-53a7-bd64-075042f54218"}
-D{i:88;uuid:"14ff3892-8f5a-5383-aab0-ed6b4dadea99"}D{i:89;uuid:"a0aad1a6-72fa-501f-8add-90d77ea3c001"}
-D{i:90;uuid:"beb34c84-89bd-5208-b6ca-3196575d9cc7"}D{i:91;uuid:"22556e4d-bc30-54e1-afd0-f1d2e3c62456"}
-D{i:92;uuid:"c86d2081-e4eb-5587-a8e5-d22f327e149d"}D{i:93;uuid:"00ee53cd-6c39-528f-8e92-278e38b69376"}
-D{i:94;uuid:"4828fdc6-8b44-5fc3-b4d0-dc752dbcec14"}D{i:95;uuid:"1088a7a0-e10a-5aad-85da-b2f7cda3aa80"}
-D{i:96;uuid:"76748725-ccaa-5cbc-836e-213a25582631"}D{i:97;uuid:"ea31333c-c1da-59e4-9ec9-0963090aa8f2"}
-D{i:98;uuid:"d501ab53-378b-5721-a45a-0dcce280a9a5"}D{i:99;uuid:"ed3039c8-7cbb-58b1-a6f3-53a9e8950340"}
-D{i:100;uuid:"b29bab72-c8a3-56fe-b765-5255079c4a04"}D{i:101;uuid:"da6c5ed6-d30c-5d8e-bf71-87808263dc7f"}
-D{i:102;uuid:"3426d839-5fbe-5ccc-9f99-968052089e64"}D{i:103;uuid:"d12b435d-665e-5f47-a566-349ed9772319"}
-D{i:104;uuid:"f95979af-fb37-5784-8c00-12709869ccdb"}D{i:105;uuid:"4f73bb87-b91a-5c8e-8e0c-e14aa31a8efb"}
-D{i:106;uuid:"80d9937a-3e42-5dcc-ac24-54a14e715c44"}D{i:107;uuid:"63cd08e0-c3f4-52ec-a983-9ecb0295ad3f"}
-D{i:108;uuid:"d250c7a3-4b1f-54f8-9911-b102765f4460"}D{i:109;uuid:"2bb0f6a3-d96a-5a6e-b65b-b28bb8339175"}
-D{i:110;uuid:"a756f9cb-02c8-57bc-91cb-3ae16ce011c7"}D{i:111;uuid:"09e84374-bd07-5f6b-9714-bf28e2410e71"}
-D{i:112;uuid:"0a0ad66f-7626-56b7-b2dc-e21d97f2bbef"}D{i:113;uuid:"97548914-f76d-56d7-bca2-92eba3dcd0e0"}
-D{i:114;uuid:"17aadcd9-65c8-5c42-8f4b-f730f80fbe2f"}D{i:115;uuid:"3a565467-1c21-5c7c-8fb0-705ec0f0f32d"}
-D{i:116;uuid:"515ed3e8-1c57-5af9-8601-cefe96668633"}D{i:117;uuid:"59a13bec-cbc3-5a5b-bdd4-2943c6fca39f"}
-D{i:118;uuid:"3b12182a-4f53-51d5-a2f4-165951583be0"}D{i:119;uuid:"55a80e8b-a153-5b55-a820-7e24ec15bc0f"}
-D{i:120;uuid:"5bbd804d-7048-5045-bc52-d4007a96dc96"}
+D{i:28;uuid:"bbfdef8e-8b09-532e-985c-340270304fb5"}D{i:35;uuid:"ab972e61-28a0-51d5-ae05-c2c1078d4a3b"}
+D{i:36;uuid:"a0209b3d-56dd-5753-a212-b9ba462c11ae"}D{i:37;uuid:"f25186fa-bf88-5b66-942c-19afbb50fc3b"}
+D{i:38;uuid:"277c9e65-ef0c-5d98-b5dc-18936ad0d8c3"}D{i:39;uuid:"47ffb1fc-dc4c-5d0e-ba20-7ca3e285991c"}
+D{i:40;uuid:"efb36045-a495-5433-8b30-81148bebe1bf"}D{i:41;uuid:"c883790e-da13-5cf9-b30c-60d31f4d77b2"}
+D{i:42;uuid:"974c2070-8341-5ffa-8eac-271043f2792f"}D{i:43;uuid:"2300d09e-d957-5673-8e65-ff7765517e42"}
+D{i:44;uuid:"ebf32042-6b30-526a-8a0d-13548bb57ff0"}D{i:45;uuid:"8b2ed04d-0018-51ec-b72e-d03f98b999e1"}
+D{i:46;uuid:"9c47d832-a346-5292-87bc-943cdf0eca1e"}D{i:47;uuid:"bd95bac8-ead4-5cfa-a00d-7cf65f8b220b"}
+D{i:48;uuid:"cdbe51e8-4f31-5d80-a836-cd14b83ec757"}D{i:49;uuid:"b5f81695-c73b-5865-bacf-39eb0ee5da48"}
+D{i:50;uuid:"fc7a76d1-85a2-5624-85f5-a83f3cc95cf7"}D{i:51;uuid:"a16ed94a-0851-5a68-99bd-27d477245f25"}
+D{i:52;uuid:"8d99fed4-0d6a-5ea1-a55a-b0211e6dd942"}D{i:53;uuid:"ef2407f9-b2f2-5ea0-ada4-0f783d9305db"}
+D{i:54;uuid:"c0deaf5e-f0ac-580f-9325-1840ccf28a2f"}D{i:55;uuid:"88cecd1b-0c41-5097-9dc9-dddd391247d1"}
+D{i:56;uuid:"bb149b0e-d24e-5d87-830f-07502946140c"}D{i:57;uuid:"eacb03ba-06ab-5fda-aafa-88f1764b4d8a"}
+D{i:58;uuid:"095da311-a241-57e7-b8ea-98b837db0257"}D{i:59;uuid:"fe726ab1-3520-5322-b00e-cd60cbf363ce"}
+D{i:60;uuid:"d4513642-a3f8-5562-8eaf-9dfed429c5c6"}D{i:61;uuid:"fc42bc69-ccaa-524d-b508-be465ba31aa3"}
+D{i:62;uuid:"d94dd950-fcd2-5560-a7be-7b0303dd8b8f"}D{i:63;uuid:"763dba48-1645-53a7-bd64-075042f54218"}
+D{i:64;uuid:"14ff3892-8f5a-5383-aab0-ed6b4dadea99"}D{i:65;uuid:"a0aad1a6-72fa-501f-8add-90d77ea3c001"}
+D{i:66;uuid:"beb34c84-89bd-5208-b6ca-3196575d9cc7"}D{i:67;uuid:"22556e4d-bc30-54e1-afd0-f1d2e3c62456"}
+D{i:68;uuid:"c86d2081-e4eb-5587-a8e5-d22f327e149d"}D{i:69;uuid:"00ee53cd-6c39-528f-8e92-278e38b69376"}
+D{i:70;uuid:"4828fdc6-8b44-5fc3-b4d0-dc752dbcec14"}D{i:71;uuid:"1088a7a0-e10a-5aad-85da-b2f7cda3aa80"}
+D{i:72;uuid:"76748725-ccaa-5cbc-836e-213a25582631"}D{i:73;uuid:"ea31333c-c1da-59e4-9ec9-0963090aa8f2"}
+D{i:74;uuid:"d501ab53-378b-5721-a45a-0dcce280a9a5"}D{i:75;uuid:"ed3039c8-7cbb-58b1-a6f3-53a9e8950340"}
+D{i:76;uuid:"b29bab72-c8a3-56fe-b765-5255079c4a04"}D{i:77;uuid:"da6c5ed6-d30c-5d8e-bf71-87808263dc7f"}
+D{i:78;uuid:"3426d839-5fbe-5ccc-9f99-968052089e64"}D{i:79;uuid:"d12b435d-665e-5f47-a566-349ed9772319"}
+D{i:80;uuid:"f95979af-fb37-5784-8c00-12709869ccdb"}D{i:81;uuid:"4f73bb87-b91a-5c8e-8e0c-e14aa31a8efb"}
+D{i:82;uuid:"80d9937a-3e42-5dcc-ac24-54a14e715c44"}D{i:83;uuid:"63cd08e0-c3f4-52ec-a983-9ecb0295ad3f"}
+D{i:84;uuid:"d250c7a3-4b1f-54f8-9911-b102765f4460"}D{i:85;uuid:"2bb0f6a3-d96a-5a6e-b65b-b28bb8339175"}
+D{i:86;uuid:"a756f9cb-02c8-57bc-91cb-3ae16ce011c7"}D{i:87;uuid:"09e84374-bd07-5f6b-9714-bf28e2410e71"}
+D{i:88;uuid:"0a0ad66f-7626-56b7-b2dc-e21d97f2bbef"}D{i:89;uuid:"97548914-f76d-56d7-bca2-92eba3dcd0e0"}
+D{i:90;uuid:"17aadcd9-65c8-5c42-8f4b-f730f80fbe2f"}D{i:91;uuid:"3a565467-1c21-5c7c-8fb0-705ec0f0f32d"}
+D{i:92;uuid:"515ed3e8-1c57-5af9-8601-cefe96668633"}D{i:93;uuid:"59a13bec-cbc3-5a5b-bdd4-2943c6fca39f"}
+D{i:94;uuid:"3b12182a-4f53-51d5-a2f4-165951583be0"}D{i:95;uuid:"55a80e8b-a153-5b55-a820-7e24ec15bc0f"}
+D{i:96;uuid:"5bbd804d-7048-5045-bc52-d4007a96dc96"}
 }
 ##^##*/
 
