@@ -25,6 +25,8 @@ Rectangle {
     property string firstName2: "Boyan"
     property alias transactionButton: transactionButton
     property alias imageSource: image.source
+    property alias username: username.text
+    property alias userFullname: userFullname.text
 
     Rectangle {
         id: solar_copy_linear
@@ -325,11 +327,10 @@ Rectangle {
             anchors.left: parent.left
             anchors.top: parent.top
             source: "../assets/user.png"
-            layer.enabled: rounded
         }
 
         Text {
-            id: boyan_Kiovtorov
+            id: userFullname
             width: 112
             height: 19
             color: "#000000"
@@ -346,7 +347,7 @@ Rectangle {
         }
 
         Text {
-            id: kiovtorov
+            id: username
             width: 78
             height: 19
             color: "#802f2f2f"
