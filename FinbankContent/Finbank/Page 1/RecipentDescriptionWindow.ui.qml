@@ -8,6 +8,9 @@ Rectangle {
 
     property alias rectangle_42: rectangle_42
     property alias recipentIBAN: recipentIBAN.text
+    property alias backButton: backButton
+    property alias imageSource: image.source
+
     id: selectRecipentDescRiptionWindow
     width: 1280
     height: 832
@@ -249,7 +252,7 @@ Rectangle {
 
     Item {
         id: chatButton
-        x: 977
+        x: 934
         y: 25
         width: 87
         height: 48
@@ -333,10 +336,13 @@ Rectangle {
         height: 52
         Image {
             id: image
-            width: 47
-            height: 52
+            width: 70
+            height: 70
+
             anchors.left: parent.left
             anchors.top: parent.top
+            anchors.leftMargin: -23
+            anchors.topMargin: -9
             source: "../assets/user.png"
         }
 
@@ -351,7 +357,7 @@ Rectangle {
             anchors.leftMargin: 53
             anchors.topMargin: 8
             font.pixelSize: 15
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
@@ -369,7 +375,7 @@ Rectangle {
             anchors.leftMargin: 58
             anchors.topMargin: 33
             font.pixelSize: 15
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
@@ -477,13 +483,13 @@ Rectangle {
         }
     }
 
-    Item {
-        id: sendButton1
+    Button {
+        id: backButton
         x: 888
         y: 757
         width: 141
         height: 51
-        Rectangle {
+        background: Rectangle {
             id: rectangle_35
             width: 141
             height: 51
@@ -979,18 +985,16 @@ D{i:20;uuid:"c2de8f0f-ef4f-57a8-b517-58c371131595"}D{i:21;uuid:"c47e4aca-c940-5f
 D{i:22;uuid:"5304fdb8-6514-51f5-ae32-3a2ad2401d89"}D{i:23;uuid:"3ecda0ae-dcb3-5cba-8758-35bb34f46a03"}
 D{i:24;uuid:"9bbdec1a-6d54-5d63-9973-b005aaed51da"}D{i:25;uuid:"85013ce8-a76e-5ad3-bd12-105148abc156"}
 D{i:26;uuid:"b2fdfd74-4f6d-5e3c-a67c-793068c44880"}D{i:27;uuid:"0b92fa22-6dd7-5b2b-bb8e-f045181b4531"}
-D{i:28;uuid:"014c976b-2f33-5252-a9e1-5bbbe37a0fc6"}D{i:35;uuid:"3094b6f9-3d03-5418-9db9-7e93b1119fe7"}
-D{i:36;uuid:"f09a5abf-3c90-585d-8771-d62fca643512"}D{i:37;uuid:"53f266c2-49f8-5a76-beb1-eaaf676a50d9"}
-D{i:38;uuid:"b971978c-58fd-52c0-bbfc-cfbd840b1365"}D{i:39;uuid:"4375586e-6abf-5dfe-9778-9b0fcd810e63"}
-D{i:40;uuid:"1c1520ab-01bd-5090-b4b7-a7236bed6886"}D{i:41;uuid:"ba430ed0-e77c-521c-9757-f21368e1a15d"}
-D{i:42;uuid:"cfb16788-4cf8-5379-a3ec-d4a758377583"}D{i:43;uuid:"04ecbb99-f99a-5982-9804-4a6dbe9112ba"}
-D{i:44;uuid:"2ab4dac6-0f79-5de7-aa35-8075573be2cb"}D{i:45;uuid:"6f6df179-49c5-53d3-949c-df386cefc879"}
-D{i:46;uuid:"93006719-07e5-55c7-8021-42f0d49b79dc"}D{i:47;uuid:"e3884358-6df6-59e9-bb44-c4659a3a9209"}
-D{i:48;uuid:"44dae79c-1aeb-568c-ac68-1aa23fa168da"}D{i:49;uuid:"23efa6b1-4d9a-59ea-a473-85d363496825"}
-D{i:50;uuid:"e28d6fbf-292e-5714-834a-32f17b378e51"}D{i:51;uuid:"c8d0bdea-15a6-55f2-a5ed-a85911c388c8"}
-D{i:52;uuid:"e85641fe-ac2f-5edc-bf6a-ce0821936fb2"}D{i:53;uuid:"d2159b1b-cfa3-50b4-adaa-0a17cb77905a"}
-D{i:54;uuid:"9932e5ac-1153-5356-aee3-f75ecb5f0c39"}D{i:55;uuid:"4a130233-5c6e-5d54-8728-4b6b8e621bf6"}
-D{i:56;uuid:"b9296b93-0a31-50f2-a166-06b82b7bc25e"}D{i:60}D{i:61}
+D{i:28;uuid:"014c976b-2f33-5252-a9e1-5bbbe37a0fc6"}D{i:38;uuid:"b971978c-58fd-52c0-bbfc-cfbd840b1365"}
+D{i:39;uuid:"4375586e-6abf-5dfe-9778-9b0fcd810e63"}D{i:40;uuid:"1c1520ab-01bd-5090-b4b7-a7236bed6886"}
+D{i:41;uuid:"ba430ed0-e77c-521c-9757-f21368e1a15d"}D{i:42;uuid:"cfb16788-4cf8-5379-a3ec-d4a758377583"}
+D{i:43;uuid:"04ecbb99-f99a-5982-9804-4a6dbe9112ba"}D{i:44;uuid:"2ab4dac6-0f79-5de7-aa35-8075573be2cb"}
+D{i:45;uuid:"6f6df179-49c5-53d3-949c-df386cefc879"}D{i:46;uuid:"93006719-07e5-55c7-8021-42f0d49b79dc"}
+D{i:47;uuid:"e3884358-6df6-59e9-bb44-c4659a3a9209"}D{i:48;uuid:"44dae79c-1aeb-568c-ac68-1aa23fa168da"}
+D{i:49;uuid:"23efa6b1-4d9a-59ea-a473-85d363496825"}D{i:50;uuid:"e28d6fbf-292e-5714-834a-32f17b378e51"}
+D{i:51;uuid:"c8d0bdea-15a6-55f2-a5ed-a85911c388c8"}D{i:52;uuid:"e85641fe-ac2f-5edc-bf6a-ce0821936fb2"}
+D{i:53;uuid:"d2159b1b-cfa3-50b4-adaa-0a17cb77905a"}D{i:54;uuid:"9932e5ac-1153-5356-aee3-f75ecb5f0c39"}
+D{i:55;uuid:"4a130233-5c6e-5d54-8728-4b6b8e621bf6"}D{i:56;uuid:"b9296b93-0a31-50f2-a166-06b82b7bc25e"}
 }
 ##^##*/
 

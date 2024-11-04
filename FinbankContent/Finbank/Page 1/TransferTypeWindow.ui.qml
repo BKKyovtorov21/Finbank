@@ -10,6 +10,8 @@ Rectangle {
     property alias payingMethodFinbank: payingMethodFinbank
     property alias selectedRectangle1: selectedRectangle1
     property alias continueButton: continueButton
+    property alias backButton: backButton
+    property alias imageSource: image.source
     width: 1280
     height: 832
     color: "#ffffff"
@@ -246,7 +248,7 @@ Rectangle {
 
     Item {
         id: chatButton
-        x: 977
+        x: 934
         y: 25
         width: 87
         height: 48
@@ -330,9 +332,14 @@ Rectangle {
         height: 52
         Image {
             id: image
+            width: 70
+            height: 70
+
             anchors.left: parent.left
             anchors.top: parent.top
-            source: "../assets/image.png"
+            anchors.leftMargin: -23
+            anchors.topMargin: -9
+            source: "../assets/user.png"
         }
 
         Text {
@@ -346,7 +353,7 @@ Rectangle {
             anchors.leftMargin: 53
             anchors.topMargin: 8
             font.pixelSize: 15
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
@@ -364,7 +371,7 @@ Rectangle {
             anchors.leftMargin: 58
             anchors.topMargin: 33
             font.pixelSize: 15
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
@@ -721,13 +728,13 @@ Rectangle {
         }
     }
 
-    Item {
-        id: sendButton1
+    Button {
+        id: backButton
         x: 888
         y: 757
         width: 141
         height: 51
-        Rectangle {
+        background: Rectangle {
             id: rectangle_35
             width: 141
             height: 51
@@ -1458,6 +1465,20 @@ Rectangle {
                 frame: 1000
             }
         }
+
+        KeyframeGroup {
+            target: selectedRectangle1
+            property: "strokeColor"
+            Keyframe {
+                value: "#4fa16a"
+                frame: 206
+            }
+
+            Keyframe {
+                value: "#fdfff7"
+                frame: 0
+            }
+        }
     }
 
     RectangleItem {
@@ -1466,8 +1487,8 @@ Rectangle {
         y: 273
         width: 822
         height: 90
-        visible: false
-        strokeColor: "#50a06a"
+        visible: true
+        strokeColor: "#ffffff"
         strokeWidth: 1
         fillColor: "#00ffffff"
         adjustBorderRadius: true
@@ -1500,18 +1521,17 @@ D{i:40;uuid:"b8c50983-9674-5da5-9b2b-c847dbce2160"}D{i:41;uuid:"1ec6abaa-6165-57
 D{i:42;uuid:"fa4786a1-8b37-54b1-a599-0399e6cdced9"}D{i:43;uuid:"976f0a61-5707-5256-9827-52076d4da23a"}
 D{i:44;uuid:"806e50a1-430e-5e26-9dd1-6feb20d33103"}D{i:45;uuid:"931b5075-75b6-5851-a85e-f062de478e57"}
 D{i:46;uuid:"6ac6d771-c716-5d96-97fb-6119fb460f74"}D{i:47;uuid:"9754ae2a-3f69-594c-acf6-ca98320a4cd0"}
-D{i:54;uuid:"df1b2c76-5025-5cf0-b061-1256b510282b"}D{i:55;uuid:"2fc826ba-a5d7-5876-b838-b858193d7345"}
-D{i:56;uuid:"7c9e3513-329e-5436-ba49-bbae7e7dbbc8"}D{i:57;uuid:"8f15050c-8c6f-5fbe-987e-e795461c20b5"}
-D{i:58;uuid:"87bc1934-3385-5a53-ad44-e796fb06bc65"}D{i:59;uuid:"68692ed9-1f92-582f-a9f4-c7180bf57778"}
-D{i:60;uuid:"db47ec7d-e56e-5790-ae2a-d0f906a78f2f"}D{i:61;uuid:"19f108f5-3678-5062-9eed-0399dda2f673"}
-D{i:62;uuid:"7d3c7e1e-a0dc-5319-b094-c580c77eb007"}D{i:63;uuid:"814a270f-43cc-52ee-ad2d-2463ac20ba59"}
-D{i:64;uuid:"116b9042-7a62-5812-a810-ce07337c7900"}D{i:65;uuid:"54142ef4-9f0e-53c5-b146-615b59fc3761"}
-D{i:66;uuid:"340a7479-b997-5072-9f75-8b1b21e2614a"}D{i:67;uuid:"f6dcbb60-7ecf-5ebe-ba62-7562f8150ced"}
-D{i:68;uuid:"bf90c58b-07fc-5fff-b1ee-20178de0c3dc"}D{i:69}D{i:72}D{i:93;uuid:"d478803a-bf0b-544b-b58f-839873387a42"}
-D{i:94;uuid:"62b5b29f-a3ea-535c-a58a-297dc09a4af6"}D{i:95;uuid:"11eaa579-1f24-5ef0-8626-bfb8838f766f"}
-D{i:96;uuid:"34e86bf5-4aa3-5ae6-9ec1-035c4cfd6ef3"}D{i:97;uuid:"a1b657cf-8424-5fde-99e4-17edcff47c44"}
-D{i:98;uuid:"d0394e1d-bcb9-5e69-9bc0-6fc93952cc96"}D{i:99;uuid:"15ca791e-90c9-5548-a57d-6157077b9e62"}
-D{i:100;uuid:"2e87e0cb-b943-5b2f-801a-056f2edddb92"}D{i:101;uuid:"c4964bba-0f21-5c67-b92c-06750cc994b7"}
+D{i:57;uuid:"8f15050c-8c6f-5fbe-987e-e795461c20b5"}D{i:58;uuid:"87bc1934-3385-5a53-ad44-e796fb06bc65"}
+D{i:59;uuid:"68692ed9-1f92-582f-a9f4-c7180bf57778"}D{i:60;uuid:"db47ec7d-e56e-5790-ae2a-d0f906a78f2f"}
+D{i:61;uuid:"19f108f5-3678-5062-9eed-0399dda2f673"}D{i:62;uuid:"7d3c7e1e-a0dc-5319-b094-c580c77eb007"}
+D{i:63;uuid:"814a270f-43cc-52ee-ad2d-2463ac20ba59"}D{i:64;uuid:"116b9042-7a62-5812-a810-ce07337c7900"}
+D{i:65;uuid:"54142ef4-9f0e-53c5-b146-615b59fc3761"}D{i:66;uuid:"340a7479-b997-5072-9f75-8b1b21e2614a"}
+D{i:67;uuid:"f6dcbb60-7ecf-5ebe-ba62-7562f8150ced"}D{i:68;uuid:"bf90c58b-07fc-5fff-b1ee-20178de0c3dc"}
+D{i:93;uuid:"d478803a-bf0b-544b-b58f-839873387a42"}D{i:94;uuid:"62b5b29f-a3ea-535c-a58a-297dc09a4af6"}
+D{i:95;uuid:"11eaa579-1f24-5ef0-8626-bfb8838f766f"}D{i:96;uuid:"34e86bf5-4aa3-5ae6-9ec1-035c4cfd6ef3"}
+D{i:97;uuid:"a1b657cf-8424-5fde-99e4-17edcff47c44"}D{i:98;uuid:"d0394e1d-bcb9-5e69-9bc0-6fc93952cc96"}
+D{i:99;uuid:"15ca791e-90c9-5548-a57d-6157077b9e62"}D{i:100;uuid:"2e87e0cb-b943-5b2f-801a-056f2edddb92"}
+D{i:101;uuid:"c4964bba-0f21-5c67-b92c-06750cc994b7"}
 }
 ##^##*/
 

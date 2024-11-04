@@ -13,6 +13,7 @@ Item {
     property string cardInfo: ""
     property string firstName: ""
     property string lastName: ""
+    property string pfp
     Loader {
         id: loader
         anchors.fill: parent
@@ -27,15 +28,16 @@ Item {
             cardInfo = dashboard.getDbVariable(usernameRef, "cardNumber");
             firstName = dashboard.getDbVariable(usernameRef, "first_name");
             lastName = dashboard.getDbVariable(usernameRef, "last_name");
+            pfp = dashboard.getDbVariable(usernameRef, "pfp");
+            dashbaordwindow.imageSource = pfp;
         } else {
             console.log("Username is empty");
         }
     }
 
     DashboardWindow {
-        id: introwindow
+        id: dashbaordwindow
         anchors.fill: parent
-
         balanceValue: balance
         incomeValue: income
         expensesValue: expenses
@@ -48,11 +50,9 @@ Item {
 
         transactionButton.onClicked:
         {
-            introwindow.visible = false;
+            dashbaordwindow.visible = false;
             loader.setSource("Transactions.qml", { "username": usernameRef });
         }
-
-        imageSource: googlegateway.userPicture
 
     }
 }

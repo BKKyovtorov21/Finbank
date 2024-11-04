@@ -17,6 +17,7 @@ Rectangle {
     property alias currencyReceivingImage: currencyReceivingImage.source
     property alias continueButton: continueButton
     property alias backButton: backButton
+    property alias imageSource: image.source
     id: transactions_Send_money
     width: 1280
     height: 832
@@ -263,7 +264,7 @@ Rectangle {
 
     Item {
         id: chatButton
-        x: 977
+        x: 934
         y: 25
         width: 87
         height: 48
@@ -344,7 +345,17 @@ Rectangle {
         y: 20
         width: 181
         height: 52
+        Image {
+            id: image
+            width: 70
+            height: 70
 
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.leftMargin: -23
+            anchors.topMargin: -9
+            source: "../assets/user.png"
+        }
         Text {
             id: boyan_Kiovtorov
             width: 112
@@ -356,7 +367,7 @@ Rectangle {
             anchors.leftMargin: 53
             anchors.topMargin: 8
             font.pixelSize: 15
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
@@ -373,7 +384,7 @@ Rectangle {
             anchors.leftMargin: 58
             anchors.topMargin: 33
             font.pixelSize: 15
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
@@ -1087,7 +1098,7 @@ Rectangle {
         wrapMode: Text.NoWrap
         font.weight: Font.Bold
     }
-    
+
     SvgPathItem {
         id: line_9_Stroke_1
         width: 20
@@ -1104,7 +1115,7 @@ Rectangle {
         fillColor: "#4d171716"
         antialiasing: true
     }
-    
+
     Text {
         id: overview1
         width: 79
@@ -1121,7 +1132,7 @@ Rectangle {
         wrapMode: Text.NoWrap
         font.weight: Font.Bold
     }
-    
+
     SvgPathItem {
         id: line_9_Stroke_2
         width: 20
@@ -1138,7 +1149,7 @@ Rectangle {
         fillColor: "#4d171716"
         antialiasing: true
     }
-    
+
     Text {
         id: overview2
         width: 79
@@ -1171,34 +1182,11 @@ D{i:16;uuid:"f0ae6478-a27c-54fb-8651-0e44528e4cfe"}D{i:17;uuid:"23dfdaed-8283-5b
 D{i:18;uuid:"fd161bc0-26a7-547a-a93b-8cc7cbba3d79"}D{i:19;uuid:"a6568cff-3781-51fc-a4f8-2fe87a9f8ae3"}
 D{i:20;uuid:"9f07b5ef-df53-529c-b134-7fd4ebf38c4a"}D{i:21;uuid:"3eaf26e9-47a0-51cf-ae32-da5ff7d012ff"}
 D{i:22;uuid:"33368870-73d7-5909-81f3-5144f2ace04b"}D{i:23;uuid:"e855bf77-b5ca-58a7-ab62-622023fc5b79"}
-D{i:24;uuid:"de6265ec-3fe5-5cad-b18b-16e4f0e986ed"}D{i:25;uuid:"f5a085b2-5449-5451-b8b2-6fffa7558572"}
-D{i:27;uuid:"104be414-737c-5c41-b57a-3cb350a1e193"}D{i:29;uuid:"70c121ca-268a-562e-9992-1045c15c4847"}
-D{i:30;uuid:"8e43598a-8443-58f5-87b6-4bd3daa8c755"}D{i:31;uuid:"23459f13-ae8b-516e-a953-6b202a9d6b2d"}
-D{i:32;uuid:"d02e999e-0549-5d1a-86c9-9dee6a8a4094"}D{i:33;uuid:"cb27757f-1780-5bcb-962a-6d1c8bc42cbd"}
-D{i:34;uuid:"bdd5554e-fd3d-5ba5-bfdd-ac881104fad9"}D{i:35;uuid:"a0731193-ae29-5a7a-859e-be24c844b156"}
-D{i:36;uuid:"54742b20-98d9-559c-a2b8-361192c80b52"}D{i:37;uuid:"0a5af325-2d94-5de7-be77-e9fb0d42a644"}
-D{i:38;uuid:"027a8257-de89-5ee5-a54b-6e475a042620"}D{i:39;uuid:"af3a9e17-bcbe-5a5b-b0fb-ea6caaea541d"}
-D{i:40;uuid:"3b85d90a-21f4-538e-83bc-21b8dce0b46b"}D{i:41;uuid:"b4910476-82ba-53ec-8127-7637a25b8421"}
-D{i:42;uuid:"16929536-6d4a-5788-b24b-4e88fe6e8954"}D{i:43;uuid:"dc7f0462-390a-536a-ab0b-da9f99d328d9"}
-D{i:44;uuid:"0ee76805-cab6-5b5a-8185-a06c334f31a8"}D{i:45;uuid:"0181ef18-68d5-5908-b9b7-cfbe62e10ace"}
-D{i:46;uuid:"00d3b3c5-d5a3-5bc9-9f4a-8d28509d295a"}D{i:47;uuid:"d01f0d0f-54e3-52d7-85f4-b48969166710"}
-D{i:48;uuid:"09a8f056-ef2f-58bc-95a0-f7088dccefae"}D{i:49;uuid:"9accedab-a86d-58aa-9dfe-882f67d54440"}
-D{i:50;uuid:"f7d15ecf-312d-5d64-a793-28ff92bbee3f"}D{i:52;uuid:"2929f021-41bd-50f6-b96c-c2fb0a6f612d"}
-D{i:53;uuid:"0d1c7aae-0095-5820-8558-69102353f502"}D{i:54;uuid:"f7c8a4ee-b2e6-5897-b1c0-885494baa86d"}
-D{i:55;uuid:"a20927e2-0210-5c3f-97ef-8d70adb18296"}D{i:59;uuid:"a4949276-b9d1-5390-9200-71594a74a0f9"}
-D{i:60;uuid:"9af88c83-d540-5af7-af8a-3ca80ddb8de9"}D{i:61;uuid:"06d367c7-77b3-5359-af90-4c23276adc77"}
-D{i:62;uuid:"a1f3f8d2-518c-5309-b525-b14551e95655"}D{i:63;uuid:"25d38c18-88fa-5e5f-aa9d-138df2179b99"}
-D{i:64;uuid:"a39577b9-d4d7-5ef2-9a71-09b3857648a0"}D{i:68;uuid:"4079f0d1-511d-5312-b91b-98b263f78339"}
-D{i:69;uuid:"7ade5d94-5609-5570-b983-548435d25953"}D{i:70;uuid:"0767a455-8cdf-5762-b1b0-c6c7776011f2"}
-D{i:71;uuid:"d149afff-2d86-5d8b-9f1a-b34e31f30a0b"}D{i:72;uuid:"8ccb74a2-03c3-5ed5-80eb-0b0592a0600c"}
-D{i:73;uuid:"74bce3c0-58e1-57a5-8cd0-5076d99a1eca"}D{i:74;uuid:"e201cbe4-06df-5f6b-adfd-3531895a71ab"}
-D{i:75;uuid:"d31f3365-4ffe-5400-be3f-c20ac0953425"}D{i:76;uuid:"338c9d19-8766-5e15-ad48-3c949986b1d7"}
-D{i:77;uuid:"c6ac70e3-29f3-5823-bb70-ef8f96fbb40c"}D{i:78;uuid:"8c5367f2-df4b-5752-8839-4ab05d399471"}
-D{i:79;uuid:"164cf006-03c3-5656-ac5c-75688f64bddd"}D{i:80;uuid:"584353ed-2b2c-5155-a915-ca2cb1b36f04"}
-D{i:81;uuid:"383099f2-19d9-51fb-9d72-a93eeeb09e36"}D{i:82;uuid:"c1a3940a-2bb3-589d-8b82-ae1c4eeb2493"}
-D{i:92;uuid:"35eb9c6b-3640-5b3f-9fae-33414dfdaab0"}D{i:93;uuid:"c6d35ba3-1c67-544b-a2be-46dc7da8ca49"}
-D{i:94;uuid:"5afa5fd1-b43f-5c05-8005-d030142d20c6"}D{i:95;uuid:"63fd0a73-30bb-5db9-aef5-8deee351b19b"}
-D{i:96;uuid:"61ab5e80-fc15-5573-8f22-a05328c94254"}D{i:97;uuid:"dc418a0a-8ccf-5e76-a2f4-10114e96ba4c"}
+D{i:24;uuid:"de6265ec-3fe5-5cad-b18b-16e4f0e986ed"}D{i:34;uuid:"bdd5554e-fd3d-5ba5-bfdd-ac881104fad9"}
+D{i:54;uuid:"f7c8a4ee-b2e6-5897-b1c0-885494baa86d"}D{i:55;uuid:"a20927e2-0210-5c3f-97ef-8d70adb18296"}
+D{i:58;uuid:"9af88c83-d540-5af7-af8a-3ca80ddb8de9"}D{i:59;uuid:"06d367c7-77b3-5359-af90-4c23276adc77"}
+D{i:60;uuid:"a1f3f8d2-518c-5309-b525-b14551e95655"}D{i:65;uuid:"0767a455-8cdf-5762-b1b0-c6c7776011f2"}
+D{i:66;uuid:"d149afff-2d86-5d8b-9f1a-b34e31f30a0b"}D{i:67;uuid:"8ccb74a2-03c3-5ed5-80eb-0b0592a0600c"}
 }
 ##^##*/
 

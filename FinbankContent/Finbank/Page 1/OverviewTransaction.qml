@@ -17,6 +17,7 @@ Item {
     // The main component: IntroWindow
     OverviewTransactionWindow {
         id: overviewTransactionWindow
+        imageSource: dashbaordwindow.pfp
 
         property string recipentIBANStr
         property string senderIBANStr
@@ -47,12 +48,20 @@ Item {
             }
             recipentIBANStr = dashboard.getDbVariable(recipentsWindow.usernameRef, "IBAN");
             senderIBANStr = dashboard.getDbVariable(rootdashboard.usernameRef, "IBAN");
+
         }
 
         // Handle send button click event
         sendButton.onClicked:
         {
             createtransaction.makeTransaction(senderIBANStr, recipentIBANStr, moneySending, recipentReceiving);
+            overviewTransactionWindow.visible = false;
+            dashbaordwindow.visible = true;
+        }
+        backButton.onClicked:
+        {
+            overviewTransactionWindow.visible = false;
+            dashbaordwindow.visible = true;
         }
     }
 }

@@ -239,7 +239,7 @@ Rectangle {
 
     Button {
         id: chatButton
-        x: 977
+        x: 934
         y: 25
         width: 87
         height: 48
@@ -322,10 +322,13 @@ Rectangle {
         height: 53
         Image {
             id: image
-            width: 45
-            height: 45
+            width: 70
+            height: 70
+
             anchors.left: parent.left
             anchors.top: parent.top
+            anchors.leftMargin: -23
+            anchors.topMargin: -9
             source: "../assets/user.png"
         }
 
@@ -334,13 +337,13 @@ Rectangle {
             width: 112
             height: 19
             color: "#000000"
-            text: qsTr("Boyan Kiovtorov")
+            text: qsTr("test")
             anchors.left: parent.left
             anchors.top: parent.top
-            anchors.leftMargin: 53
+            anchors.leftMargin: 58
             anchors.topMargin: 8
             font.pixelSize: 15
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
@@ -351,13 +354,13 @@ Rectangle {
             width: 78
             height: 19
             color: "#802f2f2f"
-            text: qsTr("@kiovtorov")
+            text: qsTr("@test")
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 58
             anchors.topMargin: 33
             font.pixelSize: 15
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal

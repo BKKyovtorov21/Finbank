@@ -5,6 +5,7 @@ import QtQuick.Shapes 1.0
 
 Rectangle {
     property alias searchbarUser: searchbarUser
+    property alias imageSource: image.source
 
     id: selectRecipent
     width: 1280
@@ -278,7 +279,7 @@ Rectangle {
 
     Item {
         id: chatButton
-        x: 977
+        x: 934
         y: 25
         width: 87
         height: 48
@@ -361,9 +362,14 @@ Rectangle {
         height: 52
         Image {
             id: image
+            width: 70
+            height: 70
+
             anchors.left: parent.left
             anchors.top: parent.top
-            source: "../assets/image_1.png"
+            anchors.leftMargin: -23
+            anchors.topMargin: -9
+            source: "../assets/user.png"
         }
 
         Text {
@@ -377,7 +383,7 @@ Rectangle {
             anchors.leftMargin: 53
             anchors.topMargin: 8
             font.pixelSize: 15
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
@@ -394,7 +400,7 @@ Rectangle {
             anchors.leftMargin: 58
             anchors.topMargin: 33
             font.pixelSize: 15
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
@@ -533,7 +539,7 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 200
         anchors.topMargin: 210
-        
+
         Column {
             id: userColumn
             anchors.fill: parent
@@ -541,7 +547,7 @@ Rectangle {
             spacing: 10
         }
     }
-    
+
     SvgPathItem {
         id: line_9_Stroke_1
         width: 20
@@ -575,7 +581,7 @@ Rectangle {
         wrapMode: Text.NoWrap
         font.weight: Font.Bold
     }
-    
+
     SvgPathItem {
         id: line_9_Stroke_2
         width: 20
@@ -592,7 +598,7 @@ Rectangle {
         fillColor: "#4d171716"
         antialiasing: true
     }
-    
+
     Text {
         id: overview2
         width: 79
@@ -625,22 +631,13 @@ D{i:16;uuid:"6ace2561-7cb4-5ee7-aa2a-f3600742d288"}D{i:17;uuid:"03a26348-af76-5d
 D{i:21;uuid:"b0971aa2-cd3b-5555-ac36-0b55c4d6f3e8"}D{i:22;uuid:"1a8653a9-db99-513d-8b3a-674649cc7602"}
 D{i:23;uuid:"adbab07c-c218-5281-b450-0a6d51236c43"}D{i:24;uuid:"71ac856e-f045-55bc-b000-d16bdb19dd5d"}
 D{i:25;uuid:"d07fc62d-0e63-5269-b086-749ab55f095d"}D{i:26;uuid:"584d29be-ec56-542d-9323-9fc258f75516"}
-D{i:27;uuid:"3dd4e0cd-12b2-52b4-b471-fec4be0aeac8"}D{i:28;uuid:"fc085bd1-6f17-566d-9b02-2ab4cb7419f4"}
-D{i:29;uuid:"86db12f6-4c70-58e6-bde2-a004053d2d9a"}D{i:30;uuid:"97d4bc5a-ccf1-587f-8d10-45800c1fbfb7"}
-D{i:31;uuid:"4ba178cf-780e-5600-a4d5-d1fae9224304"}D{i:32;uuid:"db1b92d3-2b74-5437-adbe-d9a0b257c0ce"}
-D{i:33;uuid:"6818ff33-d0f7-5c0c-9d90-7fc6aa1cd095"}D{i:34;uuid:"0f4b0897-5ba2-5d0d-adb9-9d805c60285d"}
-D{i:35;uuid:"9b62e8dc-4ce9-544f-8922-2edd6991f4de"}D{i:36;uuid:"4c0bf715-1d34-5250-9c8b-7967b15e9cea"}
-D{i:37;uuid:"ed2175b3-7c6c-568e-8c14-3b39ce36e445"}D{i:38;uuid:"db4afc5b-3c18-5060-801a-06b960f71871"}
-D{i:39;uuid:"925dda8b-dffe-5be0-9eaa-0c6840c24d14"}D{i:40;uuid:"d242d428-456e-5675-9e97-2b780a5e7c78"}
-D{i:41;uuid:"c7e58f83-a0be-5de3-b69f-753c3d0c0567"}D{i:42;uuid:"20884803-e163-5c32-97aa-bda711a634cd"}
-D{i:43;uuid:"aee8ecc3-5498-5a89-a1cd-1814ae203991"}D{i:44;uuid:"be3a7d5a-f24a-5d6a-9e9e-1207a2351026"}
-D{i:45;uuid:"1297679c-1eec-5e77-91f5-472ef39ae097"}D{i:46;uuid:"40dfced0-5499-549c-af59-aea6b5f8a2b2"}
-D{i:47;uuid:"628acf7d-0227-5a28-bb06-762a662dee8b"}D{i:48;uuid:"3cdc1d00-1a97-5a1b-86c8-b22f66148f97"}
-D{i:49;uuid:"1ae82675-cbce-5b2e-bbfe-3dacf46c4c7f"}D{i:50;uuid:"b9c658cb-4aa2-53fd-b25d-9b581019828a"}
-D{i:51;uuid:"9ff1f02b-eb47-5161-a1f1-3045ee251c5c"}D{i:52;uuid:"849e1236-1767-58fe-8114-9c75246aef2b"}
-D{i:53;uuid:"f2597518-7acb-57c9-9e5d-0da95f526f6d"}D{i:54;uuid:"eef48a8c-2ac3-52ae-a122-a48ccfbac985"}
-D{i:55;uuid:"a43995fb-ccad-5bba-ac71-3bdf1ad15fa1"}D{i:56;uuid:"379e0ebe-e8b7-5041-9f8f-ed44875569c7"}
-D{i:57;uuid:"f6607057-8642-5b8a-9e93-d8fa9771940a"}
+D{i:27;uuid:"3dd4e0cd-12b2-52b4-b471-fec4be0aeac8"}D{i:29;uuid:"86db12f6-4c70-58e6-bde2-a004053d2d9a"}
+D{i:32;uuid:"db1b92d3-2b74-5437-adbe-d9a0b257c0ce"}D{i:33;uuid:"6818ff33-d0f7-5c0c-9d90-7fc6aa1cd095"}
+D{i:34;uuid:"0f4b0897-5ba2-5d0d-adb9-9d805c60285d"}D{i:35;uuid:"9b62e8dc-4ce9-544f-8922-2edd6991f4de"}
+D{i:36;uuid:"4c0bf715-1d34-5250-9c8b-7967b15e9cea"}D{i:37;uuid:"ed2175b3-7c6c-568e-8c14-3b39ce36e445"}
+D{i:38;uuid:"db4afc5b-3c18-5060-801a-06b960f71871"}D{i:39;uuid:"925dda8b-dffe-5be0-9eaa-0c6840c24d14"}
+D{i:40;uuid:"d242d428-456e-5675-9e97-2b780a5e7c78"}D{i:41;uuid:"c7e58f83-a0be-5de3-b69f-753c3d0c0567"}
+D{i:42;uuid:"20884803-e163-5c32-97aa-bda711a634cd"}D{i:43;uuid:"aee8ecc3-5498-5a89-a1cd-1814ae203991"}
 }
 ##^##*/
 

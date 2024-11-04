@@ -22,6 +22,8 @@ Rectangle {
         property string pfpRef: ""
         property string emailRef: ""
         property string usernameRef: ""
+        imageSource: dashbaordwindow.pfp
+
         function findUser() {
             if (recipentsWindow.searchbarUser.text === "") {
                 clearFoundUsers();
@@ -47,7 +49,6 @@ Rectangle {
                         userFullname: firstname + " " + lastname,
                         userEmail: email,
                         userPfp: pfp,
-                        userUsername: username  // Pass the username to the user instance
                     });
                     if (userInstance) {
                         // Add to foundUsers array without updating recipentsWindow properties

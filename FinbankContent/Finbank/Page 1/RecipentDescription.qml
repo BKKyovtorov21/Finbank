@@ -17,17 +17,23 @@ Item {
     RecipentDescriptionWindow {
         id: recipentDescription
         anchors.fill: parent
+        imageSource: dashbaordwindow.pfp
         property string recipentIBANStr
         recipentIBAN: recipentIBANStr
         continueButton.onClicked:
         {
             recipentDescription.visible = false;
-            loader.source = "OverviewTransaction.qml"
+            loader.source = "TransferType.qml"
         }
 
         selectBankButton.onClicked:
         {
             timelineAnimation.running = true;
+        }
+        backButton.onClicked:
+        {
+            recipentDescription.visible = false;
+            loader.source = "SendMoney.qml"
         }
 
         Component.onCompleted:
@@ -41,6 +47,7 @@ Item {
                 });
             }
             recipentIBANStr = dashboard.getDbVariable(recipentsWindow.usernameRef, "IBAN");
+
 
         }
 

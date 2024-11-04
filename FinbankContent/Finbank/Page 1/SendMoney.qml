@@ -21,6 +21,7 @@ Rectangle {
 
 
         anchors.fill: parent
+        imageSource: dashbaordwindow.pfp
 
 
         property string currencyReceivingRef: currencyReceiving
@@ -63,6 +64,14 @@ Rectangle {
             loader.visible = true;
             sendmoneywindow.visible = false;
 
+        }
+
+        backButton.onClicked:
+        {
+            loader.source = "";
+            loader.source = "SelectRecipent.qml"
+            loader.visible = true;
+            sendmoneywindow.visible = false;
         }
 
         function updateConversionRate() {

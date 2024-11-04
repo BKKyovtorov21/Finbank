@@ -14,8 +14,10 @@ Item {
     }
 
     TransferTypeWindow {
-        id: transactionwindow
-        anchors.fill: paren
+        id: transactionType
+        anchors.fill: parent
+
+        imageSource: dashbaordwindow.pfp
 
         payingMethodFinbank.onClicked:
         {
@@ -26,7 +28,15 @@ Item {
 
         continueButton.onClicked:
         {
-            loader.source = ""
+            transactionwindow.visible = false;
+            loader.source = "OverviewTransaction.qml"
+        }
+
+
+        backButton.onClicked:
+        {
+            transactionwindow.visible = false;
+            loader.source = "RecipentDescription.qml"
         }
 
     }
