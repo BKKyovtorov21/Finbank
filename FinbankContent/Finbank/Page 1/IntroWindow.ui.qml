@@ -10,7 +10,7 @@ Rectangle {
     height: 832
     color: "transparent"
     property alias joinNow_PB: joinNow_PB
-    property alias createAccountButton: createAccount_PB
+    property alias createAccount_PB: createAccount_PB
     property alias signUpButton: signUpButton
     property alias logInButton: logInButton
 

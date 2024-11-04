@@ -21,13 +21,23 @@ Window {
         // This handles the button click event
         joinNow_PB.onClicked: {
             introwindow.visible = false;
-            loader.source = "SignUp.qml";  // Load the SignUp.qml on button click
+            loader.source = "SignIn.qml";
         }
 
         logInButton.onClicked:
         {
             introwindow.visible = false;
             loader.source = "SignIn.qml"
+        }
+        createAccount_PB.onClicked:
+        {
+            introwindow.visible = false;
+            loader.source = "SignUp.qml";
+        }
+        signUpButton.onClicked:
+        {
+            introwindow.visible = false;
+            loader.source = "SignUp.qml";
         }
     }
 }
