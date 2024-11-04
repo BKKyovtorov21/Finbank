@@ -17,5 +17,7 @@ private:
     QString Hash(const QString& password, const QString& salt);
     QString GenerateSalt();
     QString GenerateCardNumber();
+    QString GenerateIBAN();
+    int BigIntMod97(const QString& input);
 
 };

@@ -8,6 +8,7 @@
 #include "googlegateway.hpp"
 #include "dashboard.hpp"
 #include "searchrecipent.hpp"
+#include "createtransaction.hpp"
 int main(int argc, char *argv[])
 {
     set_qt_environment();  // Set up the Qt environment variables
@@ -37,6 +38,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("googlegateway", &googleGateway);
     SearchRecipent searchrecipent;
     engine.rootContext()->setContextProperty("searchrecipent", &searchrecipent);
+    CreateTransaction createTransaction;
+    engine.rootContext()->setContextProperty("createtransaction", &createTransaction);
 
 
 

@@ -5,6 +5,8 @@
 #include <QRandomGenerator>
 #include <QCryptographicHash>
 #include <QMessageBox>
+#include <QByteArray>
+
 Register::Register(QObject *parent)
     : QObject{parent}
 {}
@@ -30,13 +32,14 @@ void Register::registerAccount(const QString& username, const QString& email, co
         return;
     }
 
-    // If no user found, proceed with registration
+    // Generate unique values for registration
     QString passwordSalt = GenerateSalt();
     QString cardNumber = GenerateCardNumber();
     QString hashedPassword = Hash(password, passwordSalt);
+    QString IBAN = GenerateIBAN();
 
-    qry.prepare("INSERT INTO users (username, email, password, first_name, last_name, date_of_birth, gender, phone, passwordSalt, cardNumber, googleRegistered, pfp) "
-                "VALUES (:username, :email, :password, :first_name, :last_name, :date_of_birth, :gender, :phone, :passwordSalt, :cardNumber, :googleRegistered, :pfp)");
+    qry.prepare("INSERT INTO users (username, email, password, first_name, last_name, date_of_birth, gender, phone, passwordSalt, cardNumber, IBAN, googleRegistered, pfp) "
+                "VALUES (:username, :email, :password, :first_name, :last_name, :date_of_birth, :gender, :phone, :passwordSalt, :cardNumber, :IBAN, :googleRegistered, :pfp)");
     qry.bindValue(":username", username);
     qry.bindValue(":email", email);
     qry.bindValue(":password", hashedPassword);
@@ -47,6 +50,7 @@ void Register::registerAccount(const QString& username, const QString& email, co
     qry.bindValue(":phone", phone);
     qry.bindValue(":passwordSalt", passwordSalt);
     qry.bindValue(":cardNumber", cardNumber);
+    qry.bindValue(":IBAN", IBAN);
     qry.bindValue(":googleRegistered", isGoogleRegistered);
     qry.bindValue(":pfp", pfp);
 
@@ -58,9 +62,7 @@ void Register::registerAccount(const QString& username, const QString& email, co
     }
 }
 
-
 QString Register::GenerateSalt() {
-    // Generate a random salt
     QByteArray salt;
     for (int i = 0; i < 16; ++i) {
         salt.append(QRandomGenerator::global()->generate());
@@ -74,14 +76,45 @@ QString Register::Hash(const QString& password, const QString& salt) {
     return hashedPassword.toHex();
 }
 
-
 QString Register::GenerateCardNumber() {
     QString cardNumber;
     for (int i = 0; i < 16; ++i) {
         cardNumber.append(QString::number(QRandomGenerator::global()->bounded(0, 10))); // Generate digits from 0-9
-        if ((i + 1) % 4 == 0 && i < 15) { // Add a space after every 4 digits except the last group
+        if ((i + 1) % 4 == 0 && i < 15) {
             cardNumber.append(' ');
         }
     }
-    return cardNumber.trimmed(); // Trim any trailing space
+    return cardNumber.trimmed();
+}
+
+QString Register::GenerateIBAN() {
+    // Bulgarian IBAN template: BGkkFINBXXXXYYYYYYYYYY
+    QString country_code = "BG";
+    QString bank_code = "FINB";
+
+    // Generate random account number part (10 digits)
+    QString account_number;
+    for (int i = 0; i < 10; ++i) {
+        account_number.append(QString::number(QRandomGenerator::global()->bounded(0, 10)));
+    }
+
+    // Create preliminary IBAN without check digits
+    QString IBAN = country_code + "00" + bank_code + account_number;
+
+    // Calculate check digits using MOD-97
+    QString IBAN_numeric = IBAN.mid(4) + country_code + "00";
+    int check_digits = 98 - (BigIntMod97(IBAN_numeric) % 97);
+
+    // Format the IBAN with the calculated check digits
+    IBAN.replace(2, 2, QString::number(check_digits).rightJustified(2, '0'));
+    return IBAN;
+}
+
+int Register::BigIntMod97(const QString& input) {
+    QString temp = input;
+    while (temp.size() > 2) {
+        int mod = temp.left(9).toInt() % 97;
+        temp = QString::number(mod) + temp.mid(9);
+    }
+    return temp.toInt() % 97;
 }
