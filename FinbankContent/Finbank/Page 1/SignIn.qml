@@ -25,7 +25,7 @@ Rectangle {
              login.logInUser(username, password, 0);
             login.logInSuccessful()
             {
-                loader.setSource("Dashboard.qml", { "username": username });
+                loader.setSource("Dashboard.qml", { "usernameRef": username });
                 signInWindow.visible = false;
             }
         }
@@ -45,7 +45,7 @@ Rectangle {
                 login.logInUser(username, password, 1);
                 login.logInSuccessful()
                 {
-                    loader.setSource("Dashboard.qml", { "username": username });
+                    loader.setSource("Dashboard.qml", { "usernameRef": username });
                     signInWindow.visible = false;
                 }
             }
