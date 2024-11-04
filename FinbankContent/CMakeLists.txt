@@ -36,6 +36,7 @@ qt6_add_qml_module(FinbankContent
         "Finbank/Page 1/TransferTypeWindow.ui.qml"
         "Finbank/Page 1/TransferType.qml"
         "Finbank/Page 1/OverviewTransaction.qml"
+        "Finbank/Page 1/SelectedRecipent.qml"
     RESOURCES
         "Finbank/assets/credit_card_teller_card_debit_card_icon_vector_illustration_8583.png"
         "Finbank/assets/gbp.png"

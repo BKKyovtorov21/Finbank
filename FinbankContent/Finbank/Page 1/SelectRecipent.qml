@@ -4,7 +4,6 @@ import QtQuick.Controls 2.15
 Rectangle {
     width: 1280
     height: 832
-    color: "lightgrey"  // Background color for visibility
 
     property var foundUsers: []  // Holds created user instances
     Loader {
@@ -19,7 +18,10 @@ Rectangle {
         x: 0
         y: 0
         visible: true
-
+        property string fullNameRef: ""
+        property string pfpRef: ""
+        property string emailRef: ""
+        property string usernameRef: ""
         function findUser() {
             if (recipentsWindow.searchbarUser.text === "") {
                 clearFoundUsers();
@@ -36,12 +38,6 @@ Rectangle {
             foundUsers = [];
         }
 
-        function handleUserClick(userInstance) {
-            recipentsWindow.visible = false;
-            recipentsWindow.clearFoundUsers();
-            loader.source = "SendMoney.qml";
-        }
-
         Connections {
             target: searchrecipent
             onUserFound: function(firstname, lastname, email, username, pfp) {
@@ -50,14 +46,21 @@ Rectangle {
                     var userInstance = userComponent.createObject(userFlow, {
                         userFullname: firstname + " " + lastname,
                         userEmail: email,
-                        userPfp: pfp
+                        userPfp: pfp,
+                        userUsername: username  // Pass the username to the user instance
                     });
                     if (userInstance) {
+                        // Add to foundUsers array without updating recipentsWindow properties
                         foundUsers.push(userInstance);
 
-                        // Connect the button's onClicked to handleUserClick
+                        // Connect the button's onClicked to handleUserClick, passing user data
                         userInstance.onClicked.connect(function() {
-                            recipentsWindow.handleUserClick(userInstance);
+                            recipentsWindow.handleUserClick({
+                                fullName: firstname + " " + lastname,
+                                email: email,
+                                username: username,  // Include username in the user data
+                                pfp: pfp
+                            });
                         });
                     } else {
                         console.error("Error: User instance creation failed.");
@@ -66,6 +69,20 @@ Rectangle {
                     console.error("Error creating FoundUser component:", userComponent.errorString());
                 }
             }
+        }
+
+        // Update handleUserClick to receive the specific user's data
+        function handleUserClick(userData) {
+            recipentsWindow.visible = false;
+            recipentsWindow.clearFoundUsers();
+            loader.source = "SendMoney.qml";
+
+            // Now set the references based on the clicked user's data
+            recipentsWindow.fullNameRef = userData.fullName;
+            recipentsWindow.emailRef = userData.email;
+            recipentsWindow.usernameRef = userData.username;  // Set username reference
+            recipentsWindow.pfpRef = userData.pfp;
+            console.log("User clicked:", userData);
         }
 
         searchbarUser.onTextChanged: findUser()

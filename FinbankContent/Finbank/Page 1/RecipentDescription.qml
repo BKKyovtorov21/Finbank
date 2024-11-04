@@ -17,7 +17,8 @@ Item {
     RecipentDescriptionWindow {
         id: recipentDescription
         anchors.fill: parent
-
+        property string recipentIBANStr
+        recipentIBAN: recipentIBANStr
         continueButton.onClicked:
         {
             recipentDescription.visible = false;
@@ -28,5 +29,21 @@ Item {
         {
             timelineAnimation.running = true;
         }
+
+        Component.onCompleted:
+        {
+            var userComponent = Qt.createComponent("SelectedRecipent.qml");
+            if (userComponent.status === Component.Ready) {
+                var userInstance = userComponent.createObject(rectangle_42, {
+                    userFullname: recipentsWindow.fullNameRef,
+                    userEmail: recipentsWindow.emailRef,
+                    userPfp: recipentsWindow.pfpRef
+                });
+            }
+            recipentIBANStr = dashboard.getDbVariable(recipentsWindow.usernameRef, "IBAN");
+
+        }
+
+
     }
 }

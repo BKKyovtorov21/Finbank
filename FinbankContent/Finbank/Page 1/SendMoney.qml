@@ -2,7 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 
-Item {
+Rectangle {
     id: root
     width: 1280
     height: 832
@@ -16,14 +16,21 @@ Item {
         "JPY": { "USD": 0.0065312896, "CAD": 0.0090723603, "EUR": 0.0060400338, "GBP": 0.005035342, "AUD": 0.0099274843, "BGN": 0.011812687, "SEK": 0.069554658 }
     })
     property bool currencyChanged: false
-
     SendMoneyWindow {
         id: sendmoneywindow
+
+
         anchors.fill: parent
+
+
+        property string currencyReceivingRef: currencyReceiving
         moneySending: moneySending_TF
+        property real moneySendingRef: moneySending
         sendingValue: moneySending + 5 + "$ " + currencySending
         recipentReceiving: moneySending * conversionRate;
-
+        property string recipentReceivingRef: recipentReceiving
+        property string currencySendingRef: currencySending
+        property string conversionRateRef: conversionRate
         onCurrencySendingChanged: updateConversionRate()
             onCurrencyReceivingChanged: updateConversionRate()
 
@@ -75,7 +82,6 @@ Item {
     // Loader to display Currencies.qml as an overlay
     Loader {
             id: loader
-
             visible: false  // Start hidden; shown only when needed
         }
 }

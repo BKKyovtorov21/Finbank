@@ -419,248 +419,6 @@ Rectangle {
         }
     }
 
-    Item {
-        id: balanceGroup
-        x: 15
-        y: 254
-        width: 457
-        height: 186
-        visible: false
-        Rectangle {
-            id: rectangle_26
-            width: 457
-            height: 186
-            color: "#4dffffff"
-            radius: 15
-            border.color: "#727272"
-            border.width: 1
-            anchors.left: parent.left
-            anchors.top: parent.top
-        }
-
-        Text {
-            id: my_balance
-            width: 96
-            height: 21
-            color: "#b22f2f2f"
-            text: qsTr("My balance")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 16
-            anchors.topMargin: 7
-            font.pixelSize: 18
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.Wrap
-            font.weight: Font.Normal
-        }
-
-        Image {
-            id: element8
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 15
-            anchors.topMargin: 32
-            source: "../assets/element8.png"
-        }
-
-        Text {
-            id: element9
-            width: 53
-            height: 29
-            color: "#249226"
-            text: qsTr("+6,7%")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 195
-            anchors.topMargin: 43
-            font.pixelSize: 20
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.Wrap
-            font.weight: Font.Normal
-        }
-
-        Text {
-            id: compared_to_last_month
-            width: 164
-            height: 21
-            color: "#b22f2f2f"
-            text: qsTr("Compared to last month")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 270
-            anchors.topMargin: 47
-            font.pixelSize: 15
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.Wrap
-            font.weight: Font.Normal
-        }
-
-        Text {
-            id: element10
-            width: 174
-            height: 23
-            color: "#000000"
-            text: qsTr("6549  7329  9821  2472")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 16
-            anchors.topMargin: 80
-            font.pixelSize: 16
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.NoWrap
-            font.weight: Font.Normal
-        }
-
-        Item {
-            id: copyButton
-            x: 211
-            y: 82
-            width: 50
-            height: 18
-            Rectangle {
-                id: rectangle_27
-                width: 50
-                height: 18
-                color: "#33d9d9d9"
-                radius: 3
-                border.color: "#727272"
-                border.width: 0.3
-                anchors.left: parent.left
-                anchors.top: parent.top
-            }
-
-            Text {
-                id: copy
-                width: 28
-                height: 12
-                color: "#249226"
-                text: qsTr("Copy")
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.leftMargin: 18
-                anchors.topMargin: 3
-                font.pixelSize: 10
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignTop
-                wrapMode: Text.Wrap
-                font.weight: Font.Normal
-            }
-
-            Item {
-                id: group_3
-                x: 4
-                y: 2
-                width: 12
-                height: 13
-                SvgPathItem {
-                    id: element11
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    anchors.bottom: parent.bottom
-                    anchors.leftMargin: 2
-                    anchors.topMargin: 2
-                    strokeWidth: 1
-                    strokeStyle: 1
-                    strokeColor: "#249226"
-                    path: "M 0 4.000000224393957 C 0 2.114666739519902 1.1920928955078125e-7 1.1713335376440388 0.586000124613444 0.5860001574871656 C 1.1713334719340005 1.192092962121194e-7 2.1146666208902998 0 4 0 L 6 0 C 7.8853333791097 0 8.828666845957438 1.192092962121194e-7 9.414000193277994 0.5860001574871656 C 10.000000198682148 1.1713335376440388 10 2.114666739519902 10 4.000000224393957 L 10 7.333333744722253 C 10 9.218667229596308 10.000000198682148 10.162000749363628 9.414000193277994 10.747334129520501 C 8.828666845957438 11.333334167798371 7.8853333791097 11.333333969116211 6 11.333333969116211 L 4 11.333333969116211 C 2.1146666208902998 11.333333969116211 1.1713334719340005 11.333334167798371 0.586000124613444 10.747334129520501 C 1.1920928955078125e-7 10.162000749363628 0 9.218667229596308 0 7.333333744722253 L 0 4.000000224393957 Z"
-                    joinStyle: 0
-                    antialiasing: true
-                }
-
-                SvgPathItem {
-                    id: element12
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    anchors.bottom: parent.bottom
-                    anchors.rightMargin: 2
-                    anchors.bottomMargin: 2
-                    strokeWidth: 1
-                    strokeStyle: 1
-                    strokeColor: "#249226"
-                    path: "M 2 11.333333969116211 C 1.4695670207341514 11.33333396911621 0.9608592589696248 11.122620531023431 0.585786501566569 10.74754775257936 C 0.21071374416351318 10.372474974135288 5.921189464667501e-16 9.86376686594157 0 9.333333856919232 L 0 5.333333632525275 C 0 2.819333552528833 -7.947285973752827e-8 1.5620000443926019 0.7813332875569661 0.7813333313885831 C 1.562666654586792 0.000666618384564277 2.8193333943684893 0 5.333333333333333 0 L 8 0 C 8.530432979265848 2.960594898418642e-16 9.039141058921814 0.21071375598423592 9.41421381632487 0.5857865344283067 C 9.789286573727924 0.9608593128723776 9.999999999999998 1.469567103174641 10 2.0000001121969784"
-                    joinStyle: 0
-                    antialiasing: true
-                }
-            }
-        }
-
-        Item {
-            id: sendMoneyButton
-            x: 16
-            y: 118
-            width: 200
-            height: 37
-            Rectangle {
-                id: rectangle_28
-                width: 200
-                height: 37
-                color: "#367c21"
-                radius: 8
-                anchors.left: parent.left
-                anchors.top: parent.top
-            }
-
-            Text {
-                id: send_money
-                width: 125
-                height: 28
-                color: "#ececec"
-                text: qsTr("Send money")
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.leftMargin: 38
-                anchors.topMargin: 7
-                font.pixelSize: 22
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignTop
-                wrapMode: Text.NoWrap
-                font.weight: Font.Medium
-            }
-        }
-
-        Item {
-            id: requestMoneyButton
-            x: 241
-            y: 118
-            width: 200
-            height: 37
-            Rectangle {
-                id: rectangle_29
-                width: 200
-                height: 37
-                color: "#33d9d9d9"
-                radius: 8
-                border.color: "#727272"
-                border.width: 0.3
-                anchors.left: parent.left
-                anchors.top: parent.top
-            }
-
-            Text {
-                id: request_money
-                width: 156
-                height: 28
-                color: "#367c21"
-                text: qsTr("Request money")
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.leftMargin: 22
-                anchors.topMargin: 5
-                font.pixelSize: 22
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignTop
-                wrapMode: Text.NoWrap
-                font.weight: Font.Medium
-            }
-        }
-    }
-
     SvgPathItem {
         id: line_10_Stroke_
         width: 20
@@ -736,7 +494,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 33
-        anchors.topMargin: 302
+        anchors.topMargin: 381
         strokeWidth: 1.5
         strokeStyle: 1
         strokeColor: "transparent"
@@ -755,7 +513,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 74
-        anchors.topMargin: 293
+        anchors.topMargin: 372
         font.pixelSize: 16
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignTop
@@ -775,13 +533,81 @@ Rectangle {
         anchors.top: parent.top
         anchors.leftMargin: 200
         anchors.topMargin: 210
-
+        
         Column {
             id: userColumn
             anchors.fill: parent
             anchors.bottomMargin: 0
             spacing: 10
         }
+    }
+    
+    SvgPathItem {
+        id: line_9_Stroke_1
+        width: 20
+        height: 2
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.leftMargin: 33
+        anchors.topMargin: 298
+        strokeWidth: 1.5
+        strokeStyle: 1
+        strokeColor: "#00000000"
+        path: "M 20 1.5 L 0 1.5 L 0 0 L 20 0 L 20 1.5 Z"
+        joinStyle: 0
+        fillColor: "#4d171716"
+        antialiasing: true
+    }
+
+    Text {
+        id: overview1
+        width: 79
+        height: 20
+        color: "#4d171716"
+        text: qsTr("Details recipent")
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.leftMargin: 91
+        anchors.topMargin: 289
+        font.pixelSize: 16
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignTop
+        wrapMode: Text.NoWrap
+        font.weight: Font.Bold
+    }
+    
+    SvgPathItem {
+        id: line_9_Stroke_2
+        width: 20
+        height: 2
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.leftMargin: 33
+        anchors.topMargin: 340
+        strokeWidth: 1.5
+        strokeStyle: 1
+        strokeColor: "#00000000"
+        path: "M 20 1.5 L 0 1.5 L 0 0 L 20 0 L 20 1.5 Z"
+        joinStyle: 0
+        fillColor: "#4d171716"
+        antialiasing: true
+    }
+    
+    Text {
+        id: overview2
+        width: 79
+        height: 20
+        color: "#4d171716"
+        text: qsTr("Transfer Type")
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.leftMargin: 86
+        anchors.topMargin: 331
+        font.pixelSize: 16
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignTop
+        wrapMode: Text.NoWrap
+        font.weight: Font.Bold
     }
 }
 

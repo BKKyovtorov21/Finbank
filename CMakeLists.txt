@@ -30,6 +30,7 @@ qt_add_executable(${CMAKE_PROJECT_NAME}
     App/googlegateway.hpp App/googlegateway.cpp
     App/dashboard.hpp App/dashboard.cpp
     App/searchrecipent.hpp App/searchrecipent.cpp
+    App/createtransaction.hpp App/createtransaction.cpp
 
 
 )
