@@ -22,7 +22,7 @@ Rectangle {
         property string pfpRef: ""
         property string emailRef: ""
         property string usernameRef: ""
-        imageSource: dashbaordwindow.pfp
+        imageSource: rootdashboard.pfp
 
         function findUser() {
             if (recipentsWindow.searchbarUser.text === "") {

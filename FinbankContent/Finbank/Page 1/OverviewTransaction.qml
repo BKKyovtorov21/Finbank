@@ -17,7 +17,7 @@ Item {
     // The main component: IntroWindow
     OverviewTransactionWindow {
         id: overviewTransactionWindow
-        imageSource: dashbaordwindow.pfp
+        imageSource: rootdashboard.pfp
 
         property string recipentIBANStr
         property string senderIBANStr
@@ -61,7 +61,7 @@ Item {
         backButton.onClicked:
         {
             overviewTransactionWindow.visible = false;
-            dashbaordwindow.visible = true;
+            transactionType.visible = true;
         }
     }
 }

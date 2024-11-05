@@ -21,7 +21,7 @@ Rectangle {
 
 
         anchors.fill: parent
-        imageSource: dashbaordwindow.pfp
+        imageSource: rootdashboard.pfp
 
 
         property string currencyReceivingRef: currencyReceiving

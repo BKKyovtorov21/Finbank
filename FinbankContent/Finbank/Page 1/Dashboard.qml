@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtCharts
+
 Item {
     id: rootdashboard
     width: 1280
@@ -13,7 +14,8 @@ Item {
     property string cardInfo: ""
     property string firstName: ""
     property string lastName: ""
-    property string pfp
+    property string pfp: ""
+
     Loader {
         id: loader
         anchors.fill: parent

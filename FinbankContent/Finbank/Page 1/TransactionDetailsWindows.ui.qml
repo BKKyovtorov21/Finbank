@@ -4,7 +4,6 @@ import QtQuick.Studio.Components 1.0
 import QtQuick.Shapes 1.0
 
 Rectangle {
-    property alias imageSource: image.source
     id: transaction_details
     width: 534
     height: 815

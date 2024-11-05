@@ -17,7 +17,7 @@ Item {
     RecipentDescriptionWindow {
         id: recipentDescription
         anchors.fill: parent
-        imageSource: dashbaordwindow.pfp
+        imageSource: rootdashboard.pfp
         property string recipentIBANStr
         recipentIBAN: recipentIBANStr
         continueButton.onClicked:

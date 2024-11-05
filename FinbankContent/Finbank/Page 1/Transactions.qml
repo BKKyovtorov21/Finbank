@@ -30,7 +30,7 @@ Item {
     TransactionsWindow {
         id: transactionwindow
         anchors.fill: parent
-        imageSource: dashbaordwindow.pfp
+        imageSource: rootdashboard.pfp
         Component.onCompleted: {
             createtransaction.showTransactions(iban, showmore);
         }
@@ -49,7 +49,7 @@ Item {
         Connections {
             target: createtransaction
             onTransactionFound: function(fullname, receivingValue, receivingCurrency, isReceiving) {
-                var transaction = isReceiving ? "Receive" : "Send";
+                var transaction = isReceiving ? "Receiving" : "Send";
                 var transactionComponent = Qt.createComponent("SingleTransactionDetail.qml");
 
                 if (transactionComponent.status === Component.Ready) {

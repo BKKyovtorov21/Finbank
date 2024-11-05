@@ -17,7 +17,7 @@ Item {
         id: transactionType
         anchors.fill: parent
 
-        imageSource: dashbaordwindow.pfp
+        imageSource: rootdashboard.pfp
 
         payingMethodFinbank.onClicked:
         {
@@ -28,14 +28,14 @@ Item {
 
         continueButton.onClicked:
         {
-            transactionwindow.visible = false;
+            transactionType.visible = false;
             loader.source = "OverviewTransaction.qml"
         }
 
 
         backButton.onClicked:
         {
-            transactionwindow.visible = false;
+            transactionType.visible = false;
             loader.source = "RecipentDescription.qml"
         }
 
