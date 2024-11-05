@@ -31,6 +31,7 @@ void CreateTransaction::makeTransaction(const QString &senderIBAN, const QString
         qDebug() << "Failed to convert sending value to double.";
         return;
     }
+
     QRegularExpression receivingRegex(R"(\$\s*([\d,]+(?:\.\d{1,5})?)\s*(\w{3}))");
     QRegularExpressionMatch receivingMatch = receivingRegex.match(receivingInfo);
 
@@ -50,11 +51,61 @@ void CreateTransaction::makeTransaction(const QString &senderIBAN, const QString
         return;
     }
 
-    // Prepare the SQL insert statement
+    // Start a transaction
+    if (!qry.exec("START TRANSACTION")) {
+        qDebug() << "Failed to begin transaction:" << qry.lastError();
+        return;
+    }
+
+    // Update sender balance
+    qry.prepare("SELECT balance FROM users WHERE IBAN = :senderIBAN");
+    qry.bindValue(":senderIBAN", senderIBAN);
+    if (qry.exec() && qry.next()) {
+        double senderBalance = qry.value(0).toDouble();
+        double newSenderBalance = senderBalance - sendingValue;
+
+        // Update sender balance in the users table
+        qry.prepare("UPDATE users SET balance = :newBalance, expenses = expenses + :sendingValue WHERE IBAN = :senderIBAN");
+        qry.bindValue(":newBalance", newSenderBalance);
+        qry.bindValue(":sendingValue", sendingValue);
+        qry.bindValue(":senderIBAN", senderIBAN);
+        if (!qry.exec()) {
+            qDebug() << "Failed to update sender's balance:" << qry.lastError();
+            qry.exec("ROLLBACK"); // Rollback transaction on error
+            return;
+        }
+    } else {
+        qDebug() << "Sender IBAN not found or error querying balance:" << qry.lastError();
+        qry.exec("ROLLBACK"); // Rollback transaction on error
+        return;
+    }
+
+    // Update recipient balance
+    qry.prepare("SELECT balance FROM users WHERE IBAN = :recipentIBAN");
+    qry.bindValue(":recipentIBAN", recipentIBAN);
+    if (qry.exec() && qry.next()) {
+        double recipientBalance = qry.value(0).toDouble();
+        double newRecipientBalance = recipientBalance + receivingValue;
+
+        // Update recipient balance in the users table
+        qry.prepare("UPDATE users SET balance = :newBalance, income = income + :receivingValue WHERE IBAN = :recipentIBAN");
+        qry.bindValue(":newBalance", newRecipientBalance);
+        qry.bindValue(":receivingValue", receivingValue);
+        qry.bindValue(":recipentIBAN", recipentIBAN);
+        if (!qry.exec()) {
+            qDebug() << "Failed to update recipient's balance:" << qry.lastError();
+            qry.exec("ROLLBACK"); // Rollback transaction on error
+            return;
+        }
+    } else {
+        qDebug() << "Recipient IBAN not found or error querying balance:" << qry.lastError();
+        qry.exec("ROLLBACK"); // Rollback transaction on error
+        return;
+    }
+
+    // Insert transaction into transactions table
     qry.prepare("INSERT INTO transactions (sendingValue, sendingCurrency, receivingValue, receivingCurrency, date, senderIBAN, recipentIBAN) "
                 "VALUES (:sendingValue, :sendingCurrency, :receivingValue, :receivingCurrency, CURRENT_DATE, :senderIBAN, :recipentIBAN)");
-
-    // Bind values
     qry.bindValue(":sendingValue", sendingValue);
     qry.bindValue(":sendingCurrency", sendingCurrency);
     qry.bindValue(":receivingValue", receivingValue);
@@ -65,8 +116,10 @@ void CreateTransaction::makeTransaction(const QString &senderIBAN, const QString
     // Execute the query
     if (!qry.exec()) {
         qDebug() << "Error inserting into transactions table:" << qry.lastError();
+        qry.exec("ROLLBACK"); // Rollback transaction on error
     } else {
         qDebug() << "Transaction inserted successfully!";
+        qry.exec("COMMIT"); // Commit the transaction on success
     }
 }
 
