@@ -7,9 +7,10 @@ Item {
     width: 1280
     height: 832
 
-    property string username: ""
+    property string username: rootdashboard.usernameRef
     property string iban: dashboard.getDbVariable(rootdashboard.usernameRef, "IBAN");
     property bool showmore: false
+
     ScrollView {
         id: transactionScrollView
         x: 142
@@ -28,36 +29,47 @@ Item {
     }
 
     TransactionsWindow {
+
+
         id: transactionwindow
         anchors.fill: parent
         imageSource: rootdashboard.pfp
+        balance: dashboard.getDbVariable(rootdashboard.usernameRef, "balance");
         Component.onCompleted: {
             createtransaction.showTransactions(iban, showmore);
         }
 
         overviewButton.onClicked: {
             transactionwindow.visible = false
-            loader.setSource("Dashboard.qml", { "username": username });
+            loader.setSource("Dashboard.qml", { "usernameRef": username });
         }
 
         sendButton.onClicked: {
-            console.log("ds");
             transactionwindow.visible = false
             loader.source = "SelectRecipent.qml";
+        }
+
+        backButton.onClicked:
+        {
+            transactionwindow.visible = false
+            loader.setSource("Dashboard.qml", { "usernameRef": username });
         }
 
         Connections {
             target: createtransaction
             onTransactionFound: function(fullname, receivingValue, receivingCurrency, isReceiving) {
-                var transaction = isReceiving ? "Receiving" : "Send";
+                var transaction = isReceiving ? "Receiving" : "Sending";
                 var transactionComponent = Qt.createComponent("SingleTransactionDetail.qml");
 
                 if (transactionComponent.status === Component.Ready) {
                     var transactionDetail = transactionComponent.createObject(transactionListLayout, {
                         recipent: fullname,
-                        status: "Sent",
                         value: receivingValue + " " + receivingCurrency,
-                                                                                  transactionType: transaction
+                                                                                  transactionType: transaction,
+                                                                                  ellipseColor: isReceiving ? "../assets/ellipseGreen.png" : "../assets/ellipse_6.png",
+                                                                                  arrowRotation: isReceiving ? -180 : 0,
+                                                                                  arrowvec1color: isReceiving ? "#228556" : "#611C37",
+                                                                                  arrowvec2color: isReceiving ? "#228556" : "#611C37"
                     });
 
                     if (transactionDetail) {
@@ -71,4 +83,5 @@ Item {
             }
         }
     }
+
 }

@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+
 Rectangle {
     visible: true
     id: root
@@ -13,7 +14,6 @@ Rectangle {
         source: ""  // Start with no source, will load dynamically
     }
 
-
     // The main component: IntroWindow
     SignInWindow {
         id: signInWindow
@@ -22,32 +22,26 @@ Rectangle {
         logInButton.onClicked: {
             var username = usernameField.text;
             var password = passwordField.text;
-             login.logInUser(username, password, 0);
-            login.logInSuccessful()
-            {
-                loader.setSource("Dashboard.qml", { "usernameRef": username });
+            login.logInUser(username, password, false); // Call the login function with Google flag as false
+        }
+
+        googleFast.onClicked: {
+            googlegateway.click();
+        }
+
+        Connections {
+            target: login
+            onLogInSuccessful: {
+                loader.setSource("Dashboard.qml", { "usernameRef": login.getUsername() });
                 signInWindow.visible = false;
             }
-        }
-        googleFast.onClicked:
-        {
-            googlegateway.click();
         }
 
         Connections {
             target: googlegateway
             onGoogleLoginSuccessful: {
-                var username = "";
-                var password = "";
-                if (googlegateway.userName !== undefined) {
-                    username = googlegateway.userName;
-                }
-                login.logInUser(username, password, 1);
-                login.logInSuccessful()
-                {
-                    loader.setSource("Dashboard.qml", { "usernameRef": username });
-                    signInWindow.visible = false;
-                }
+                var username = googlegateway.userName || "";  // Use empty string if undefined
+                login.logInUser(username, "", true); // Call login function with Google flag as true
             }
         }
     }

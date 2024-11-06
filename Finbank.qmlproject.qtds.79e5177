@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtDesignStudio 4.6.1, 2024-11-06T09:21:09. -->
+<!-- Written by QtDesignStudio 4.6.1, 2024-10-20T11:48:56. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
-  <value type="QByteArray">{488f6fdf-8752-457c-b60c-7e23992ea440}</value>
+  <value type="QByteArray">{79e51773-2593-45fb-97c7-a4f09555a36e}</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -59,6 +59,14 @@
   </valuemap>
  </data>
  <data>
+  <variable>ProjectExplorer.Project.PluginSettings</variable>
+  <valuemap type="QVariantMap">
+   <valuemap type="QVariantMap" key="CppEditor.QuickFix">
+    <value type="bool" key="UseGlobalSettings">true</value>
+   </valuemap>
+  </valuemap>
+ </data>
+ <data>
   <variable>ProjectExplorer.Project.Target.0</variable>
   <valuemap type="QVariantMap">
    <value type="QString" key="DeviceType">Desktop</value>
@@ -96,7 +104,7 @@
     <value type="bool" key="QmlProjectManager.QmlRunConfiguration.UseMultiLanguage">true</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.X11Forwarding">/private/tmp/com.apple.launchd.xTW5hOhdMk/org.xquartz:0</value>
+    <value type="QString" key="RunConfiguration.X11Forwarding">/private/tmp/com.apple.launchd.mn3RvEY11z/org.xquartz:0</value>
    </valuemap>
    <value type="qlonglong" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>

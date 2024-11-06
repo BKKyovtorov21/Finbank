@@ -12,6 +12,10 @@ Rectangle {
     property alias status: status.text
     property alias value: value.text
     property alias transactionType: transactionType.text
+    property alias ellipseColor: ellipse.source
+    property alias arrowRotation: arrow.rotation
+    property alias arrowvec1color: element.fillColor
+    property alias arrowvec2color: element1.fillColor
 
 
     Item {
@@ -43,7 +47,7 @@ Rectangle {
             width: 30
             height: 30
             Image {
-                id: ellipse_6
+                id: ellipse
                 anchors.left: parent.left
                 anchors.top: parent.top
                 anchors.leftMargin: 8
@@ -52,11 +56,12 @@ Rectangle {
             }
 
             Item {
-                id: group_7
+                id: arrow
                 x: 15
-                y: 4
+                y: 7
                 width: 16
                 height: 16
+                rotation: 0
                 SvgPathItem {
                     id: element
                     anchors.left: parent.left
@@ -137,10 +142,10 @@ Rectangle {
 
         Text {
             id: status
-            width: 43
+            width: 103
             height: 23
             color: "#802f2f2f"
-            text: "Completefd"
+            text: "Completed"
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 398

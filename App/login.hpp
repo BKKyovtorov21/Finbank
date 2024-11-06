@@ -10,7 +10,7 @@ public:
 
     Q_INVOKABLE void logInUser(const QString& username, const QString& password, const bool& isGoogleRegistered);
 
-    QString getUsername();
+    Q_INVOKABLE QString getUsername();
 private:
     QString m_username;
     QString Hash(const QString &password, const QString &salt);

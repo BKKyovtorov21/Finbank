@@ -1453,7 +1453,7 @@ Rectangle {
             property: "fillColor"
             Keyframe {
                 value: "#baa6c9"
-                frame: 998
+                frame: 200
             }
         }
 
@@ -1462,7 +1462,7 @@ Rectangle {
             property: "fillColor"
             Keyframe {
                 value: "#ffffff"
-                frame: 1000
+                frame: 200
             }
         }
 
@@ -1527,7 +1527,7 @@ D{i:61;uuid:"19f108f5-3678-5062-9eed-0399dda2f673"}D{i:62;uuid:"7d3c7e1e-a0dc-53
 D{i:63;uuid:"814a270f-43cc-52ee-ad2d-2463ac20ba59"}D{i:64;uuid:"116b9042-7a62-5812-a810-ce07337c7900"}
 D{i:65;uuid:"54142ef4-9f0e-53c5-b146-615b59fc3761"}D{i:66;uuid:"340a7479-b997-5072-9f75-8b1b21e2614a"}
 D{i:67;uuid:"f6dcbb60-7ecf-5ebe-ba62-7562f8150ced"}D{i:68;uuid:"bf90c58b-07fc-5fff-b1ee-20178de0c3dc"}
-D{i:93;uuid:"d478803a-bf0b-544b-b58f-839873387a42"}D{i:94;uuid:"62b5b29f-a3ea-535c-a58a-297dc09a4af6"}
+D{i:72}D{i:73}D{i:93;uuid:"d478803a-bf0b-544b-b58f-839873387a42"}D{i:94;uuid:"62b5b29f-a3ea-535c-a58a-297dc09a4af6"}
 D{i:95;uuid:"11eaa579-1f24-5ef0-8626-bfb8838f766f"}D{i:96;uuid:"34e86bf5-4aa3-5ae6-9ec1-035c4cfd6ef3"}
 D{i:97;uuid:"a1b657cf-8424-5fde-99e4-17edcff47c44"}D{i:98;uuid:"d0394e1d-bcb9-5e69-9bc0-6fc93952cc96"}
 D{i:99;uuid:"15ca791e-90c9-5548-a57d-6157077b9e62"}D{i:100;uuid:"2e87e0cb-b943-5b2f-801a-056f2edddb92"}

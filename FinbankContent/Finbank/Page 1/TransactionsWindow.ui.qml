@@ -9,7 +9,9 @@ Rectangle {
     property alias overviewButton: overviewButton
     property alias sendButton: sendButton
     property alias imageSource: image.source
-
+    property alias transaction: transaction.text
+    property alias balance: balance.text
+    property alias backButton: backButton
     id: transactions
     width: 1280
     height: 832
@@ -780,13 +782,13 @@ Rectangle {
         font.weight: Font.Normal
     }
 
-    Item {
+    Button {
         id: backButton
         x: 28
         y: 134
         width: 212
         height: 48
-        Text {
+        background: Text {
             id: back_to_dashboard
             width: 149
             height: 23
@@ -858,9 +860,9 @@ Rectangle {
     }
 
     Text {
-        id: uSD
-        width: 188
-        height: 48
+        id: balance
+        width: 270
+        height: 30
         color: "#000000"
         text: qsTr("1000.00 USD")
         anchors.left: parent.left
@@ -868,7 +870,7 @@ Rectangle {
         anchors.leftMargin: 200
         anchors.topMargin: 291
         font.pixelSize: 25
-        horizontalAlignment: Text.AlignHCenter
+        horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignTop
         wrapMode: Text.Wrap
         font.weight: Font.Bold
@@ -1317,9 +1319,7 @@ D{i:48;uuid:"73d6a7f0-b778-5549-82f4-877b3e7e81b7"}D{i:49;uuid:"31ad1fb4-e689-5a
 D{i:50;uuid:"3655db80-0abc-53c2-89de-68156698b2f3"}D{i:51;uuid:"70870497-0c7a-5b43-9470-57d3efbbebfc"}
 D{i:52;uuid:"92ba2b4f-b566-5558-8317-40ef9bca69d1"}D{i:53;uuid:"879ebbad-f4bf-5544-ad9e-429b04ea24b0"}
 D{i:54;uuid:"e1c43386-6f63-5c1c-aa30-e42c1c32a471"}D{i:55;uuid:"2c15cc78-9e3a-5aa6-b9ed-e2629261852a"}
-D{i:56;uuid:"08579ec0-da51-5fd3-a3b5-c9a79c800845"}D{i:57;uuid:"ab8bde12-bfac-570c-bac9-b4579695c3cc"}
-D{i:58;uuid:"9362383b-78d1-51ec-b1d5-4bf4b7a57a81"}D{i:59;uuid:"c4945e37-28cc-559d-bbcc-2d0be6ffd592"}
-D{i:60;uuid:"feb4888e-3512-5d4b-a3c0-899694656f52"}D{i:61;uuid:"b315c888-8d9a-547b-b75a-26d0b75d415d"}
+D{i:56;uuid:"08579ec0-da51-5fd3-a3b5-c9a79c800845"}D{i:61;uuid:"b315c888-8d9a-547b-b75a-26d0b75d415d"}
 D{i:62;uuid:"6bdc6c34-a234-5701-9983-9b47fb25e270"}D{i:63;uuid:"650ab467-d1ec-5687-b6de-c9cdd329259d"}
 D{i:64;uuid:"d6d6a8a4-802e-5dd1-8d40-81a350a915ea"}D{i:65;uuid:"af291c23-9671-5a6e-aba5-610eb817db8d"}
 D{i:66;uuid:"e96a2c7a-318d-528d-8fbc-912f420b45e2"}D{i:67;uuid:"55fca9fa-c41e-5ca5-80c3-76e0678b1c28"}
