@@ -24,6 +24,7 @@ Rectangle {
     property string debitcard: "7196 9672 6435 3383"
     property string firstName2: "Boyan"
     property alias transactionButton: transactionButton
+    property alias tradingButton: tradingButton
     property alias imageSource: image.source
     property alias username: username.text
     property alias userFullname: userFullname.text

@@ -55,6 +55,11 @@ Item {
             dashbaordwindow.visible = false;
             loader.setSource("Transactions.qml", { "username": usernameRef });
         }
+        tradingButton.onClicked:
+        {
+            dashbaordwindow.visible = false;
+            loader.source = "TradingDashboard.qml";
+        }
 
     }
 }
