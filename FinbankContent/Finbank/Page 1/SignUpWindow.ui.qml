@@ -287,6 +287,7 @@ Rectangle {
 
             font.weight: Font.Bold
             color: "#999999"
+            echoMode: TextInput.Password
             background: Rectangle {
                 color: "#4d171716"
                 radius: 15
