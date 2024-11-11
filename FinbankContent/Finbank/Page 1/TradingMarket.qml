@@ -6,7 +6,6 @@ Item {
     id: root
     width: 1280
     height: 832
-
     Loader {
         id: loader
         anchors.fill: parent
@@ -19,83 +18,60 @@ Item {
 
         imageSource: rootdashboard.pfp
 
-        searchbar.onTextChanged: searchStock()
+        searchbar.onTextChanged: stockAPIClient.fetchStockData(searchbar.text);
+
+
         Connections {
             target: stockAPIClient
 
             onLineSeriesDataReady: function(points) {
-                lineSeries.clear();
+                    lineSeries.clear();  // Clear existing points
 
-                if (points.length === 0) {
-                    console.warn("No points to display in line series.");
-                    return;
+                    if (points.length === 0) {
+                        console.warn("No points to display in line series.");
+                        return;
+                    }
+
+                    // Initialize min and max for x and y based on the first point
+                    var xMin = points[0].x;
+                    var xMax = points[0].x;
+                    var yMin = points[0].y;
+                    var yMax = points[0].y;
+
+                    for (var i = 0; i < points.length; i++) {
+                        var point = points[i];
+                        lineSeries.append(point.x, point.y);
+
+                        // Update min and max for x and y
+                        if (point.x < xMin) xMin = point.x;
+                        if (point.x > xMax) xMax = point.x;
+                        if (point.y < yMin) yMin = point.y;
+                        if (point.y > yMax) yMax = point.y;
+                    }
+
+                    // Set axis ranges based on calculated min and max
+                    xAxis.min = xMin;
+                    xAxis.max = xMax;
+                    yAxis.min = yMin;
+                    yAxis.max = yMax;
                 }
-
-                var xMin = points[0].x;
-                var xMax = points[0].x;
-                var yMin = points[0].y;
-                var yMax = points[0].y;
-
-                for (var i = 0; i < points.length; i++) {
-                    var point = points[i];
-                    lineSeries.append(point.x, point.y);
-
-                    if (point.x < xMin) xMin = point.x;
-                    if (point.x > xMax) xMax = point.x;
-                    if (point.y < yMin) yMin = point.y;
-                    if (point.y > yMax) yMax = point.y;
-                }
-
-                xAxis.min = xMin;
-                xAxis.max = xMax;
-                yAxis.min = yMin;
-                yAxis.max = yMax;
-            }
 
             onFetchSuccessful: function(percentChange, indexTicker, closePrice, highPrice, lowPrice, openPrice, volume, volumeWeighted) {
-                    var stockComponent = Qt.createComponent("Stock.qml");
-                    if (stockComponent.status === Component.Ready) {
-                        var stockInstance = stockComponent.createObject(stockFlow, {
-                            ticker: indexTicker,
-                            price: openPrice,
-                            percent: percentChange
-                        });
-                        if (!stockInstance) {
-                            console.error("Error: Stock instance creation failed.");
-                        }
-                    } else {
-                        console.error("Error creating Stock component:", stockComponent.errorString());
+                var stockComponent = Qt.createComponent("Stock.qml");
+                if (stockComponent.status === Component.Ready) {
+                    var stockInstance = stockComponent.createObject(stockFlow, {
+                                                                        ticker: indexTicker,
+                                                                        price: openPrice,
+                                                                        percent: percentChange});
+                    if (!stockInstance) {
+                        console.error("Error: Stock instance creation failed.");
                     }
+                } else {
+                    console.error("Error creating Stock component:", stockComponent.errorString());
                 }
-
-                onSearchCompleted: function(stocks) {
-                    // Clear previous search results in stockFlow
-                    stockFlow.children.forEach(child => child.destroy());
-
-                    // Loop through each stock in search results and create Stock instances
-                    for (var i = 0; i < stocks.length; i++) {
-                        var stock = stocks[i];
-                        var stockComponent = Qt.createComponent("Stock.qml");
-                        if (stockComponent.status === Component.Ready) {
-                            var stockInstance = stockComponent.createObject(stockFlow, {
-                                ticker: stock.ticker,
-                                name: stock.name,
-                                price: stock.price ? stock.price : "N/A",  // Ensure there's a default if price is unavailable
-                                percent: stock.percent ? stock.percent : "N/A"  // Ensure there's a default if percent is unavailable
-                            });
-                            if (!stockInstance) {
-                                console.error("Error: Stock instance creation failed.");
-                            }
-                        } else {
-                            console.error("Error creating Stock component:", stockComponent.errorString());
-                        }
-                    }
-                }
-
-                onSearchFailed: function(error) {
-                    console.warn("Search failed:", error);
-                }
+            }
         }
+
 
         ChartView {
             id: lineChart
@@ -113,7 +89,7 @@ Item {
                 format: "MMM"
             }
 
-            ValueAxis {
+            ValuesAxis {
                 id: yAxis
                 titleText: "Price"
                 min: 0
@@ -128,35 +104,6 @@ Item {
         }
     }
 
-    // ListView to display search results for partial matches
-    ListView {
-        id: searchResultsView
-        width: 300
-        height: 500
-        anchors.left: parent.left
-        visible: false
-        model: searchResultsModel
-        delegate: Item {
-            width: searchResultsView.width
-            height: 40
-
-            Text {
-                text: model.ticker + " - " + model.name
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    stockAPIClient.fetchStockData(modelData.ticker);
-                    searchResultsView.visible = false;
-                }
-            }
-        }
-    }
-
-    ListModel {
-        id: searchResultsModel
-    }
 
     Flow {
         id: stockFlow
@@ -171,11 +118,5 @@ Item {
         visible: true
         z: 10
         clip: true
-    }
-
-    function searchStock()
-    {
-        console.log("sds")
-        stockAPIClient.fetchStockData(transactionType.searchbar.text);
     }
 }

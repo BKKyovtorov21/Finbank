@@ -12,7 +12,6 @@ Rectangle {
     property alias ticker: ticker.text
     property alias price: price.text
     property alias percent: percent.text
-    property alias name: name.text
     Item {
         id: group_131
         anchors.left: parent.left
@@ -84,7 +83,7 @@ Rectangle {
         }
 
         Text {
-            id: name
+            id: standard_and_Poor_s_500
             width: 243
             height: 40
             color: "#a0a0a0"
