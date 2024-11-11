@@ -8,6 +8,9 @@ Rectangle {
 
     property alias imageSource: imageSource.source
     property alias backButton: backButton
+    property alias userFullname: userFullname.text
+    property alias username: username.text
+    property alias stockMarketButton: stockMarketButton
     id: tradingDashboardWindow
     width: 1280
     height: 832
@@ -101,15 +104,18 @@ Rectangle {
         anchors.bottomMargin: 760
         Image {
             id: imageSource
-            width: 47
-            height: 52
+            width: 70
+            height: 70
+
             anchors.left: parent.left
             anchors.top: parent.top
+            anchors.leftMargin: -32
+            anchors.topMargin: -9
             source: "../assets/user.png"
         }
 
         Text {
-            id: boyan_Kiovtorov
+            id: userFullname
             width: 112
             height: 19
             color: "#000000"
@@ -127,7 +133,7 @@ Rectangle {
         }
 
         Text {
-            id: kiovtorov
+            id: username
             width: 78
             height: 19
             color: "#802f2f2f"
@@ -615,8 +621,8 @@ Rectangle {
         antialiasing: true
     }
 
-    Item {
-        id: group_93
+    Button {
+        id: stockMarketButton
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
@@ -625,7 +631,7 @@ Rectangle {
         anchors.rightMargin: 1097
         anchors.topMargin: 395
         anchors.bottomMargin: 411
-        Rectangle {
+        background: Rectangle {
             id: tabler_device_desktop_analytics
             width: 24
             height: 24
@@ -3059,9 +3065,7 @@ D{i:34;uuid:"90ffea2d-fb76-57c1-b558-3c1dac598390"}D{i:35;uuid:"df0bc97e-0639-5b
 D{i:36;uuid:"ffdce2e9-d567-5391-a385-374de28dda05"}D{i:37;uuid:"7804224b-5789-55f7-8836-0cda039ce9f0"}
 D{i:38;uuid:"b0f2e205-4d65-5fb3-930f-50a4707c3910"}D{i:39;uuid:"999aeaae-e153-58b5-9c52-cb83cbaa34f3"}
 D{i:40;uuid:"10ceade3-0ff7-5332-bafe-db20c59ba077"}D{i:41;uuid:"16a98536-afa5-59cf-ab55-d41946b9867b"}
-D{i:42;uuid:"4625b11a-9de8-5fa2-a843-746be1e7fccb"}D{i:43;uuid:"c678352c-93a1-5e62-933e-2045e586da19"}
-D{i:44;uuid:"6db3bbe4-d75c-5eae-9c98-47b22e1596e1"}D{i:45;uuid:"09e62ddf-fa7c-587c-ad34-3fe3197403f0"}
-D{i:46;uuid:"6ba7f6a2-76c9-5637-a40e-74aaab022276"}D{i:47;uuid:"fedd0de7-5ee2-5e27-9827-ef6fd4a07b84"}
+D{i:42;uuid:"4625b11a-9de8-5fa2-a843-746be1e7fccb"}D{i:47;uuid:"fedd0de7-5ee2-5e27-9827-ef6fd4a07b84"}
 D{i:48;uuid:"4983fdc9-9afa-53a2-b1b4-998f8d70bf4c"}D{i:49;uuid:"7942d081-c167-56d0-8aa3-0e3e464593b9"}
 D{i:50;uuid:"639d8f88-fab8-5463-af59-607b90f4e70c"}D{i:51;uuid:"1308466c-c154-58dd-98da-5fd0d021e613"}
 D{i:52;uuid:"966661df-40a6-5675-822e-2f3a3c824dbc"}D{i:53;uuid:"0d2a8e01-f10b-5194-b813-327b55bf1bce"}

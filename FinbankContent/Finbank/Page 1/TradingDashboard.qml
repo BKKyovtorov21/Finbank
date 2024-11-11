@@ -11,7 +11,7 @@ Item {
     property var monthLabels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     property int mouseX: 0
     property int mouseY: 0
-    property string username: rootdashboard.usernameRef
+    property string username
 
 
     Loader
@@ -23,6 +23,9 @@ Item {
 
     TradingDashboardWindow {
         id: tradingdashboard
+        imageSource: rootdashboard.pfp
+        username: "@" + rootdashboard.usernameRef
+        userFullname: rootdashboard.firstName + " " + rootdashboard.lastName;
         anchors.fill: parent
 
         ChartView {
@@ -145,6 +148,13 @@ Item {
         backButton.onClicked:
         {
             tradingdashboard.visible = false
-            loader.setSource("Dashboard.qml", { "usernameRef": username });        }
+            loader.setSource("Dashboard.qml", { "usernameRef": username });
+        }
+
+        stockMarketButton.onClicked:
+        {
+            tradingdashboard.visible = false
+            loader.source = "TradingMarket.qml";
+        }
     }
 }
