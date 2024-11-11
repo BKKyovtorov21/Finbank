@@ -9,6 +9,7 @@ Rectangle {
     height: 832
     color: "#ffffff"
     property alias imageSource: imageSource.source
+    property alias searchbar: searchbar
 
     SvgPathItem {
         id: line_3_Stroke_
@@ -27,62 +28,41 @@ Rectangle {
         antialiasing: true
     }
 
-    Item {
+    TextField {
         id: searchbar
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.leftMargin: 235
-        anchors.rightMargin: 658
-        anchors.topMargin: 26
-        anchors.bottomMargin: 754
-        Rectangle {
-            id: rectangle_22
+        x: 242
+        y: 27
+        width: 387
+        height: 52
+        placeholderText: qsTr("Search")
+        font.pixelSize: 18
+        color: "#802f2f2f"
+        padding: 38 // Offset for placeholder text to align with original position
+
+        background: Rectangle {
+            id: rectangle_24
             width: 387
             height: 52
             color: "#4dececec"
             border.color: "#727272"
             border.width: 0.1
-            anchors.left: parent.left
-            anchors.top: parent.top
+            radius: 8 // Optional: round the corners if needed
         }
 
+        // SVG icon on the left side of the TextField
         SvgPathItem {
-            id: element
+            id: lupa
+            width: 20
+            height: 18
             anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
+            anchors.verticalCenter: parent.verticalCenter
             anchors.leftMargin: 13
-            anchors.rightMargin: 356
-            anchors.topMargin: 19
-            anchors.bottomMargin: 16
             strokeWidth: 1
             strokeStyle: 1
             strokeColor: "#000000"
             path: "M 18 17 L 13.6570492891393 12.898324328631562 M 13.6570492891393 12.898324328631562 C 14.399928642135901 12.196716107094069 14.989212248995793 11.363786352191921 15.39125566952893 10.447090966349245 C 15.793299090062066 9.53039558050657 16.00022887138912 8.547887578608355 16.000228879216625 7.55566363740785 C 16.00022888704413 6.563439696207345 15.79330096758689 5.58093169430913 15.391257576855734 4.664236308466454 C 14.98921418612458 3.747540922623778 14.399928642135901 2.9146109988437363 13.6570492891393 2.2130027210136127 C 12.914169936142699 1.5113944431834894 12.032244372909094 0.9548483359951139 11.061625729075672 0.5751406891934678 C 10.09100708524225 0.19543304239182174 9.050704494997083 -7.392641508222264e-9 8.000114439608312 4.1941278728217626e-16 C 6.949524384219542 7.3926457023501376e-9 5.909221793974374 0.19543301424550608 4.938603150140952 0.5751406891934678 C 3.96798450630753 0.9548483641414296 3.0860584066382604 1.5113944431834894 2.343179113245622 2.2130027210136127 C 0.8428666692733466 3.6299645862393577 -1.5808361118645898e-8 5.551777008701226 0 7.55566363740785 C 1.5808361118645898e-8 9.559550266114474 0.8428666692733466 11.48136257599108 2.343179113245622 12.898324328631562 C 3.843491557217897 14.315286081272044 5.878352126860122 15.11132725988558 8.000114439608312 15.1113272748157 C 10.121876752356503 15.11132728974582 12.1567367259591 14.315286081272044 13.6570492891393 12.898324328631562 Z"
             joinStyle: 2
-            fillColor: "transparent"
             antialiasing: true
-        }
-
-        Text {
-            id: search
-            width: 62
-            height: 19
-            color: "#802f2f2f"
-            text: qsTr("Search")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 38
-            anchors.topMargin: 18
-            font.pixelSize: 18
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignTop
-            wrapMode: Text.Wrap
-            font.weight: Font.Normal
-            font.family: "Gelasio"
         }
     }
 
@@ -856,35 +836,33 @@ Rectangle {
 /*##^##
 Designer {
     D{i:0;uuid:"8abbb962-88ea-50dc-85cd-f41f2801e1ef"}D{i:1;uuid:"c4dee113-b0d8-5b48-9a8b-4598d88842b8"}
-D{i:2;uuid:"2d135cc9-185a-5095-9220-5704cc13e1b4"}D{i:3;uuid:"3c6af71b-d911-5c9c-b00d-a471dce8531a"}
-D{i:4;uuid:"99c7b073-11c0-5cee-a1ca-8f297efb87f3"}D{i:5;uuid:"f291badd-cf5e-5225-a2a1-5d078ab6779d"}
-D{i:6;uuid:"b902300d-ccc1-56fd-b0c2-c245d6f0c8d0"}D{i:7;uuid:"bef1a90d-774b-56a1-ba98-563d8195541a"}
-D{i:8;uuid:"e6f704dc-a64a-5be0-8f05-997cc34ba6cf"}D{i:9;uuid:"1705f1df-9ab1-5dbe-852b-82199c877aa5"}
-D{i:10;uuid:"275c334e-99fe-5dd0-b06d-644d42ee7577"}D{i:11;uuid:"831be0de-3099-5dcc-ba3e-a642815539be"}
-D{i:12;uuid:"428981e4-0121-5d39-90aa-132dddbb7d90"}D{i:13;uuid:"9fb0f2bd-d588-5956-b837-876c8c55fbe8"}
-D{i:14;uuid:"eee53bb9-a1cb-5795-bf35-c40473705aeb"}D{i:15;uuid:"51414bf0-2690-5ba1-a42d-ac1a9ae0079d"}
-D{i:16;uuid:"32fa964a-4809-5c43-bd85-961e11f8138b"}D{i:17;uuid:"d812e77f-54e5-5bfd-878d-f715fdf2065b"}
-D{i:18;uuid:"47c8f2e9-635b-5bd9-887d-4523c4d91f7d"}D{i:19;uuid:"0b8a26d2-2044-5707-9ed5-f2b2de90479c"}
-D{i:20;uuid:"b5892768-a991-5595-97da-5eda26c80e74"}D{i:21;uuid:"a3e71036-f780-569a-8668-fbf9417e0318"}
-D{i:22;uuid:"1e472090-7a20-539c-b043-9cfdfd1432f9"}D{i:23;uuid:"7b4ad72d-6564-5a4c-b6de-a155058f2878"}
-D{i:24;uuid:"99070cb4-c082-5b40-a25f-f363a6907f2d"}D{i:25;uuid:"6825d34c-d97c-5070-9521-574c98df9f2a"}
-D{i:26;uuid:"a67e698b-4ac7-5e3e-9233-4cf45584b377"}D{i:27;uuid:"79ab600a-87c3-5889-b8a9-5cdbc1e6f439"}
-D{i:28;uuid:"255e490a-0775-503f-88bb-0d90415e240d"}D{i:29;uuid:"c6e44d31-110d-5227-aa0e-2a9d60d60a0a"}
-D{i:30;uuid:"fd7fb218-f8d7-5d43-9ca9-ae2a5817f7a3"}D{i:31;uuid:"70be5eb4-cbe7-51d4-be27-2a2e527dedc1"}
-D{i:32;uuid:"7943e514-4f08-5343-b9da-b33ba0e2e37f"}D{i:33;uuid:"0442c7ab-c18c-53a8-897d-ddb34cb03465"}
-D{i:34;uuid:"8be6bf8f-18c5-5920-aa1f-5c0f357f3d10"}D{i:35;uuid:"944a7cdd-508f-5a24-a893-4ac0fa466154"}
-D{i:36;uuid:"222040e3-b40c-5db5-8d04-407535c4599f"}D{i:37;uuid:"6b7ac7d3-4fc9-5d03-a416-a01fd7348658"}
-D{i:38;uuid:"52382e63-7dea-5b6a-9ea1-f737d46b04dd"}D{i:39;uuid:"46b6a5aa-d247-5257-a347-0cc83a5e2d62"}
-D{i:40;uuid:"dc45aa54-39fe-566f-999f-6c0292431c33"}D{i:41;uuid:"9dacb816-f711-5fac-974c-ff5eec73e157"}
-D{i:42;uuid:"8d08cd06-51e2-559c-9f57-fe996faeae30"}D{i:43;uuid:"2799ed17-1ef3-5c6d-90f4-7345458d5836"}
-D{i:44;uuid:"38b2eea6-20de-5c69-a55c-82fb9e449519"}D{i:45;uuid:"16631913-b85a-5355-8a34-8f7339eccf59"}
-D{i:46;uuid:"f04e4f48-99d7-51db-8428-ca25598d0c4e"}D{i:47;uuid:"0f865295-d11c-50a8-a4b2-3066840708de"}
-D{i:48;uuid:"c48ee7eb-22d6-5fa5-820a-367d14a003dd"}D{i:49;uuid:"03522867-e116-5756-b826-ef5716a385c0"}
-D{i:50;uuid:"19be787e-59d0-56bf-93b2-9f76ce982dcf"}D{i:51;uuid:"3fb27019-2103-5646-b08f-f261a9a01c0e"}
-D{i:52;uuid:"928dad1c-2e4d-55da-813a-d0a741405b12"}D{i:53;uuid:"d83fa638-790d-5929-9d40-fc377df82077"}
-D{i:54;uuid:"a19a934b-c202-5111-95a3-59f88c6a6ece"}D{i:55;uuid:"eae8dba2-05b1-5fd1-bc91-e78f4a64d860"}
-D{i:56;uuid:"6ef443b7-2882-57f0-8925-2279ba04c36d"}D{i:57;uuid:"61058089-bb16-5a88-a1d4-6ccdb188316c"}
-D{i:58;uuid:"43073edd-58f0-5521-a1f7-9780d3b5833f"}D{i:59;uuid:"3794e365-03a4-52e4-b4e6-ccda78f4910f"}
+D{i:5;uuid:"b902300d-ccc1-56fd-b0c2-c245d6f0c8d0"}D{i:6;uuid:"bef1a90d-774b-56a1-ba98-563d8195541a"}
+D{i:7;uuid:"e6f704dc-a64a-5be0-8f05-997cc34ba6cf"}D{i:8;uuid:"1705f1df-9ab1-5dbe-852b-82199c877aa5"}
+D{i:9;uuid:"275c334e-99fe-5dd0-b06d-644d42ee7577"}D{i:10;uuid:"831be0de-3099-5dcc-ba3e-a642815539be"}
+D{i:11;uuid:"428981e4-0121-5d39-90aa-132dddbb7d90"}D{i:12;uuid:"9fb0f2bd-d588-5956-b837-876c8c55fbe8"}
+D{i:13;uuid:"eee53bb9-a1cb-5795-bf35-c40473705aeb"}D{i:14;uuid:"51414bf0-2690-5ba1-a42d-ac1a9ae0079d"}
+D{i:15;uuid:"32fa964a-4809-5c43-bd85-961e11f8138b"}D{i:16;uuid:"d812e77f-54e5-5bfd-878d-f715fdf2065b"}
+D{i:17;uuid:"47c8f2e9-635b-5bd9-887d-4523c4d91f7d"}D{i:18;uuid:"0b8a26d2-2044-5707-9ed5-f2b2de90479c"}
+D{i:19;uuid:"b5892768-a991-5595-97da-5eda26c80e74"}D{i:20;uuid:"a3e71036-f780-569a-8668-fbf9417e0318"}
+D{i:21;uuid:"1e472090-7a20-539c-b043-9cfdfd1432f9"}D{i:22;uuid:"7b4ad72d-6564-5a4c-b6de-a155058f2878"}
+D{i:23;uuid:"99070cb4-c082-5b40-a25f-f363a6907f2d"}D{i:24;uuid:"6825d34c-d97c-5070-9521-574c98df9f2a"}
+D{i:25;uuid:"a67e698b-4ac7-5e3e-9233-4cf45584b377"}D{i:26;uuid:"79ab600a-87c3-5889-b8a9-5cdbc1e6f439"}
+D{i:27;uuid:"255e490a-0775-503f-88bb-0d90415e240d"}D{i:28;uuid:"c6e44d31-110d-5227-aa0e-2a9d60d60a0a"}
+D{i:29;uuid:"fd7fb218-f8d7-5d43-9ca9-ae2a5817f7a3"}D{i:30;uuid:"70be5eb4-cbe7-51d4-be27-2a2e527dedc1"}
+D{i:31;uuid:"7943e514-4f08-5343-b9da-b33ba0e2e37f"}D{i:32;uuid:"0442c7ab-c18c-53a8-897d-ddb34cb03465"}
+D{i:33;uuid:"8be6bf8f-18c5-5920-aa1f-5c0f357f3d10"}D{i:34;uuid:"944a7cdd-508f-5a24-a893-4ac0fa466154"}
+D{i:35;uuid:"222040e3-b40c-5db5-8d04-407535c4599f"}D{i:36;uuid:"6b7ac7d3-4fc9-5d03-a416-a01fd7348658"}
+D{i:37;uuid:"52382e63-7dea-5b6a-9ea1-f737d46b04dd"}D{i:38;uuid:"46b6a5aa-d247-5257-a347-0cc83a5e2d62"}
+D{i:39;uuid:"dc45aa54-39fe-566f-999f-6c0292431c33"}D{i:40;uuid:"9dacb816-f711-5fac-974c-ff5eec73e157"}
+D{i:41;uuid:"8d08cd06-51e2-559c-9f57-fe996faeae30"}D{i:42;uuid:"2799ed17-1ef3-5c6d-90f4-7345458d5836"}
+D{i:43;uuid:"38b2eea6-20de-5c69-a55c-82fb9e449519"}D{i:44;uuid:"16631913-b85a-5355-8a34-8f7339eccf59"}
+D{i:45;uuid:"f04e4f48-99d7-51db-8428-ca25598d0c4e"}D{i:46;uuid:"0f865295-d11c-50a8-a4b2-3066840708de"}
+D{i:47;uuid:"c48ee7eb-22d6-5fa5-820a-367d14a003dd"}D{i:48;uuid:"03522867-e116-5756-b826-ef5716a385c0"}
+D{i:49;uuid:"19be787e-59d0-56bf-93b2-9f76ce982dcf"}D{i:50;uuid:"3fb27019-2103-5646-b08f-f261a9a01c0e"}
+D{i:51;uuid:"928dad1c-2e4d-55da-813a-d0a741405b12"}D{i:52;uuid:"d83fa638-790d-5929-9d40-fc377df82077"}
+D{i:53;uuid:"a19a934b-c202-5111-95a3-59f88c6a6ece"}D{i:54;uuid:"eae8dba2-05b1-5fd1-bc91-e78f4a64d860"}
+D{i:55;uuid:"6ef443b7-2882-57f0-8925-2279ba04c36d"}D{i:56;uuid:"61058089-bb16-5a88-a1d4-6ccdb188316c"}
+D{i:57;uuid:"43073edd-58f0-5521-a1f7-9780d3b5833f"}D{i:58;uuid:"3794e365-03a4-52e4-b4e6-ccda78f4910f"}
 }
 ##^##*/
 
