@@ -156,5 +156,6 @@ Item {
             tradingdashboard.visible = false
             loader.source = "TradingMarket.qml";
         }
+
     }
 }

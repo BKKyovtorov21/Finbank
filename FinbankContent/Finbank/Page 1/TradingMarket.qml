@@ -13,13 +13,17 @@ Item {
     }
 
     TradingMarketWindow {
-        id: transactionType
+        id: tradingmarket
         anchors.fill: parent
 
         imageSource: rootdashboard.pfp
 
-        searchbar.onTextChanged: stockAPIClient.fetchStockData(searchbar.text);
+        searchbar.onAccepted: stockAPIClient.fetchStockData(searchbar.text);
 
+        dashboardButton.onClicked: {
+            tradingmarket.visible = false;
+            loader.source = "TradingDashboard.qml"
+        }
 
         Connections {
             target: stockAPIClient
@@ -56,13 +60,24 @@ Item {
                     yAxis.max = yMax;
                 }
 
-            onFetchSuccessful: function(percentChange, indexTicker, closePrice, highPrice, lowPrice, openPrice, volume, volumeWeighted) {
+            onStockDataFetched: function(stockData) {
+                // Update the stock data in the UI
+                openPrice.text = stockData["openPrice"];
+                highPrice.text = stockData["highPrice"];
+                lowprice.text = stockData["lowPrice"];
+                volumePrice.text = stockData["volume"];
+                // Check if the fundamental data is available in stockData and set it to "N/A" if not
+                peprice.text = stockData["peRatio"] !== undefined ? stockData["peRatio"] : "N/A";
+                betaprice.text = stockData["beta"] !== undefined ? stockData["beta"] : "N/A";
+                mktcapprice.text = stockData["marketCap"] !== undefined ? stockData["marketCap"] : "N/A";
+                epsprice.text = stockData["eps"] !== undefined ? stockData["eps"] : "N/A";
+                console.log(stockData["beta"])
                 var stockComponent = Qt.createComponent("Stock.qml");
                 if (stockComponent.status === Component.Ready) {
                     var stockInstance = stockComponent.createObject(stockFlow, {
-                                                                        ticker: indexTicker,
-                                                                        price: openPrice,
-                                                                        percent: percentChange});
+                                                                        ticker: stockData["ticker"],
+                                                                        price: stockData["openPrice"],
+                                                                        percent: stockData["dailyChange"]});
                     if (!stockInstance) {
                         console.error("Error: Stock instance creation failed.");
                     }
@@ -71,7 +86,6 @@ Item {
                 }
             }
         }
-
 
         ChartView {
             id: lineChart
@@ -102,13 +116,271 @@ Item {
                 name: "Historical Prices"
             }
         }
-    }
 
+        Item {
+            id: stockData
+            x: 614
+            y: 491
+            width: 658
+            height: 323
+
+            Text {
+                id: open
+                width: 41
+                height: 20
+                color: "#666666"
+                text: qsTr("Open")
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 14
+                anchors.topMargin: 8
+                font.pixelSize: 16
+                font.weight: Font.Medium
+            }
+            Text {
+                id: openPrice
+                width: 41
+                height: 20
+                color: "black"
+                text: qsTr("152.00")
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 121
+                anchors.topMargin: 8
+                font.pixelSize: 16
+                font.weight: Font.Medium
+            }
+
+            Text {
+                id: high
+                width: 41
+                height: 20
+                color: "#666666"
+                text: qsTr("High")
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 202
+                anchors.topMargin: 8
+                font.pixelSize: 16
+                font.weight: Font.Medium
+            }
+
+            Text {
+                id: highPrice
+                width: 41
+                height: 20
+                color: "#000000"
+                text: qsTr("152.00")
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 309
+                anchors.topMargin: 8
+                font.pixelSize: 16
+                font.weight: Font.Medium
+            }
+
+            Text {
+                id: low
+                width: 41
+                height: 20
+                color: "#666666"
+                text: qsTr("Low")
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 433
+                anchors.topMargin: 8
+                font.pixelSize: 16
+                font.weight: Font.Medium
+            }
+
+            Text {
+                id: lowprice
+                width: 41
+                height: 20
+                color: "#000000"
+                text: qsTr("152.00")
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 540
+                anchors.topMargin: 8
+                font.pixelSize: 16
+                font.weight: Font.Medium
+            }
+
+            Text {
+                id: open1
+                width: 41
+                height: 20
+                color: "#666666"
+                text: qsTr("Volume")
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 14
+                anchors.topMargin: 43
+                font.pixelSize: 16
+                font.weight: Font.Medium
+            }
+
+            Text {
+                id: volumePrice
+                width: 41
+                height: 20
+                color: "#000000"
+                text: qsTr("152.00")
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 121
+                anchors.topMargin: 43
+                font.pixelSize: 16
+                font.weight: Font.Medium
+            }
+
+            Text {
+                id: high1
+                width: 41
+                height: 20
+                color: "#666666"
+                text: qsTr("P/E")
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 202
+                anchors.topMargin: 43
+                font.pixelSize: 16
+                font.weight: Font.Medium
+            }
+
+            Text {
+                id: peprice
+                width: 41
+                height: 20
+                color: "#000000"
+                text: qsTr("152.00")
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 309
+                anchors.topMargin: 43
+                font.pixelSize: 16
+                font.weight: Font.Medium
+            }
+
+            Text {
+                id: low1
+                width: 41
+                height: 20
+                color: "#666666"
+                text: qsTr("Mkt Cap")
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 433
+                anchors.topMargin: 43
+                font.pixelSize: 16
+                font.weight: Font.Medium
+            }
+
+            Text {
+                id: mktcapprice
+                width: 41
+                height: 20
+                color: "#000000"
+                text: qsTr("152.00")
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 540
+                anchors.topMargin: 43
+                font.pixelSize: 16
+                font.weight: Font.Medium
+            }
+
+            Text {
+                id: open2
+                width: 41
+                height: 20
+                color: "#666666"
+                text: qsTr("Yield")
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 14
+                anchors.topMargin: 80
+                font.pixelSize: 16
+                font.weight: Font.Medium
+            }
+
+            Text {
+                id: dividend
+                width: 41
+                height: 20
+                color: "#000000"
+                text: qsTr("152.00")
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 121
+                anchors.topMargin: 80
+                font.pixelSize: 16
+                font.weight: Font.Medium
+            }
+
+            Text {
+                id: high2
+                width: 41
+                height: 20
+                color: "#666666"
+                text: qsTr("Beta")
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 202
+                anchors.topMargin: 80
+                font.pixelSize: 16
+                font.weight: Font.Medium
+            }
+
+            Text {
+                id: betaprice
+                width: 41
+                height: 20
+                color: "#000000"
+                text: qsTr("152.00")
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 309
+                anchors.topMargin: 80
+                font.pixelSize: 16
+                font.weight: Font.Medium
+            }
+
+            Text {
+                id: low2
+                width: 41
+                height: 20
+                color: "#666666"
+                text: qsTr("EPS")
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 433
+                anchors.topMargin: 80
+                font.pixelSize: 16
+                font.weight: Font.Medium
+            }
+
+            Text {
+                id: epsprice
+                width: 41
+                height: 20
+                color: "#000000"
+                text: qsTr("152.00")
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: 540
+                anchors.topMargin: 80
+                font.pixelSize: 16
+                font.weight: Font.Medium
+            }
+        }
+    }
 
     Flow {
         id: stockFlow
         y: 271
-        anchors.top: transactionType.bottom
+        anchors.top: tradingmarket.bottom
         anchors.topMargin: -724
         anchors.horizontalCenterOffset: -213
         anchors.horizontalCenter: parent.horizontalCenter

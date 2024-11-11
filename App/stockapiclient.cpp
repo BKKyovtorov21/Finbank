@@ -13,13 +13,13 @@ StockAPIClient::StockAPIClient(QObject *parent)
 {}
 
 void StockAPIClient::fetchStockData(const QString &ticker) {
+    // Fetch historical price data from Polygon.io
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QString apiKey = "4i0TVOoTyfYiwPsaXDd3YCuqju1kl9nH";
 
     QString endDate = QDate::currentDate().toString("yyyy-MM-dd");
     QString startDate = QDate::currentDate().addYears(-1).toString("yyyy-MM-dd");
 
-    // Updated URL for historical data, using dynamic start and end dates
     QUrl url(QString("https://api.polygon.io/v2/aggs/ticker/%1/range/1/day/%2/%3?adjusted=true&apiKey=%4")
                  .arg(ticker, startDate, endDate, apiKey));
     QNetworkRequest request(url);
@@ -33,7 +33,6 @@ void StockAPIClient::fetchStockData(const QString &ticker) {
             QString indexTicker = jsonObject["ticker"].toString();
             QJsonArray resultsArray = jsonObject["results"].toArray();
 
-            // Check if there's at least one data point in the array
             if (resultsArray.isEmpty()) {
                 qDebug() << "No results found for ticker" << indexTicker;
                 return;
@@ -51,17 +50,24 @@ void StockAPIClient::fetchStockData(const QString &ticker) {
             // Format volume in millions
             double volumeInMillions = volume / 1000000.0;
 
-            // Calculate percentage change for the current day
+            // Calculate daily percentage change
             double dailyChange = ((closePrice - openPrice) / openPrice) * 100;
 
-            // Emit signal with main stock data
-            emit fetchSuccessful(
-                QString::number(dailyChange), indexTicker, QString::number(closePrice),
-                QString::number(highPrice), QString::number(lowPrice), QString::number(openPrice),
-                QString::number(volumeInMillions), QString::number(vwPrice)
-                );
+            // Prepare a QVariantMap to hold all data
+            QVariantMap stockData;
 
-            // Extract historical data for line series
+            // Stock price data
+            stockData["dailyChange"] = QString::number(dailyChange);
+            stockData["ticker"] = indexTicker;
+            stockData["closePrice"] = QString::number(closePrice);
+            stockData["highPrice"] = QString::number(highPrice);
+            stockData["lowPrice"] = QString::number(lowPrice);
+            stockData["openPrice"] = QString::number(openPrice);
+            stockData["volume"] = QString::number(volumeInMillions);
+            stockData["vwPrice"] = QString::number(vwPrice);
+
+
+            // Extract historical data for charting
             QVariantList points;
             for (const QJsonValue &value : resultsArray) {
                 QJsonObject dataPoint = value.toObject();
@@ -73,10 +79,64 @@ void StockAPIClient::fetchStockData(const QString &ticker) {
                 point["y"] = closePrice;
                 points.append(point);
             }
-
-            // Emit line series data to QML
             emit lineSeriesDataReady(points);
 
+            stockData["historicalData"] = points;
+
+            // Now fetch fundamental data from Alpha Vantage
+            fetchFundamentalData(ticker, stockData);
+        } else {
+            qDebug() << "Error:" << reply->errorString();
+        }
+        reply->deleteLater();
+    });
+
+    manager->get(request);
+}
+
+void StockAPIClient::fetchFundamentalData(const QString &ticker, QVariantMap stockData) {
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    QString apiKey = "8N4UQXABERJCWEZL";
+
+    // URL for Alpha Vantage’s stock overview data
+    QUrl url(QString("https://www.alphavantage.co/query?function=OVERVIEW&symbol=%1&apikey=%2")
+                 .arg(ticker, apiKey));
+    QNetworkRequest request(url);
+
+    connect(manager, &QNetworkAccessManager::finished, this, [=](QNetworkReply* reply)  {
+        QVariantMap combinedData = stockData;  // Copy stockData into a new map to add fundamental data
+
+        if (reply->error() == QNetworkReply::NoError) {
+            QJsonDocument jsonResponse = QJsonDocument::fromJson(reply->readAll());
+            QJsonObject jsonObject = jsonResponse.object();
+
+            if (jsonObject.contains("MarketCapitalization")) {
+                QString marketCapStr = jsonObject["MarketCapitalization"].toString();
+                double marketCap = marketCapStr.toDouble();
+                // Convert market cap to trillions if necessary
+                if (marketCap >= 1000000000000) {
+                    marketCap /= 1000000000000;
+                    combinedData["marketCap"] = QString::number(marketCap, 'f', 2) + " T"; // Trillions
+                } else {
+                    combinedData["marketCap"] = marketCapStr; // Original format if less than a trillion
+                }
+            } else {
+                combinedData["marketCap"] = "N/A";
+            }
+            combinedData["revenue"] = jsonObject["RevenueTTM"].toString();
+            combinedData["peRatio"] = jsonObject["PEGRatio"].toString();
+            combinedData["dividendYield"] = jsonObject["DividendYield"].toString();
+            combinedData["avgVolume"] = jsonObject["AverageVolume"].toString();
+            combinedData["eps"] = jsonObject["EPS"].toString();
+            if (jsonObject.contains("Beta")) {
+                combinedData["beta"] = jsonObject["Beta"].toString();
+            } else {
+                combinedData["beta"] = "N/A";  // Or some default value
+            }
+            qDebug() << combinedData;
+
+            // Emit the combined data to QML
+            emit stockDataFetched(combinedData);
         } else {
             qDebug() << "Error:" << reply->errorString();
         }

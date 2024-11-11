@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QObject>
+#include <QVariantMap>
 #include <QVariantList>
 
 class StockAPIClient : public QObject
@@ -9,12 +10,16 @@ class StockAPIClient : public QObject
 public:
     explicit StockAPIClient(QObject *parent = nullptr);
 
+    // Method to fetch stock data using a ticker
     Q_INVOKABLE void fetchStockData(const QString &ticker);
 
-signals:
-    void fetchSuccessful(const QString &percentChange, const QString &indexTicker, const QString &closePrice,
-                         const QString &highPrice, const QString &lowPrice, const QString &openPrice,
-                         const QString &volume, const QString &volumeWeighted);
+    void fetchFundamentalData(const QString &ticker, QVariantMap stockData);
 
-    void lineSeriesDataReady(QVariantList points);  // Signal to pass line series data for QML
+signals:
+    // Signal to pass combined stock data (historical + fundamental)
+    void stockDataFetched(const QVariantMap &stockData);
+
+    // Signal for line series data to be used in charts (historical data)
+    void lineSeriesDataReady(QVariantList points);
+
 };
