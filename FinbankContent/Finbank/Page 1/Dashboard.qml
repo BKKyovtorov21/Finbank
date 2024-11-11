@@ -40,25 +40,25 @@ Item {
     DashboardWindow {
         id: dashbaordwindow
         anchors.fill: parent
-        balanceValue: balance
-        incomeValue: income
-        expensesValue: expenses
-        debitcard: cardInfo
-        firstName2: firstName
-        expensePieValue: expenses  // Hardcoded for now, can be dynamically set
-        incomePieValue: income
-        username: "@" + usernameRef
-        userFullname: firstName + " " + lastName;
+        balanceValue: rootdashboard.balance
+        incomeValue: rootdashboard.income
+        expensesValue: rootdashboard.expenses
+        debitcard: rootdashboard.cardInfo
+        firstName2: rootdashboard.firstName
+        expensePieValue: rootdashboard.expenses  // Hardcoded for now, can be dynamically set
+        incomePieValue: rootdashboard.income
+        username: "@" + rootdashboard.usernameRef
+        userFullname: rootdashboard.firstName + " " + rootdashboard.lastName;
 
         transactionButton.onClicked:
         {
             dashbaordwindow.visible = false;
-            loader.setSource("Transactions.qml", { "username": usernameRef });
+            loader.setSource("Transactions.qml", { "username": rootdashboard.usernameRef });
         }
         tradingButton.onClicked:
         {
             dashbaordwindow.visible = false;
-            loader.source = "TradingDashboard.qml";
+            loader.setSource("TradingDashboard.qml", { "username": rootdashboard.usernameRef });
         }
 
     }

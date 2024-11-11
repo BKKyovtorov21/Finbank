@@ -40,6 +40,9 @@ qt6_add_qml_module(FinbankContent
         "Finbank/Page 1/SignIn.qml"
         "Finbank/Page 1/SignUp1.qml"
         "Finbank/Page 1/SignInWindow.ui.qml"
+        "Finbank/Page 1/TradingMarketWindow.ui.qml"
+        "Finbank/Page 1/TradingMarket.qml"
+        "Finbank/Page 1/Stock.qml"
     RESOURCES
         "Finbank/assets/sek.png"
         "Finbank/assets/stocks_market_graph_chart_on_laptop_screen_linear_icon_trading_p.png"

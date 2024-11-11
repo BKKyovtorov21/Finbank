@@ -31,6 +31,8 @@ qt_add_executable(${CMAKE_PROJECT_NAME}
     App/dashboard.hpp App/dashboard.cpp
     App/searchrecipent.hpp App/searchrecipent.cpp
     App/createtransaction.hpp App/createtransaction.cpp
+    App/stockapiclient.hpp App/stockapiclient.cpp
+
 
 
 )

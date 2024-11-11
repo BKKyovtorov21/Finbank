@@ -9,6 +9,7 @@
 #include "dashboard.hpp"
 #include "searchrecipent.hpp"
 #include "createtransaction.hpp"
+#include "stockapiclient.hpp"
 int main(int argc, char *argv[])
 {
     set_qt_environment();  // Set up the Qt environment variables
@@ -40,6 +41,10 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("searchrecipent", &searchrecipent);
     CreateTransaction createTransaction;
     engine.rootContext()->setContextProperty("createtransaction", &createTransaction);
+    StockAPIClient stockAPIClient;
+    engine.rootContext()->setContextProperty("stockAPIClient", &stockAPIClient);
+
+
 
 
 
