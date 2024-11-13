@@ -3,16 +3,16 @@ import QtQuick.Controls
 import QtQuick.Studio.Components 1.0
 import QtQuick.Shapes 1.0
 
-Rectangle {
+Button {
     id: stock
     width: 360
     height: 73
-    color: "#ffffff"
 
     property alias ticker: ticker.text
     property alias price: price.text
     property alias percent: percent.text
-    Item {
+    property alias name: name.text
+    background:Item {
         id: group_131
         anchors.left: parent.left
         anchors.right: parent.right
@@ -83,7 +83,7 @@ Rectangle {
         }
 
         Text {
-            id: standard_and_Poor_s_500
+            id: name
             width: 243
             height: 40
             color: "#a0a0a0"

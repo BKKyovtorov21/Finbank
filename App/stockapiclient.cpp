@@ -128,13 +128,12 @@ void StockAPIClient::fetchFundamentalData(const QString &ticker, QVariantMap sto
             combinedData["dividendYield"] = jsonObject["DividendYield"].toString();
             combinedData["avgVolume"] = jsonObject["AverageVolume"].toString();
             combinedData["eps"] = jsonObject["EPS"].toString();
+            combinedData["name"] = jsonObject["Name"].toString();
             if (jsonObject.contains("Beta")) {
                 combinedData["beta"] = jsonObject["Beta"].toString();
             } else {
                 combinedData["beta"] = "N/A";  // Or some default value
             }
-            qDebug() << combinedData;
-
             // Emit the combined data to QML
             emit stockDataFetched(combinedData);
         } else {

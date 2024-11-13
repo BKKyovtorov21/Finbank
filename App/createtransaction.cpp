@@ -179,3 +179,60 @@ void CreateTransaction::showTransactions(const QString &userIBAN, const bool &sh
         }
     }
 }
+
+void CreateTransaction::buyStock(const QString& username, const int& shares, const QString& stockTicker, const QString& stockPrice)
+{
+    QSqlQuery qry;
+
+    // Step 1: Retrieve the current balance of the user
+    qry.prepare("SELECT balance FROM users WHERE username = :username");
+    qry.bindValue(":username", username);
+
+    if (!qry.exec()) {
+        qWarning() << "Failed to retrieve balance:" << qry.lastError();
+        return;
+    }
+
+    if (qry.next()) {
+        // Step 2: Calculate the total cost of the stock purchase
+        double balance = qry.value(0).toDouble();
+        double price = stockPrice.toDouble();
+        double totalCost = price * shares;
+
+        // Step 3: Update the balance if there are sufficient funds
+        if (balance >= totalCost) {
+            double newBalance = balance - totalCost;
+            // Step 4: Update the user's balance in the database
+            QSqlQuery updateQry;
+            updateQry.prepare("UPDATE users SET balance = :newBalance WHERE username = :username");
+            updateQry.bindValue(":newBalance", newBalance);
+            updateQry.bindValue(":username", username);
+
+            if (!updateQry.exec()) {
+                qWarning() << "Failed to update balance:" << updateQry.lastError();
+            } else {
+                qDebug() << "Balance updated successfully. New balance:" << newBalance;
+            }
+        } else {
+            qWarning() << "Insufficient funds to buy stock";
+        }
+    } else {
+        qWarning() << "User not found:" << username;
+    }
+
+
+    qry.prepare("INSERT INTO stocks (username, stockTicker, stockPrice, shares, purchaseDate) "
+                "VALUES (:username, :stockTicker, :stockPrice, :shares, :purchaseDate)");
+
+    qry.bindValue(":username", username);
+    qry.bindValue(":stockTicker", stockTicker);
+    qry.bindValue(":stockPrice", stockPrice);
+    qry.bindValue(":shares", shares);
+    qry.bindValue(":purchaseDate", QDate::currentDate().toString("yyyy-MM-dd")); // Format date for MySQL
+
+    if (!qry.exec()) {
+        qWarning() << "Insert failed:" << qry.lastError();
+    } else {
+        qDebug() << "Stock inserted successfully for user:" << username;
+    }
+}

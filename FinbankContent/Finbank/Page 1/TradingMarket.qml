@@ -1,7 +1,8 @@
 import QtQuick
 import QtQuick.Controls
 import QtCharts
-
+import QtQuick.Studio.Components 1.0
+import QtQuick.Shapes 1.0
 Item {
     id: root
     width: 1280
@@ -14,21 +15,37 @@ Item {
 
     TradingMarketWindow {
         id: tradingmarket
+        property alias buyButton: buyButton
+        property alias lineChart: lineChart
+        property alias stockData: stockData
+        property alias shares: shares
+        property bool stockAvailable: false
+
+        property string stockTicker
+        property int stockShares
+        property double stockPrice
         anchors.fill: parent
 
         imageSource: rootdashboard.pfp
 
         searchbar.onAccepted: stockAPIClient.fetchStockData(searchbar.text);
 
+
         dashboardButton.onClicked: {
             tradingmarket.visible = false;
             loader.source = "TradingDashboard.qml"
+        }
+
+        buyButton.onClicked:
+        {
+            createtransaction.buyStock(rootdashboard.usernameRef, shares.text, tradingmarket.stockTicker, tradingmarket.stockPrice);
         }
 
         Connections {
             target: stockAPIClient
 
             onLineSeriesDataReady: function(points) {
+                lineChart.visible = true;
                     lineSeries.clear();  // Clear existing points
 
                     if (points.length === 0) {
@@ -61,6 +78,9 @@ Item {
                 }
 
             onStockDataFetched: function(stockData) {
+
+                console.log("Stock data visible:", stockData.visible);
+                tradingmarket.stockAvailable = true;
                 // Update the stock data in the UI
                 openPrice.text = stockData["openPrice"];
                 highPrice.text = stockData["highPrice"];
@@ -71,12 +91,14 @@ Item {
                 betaprice.text = stockData["beta"] !== undefined ? stockData["beta"] : "N/A";
                 mktcapprice.text = stockData["marketCap"] !== undefined ? stockData["marketCap"] : "N/A";
                 epsprice.text = stockData["eps"] !== undefined ? stockData["eps"] : "N/A";
-                console.log(stockData["beta"])
+                tradingmarket.stockTicker = stockData["ticker"];
+                tradingmarket.stockPrice = stockData["openPrice"];
                 var stockComponent = Qt.createComponent("Stock.qml");
                 if (stockComponent.status === Component.Ready) {
                     var stockInstance = stockComponent.createObject(stockFlow, {
                                                                         ticker: stockData["ticker"],
                                                                         price: stockData["openPrice"],
+                                                                        name: stockData["name"],
                                                                         percent: stockData["dailyChange"]});
                     if (!stockInstance) {
                         console.error("Error: Stock instance creation failed.");
@@ -95,6 +117,7 @@ Item {
             height: 385
             antialiasing: true
             backgroundColor: "transparent"
+            visible: false
 
             DateTimeAxis {
                 id: xAxis
@@ -123,6 +146,7 @@ Item {
             y: 491
             width: 658
             height: 323
+            visible: true
 
             Text {
                 id: open
@@ -373,6 +397,52 @@ Item {
                 anchors.topMargin: 80
                 font.pixelSize: 16
                 font.weight: Font.Medium
+            }
+
+
+            Button {
+                id: buyButton
+                x: 460
+                y: 240
+                width: 141
+                height: 51
+                background: Rectangle {
+                    id: rectangle_34
+                    width: 141
+                    height: 51
+                    color: "#1c1f31"
+                    radius: 20
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                }
+
+                Text {
+                    id: element12
+                    width: 68
+                    height: 20
+                    color: "#ffffff"
+                    text: qsTr("Buy")
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                    anchors.leftMargin: 37
+                    anchors.topMargin: 15
+                    font.pixelSize: 16
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignTop
+                    wrapMode: Text.NoWrap
+                    font.weight: Font.Medium
+
+                }
+            }
+
+            TextEdit {
+                id: shares
+                x: 340
+                y: 256
+                width: 80
+                height: 20
+                text: qsTr("")
+                font.pixelSize: 12
             }
         }
     }
