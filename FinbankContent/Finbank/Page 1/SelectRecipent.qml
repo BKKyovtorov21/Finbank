@@ -18,6 +18,9 @@ Rectangle {
         x: 0
         y: 0
         visible: true
+
+
+
         property string fullNameRef: ""
         property string pfpRef: ""
         property string emailRef: ""

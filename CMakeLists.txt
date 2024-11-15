@@ -18,8 +18,7 @@ set(QML_IMPORT_PATH
     FORCE
 )
 
-
-find_package(Qt6 6.7 REQUIRED COMPONENTS Core Gui Qml Quick Sql NetworkAuth Charts)
+find_package(Qt6 6.7 REQUIRED COMPONENTS Core Gui Qml Quick Sql NetworkAuth Charts Multimedia)
 qt_standard_project_setup()
 
 
