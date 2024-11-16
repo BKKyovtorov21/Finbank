@@ -36,8 +36,6 @@ Window {
 
         RowLayout {
             id: rowLayout
-            anchors.fill: parent
-            anchors.top: parent
             anchors.topMargin: 15
 
             Rectangle {
@@ -300,7 +298,6 @@ Window {
                                 anchors.left: parent.left
                                 anchors.leftMargin: -radius
                                 color: "orange"
-                                visible: selectedMenuIndex === index
                             }
 
                             Rectangle {
@@ -329,11 +326,20 @@ Window {
     }
 
     logInButton.onClicked: {
-        loader.source = "SignIn.qml"
         landingpage.visible = false
+        loader.source = "dashboard.qml"
     }
     registerButton.onClicked: {
-        loader.source = "SignUp.qml"
         landingpage.visible = false
+        loader.source = "SignUp.qml"
+    }
+
+    logInButton1.onClicked: {
+        landingpage.visible = false
+        loader.source = "SignIn.qml"
+    }
+    registerButton1.onClicked: {
+        landingpage.visible = false
+        loader.source = "SignUp.qml"
     }
 }
