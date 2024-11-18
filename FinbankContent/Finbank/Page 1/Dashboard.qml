@@ -22,7 +22,7 @@ Window {
             spacing: 8 // Adjust spacing between icon and TextField
             Image {
                 id: name
-                source: "../assets/logo1.png"
+                source: !isTablet ? "../assets/logo1.png" : "../assets/user.png"
             }
             Rectangle
             {
@@ -79,29 +79,38 @@ Window {
                 Layout.fillWidth: true // Ensure this item takes up available space
 
                 RowLayout {
-                    SvgPathItem {
-                        id: searchIcon
 
-                        strokeWidth: 1
-                        strokeColor: "black"
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.verticalCenterOffset: -3
-                        path: "M 18 17 L 13.6570492891393 12.898324328631562 M 13.6570492891393 12.898324328631562 C 14.399928642135901 12.196716107094069 14.989212248995793 11.363786352191921 15.39125566952893 10.447090966349245 C 15.793299090062066 9.53039558050657 16.00022887138912 8.547887578608355 16.000228879216625 7.55566363740785 C 16.00022888704413 6.563439696207345 15.79330096758689 5.58093169430913 15.391257576855734 4.664236308466454 C 14.98921418612458 3.747540922623778 14.399928642135901 2.9146109988437363 13.6570492891393 2.2130027210136127 C 12.914169936142699 1.5113944431834894 12.032244372909094 0.9548483359951139 11.061625729075672 0.5751406891934678 C 10.09100708524225 0.19543304239182174 9.050704494997083 -7.392641508222264e-9 8.000114439608312 4.1941278728217626e-16 C 6.949524384219542 7.3926457023501376e-9 5.909221793974374 0.19543301424550608 4.938603150140952 0.5751406891934678 C 3.96798450630753 0.9548483641414296 3.0860584066382604 1.5113944431834894 2.343179113245622 2.2130027210136127 C 0.8428666692733466 3.6299645862393577 -1.5808361118645898e-8 5.551777008701226 0 7.55566363740785 C 1.5808361118645898e-8 9.559550266114474 0.8428666692733466 11.48136257599108 2.343179113245622 12.898324328631562 C 3.843491557217897 14.315286081272044 5.878352126860122 15.11132725988558 8.000114439608312 15.1113272748157 C 10.121876752356503 15.11132728974582 12.1567367259591 14.315286081272044 13.6570492891393 12.898324328631562 Z"
-                    }
                     anchors.fill: parent // Ensures the layout fills the space
                     anchors.verticalCenterOffset: 50
 
 
                     TextField {
+                        SvgPathItem {
+                            id: searchIcon
+                            width: 22
+                            height: 18
+
+                            strokeWidth: 1
+                            strokeColor: "black"
+                            path: "M 18 17 L 13.6570492891393 12.898324328631562 M 13.6570492891393 12.898324328631562 C 14.399928642135901 12.196716107094069 14.989212248995793 11.363786352191921 15.39125566952893 10.447090966349245 C 15.793299090062066 9.53039558050657 16.00022887138912 8.547887578608355 16.000228879216625 7.55566363740785 C 16.00022888704413 6.563439696207345 15.79330096758689 5.58093169430913 15.391257576855734 4.664236308466454 C 14.98921418612458 3.747540922623778 14.399928642135901 2.9146109988437363 13.6570492891393 2.2130027210136127 C 12.914169936142699 1.5113944431834894 12.032244372909094 0.9548483359951139 11.061625729075672 0.5751406891934678 C 10.09100708524225 0.19543304239182174 9.050704494997083 -7.392641508222264e-9 8.000114439608312 4.1941278728217626e-16 C 6.949524384219542 7.3926457023501376e-9 5.909221793974374 0.19543301424550608 4.938603150140952 0.5751406891934678 C 3.96798450630753 0.9548483641414296 3.0860584066382604 1.5113944431834894 2.343179113245622 2.2130027210136127 C 0.8428666692733466 3.6299645862393577 -1.5808361118645898e-8 5.551777008701226 0 7.55566363740785 C 1.5808361118645898e-8 9.559550266114474 0.8428666692733466 11.48136257599108 2.343179113245622 12.898324328631562 C 3.843491557217897 14.315286081272044 5.878352126860122 15.11132725988558 8.000114439608312 15.1113272748157 C 10.121876752356503 15.11132728974582 12.1567367259591 14.315286081272044 13.6570492891393 12.898324328631562 Z"
+                            anchors.top: parent.top
+                            anchors.topMargin: 12
+                            anchors.left: parent.left
+                            anchors.leftMargin: 5
+                        }
                         id: searchField
 
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.verticalCenterOffset: -3 // Shift upwards by 5 pixels
                         Layout.fillWidth: true // Make it expand to fill the remaining space
+
                         placeholderText: qsTr("Search")
                         font.pixelSize: 18
                         color: "#802f2f2f"
+
+                        leftPadding: 30 // Adds space around the text, adjusting the padding as needed
                     }
+
 
                 }
             }
@@ -138,57 +147,37 @@ Window {
                 color: "#fafafa"
             }
 
-            Rectangle {
-                implicitWidth: !isTablet ? 220 : 50
-                Layout.preferredHeight: 55
-                border.width: 1
-                border.color: "black"
-                ColumnLayout {
-                    anchors.fill: parent // Fills the Rectangle with the layout
-                    spacing: 5 // Space between the rows
+            Rectangle
+            {
+                visible: !isTablet
+                Layout.preferredWidth: 200
+                Layout.preferredHeight: 56
 
-                    RowLayout {
-                        anchors.horizontalCenter: parent.horizontalCenter // Centers the row horizontally
-                        spacing: !isTablet ? 10 : 0 // Space between the Image and Text
-                        Layout.fillWidth: true // Ensures the row takes the full width
+                Image {
+                    id: userpfp
+                    source: "../assets/user.png"
+                    anchors.top: parent.top
+                    anchors.topMargin: 8
+                }
+                Text
+                {
+                    id: fullname
+                    width:130
+                    anchors.left: userpfp.right
+                    anchors.leftMargin: 10
+                    anchors.top: parent.top
+                    anchors.topMargin: 8
 
-                        Image {
-                            Layout.preferredWidth: 30 // Preferred width for the image
-                            Layout.preferredHeight: 30 // Preferred height for the image
-                            id: userpfp
-                            source: "../assets/user.png"
-                            anchors.top: parent.top
-                            anchors.topMargin: 10
-                            anchors.left: parent.left
-                            anchors.leftMargin: 25
-                        }
 
-                        Text {
-                            visible: !isTablet
-                            id: userName
-                            text: qsTr("Boyan Kyovtorov")
-                            font.pixelSize: 14
-                            Layout.fillWidth: true // Makes the text fill available space
-                            horizontalAlignment: Text.AlignHCenter // Aligns the text to the left
-                            verticalAlignment: Text.AlignVCenter // Vertically centers the text
-                        }
-                    }
+                    text: qsTr("Boyan Kiovtorov")
+                }
 
-                    RowLayout {
-                        anchors.horizontalCenter: parent.horizontalCenter // Centers the row horizontally
-                        Layout.fillWidth: true // Ensures the row takes the full width
-                        visible: !isTablet
-
-                        Text {
-                            id: sd
-                            text: qsTr("@kiovtorov")
-                            font.pixelSize: 12
-                            Layout.fillWidth: true // Makes the text fill available space
-                            horizontalAlignment: Text.AlignHCenter // Aligns the text to the left
-                            anchors.top: parent.top
-                            anchors.topMargin: -5
-                        }
-                    }
+                Text {
+                    width: 130
+                    anchors.top: fullname.bottom
+                    anchors.topMargin: 10
+                    anchors.left: fullname.left
+                    text: qsTr("@kiovtorov")
                 }
             }
 
@@ -196,6 +185,7 @@ Window {
 
         RowLayout
         {
+            visible: !isTablet
             spacing: 10
             Text {
                 text: qsTr("Good morning, Boyan")
