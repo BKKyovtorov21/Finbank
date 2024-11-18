@@ -4,13 +4,15 @@ import QtCharts
 import QtQuick.Layouts
 import QtQuick.Studio.Components 1.0
 
-Rectangle {
+Window {
     id: rootdashboard
     width: Screen.width * 0.8
     height: Screen.height * 0.8
+    minimumWidth: 400
     visible: true
 
-
+    property bool isTablet: width < 800
+    property bool isPhone: width < 450
     ColumnLayout
     {
         anchors.fill: parent
@@ -25,6 +27,7 @@ Rectangle {
             Rectangle
             {
                 id: account
+                visible: !isTablet
                 Layout.preferredWidth:177
                 Layout.preferredHeight: 56
                 color: "#fafafa"
@@ -44,6 +47,7 @@ Rectangle {
 
             SvgPathItem {
                 id: element2
+                visible: !isTablet
                 Layout.preferredHeight: 20
                 Layout.preferredWidth: 20
                 strokeWidth: 0.66667
@@ -56,6 +60,7 @@ Rectangle {
             }
             Rectangle
             {
+                visible: !isTablet
                 Layout.preferredWidth: 128
                 Layout.preferredHeight: 56
                 color: "#fafafa"
@@ -67,7 +72,6 @@ Rectangle {
                     anchors.centerIn: parent
                     color: "#196e1a"
                     font.pixelSize: 18
-
                 }
             }
 
@@ -105,6 +109,7 @@ Rectangle {
 
             Rectangle
             {
+                visible: !isTablet
                 SvgPathItem {
                     id: element5
                     anchors.left: parent.left
@@ -134,21 +139,22 @@ Rectangle {
             }
 
             Rectangle {
-                Layout.preferredWidth: 220
+                implicitWidth: !isTablet ? 220 : 50
                 Layout.preferredHeight: 55
-
+                border.width: 1
+                border.color: "black"
                 ColumnLayout {
                     anchors.fill: parent // Fills the Rectangle with the layout
                     spacing: 5 // Space between the rows
 
                     RowLayout {
                         anchors.horizontalCenter: parent.horizontalCenter // Centers the row horizontally
-                        spacing: 10 // Space between the Image and Text
+                        spacing: !isTablet ? 10 : 0 // Space between the Image and Text
                         Layout.fillWidth: true // Ensures the row takes the full width
 
                         Image {
-                            width: 30 // Preferred width for the image
-                            height: 30 // Preferred height for the image
+                            Layout.preferredWidth: 30 // Preferred width for the image
+                            Layout.preferredHeight: 30 // Preferred height for the image
                             id: userpfp
                             source: "../assets/user.png"
                             anchors.top: parent.top
@@ -158,6 +164,7 @@ Rectangle {
                         }
 
                         Text {
+                            visible: !isTablet
                             id: userName
                             text: qsTr("Boyan Kyovtorov")
                             font.pixelSize: 14
@@ -170,6 +177,7 @@ Rectangle {
                     RowLayout {
                         anchors.horizontalCenter: parent.horizontalCenter // Centers the row horizontally
                         Layout.fillWidth: true // Ensures the row takes the full width
+                        visible: !isTablet
 
                         Text {
                             id: sd
@@ -188,20 +196,155 @@ Rectangle {
 
         RowLayout
         {
+            spacing: 10
+            Text {
+                text: qsTr("Good morning, Boyan")
+                font.pixelSize: 35
+                font.bold: true
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop // Combine alignment flags
+                Layout.leftMargin: 15
+                Layout.topMargin: 15
+            }
 
+
+            Item
+            {
+                Layout.fillWidth: true
+            }
+
+            Button
+            {
+                background:Text {
+                    id: overviewPage
+                    text: qsTr("Overview")
+                    color: "#367C21"
+                    font.pixelSize: 15
+
+                }
+            }
+
+            Button
+            {
+                background:Text {
+                    id: walletPage
+                    text: qsTr("Wallet")
+                    color: "#2F2F2F"
+                    font.pixelSize: 15
+                    opacity: 0.5
+
+                }
+            }
+            Button
+            {
+                background:Text {
+                    id: transactionsPage
+                    text: qsTr("Transactions")
+                    color: "#2F2F2F"
+                    font.pixelSize: 15
+                    opacity: 0.5
+
+                }
+            }
+            Button
+            {
+                background:Text {
+                    id: tradingPage
+                    text: qsTr("Trading")
+                    color: "#2F2F2F"
+                    font.pixelSize: 15
+                    opacity: 0.5
+
+                }
+            }
+            Button
+            {
+                background:Text {
+                    id: settingsPage
+                    text: qsTr("Settings")
+                    color: "#2F2F2F"
+                    font.pixelSize: 15
+                    opacity: 0.5
+
+                }
+            }
         }
         RowLayout
         {
+            Text
+            {
+               text: qsTr("This is your finance report")
+               Layout.alignment: Qt.AlignTop | Qt.AlignLeft
+               Layout.topMargin: 10
+               Layout.leftMargin: 20
+               font.pixelSize: 20
+               color: "#2F2F2F"
+               opacity: 0.7
 
+            }
         }
-        RowLayout
-        {
+        GridLayout {
+                columns: 4
+                columnSpacing: 10
 
-        }
-        RowLayout
-        {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
 
-        }
+                // First rectangle
+                Rectangle {
+                    Layout.column: 0
+                    border.width: 1
+                    border.color: "#727272"
+                    Layout.preferredHeight: 186
+                    Layout.fillWidth: true
+                    radius: 10
+                }
+
+                // Second rectangle
+                Rectangle {
+                    Layout.column: 1
+                    border.width: 1
+                    border.color: "#727272"
+                    Layout.preferredHeight: 186
+                    Layout.fillWidth: true
+                    radius: 10
+                }
+
+                // Third rectangle
+                Rectangle {
+                    Layout.column: 2
+                    border.width: 1
+                    border.color: "#727272"
+                    Layout.preferredHeight: 186
+                    Layout.fillWidth: true
+
+                    radius: 10
+                }
+
+                // Rectangle spanning below the first three
+                Rectangle {
+                    Layout.row: 1
+                    Layout.column: 0
+                    Layout.columnSpan: 3
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.preferredHeight: 200
+                    border.width: 1
+                    border.color: "#727272"
+                    radius: 10
+                }
+
+                // Side rectangle
+                Rectangle {
+                    Layout.row: 0
+                    Layout.rowSpan: 2
+                    Layout.column: 3
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    border.width: 1
+                    border.color: "#727272"
+                    radius: 10
+                }
+            }
     }
 
 }

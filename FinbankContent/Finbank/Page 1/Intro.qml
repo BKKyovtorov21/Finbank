@@ -12,7 +12,7 @@ Window {
     title: "Responsive Layout Example"
     width: Screen.width * 0.6
     height: Screen.height * 0.6
-    minimumWidth: Screen.width * 0.3
+    minimumWidth: 414
     minimumHeight: Screen.height * 0.8
 
     property bool isWideScreen: width > height
@@ -327,7 +327,7 @@ Window {
 
     logInButton.onClicked: {
         landingpage.visible = false
-        loader.source = "dashboard.qml"
+        loader.source = "Dashboard.qml"
     }
     registerButton.onClicked: {
         landingpage.visible = false

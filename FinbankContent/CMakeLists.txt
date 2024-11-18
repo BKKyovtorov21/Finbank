@@ -63,6 +63,7 @@ qt6_add_qml_module(FinbankContent
         "Finbank/assets/ellipse_6.png"
         "Finbank/assets/eur.png"
         "Finbank/assets/usd.png"
+        "Finbank/assets/landingpage2.mp4"
 )
 
 
