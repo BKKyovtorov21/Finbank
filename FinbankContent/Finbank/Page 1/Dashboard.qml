@@ -3,7 +3,7 @@ import QtQuick.Controls
 import QtCharts
 import QtQuick.Layouts
 import QtQuick.Studio.Components 1.0
-
+import QtQuick.Timeline
 Window {
     id: rootdashboard
     width: Screen.width * 0.8
@@ -11,10 +11,12 @@ Window {
     minimumWidth: 400
     visible: true
 
-    property bool isTablet: width < 800
+    property bool isTablet: width < 900
     property bool isPhone: width < 450
     ColumnLayout
     {
+        property real expensesValue: 2000
+        property real incomeValue: 3000
         anchors.fill: parent
         id: dashboardwindow
         RowLayout
@@ -185,11 +187,10 @@ Window {
 
         RowLayout
         {
-            visible: !isTablet
             spacing: 10
             Text {
                 text: qsTr("Good morning, Boyan")
-                font.pixelSize: 35
+                font.pixelSize: !isTablet ? 35 : 15
                 font.bold: true
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop // Combine alignment flags
                 Layout.leftMargin: 15
@@ -199,11 +200,13 @@ Window {
 
             Item
             {
+                visible: !isTablet
                 Layout.fillWidth: true
             }
 
             Button
             {
+                visible: !isTablet
                 background:Text {
                     id: overviewPage
                     text: qsTr("Overview")
@@ -215,6 +218,7 @@ Window {
 
             Button
             {
+                visible: !isTablet
                 background:Text {
                     id: walletPage
                     text: qsTr("Wallet")
@@ -226,6 +230,7 @@ Window {
             }
             Button
             {
+                visible: !isTablet
                 background:Text {
                     id: transactionsPage
                     text: qsTr("Transactions")
@@ -237,6 +242,7 @@ Window {
             }
             Button
             {
+                visible: !isTablet
                 background:Text {
                     id: tradingPage
                     text: qsTr("Trading")
@@ -248,6 +254,7 @@ Window {
             }
             Button
             {
+                visible: !isTablet
                 background:Text {
                     id: settingsPage
                     text: qsTr("Settings")
@@ -260,6 +267,7 @@ Window {
         }
         RowLayout
         {
+            visible: !isTablet
             Text
             {
                text: qsTr("This is your finance report")
@@ -285,22 +293,320 @@ Window {
                     border.width: 1
                     border.color: "#727272"
                     Layout.preferredHeight: 186
-                    Layout.fillWidth: true
+                    Layout.preferredWidth: 420
+
                     radius: 10
+
+                    Text {
+
+                        color: "#b3000000"
+                        text: qsTr("My balance")
+                        font.pointSize: 16
+                        anchors.top: parent.top
+                        anchors.topMargin: 10
+                        anchors.left: parent.left
+                        anchors.leftMargin: 20
+                    }
+                    ColumnLayout
+                    {
+                        id:sd
+                        anchors.fill: parent
+                    RowLayout {
+                        id: textRow
+                        width: parent.width
+                        height: 48
+                        anchors.top: parent.top
+                        anchors.topMargin: 40
+                        anchors.horizontalCenter: parent.horizontalCenter
+
+
+
+                        Text {
+                            visible: !isPhone
+                            id: balance
+                            color: "black"
+                            text: qsTr("$123,23")
+                            font.pixelSize: 40
+                            anchors.left: parent.left
+
+                        }
+
+                        Text {
+                            visible: !isTablet
+                            id: percent
+                            text: qsTr("+6.7%")
+                            color: "#249226"
+                            font.pixelSize: 20
+                            anchors.left: balance.right
+                            anchors.leftMargin: 5
+                        }
+                        Text {
+                               text: qsTr("Compared to last month")
+                               font.pixelSize: 15
+                               color: "#2f2f2f" // Optional for styling
+                               anchors.left:  percent.right
+                               anchors.leftMargin: 10
+                        }
+                    }
+
+                    RowLayout
+                    {
+                        anchors.fill: parent
+                        anchors.topMargin: 88
+                        anchors.leftMargin: 20
+                        Text {
+                            id: fdfd
+                            text: qsTr("6549  7329  9821  2472")
+                            anchors.top: balance.bottom
+                            font.pixelSize: 20
+
+                        }
+                    }
+
+                    RowLayout
+                    {
+                        anchors.fill: parent
+                        anchors.topMargin: 120
+                        anchors.leftMargin: 10
+                        spacing: 190
+                        Button
+                        {
+                            background: Rectangle {
+                                id: rectangle_28
+                                width: 200
+                                height: 37
+                                color: "#367c21"
+                                radius: 8
+                                anchors.left: parent.left
+                                anchors.top: parent.top
+                            }
+
+                            Text {
+                                id: send_money
+                                width: 125
+                                height: 28
+                                color: "#ececec"
+                                text: qsTr("Send money")
+                                anchors.centerIn: rectangle_28
+                                font.pixelSize: 22
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignTop
+                                wrapMode: Text.NoWrap
+                                font.weight: Font.Medium
+                            }
+                        }
+
+                        Button
+                        {
+                            background: Rectangle {
+                                id: rectangle_29
+                                width: 200
+                                height: 37
+                                color: "#33d9d9d9"
+                                radius: 8
+                                border.color: "#727272"
+                                border.width: 0.3
+                                anchors.left: parent.left
+                                anchors.top: parent.top
+                            }
+
+                            Text {
+                                id: request_money
+                                width: 156
+                                height: 28
+                                color: "#367c21"
+                                text: qsTr("Request money")
+                                anchors.left: parent.left
+                                anchors.top: parent.top
+                                anchors.leftMargin: 22
+                                anchors.topMargin: 5
+                                font.pixelSize: 22
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignTop
+                                wrapMode: Text.NoWrap
+                                font.weight: Font.Medium
+                            }
+                        }
+                    }
+                }
+
                 }
 
                 // Second rectangle
                 Rectangle {
+                    visible: !isTablet
                     Layout.column: 1
                     border.width: 1
                     border.color: "#727272"
                     Layout.preferredHeight: 186
                     Layout.fillWidth: true
                     radius: 10
+
+                    Item {
+                        id: group_5
+                        x: 22
+                        y: 11
+                        width: 40
+                        height: 40
+                        ArcItem {
+                            id: ellipse_3
+                            width: 40
+                            height: 40
+                            anchors.left: parent.left
+                            anchors.top: parent.top
+                            strokeWidth: 0
+                            strokeStyle: 0
+                            strokeColor: "transparent"
+                            outlineArc: true
+                            fillColor: "#d9d9d9"
+                            end: 450.00001
+                            begin: 90
+                            arcWidth: 20
+                            antialiasing: true
+                        }
+
+                        ArcItem {
+                            id: ellipse_4
+                            width: 36
+                            height: 36
+                            anchors.left: parent.left
+                            anchors.top: parent.top
+                            anchors.leftMargin: 2
+                            anchors.topMargin: 2
+                            strokeWidth: 0
+                            strokeStyle: 0
+                            strokeColor: "transparent"
+                            outlineArc: true
+                            fillColor: "#ffffff"
+                            end: 450.00001
+                            begin: 90
+                            arcWidth: 18
+                            antialiasing: true
+                        }
+
+                        Item {
+                            id: group
+                            x: 13
+                            y: 13
+                            width: 14
+                            height: 14
+                            SvgPathItem {
+                                id: element14
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                anchors.top: parent.top
+                                anchors.bottom: parent.bottom
+                                anchors.bottomMargin: 11
+                                strokeWidth: 1
+                                strokeStyle: 1
+                                strokeColor: "transparent"
+                                path: "M 2 0 C 1.4695670207341514 7.53605947267372e-16 0.9608592589696248 0.26818113441589736 0.585786501566569 0.7455464717751663 C 0.21071374416351318 1.2229118091344353 5.921189464667501e-16 1.8703580646113287 0 2.5454545974731446 L 0 3.1818182468414307 L 14 3.1818182468414307 L 14 2.5454545974731446 C 13.999999999999998 1.8703580646113287 13.789286573727924 1.2229118091344353 13.41421381632487 0.7455464717751663 C 13.039141058921814 0.26818113441589736 12.530432979265848 3.76802973633686e-16 12 0 L 2 0 Z"
+                                joinStyle: 0
+                                fillColor: "#367c21"
+                                antialiasing: true
+                            }
+
+                            SvgPathItem {
+                                id: element15
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                anchors.top: parent.top
+                                anchors.bottom: parent.bottom
+                                anchors.leftMargin: 0
+                                anchors.rightMargin: 0
+                                anchors.topMargin: 5
+                                strokeWidth: 1
+                                strokeStyle: 1
+                                strokeColor: "transparent"
+                                path: "M 14 0 L 0 0 L 0 6.363636425563268 C 4.440892098500626e-16 7.038732951198508 0.21071374416351318 7.6861796043339154 0.585786501566569 8.163544936583223 C 0.9608592589696248 8.640910268832531 1.4695670207341514 8.90909099578857 2 8.909090995788574 L 12 8.909090995788574 C 12.530432979265848 8.90909099578857 13.039141058921814 8.640910268832531 13.41421381632487 8.163544936583223 C 13.789286573727924 7.6861796043339154 13.999999999999998 7.038732951198508 14 6.363636425563268 L 14 0 Z M 2 3.181818212781634 C 2 3.013044081372824 2.0526783565680184 2.8511828226780795 2.1464465459187823 2.7318414896157526 C 2.240214735269546 2.6125001565534256 2.367391755183538 2.545454570225307 2.5 2.545454570225307 L 6.5 2.545454570225307 C 6.6326082448164625 2.545454570225307 6.759784946839014 2.6125001565534256 6.853553136189778 2.7318414896157526 C 6.947321325540543 2.8511828226780795 7 3.013044081372824 7 3.181818212781634 C 7 3.350592344190444 6.947321325540543 3.512453602885188 6.853553136189778 3.631794935947515 C 6.759784946839014 3.7511362690098418 6.6326082448164625 3.8181818553379605 6.5 3.8181818553379605 L 2.5 3.8181818553379605 C 2.367391755183538 3.8181818553379605 2.240214735269546 3.7511362690098418 2.1464465459187823 3.631794935947515 C 2.0526783565680184 3.512453602885188 2.0000000000000004 3.350592344190444 2 3.181818212781634 Z M 2.5 5.090909140450614 C 2.367391755183538 5.090909140450614 2.240214735269546 5.1579547267787325 2.1464465459187823 5.27729605984106 C 2.0526783565680184 5.396637392903387 2.0000000000000004 5.55849865159813 2 5.72727278300694 C 2.0000000000000004 5.89604691441575 2.0526783565680184 6.05790898228871 2.1464465459187823 6.177250315351038 C 2.240214735269546 6.296591648413365 2.367391755183538 6.363636425563268 2.5 6.363636425563268 L 4.5 6.363636425563268 C 4.6326082448164625 6.363636425563268 4.759784946839014 6.296591648413365 4.853553136189778 6.177250315351038 C 4.947321325540543 6.05790898228871 5 5.89604691441575 5 5.72727278300694 C 5 5.55849865159813 4.947321325540543 5.396637392903387 4.853553136189778 5.27729605984106 C 4.759784946839014 5.1579547267787325 4.6326082448164625 5.090909140450614 4.5 5.090909140450614 L 2.5 5.090909140450614 Z"
+                                joinStyle: 0
+                                fillColor: "#367c21"
+                                antialiasing: true
+                            }
+                        }
+                    }
+
+                    Text {
+                        id: monthly_Income
+                        width: 138
+                        height: 23
+                        color: "#000000"
+                        text: qsTr("Monthly Income")
+                        anchors.left: parent.left
+                        anchors.top: parent.top
+                        anchors.leftMargin: 16
+                        anchors.topMargin: 63
+                        font.pixelSize: 20
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignTop
+                        wrapMode: Text.NoWrap
+                        font.weight: Font.Medium
+                    }
+                    Text {
+                        property real incomeValue: dashboardwindow.incomeValue
+                        id: income
+                        width: 174
+                        height: 40
+                        color: "#000000"
+                        text: "$" + incomeValue.toFixed(2)
+                        anchors.left: parent.left
+                        anchors.top: parent.top
+                        anchors.leftMargin: 14
+                        anchors.topMargin: 92
+                        font.pixelSize: 32
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignTop
+                        wrapMode: Text.NoWrap
+                        font.weight: Font.Normal
+
+                        SequentialAnimation on incomeValue {
+                            NumberAnimation {
+                                from: 0.0
+                                to: incomeValue
+                                duration: 2000
+                            }
+                        }
+                    }
+
+                    Text {
+                        id: element13
+                        width: 55
+                        height: 26
+                        color: "#249226"
+                        text: qsTr("+6,7%")
+                        anchors.left: parent.left
+                        anchors.top: parent.top
+                        anchors.leftMargin: 14
+                        anchors.topMargin: 144
+                        font.pixelSize: 18
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignTop
+                        wrapMode: Text.Wrap
+                        font.weight: Font.Normal
+                    }
+
+                    Text {
+                        id: compared_to_last_month1
+                        width: 141
+                        height: 17
+                        color: "#b22f2f2f"
+                        text: qsTr("Compared to last month")
+                        anchors.left: parent.left
+                        anchors.top: parent.top
+                        anchors.leftMargin: 74
+                        anchors.topMargin: 145
+                        font.pixelSize: 13
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignTop
+                        wrapMode: Text.NoWrap
+                        font.weight: Font.Normal
+                    }
                 }
 
                 // Third rectangle
                 Rectangle {
+                    visible: !isTablet
+
                     Layout.column: 2
                     border.width: 1
                     border.color: "#727272"
@@ -308,6 +614,167 @@ Window {
                     Layout.fillWidth: true
 
                     radius: 10
+
+                    Text {
+                        id: element17
+                        width: 52
+                        height: 26
+                        color: "#d6453e"
+                        text: qsTr("-8,6%")
+                        anchors.left: parent.left
+                        anchors.top: parent.top
+                        anchors.leftMargin: 15
+                        anchors.topMargin: 144
+                        font.pixelSize: 18
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignTop
+                        wrapMode: Text.Wrap
+                        font.weight: Font.Normal
+                    }
+
+                    Text {
+                        id: compared_to_last_month2
+                        width: 141
+                        height: 17
+                        color: "#b22f2f2f"
+                        text: qsTr("Compared to last month")
+                        anchors.left: parent.left
+                        anchors.top: parent.top
+                        anchors.leftMargin: 74
+                        anchors.topMargin: 145
+                        font.pixelSize: 13
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignTop
+                        wrapMode: Text.NoWrap
+                        font.weight: Font.Normal
+                    }
+
+                    Item {
+                        id: group_7
+                        x: 22
+                        y: 11
+                        width: 40
+                        height: 40
+                        ArcItem {
+                            id: ellipse_5
+                            width: 40
+                            height: 40
+                            anchors.left: parent.left
+                            anchors.top: parent.top
+                            strokeWidth: 0
+                            strokeStyle: 0
+                            strokeColor: "transparent"
+                            outlineArc: true
+                            fillColor: "#d9d9d9"
+                            end: 450.00001
+                            begin: 90
+                            arcWidth: 20
+                            antialiasing: true
+                        }
+
+                        ArcItem {
+                            id: ellipse_6
+                            width: 36
+                            height: 36
+                            anchors.left: parent.left
+                            anchors.top: parent.top
+                            anchors.leftMargin: 2
+                            anchors.topMargin: 2
+                            strokeWidth: 0
+                            strokeStyle: 0
+                            strokeColor: "transparent"
+                            outlineArc: true
+                            fillColor: "#ffffff"
+                            end: 450.00001
+                            begin: 90
+                            arcWidth: 18
+                            antialiasing: true
+                        }
+
+                        Item {
+                            id: group1
+                            x: 13
+                            y: 13
+                            width: 14
+                            height: 14
+                            SvgPathItem {
+                                id: element18
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                anchors.top: parent.top
+                                anchors.bottom: parent.bottom
+                                anchors.bottomMargin: 11
+                                strokeWidth: 1
+                                strokeStyle: 1
+                                strokeColor: "transparent"
+                                path: "M 2 0 C 1.4695670207341514 7.53605947267372e-16 0.9608592589696248 0.26818113441589736 0.585786501566569 0.7455464717751663 C 0.21071374416351318 1.2229118091344353 5.921189464667501e-16 1.8703580646113287 0 2.5454545974731446 L 0 3.1818182468414307 L 14 3.1818182468414307 L 14 2.5454545974731446 C 13.999999999999998 1.8703580646113287 13.789286573727924 1.2229118091344353 13.41421381632487 0.7455464717751663 C 13.039141058921814 0.26818113441589736 12.530432979265848 3.76802973633686e-16 12 0 L 2 0 Z"
+                                joinStyle: 0
+                                fillColor: "#d6453e"
+                                antialiasing: true
+                            }
+
+                            SvgPathItem {
+                                id: element19
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                anchors.top: parent.top
+                                anchors.bottom: parent.bottom
+                                anchors.leftMargin: 0
+                                anchors.rightMargin: 0
+                                anchors.topMargin: 5
+                                strokeWidth: 1
+                                strokeStyle: 1
+                                strokeColor: "transparent"
+                                path: "M 14 0 L 0 0 L 0 6.363636425563268 C 4.440892098500626e-16 7.038732951198508 0.21071374416351318 7.6861796043339154 0.585786501566569 8.163544936583223 C 0.9608592589696248 8.640910268832531 1.4695670207341514 8.90909099578857 2 8.909090995788574 L 12 8.909090995788574 C 12.530432979265848 8.90909099578857 13.039141058921814 8.640910268832531 13.41421381632487 8.163544936583223 C 13.789286573727924 7.6861796043339154 13.999999999999998 7.038732951198508 14 6.363636425563268 L 14 0 Z M 2 3.181818212781634 C 2 3.013044081372824 2.0526783565680184 2.8511828226780795 2.1464465459187823 2.7318414896157526 C 2.240214735269546 2.6125001565534256 2.367391755183538 2.545454570225307 2.5 2.545454570225307 L 6.5 2.545454570225307 C 6.6326082448164625 2.545454570225307 6.759784946839014 2.6125001565534256 6.853553136189778 2.7318414896157526 C 6.947321325540543 2.8511828226780795 7 3.013044081372824 7 3.181818212781634 C 7 3.350592344190444 6.947321325540543 3.512453602885188 6.853553136189778 3.631794935947515 C 6.759784946839014 3.7511362690098418 6.6326082448164625 3.8181818553379605 6.5 3.8181818553379605 L 2.5 3.8181818553379605 C 2.367391755183538 3.8181818553379605 2.240214735269546 3.7511362690098418 2.1464465459187823 3.631794935947515 C 2.0526783565680184 3.512453602885188 2.0000000000000004 3.350592344190444 2 3.181818212781634 Z M 2.5 5.090909140450614 C 2.367391755183538 5.090909140450614 2.240214735269546 5.1579547267787325 2.1464465459187823 5.27729605984106 C 2.0526783565680184 5.396637392903387 2.0000000000000004 5.55849865159813 2 5.72727278300694 C 2.0000000000000004 5.89604691441575 2.0526783565680184 6.05790898228871 2.1464465459187823 6.177250315351038 C 2.240214735269546 6.296591648413365 2.367391755183538 6.363636425563268 2.5 6.363636425563268 L 4.5 6.363636425563268 C 4.6326082448164625 6.363636425563268 4.759784946839014 6.296591648413365 4.853553136189778 6.177250315351038 C 4.947321325540543 6.05790898228871 5 5.89604691441575 5 5.72727278300694 C 5 5.55849865159813 4.947321325540543 5.396637392903387 4.853553136189778 5.27729605984106 C 4.759784946839014 5.1579547267787325 4.6326082448164625 5.090909140450614 4.5 5.090909140450614 L 2.5 5.090909140450614 Z"
+                                joinStyle: 0
+                                fillColor: "#d6453e"
+                                antialiasing: true
+                            }
+                        }
+                    }
+
+                    Text {
+                        id: monthly_Expenses
+                        width: 153
+                        height: 23
+                        color: "#000000"
+                        text: qsTr("Monthly Expenses")
+                        anchors.left: parent.left
+                        anchors.top: parent.top
+                        anchors.leftMargin: 15
+                        anchors.topMargin: 63
+                        font.pixelSize: 18
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignTop
+                        wrapMode: Text.NoWrap
+                        font.weight: Font.Medium
+                    }
+
+                    Text {
+                        property real expensesValue: dashboardwindow.expensesValue
+                        id: expenses
+                        width: 174
+                        height: 40
+                        color: "#000000"
+                        text: "$" + expensesValue.toFixed(2)
+                        anchors.left: parent.left
+                        anchors.top: parent.top
+                        anchors.leftMargin: 8
+                        anchors.topMargin: 92
+                        font.pixelSize: 32
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignTop
+                        wrapMode: Text.NoWrap
+                        font.weight: Font.Normal
+
+                        SequentialAnimation on expensesValue {
+                            NumberAnimation {
+                                from: 0.0
+                                to: expensesValue
+                                duration: 2000
+                            }
+                        }
+                    }
                 }
 
                 // Rectangle spanning below the first three
@@ -321,6 +788,38 @@ Window {
                     border.width: 1
                     border.color: "#727272"
                     radius: 10
+
+                    ChartView {
+                        id: bar
+                        anchors.fill: parent
+                        animationOptions: ChartView.SeriesAnimations
+                        BarSeries {
+                            id: mySeries
+
+                            axisX: BarCategoryAxis {
+                                categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
+                                gridVisible: false
+                            }
+
+                            axisY: ValuesAxis {
+                                labelFormat: "$%.0f" // Format the labels to include '$' before each value
+                                min: 0
+                                max: 1200 // Adjust as needed for your data
+                            }
+
+                            // BarSet for "Earnings"
+                            BarSet {
+                                label: "Earnings"
+                                values: [800, 850, 900, 950, 1000, 1100] // Example values for each month
+                            }
+
+                            // BarSet for "Spendings"
+                            BarSet {
+                                label: "Spendings"
+                                values: [560, 600, 650, 700, 750, 800]
+                            }
+                        }
+                    }
                 }
 
                 // Side rectangle
@@ -333,6 +832,134 @@ Window {
                     border.width: 1
                     border.color: "#727272"
                     radius: 10
+
+                    ColumnLayout
+                    {
+                        anchors.fill: parent
+
+                        ChartView {
+                            id: pie
+                            width: parent.width
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            PieSeries {
+                                name: "PieSeries"
+
+                                PieSlice {
+                                    id: incomePie
+                                    value: 0 // Start at 0 to animate "filling"
+                                    label: "Income"
+                                }
+
+                                PieSlice {
+                                    id: expensesPie
+                                    value: 0 // Start at 0 to animate "filling"
+                                    label: "Expenses"
+                                }
+                            }
+                        }
+
+                        // Sequential animation for "filling" effect
+                        SequentialAnimation {
+                            running: true // Start automatically
+                            loops: 1 // Run once
+
+                            NumberAnimation {
+                                target: incomePie
+                                property: "value"
+                                from: 0
+                                to: 13.5 // Final value for "Income" slice
+                                duration: 1500 // Duration in milliseconds
+                                easing.type: Easing.InOutQuad
+                            }
+
+                            NumberAnimation {
+                                target: expensesPie
+                                property: "value"
+                                from: 0
+                                to: 10.9 // Final value for "Expenses" slice
+                                duration: 1500 // Duration in milliseconds
+                                easing.type: Easing.InOutQuad
+                            }
+                        }
+
+                        ChartView {
+                            id: pie1
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            PieSeries {
+                                name: "PieSeries"
+
+                                PieSlice {
+                                    id: stocksPie
+                                    value: 0 // Start at 0 to animate "filling"
+                                    label: "Stocks"
+                                }
+
+                                PieSlice {
+                                    id: cryptoPie
+                                    value: 0 // Start at 0 to animate "filling"
+                                    label: "Crypto"
+                                }
+
+                                PieSlice {
+                                    id: transferPie
+                                    value: 0 // Start at 0 to animate "filling"
+                                    label: "Transfers"
+                                }
+                            }
+                        }
+
+                        // Sequential animation for "filling" effect
+                        SequentialAnimation {
+                            running: true // Start automatically
+                            loops: 1 // Run once
+
+                            NumberAnimation {
+                                target: stocksPie
+                                property: "value"
+                                from: 0
+                                to: 13.5 // Final value for "Stocks" slice
+                                duration: 1500 // Duration in milliseconds
+                                easing.type: Easing.InOutQuad
+                            }
+
+                            NumberAnimation {
+                                target: cryptoPie
+                                property: "value"
+                                from: 0
+                                to: 10.9 // Final value for "Crypto" slice
+                                duration: 1500 // Duration in milliseconds
+                                easing.type: Easing.InOutQuad
+                            }
+
+                            NumberAnimation {
+                                target: transferPie
+                                property: "value"
+                                from: 0
+                                to: 8.6 // Final value for "Transfers" slice
+                                duration: 1500 // Duration in milliseconds
+                                easing.type: Easing.InOutQuad
+                            }
+                        }
+
+                        Timeline {
+                            id: timeline
+                            animations: [
+                                TimelineAnimation {
+                                    id: timelineAnimation
+                                    running: true
+                                    loops: 1
+                                    duration: 1000
+                                    to: 1000
+                                    from: 0
+                                }
+                            ]
+                            startFrame: 0
+                            endFrame: 1000
+                            enabled: true
+                        }
+                    }
                 }
             }
     }
