@@ -12,6 +12,7 @@ Rectangle {
     property alias transaction: transaction.text
     property alias balance: balance.text
     property alias backButton: backButton
+    property alias tradingButton: tradingButton
     id: transactions
     width: 1280
     height: 832
@@ -748,21 +749,24 @@ Rectangle {
         font.weight: Font.Normal
     }
 
-    Text {
-        id: trading
-        width: 65
-        height: 23
-        color: "#802f2f2f"
-        text: qsTr("Trading")
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: 1109
-        anchors.topMargin: 147
-        font.pixelSize: 18
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignTop
-        wrapMode: Text.NoWrap
-        font.weight: Font.Normal
+    Button {
+        id: tradingButton
+        background: Text {
+            id: trading
+            width: 65
+            height: 23
+            color: "#802f2f2f"
+            text: qsTr("Trading")
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.leftMargin: 1109
+            anchors.topMargin: 147
+            font.pixelSize: 18
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignTop
+            wrapMode: Text.NoWrap
+            font.weight: Font.Normal
+        }
     }
 
     Text {
@@ -1318,21 +1322,20 @@ D{i:40;uuid:"b201a9fa-0ca2-571a-be24-d87204617005"}D{i:47;uuid:"bac8dfd0-660c-50
 D{i:48;uuid:"73d6a7f0-b778-5549-82f4-877b3e7e81b7"}D{i:49;uuid:"31ad1fb4-e689-5a71-8acb-4d71a8261ee6"}
 D{i:50;uuid:"3655db80-0abc-53c2-89de-68156698b2f3"}D{i:51;uuid:"70870497-0c7a-5b43-9470-57d3efbbebfc"}
 D{i:52;uuid:"92ba2b4f-b566-5558-8317-40ef9bca69d1"}D{i:53;uuid:"879ebbad-f4bf-5544-ad9e-429b04ea24b0"}
-D{i:54;uuid:"e1c43386-6f63-5c1c-aa30-e42c1c32a471"}D{i:55;uuid:"2c15cc78-9e3a-5aa6-b9ed-e2629261852a"}
-D{i:56;uuid:"08579ec0-da51-5fd3-a3b5-c9a79c800845"}D{i:61;uuid:"b315c888-8d9a-547b-b75a-26d0b75d415d"}
-D{i:62;uuid:"6bdc6c34-a234-5701-9983-9b47fb25e270"}D{i:63;uuid:"650ab467-d1ec-5687-b6de-c9cdd329259d"}
-D{i:64;uuid:"d6d6a8a4-802e-5dd1-8d40-81a350a915ea"}D{i:65;uuid:"af291c23-9671-5a6e-aba5-610eb817db8d"}
-D{i:66;uuid:"e96a2c7a-318d-528d-8fbc-912f420b45e2"}D{i:67;uuid:"55fca9fa-c41e-5ca5-80c3-76e0678b1c28"}
-D{i:68;uuid:"77004f69-0f62-53e1-9ef1-2be7248664f9"}D{i:69;uuid:"feab364e-6925-56cd-80a3-6cec314ddff6"}
-D{i:70;uuid:"ea2466d5-4f95-595d-a2f0-9a6849088f48"}D{i:77;uuid:"ff1118e4-af1e-545c-88e8-a6ecf0140e80"}
-D{i:78;uuid:"8fe3d997-5972-51e9-ad20-65c65e89ff3e"}D{i:79;uuid:"ebd815d2-f13d-5fab-bba0-bad6740f8557"}
-D{i:80;uuid:"8b8eed0e-e1df-580e-b8dc-ef03b5711b82"}D{i:81;uuid:"3dfeb073-95db-549d-8bf2-33bee240bed4"}
-D{i:82;uuid:"450d83d4-4f13-5cfb-bdcb-72361b50d46c"}D{i:83;uuid:"bdbe9770-a978-5045-9589-0743818f1c7c"}
-D{i:84;uuid:"2cfd1884-bc45-50e0-9da0-03bdfdba65ab"}D{i:85;uuid:"38ee491c-767b-5af0-8289-ed29a17c9d56"}
-D{i:86;uuid:"a9c5324b-a10a-5e7d-b38d-c1fe2fba12c9"}D{i:87;uuid:"b84012d0-25f8-5467-8dca-e329c9aa4237"}
-D{i:88;uuid:"229eaf30-a608-526d-9b8a-abe3bb0a0d9d"}D{i:89;uuid:"04f4bff0-6a5b-5218-a1e7-018ea83d632c"}
-D{i:90;uuid:"49a9537e-23af-5610-8da1-8d677fef1c69"}D{i:91;uuid:"894b565b-9759-5cfd-9b6d-87d50fc0bfe6"}
-D{i:96;uuid:"49a9537e-23af-5610-8da1-8d677fef1c69"}
+D{i:54;uuid:"e1c43386-6f63-5c1c-aa30-e42c1c32a471"}D{i:57;uuid:"08579ec0-da51-5fd3-a3b5-c9a79c800845"}
+D{i:62;uuid:"b315c888-8d9a-547b-b75a-26d0b75d415d"}D{i:63;uuid:"6bdc6c34-a234-5701-9983-9b47fb25e270"}
+D{i:64;uuid:"650ab467-d1ec-5687-b6de-c9cdd329259d"}D{i:65;uuid:"d6d6a8a4-802e-5dd1-8d40-81a350a915ea"}
+D{i:66;uuid:"af291c23-9671-5a6e-aba5-610eb817db8d"}D{i:67;uuid:"e96a2c7a-318d-528d-8fbc-912f420b45e2"}
+D{i:68;uuid:"55fca9fa-c41e-5ca5-80c3-76e0678b1c28"}D{i:69;uuid:"77004f69-0f62-53e1-9ef1-2be7248664f9"}
+D{i:70;uuid:"feab364e-6925-56cd-80a3-6cec314ddff6"}D{i:71;uuid:"ea2466d5-4f95-595d-a2f0-9a6849088f48"}
+D{i:78;uuid:"ff1118e4-af1e-545c-88e8-a6ecf0140e80"}D{i:79;uuid:"8fe3d997-5972-51e9-ad20-65c65e89ff3e"}
+D{i:80;uuid:"ebd815d2-f13d-5fab-bba0-bad6740f8557"}D{i:81;uuid:"8b8eed0e-e1df-580e-b8dc-ef03b5711b82"}
+D{i:82;uuid:"3dfeb073-95db-549d-8bf2-33bee240bed4"}D{i:83;uuid:"450d83d4-4f13-5cfb-bdcb-72361b50d46c"}
+D{i:84;uuid:"bdbe9770-a978-5045-9589-0743818f1c7c"}D{i:85;uuid:"2cfd1884-bc45-50e0-9da0-03bdfdba65ab"}
+D{i:86;uuid:"38ee491c-767b-5af0-8289-ed29a17c9d56"}D{i:87;uuid:"a9c5324b-a10a-5e7d-b38d-c1fe2fba12c9"}
+D{i:88;uuid:"b84012d0-25f8-5467-8dca-e329c9aa4237"}D{i:89;uuid:"229eaf30-a608-526d-9b8a-abe3bb0a0d9d"}
+D{i:90;uuid:"04f4bff0-6a5b-5218-a1e7-018ea83d632c"}D{i:91;uuid:"49a9537e-23af-5610-8da1-8d677fef1c69"}
+D{i:92;uuid:"894b565b-9759-5cfd-9b6d-87d50fc0bfe6"}D{i:97;uuid:"49a9537e-23af-5610-8da1-8d677fef1c69"}
 }
 ##^##*/
 

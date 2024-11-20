@@ -50,6 +50,11 @@ Rectangle {
         }
 
         receivingCurrencyButton.onClicked: {
+            loader.height = 450
+            loader.width = 246
+            loader.x = 1019
+            loader.y = 258
+            loader.z = 1
             loader.source = "";  // Clear the source to unload
             loader.source = "Currencies.qml";
             loader.visible = true;
@@ -59,6 +64,11 @@ Rectangle {
         }
         continueButton.onClicked:
         {
+            loader.height = 1280
+            loader.width = 832
+            loader.x = 0
+            loader.y = 0
+            loader.z = 1
             loader.source = "";
             loader.source = "RecipentDescription.qml"
             loader.visible = true;

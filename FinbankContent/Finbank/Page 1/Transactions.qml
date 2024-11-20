@@ -28,6 +28,12 @@ Item {
         }
     }
 
+    Loader
+    {
+        id: loader
+        source: ""
+    }
+
     TransactionsWindow {
 
 
@@ -82,6 +88,14 @@ Item {
                 }
             }
         }
+
+        tradingButton.onClicked:
+        {
+            transactionwindow.visible = false
+            loader.source = "TradingDashboard.qml"
+        }
+
     }
+
 
 }

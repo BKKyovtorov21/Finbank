@@ -926,13 +926,13 @@ Rectangle {
 
         Text {
             id: sendingAndFees
-            width: 107
+            width: 136
             height: 24
             color: "#000000"
             text: qsTr("$1.010 USD")
             anchors.left: parent.left
             anchors.top: parent.top
-            anchors.leftMargin: 384
+            anchors.leftMargin: 355
             font.pixelSize: 18
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignTop

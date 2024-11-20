@@ -30,8 +30,16 @@ Item {
 
         searchbar.onAccepted: stockAPIClient.fetchStockData(searchbar.text);
 
+        function clearStockInstances() {
+            // Iterate over stockFlow children and destroy each
+            for (var i = stockFlow.children.length - 1; i >= 0; i--) {
+                stockFlow.children[i].destroy();
+            }
+        }
+
 
         dashboardButton.onClicked: {
+            clearStockInstances();
             tradingmarket.visible = false;
             loader.source = "TradingDashboard.qml"
         }
