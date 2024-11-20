@@ -6,19 +6,50 @@ import QtQuick.Studio.Components 1.0
 import QtQuick.Timeline
 Window {
     id: rootdashboard
-    width: Screen.width * 0.8
-    height: Screen.height * 0.8
+    width: Screen.width * 0.9
+    height: Screen.height
     minimumWidth: 400
     visible: true
-
     property bool isTablet: width < 900
     property bool isPhone: width < 450
+
+    property string usernameRef: ""
+       property real balance: 3000
+       property real income: 3000
+       property real expenses: 3000
+       property string cardInfo: ""
+       property string firstName: ""
+       property string lastName: ""
+       property string pfp: ""
+
+    Component.onCompleted: {
+            if (usernameRef !== "") {
+                balance = dashboard.getDbVariable(usernameRef, "balance");
+                income = dashboard.getDbVariable(usernameRef, "income");
+                expenses = dashboard.getDbVariable(usernameRef, "expenses");
+                cardInfo = dashboard.getDbVariable(usernameRef, "cardNumber");
+                firstName = dashboard.getDbVariable(usernameRef, "first_name");
+                lastName = dashboard.getDbVariable(usernameRef, "last_name");
+                pfp = dashboard.getDbVariable(usernameRef, "pfp");
+                userpfp.source = pfp;
+            } else {
+                console.log("Username is empty");
+            }
+        }
+
+    Loader
+    {
+        id: loader
+        source: ""
+    }
+
     ColumnLayout
     {
-        property real expensesValue: 2000
+        visible: !isTablet
+        property real expensesValue
         property real incomeValue: 3000
         anchors.fill: parent
-        id: dashboardwindow
+        id: dashboardwindowDesktop
         RowLayout
         {
             spacing: 8 // Adjust spacing between icon and TextField
@@ -29,7 +60,7 @@ Window {
             Rectangle
             {
                 id: account
-                visible: !isTablet
+
                 Layout.preferredWidth:177
                 Layout.preferredHeight: 56
                 color: "#fafafa"
@@ -49,7 +80,7 @@ Window {
 
             SvgPathItem {
                 id: element2
-                visible: !isTablet
+
                 Layout.preferredHeight: 20
                 Layout.preferredWidth: 20
                 strokeWidth: 0.66667
@@ -62,7 +93,7 @@ Window {
             }
             Rectangle
             {
-                visible: !isTablet
+
                 Layout.preferredWidth: 128
                 Layout.preferredHeight: 56
                 color: "#fafafa"
@@ -120,7 +151,7 @@ Window {
 
             Rectangle
             {
-                visible: !isTablet
+
                 SvgPathItem {
                     id: element5
                     anchors.left: parent.left
@@ -151,7 +182,7 @@ Window {
 
             Rectangle
             {
-                visible: !isTablet
+
                 Layout.preferredWidth: 200
                 Layout.preferredHeight: 56
 
@@ -200,13 +231,13 @@ Window {
 
             Item
             {
-                visible: !isTablet
+
                 Layout.fillWidth: true
             }
 
             Button
             {
-                visible: !isTablet
+
                 background:Text {
                     id: overviewPage
                     text: qsTr("Overview")
@@ -218,7 +249,7 @@ Window {
 
             Button
             {
-                visible: !isTablet
+
                 background:Text {
                     id: walletPage
                     text: qsTr("Wallet")
@@ -230,7 +261,7 @@ Window {
             }
             Button
             {
-                visible: !isTablet
+
                 background:Text {
                     id: transactionsPage
                     text: qsTr("Transactions")
@@ -239,10 +270,16 @@ Window {
                     opacity: 0.5
 
                 }
+                onClicked:
+                {
+                    dashboardwindowDesktop.visible = false
+                    loader.source = "Transactions.qml"
+
+                }
             }
             Button
             {
-                visible: !isTablet
+
                 background:Text {
                     id: tradingPage
                     text: qsTr("Trading")
@@ -251,10 +288,15 @@ Window {
                     opacity: 0.5
 
                 }
+                onClicked:
+                {
+                    dashboardwindowDesktop.visible = false
+                    loader.source = "TradingDashboard.qml"
+                }
             }
             Button
             {
-                visible: !isTablet
+
                 background:Text {
                     id: settingsPage
                     text: qsTr("Settings")
@@ -267,7 +309,7 @@ Window {
         }
         RowLayout
         {
-            visible: !isTablet
+
             Text
             {
                text: qsTr("This is your finance report")
@@ -322,17 +364,29 @@ Window {
 
 
                         Text {
+                            property real balanceValue: rootdashboard.balance
                             visible: !isPhone
                             id: balance
                             color: "black"
-                            text: qsTr("$123,23")
+                            text: "$" + balanceValue.toFixed(2)
                             font.pixelSize: 40
                             anchors.left: parent.left
+
+                            SequentialAnimation on balanceValue {
+                                NumberAnimation {
+                                    running: true
+                                    loops: 1
+                                    from: 0.0
+                                    to: 2285.93
+                                    duration: 2000
+                                }
+                            }
+
 
                         }
 
                         Text {
-                            visible: !isTablet
+
                             id: percent
                             text: qsTr("+6.7%")
                             color: "#249226"
@@ -356,7 +410,7 @@ Window {
                         anchors.leftMargin: 20
                         Text {
                             id: fdfd
-                            text: qsTr("6549  7329  9821  2472")
+                            text: qsTr("**** **** ****  2472")
                             anchors.top: balance.bottom
                             font.pixelSize: 20
 
@@ -434,7 +488,7 @@ Window {
 
                 // Second rectangle
                 Rectangle {
-                    visible: !isTablet
+
                     Layout.column: 1
                     border.width: 1
                     border.color: "#727272"
@@ -543,7 +597,7 @@ Window {
                         font.weight: Font.Medium
                     }
                     Text {
-                        property real incomeValue: dashboardwindow.incomeValue
+                        property real incomeValue: dashboardwindowDesktop.incomeValue
                         id: income
                         width: 174
                         height: 40
@@ -561,8 +615,10 @@ Window {
 
                         SequentialAnimation on incomeValue {
                             NumberAnimation {
+                                running: true
+                                loops: 1
                                 from: 0.0
-                                to: incomeValue
+                                to: 2403.84
                                 duration: 2000
                             }
                         }
@@ -605,7 +661,7 @@ Window {
 
                 // Third rectangle
                 Rectangle {
-                    visible: !isTablet
+
 
                     Layout.column: 2
                     border.width: 1
@@ -751,7 +807,7 @@ Window {
                     }
 
                     Text {
-                        property real expensesValue: dashboardwindow.expensesValue
+                        property real expensesValue: dashboardwindowDesktop.expensesValue
                         id: expenses
                         width: 174
                         height: 40
@@ -770,7 +826,7 @@ Window {
                         SequentialAnimation on expensesValue {
                             NumberAnimation {
                                 from: 0.0
-                                to: expensesValue
+                                to: 157
                                 duration: 2000
                             }
                         }
@@ -963,5 +1019,374 @@ Window {
                 }
             }
     }
+
+    RowLayout {
+            id: layouttablet
+            anchors.fill: parent
+            visible: isTablet  // Corrected to 'isTablet'
+
+            Rectangle {
+                color: "#F7F7F7"
+                Layout.fillHeight: true
+                Layout.preferredWidth: 100
+
+                ColumnLayout
+                {
+
+
+                    anchors.fill: parent
+                    spacing: 10
+                    Item
+                    {
+                        height:30
+                    }
+                    Image {
+                        id: pfp
+                        source: "../assets/user.png"
+                        width:30
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+
+                    }
+                    Rectangle
+                    {
+                        width:50
+                        height: 50
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+                        radius:10
+
+                        SvgPathItem
+                        {
+                            width: 38
+                            height: 40
+                            path: "M0 27V9L12.5 0L25 9V27H15.625V16.5H9.375V27H0Z"
+                            strokeWidth: 2
+                            strokeColor: "#3A61B3"
+                            fillColor: "#3A61B3"
+                            anchors.left: parent.left
+                            anchors.leftMargin: 12
+                            anchors.top: parent.top
+                            anchors.topMargin: 10
+                        }
+                    }
+                    Rectangle
+                    {
+                        width:50
+                        height: 50
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+                        color: "transparent"
+                        SvgPathItem
+                        {
+                            width: 38
+                            height: 26
+                            path: "M18.2858 7.28995C18.2858 7.67311 18.699 7.91388 19.0324 7.72492L24.6388 4.54653C24.9766 4.35497 24.9766 3.86815 24.6388 3.6766L19.0324 0.498209C18.699 0.309244 18.2858 0.550016 18.2858 0.933172V1.9786C18.2858 2.25474 18.0619 2.4786 17.7858 2.4786H0.906947C0.630805 2.4786 0.406948 2.70246 0.406948 2.9786V5.21677C0.406948 5.49291 0.630806 5.71677 0.906948 5.71677H17.7858C18.0619 5.71677 18.2858 5.94063 18.2858 6.21677V7.28995ZM7.52625 13.8617C7.52625 13.4786 7.11302 13.2378 6.7797 13.4267L1.17346 16.6043C0.835527 16.7958 0.835527 17.2827 1.17346 17.4743L6.7797 20.6518C7.11302 20.8407 7.52625 20.6 7.52625 20.2168V19.1713C7.52625 18.8952 7.7501 18.6713 8.02625 18.6713H24.906C25.1821 18.6713 25.406 18.4474 25.406 18.1713V15.9331C25.406 15.657 25.1821 15.4331 24.906 15.4331H8.02625C7.7501 15.4331 7.52625 15.2093 7.52625 14.9331V13.8617Z"
+                            strokeWidth: 2
+                            strokeColor: "#7B8188"
+                            fillColor: "#7B8188"
+                            anchors.left: parent.left
+                            anchors.leftMargin: 12
+                            anchors.top: parent.top
+                            anchors.topMargin: 10
+                        }
+                    }
+                    Rectangle
+                    {
+                        width:50
+                        height: 50
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+                        color: "transparent"
+                        SvgPathItem
+                        {
+                            width: 30
+                            height: 32
+
+                            path: "M4.48163 13.1703H1.868C1.03101 13.1703 0.353027 13.7801 0.353027 14.5299V23.3904C0.353027 24.1403 1.03245 24.75 1.868 24.75H4.48307C5.32151 24.75 5.99949 24.1403 5.99949 23.3891V14.5299C5.99911 14.1691 5.83922 13.8231 5.55492 13.568C5.27062 13.3129 4.88514 13.1694 4.48307 13.169M14.1598 0.75H11.5462C10.7078 0.75 10.0298 1.35973 10.0298 2.11086V23.3878C10.0298 24.1403 10.7092 24.7487 11.5477 24.7487H14.1598C14.9983 24.7487 15.6763 24.139 15.6763 23.3878V2.11216C15.6763 1.35973 14.9968 0.751297 14.1584 0.751297M23.8381 7.46611H21.223C20.3845 7.46611 19.7066 8.07584 19.7066 8.82827V23.3878C19.7066 24.1403 20.386 24.7487 21.223 24.7487H23.8366C24.2387 24.7484 24.6242 24.6049 24.9085 24.3497C25.1928 24.0946 25.3526 23.7487 25.353 23.3878V8.82697C25.353 8.07454 24.6736 7.46611 23.8352 7.46611"
+                            strokeWidth: 2
+                            strokeColor: "#7B8188"
+                            fillColor: "#7B8188"
+                            anchors.left: parent.left
+                            anchors.leftMargin: 12
+                            anchors.top: parent.top
+                            anchors.topMargin: 10
+                        }
+                    }
+                    Item
+                    {
+                        Layout.fillHeight: true
+                    }
+
+
+                }
+            }
+
+            Rectangle {
+                color: "#F7F7F7"
+
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
+                ColumnLayout
+                {
+                    anchors.fill: parent
+
+
+                    RowLayout
+                    {
+                        anchors.fill: parent
+                        anchors.topMargin: 100
+                        anchors.leftMargin: 35
+                        Text {
+                            id:test
+                            text: qsTr("Good evening, Boyan")
+                            font.pixelSize: 30
+                            font.bold: true
+                        }
+
+                        Item {
+                            anchors.right: parent.right
+                            anchors.rightMargin: 120
+                            anchors.top: parent.top
+                            anchors.topMargin: 10
+
+                            width: 30
+                            height: 30
+
+                            // Circular arc
+                            ArcItem {
+                                id: circle
+                                width: parent.width
+                                height: parent.height
+                                anchors.centerIn: parent
+                                strokeWidth: 2
+                                strokeStyle: 1
+                                strokeColor: "#727272"
+                                outlineArc: true
+                                fillColor: "#727272"
+                                opacity: 0.3
+                                end: 450.0    // Full circle
+                                begin: 90
+                                arcWidth: width / 2 // To keep it circular
+                                antialiasing: true
+                            }
+
+                            // Arrow centered in the circle
+                            Item {
+                                width: parent.width
+                                height: parent.height
+                                anchors.centerIn: parent
+
+                                SvgPathItem
+                                {
+                                    width: 14
+                                    height: 14
+                                    anchors.verticalCenterOffset: 2
+                                    anchors.horizontalCenterOffset: 0
+                                    fillColor: "white"
+                                    strokeColor: "white"
+                                    strokeWidth: 1
+                                    anchors.centerIn: parent
+                                    path: "M6.09185 1.49787C6.17688 1.41868 6.24508 1.32318 6.29238 1.21707C6.33968 1.11096 6.36512 0.99642 6.36717 0.880274C6.36922 0.764128 6.34784 0.648759 6.30432 0.54105C6.26079 0.43334 6.196 0.335497 6.11382 0.253357C6.03164 0.171216 5.93375 0.106462 5.82599 0.0629561C5.71823 0.0194505 5.60281 -0.00191464 5.48661 0.000134622C5.37041 0.00218388 5.25581 0.0276055 5.14965 0.0748837C5.04349 0.122162 4.94795 0.190327 4.86872 0.275314L0.253097 4.88872C0.0910308 5.05091 0 5.27077 0 5.5C0 5.72923 0.0910308 5.94909 0.253097 6.11128L4.86872 10.7247C4.94795 10.8097 5.04349 10.8778 5.14965 10.9251C5.25581 10.9724 5.37041 10.9978 5.48661 10.9999C5.60281 11.0019 5.71823 10.9806 5.82599 10.937C5.93375 10.8935 6.03164 10.8288 6.11382 10.7466C6.196 10.6645 6.26079 10.5667 6.30432 10.459C6.34784 10.3512 6.36922 10.2359 6.36717 10.1197C6.36512 10.0036 6.33968 9.88904 6.29238 9.78293C6.24508 9.67682 6.17688 9.58132 6.09185 9.50213L2.95323 6.36501H14.1346C14.3641 6.36501 14.5842 6.27388 14.7465 6.11166C14.9088 5.94944 15 5.72942 15 5.5C15 5.27058 14.9088 5.05057 14.7465 4.88834C14.5842 4.72612 14.3641 4.63499 14.1346 4.63499H2.95323L6.09185 1.49787Z"
+                                }
+                            }
+                            Text {
+
+                                text: qsTr("Request")
+                                anchors.top: parent.bottom
+                                anchors.right: parent.right
+                                anchors.rightMargin: -12
+                            }
+                        }
+
+                        Item {
+                            anchors.right: parent.right
+                            anchors.rightMargin: 30
+                            anchors.top: parent.top
+                            anchors.topMargin: 10
+
+                            width: 30
+                            height: 30
+
+                            // Circular arc
+                            ArcItem {
+                                id: circle2
+                                width: parent.width
+                                height: parent.height
+                                anchors.centerIn: parent
+                                strokeWidth: 2
+                                strokeStyle: 1
+                                strokeColor: "#727272"
+                                outlineArc: true
+                                fillColor: "#727272"
+                                opacity: 0.3
+                                end: 450.0    // Full circle
+                                begin: 90
+                                arcWidth: width / 2 // To keep it circular
+                                antialiasing: true
+                            }
+
+                            // Arrow centered in the circle
+                            Item {
+                                width: parent.width
+                                height: parent.height
+                                anchors.centerIn: parent
+
+                                SvgPathItem
+                                {
+                                    width: 14
+                                    height: 14
+                                    anchors.verticalCenterOffset: 0
+                                    anchors.horizontalCenterOffset: 0
+                                    fillColor: "white"
+                                    strokeColor: "white"
+                                    strokeWidth: 1
+                                    anchors.centerIn: parent
+                                    rotation: -180
+                                    path: "M6.09185 1.49787C6.17688 1.41868 6.24508 1.32318 6.29238 1.21707C6.33968 1.11096 6.36512 0.99642 6.36717 0.880274C6.36922 0.764128 6.34784 0.648759 6.30432 0.54105C6.26079 0.43334 6.196 0.335497 6.11382 0.253357C6.03164 0.171216 5.93375 0.106462 5.82599 0.0629561C5.71823 0.0194505 5.60281 -0.00191464 5.48661 0.000134622C5.37041 0.00218388 5.25581 0.0276055 5.14965 0.0748837C5.04349 0.122162 4.94795 0.190327 4.86872 0.275314L0.253097 4.88872C0.0910308 5.05091 0 5.27077 0 5.5C0 5.72923 0.0910308 5.94909 0.253097 6.11128L4.86872 10.7247C4.94795 10.8097 5.04349 10.8778 5.14965 10.9251C5.25581 10.9724 5.37041 10.9978 5.48661 10.9999C5.60281 11.0019 5.71823 10.9806 5.82599 10.937C5.93375 10.8935 6.03164 10.8288 6.11382 10.7466C6.196 10.6645 6.26079 10.5667 6.30432 10.459C6.34784 10.3512 6.36922 10.2359 6.36717 10.1197C6.36512 10.0036 6.33968 9.88904 6.29238 9.78293C6.24508 9.67682 6.17688 9.58132 6.09185 9.50213L2.95323 6.36501H14.1346C14.3641 6.36501 14.5842 6.27388 14.7465 6.11166C14.9088 5.94944 15 5.72942 15 5.5C15 5.27058 14.9088 5.05057 14.7465 4.88834C14.5842 4.72612 14.3641 4.63499 14.1346 4.63499H2.95323L6.09185 1.49787Z"
+                                }
+                                Text {
+
+                                    text: qsTr("Send")
+                                    anchors.top: parent.bottom
+                                    anchors.right: parent.right
+                                    anchors.rightMargin: 2
+                                }
+                            }
+
+                        }
+
+
+                    }
+
+                    TextField {
+                        SvgPathItem {
+                            id: searchIcon2
+                            width: 22
+                            height: 18
+
+                            strokeWidth: 1
+                            strokeColor: "black"
+                            path: "M 18 17 L 13.6570492891393 12.898324328631562 M 13.6570492891393 12.898324328631562 C 14.399928642135901 12.196716107094069 14.989212248995793 11.363786352191921 15.39125566952893 10.447090966349245 C 15.793299090062066 9.53039558050657 16.00022887138912 8.547887578608355 16.000228879216625 7.55566363740785 C 16.00022888704413 6.563439696207345 15.79330096758689 5.58093169430913 15.391257576855734 4.664236308466454 C 14.98921418612458 3.747540922623778 14.399928642135901 2.9146109988437363 13.6570492891393 2.2130027210136127 C 12.914169936142699 1.5113944431834894 12.032244372909094 0.9548483359951139 11.061625729075672 0.5751406891934678 C 10.09100708524225 0.19543304239182174 9.050704494997083 -7.392641508222264e-9 8.000114439608312 4.1941278728217626e-16 C 6.949524384219542 7.3926457023501376e-9 5.909221793974374 0.19543301424550608 4.938603150140952 0.5751406891934678 C 3.96798450630753 0.9548483641414296 3.0860584066382604 1.5113944431834894 2.343179113245622 2.2130027210136127 C 0.8428666692733466 3.6299645862393577 -1.5808361118645898e-8 5.551777008701226 0 7.55566363740785 C 1.5808361118645898e-8 9.559550266114474 0.8428666692733466 11.48136257599108 2.343179113245622 12.898324328631562 C 3.843491557217897 14.315286081272044 5.878352126860122 15.11132725988558 8.000114439608312 15.1113272748157 C 10.121876752356503 15.11132728974582 12.1567367259591 14.315286081272044 13.6570492891393 12.898324328631562 Z"
+                            anchors.top: parent.top
+                            anchors.topMargin: 12
+                            anchors.left: parent.left
+                            anchors.leftMargin: 5
+
+                        }
+                        id: searchField2
+
+                        Layout.fillWidth: true
+                        anchors.top: parent.top
+                        anchors.topMargin: 170
+                        anchors.left: parent.left
+                        anchors.leftMargin: 35
+                        anchors.right: parent.right
+                        anchors.rightMargin: 1
+
+                        placeholderText: qsTr("Search")
+                        font.pixelSize: 18
+                        color: "#802f2f2f"
+
+                        leftPadding: 30 // Adds space around the text, adjusting the padding as needed
+                    }
+
+                    Rectangle
+                    {
+                        anchors.top: searchField2.bottom
+                        anchors.topMargin: 50
+                        anchors.left: searchField2.left
+                        anchors.right: searchField2.right
+                        anchors.rightMargin: 50
+                        Layout.fillWidth: true
+                        height:300
+                        radius: 20
+
+                        Text
+                        {
+                            id: balanceTablet
+                            anchors.top: parent.top
+                            anchors.left: parent.left
+                            anchors.leftMargin: 20
+                            anchors.topMargin: 15
+                            text: qsTr("$1222.22")
+                            font.pixelSize: 30
+                            font.bold: true
+                        }
+                        Text
+                        {
+                            anchors.top: balanceTablet.bottom
+                            anchors.left: balanceTablet.left
+                            width: 150
+                            text: qsTr("Euro")
+                            font.pixelSize: 20
+                        }
+                        Item {
+                            anchors.left: balanceTablet.right
+                            anchors.leftMargin: 29
+                            anchors.top: balanceTablet.top
+                            anchors.topMargin: 15
+
+                            width: 5
+                            height: 5
+
+                            // Circular arc
+                            ArcItem {
+                                id: circle3
+                                width: 32
+                                height: 27
+
+                                anchors.centerIn: parent
+                                strokeWidth: 2
+                                strokeStyle: 1
+                                strokeColor: "#0074FF"
+                                outlineArc: true
+                                fillColor: "#0074FF"
+                                opacity: 0.3
+                                end: 450.0    // Full circle
+                                begin: 90
+                                arcWidth: width / 2 // To keep it circular
+                            }
+
+                            // Arrow centered in the circle
+                            Item {
+
+                                anchors.centerIn: parent
+
+                                SvgPathItem
+                                {
+                                    width: 14
+                                    height: 10
+                                    anchors.verticalCenterOffset: 2
+                                    anchors.horizontalCenterOffset: 0
+                                    fillColor: "white"
+                                    strokeColor: "white"
+                                    strokeWidth: 1
+                                    anchors.centerIn: parent
+                                    path: "M7.70685 7.70701C7.51933 7.89448 7.26502 7.99979 6.99985 7.99979C6.73469 7.99979 6.48038 7.89448 6.29285 7.70701L0.635855 2.05001C0.540345 1.95776 0.464162 1.84742 0.411753 1.72541C0.359344 1.60341 0.331758 1.47219 0.330604 1.33941C0.32945 1.20663 0.354752 1.07495 0.405033 0.952054C0.455314 0.829157 0.529567 0.717505 0.62346 0.623612C0.717353 0.529719 0.829004 0.455466 0.951901 0.405185C1.0748 0.354904 1.20648 0.329603 1.33926 0.330757C1.47204 0.331911 1.60325 0.359497 1.72526 0.411906C1.84726 0.464315 1.95761 0.540497 2.04985 0.636007L6.99985 5.58601L11.9499 0.636007C12.1385 0.453849 12.3911 0.353055 12.6533 0.355333C12.9155 0.357611 13.1663 0.46278 13.3517 0.648188C13.5371 0.833596 13.6423 1.08441 13.6445 1.34661C13.6468 1.6088 13.546 1.86141 13.3639 2.05001L7.70685 7.70701Z"
+                                }
+                            }
+
+
+                        }
+                        Image {
+                            id: currencyImage
+                            anchors.right: parent.right
+                            anchors.rightMargin: 50
+                            anchors.top: parent.top
+                            anchors.topMargin: 50
+                            source: "../assets/eur.png"
+                        }
+
+                    }
+
+
+
+                    Item
+                    {
+                        Layout.fillHeight: true
+                    }
+
+                }
+            }
+
+        }
 
 }

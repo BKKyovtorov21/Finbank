@@ -10,8 +10,8 @@ Window {
     id:root
     visible: true
     title: "Responsive Layout Example"
-    width: Screen.width * 0.6
-    height: Screen.height * 0.6
+    width: Screen.width * 0.9
+    height: Screen.height * 0.9
     minimumWidth: 414
     minimumHeight: Screen.height * 0.8
 
@@ -221,9 +221,7 @@ Window {
                     anchors.horizontalCenterOffset: -1 // Replace with your video file path
                     autoPlay: true
                     loops: MediaPlayer.Infinite
-                    Component.onCompleted: {
-                        console.log("Resolved video path:", Qt.resolvedUrl(source))
-                    }
+
                 }
             }
         }
@@ -327,7 +325,7 @@ Window {
 
     logInButton.onClicked: {
         landingpage.visible = false
-        loader.source = "Dashboard.qml"
+        loader.source = "SignIn.qml"
     }
     registerButton.onClicked: {
         landingpage.visible = false
