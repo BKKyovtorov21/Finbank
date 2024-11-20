@@ -4,7 +4,7 @@ Item {
     visible: true
     id: root
     width: 1280
-    height: 832
+    height: Screen.width * 0.9
 
     // This Loader will load the external QML file when the button is clicked
     Loader {

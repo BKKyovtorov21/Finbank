@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 
-Rectangle {
+Window {
     visible: true
     id: root
     width: 1280

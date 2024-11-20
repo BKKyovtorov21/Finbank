@@ -10,9 +10,9 @@ Window {
     id:root
     visible: true
     title: "Responsive Layout Example"
-    width: Screen.width * 0.6
-    height: Screen.height * 0.6
-    minimumWidth: Screen.width * 0.3
+    width: Screen.width * 0.9
+    height: Screen.height * 0.9
+    minimumWidth: 414
     minimumHeight: Screen.height * 0.8
 
     property bool isWideScreen: width > height
@@ -36,8 +36,6 @@ Window {
 
         RowLayout {
             id: rowLayout
-            anchors.fill: parent
-            anchors.top: parent
             anchors.topMargin: 15
 
             Rectangle {
@@ -223,9 +221,7 @@ Window {
                     anchors.horizontalCenterOffset: -1 // Replace with your video file path
                     autoPlay: true
                     loops: MediaPlayer.Infinite
-                    Component.onCompleted: {
-                        console.log("Resolved video path:", Qt.resolvedUrl(source))
-                    }
+
                 }
             }
         }
@@ -300,7 +296,6 @@ Window {
                                 anchors.left: parent.left
                                 anchors.leftMargin: -radius
                                 color: "orange"
-                                visible: selectedMenuIndex === index
                             }
 
                             Rectangle {
@@ -329,11 +324,20 @@ Window {
     }
 
     logInButton.onClicked: {
-        loader.source = "SignIn.qml"
         landingpage.visible = false
+        loader.source = "SignIn.qml"
     }
     registerButton.onClicked: {
-        loader.source = "SignUp.qml"
         landingpage.visible = false
+        loader.source = "SignUp.qml"
+    }
+
+    logInButton1.onClicked: {
+        landingpage.visible = false
+        loader.source = "SignIn.qml"
+    }
+    registerButton1.onClicked: {
+        landingpage.visible = false
+        loader.source = "SignUp.qml"
     }
 }
