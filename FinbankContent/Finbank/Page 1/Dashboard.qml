@@ -6,7 +6,7 @@ import QtQuick.Studio.Components 1.0
 import QtQuick.Timeline
 Window {
     id: rootdashboard
-    width: Screen.width * 0.9
+    width: 899
     height: Screen.height
     minimumWidth: 400
     visible: true
@@ -45,7 +45,7 @@ Window {
 
     ColumnLayout
     {
-        visible: !isTablet
+        visible: false
         property real expensesValue
         property real incomeValue: 3000
         anchors.fill: parent
@@ -1120,15 +1120,20 @@ Window {
 
             Rectangle {
                 color: "#F7F7F7"
-
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
-                ColumnLayout
-                {
+                Flickable {
+                    id: flickable
                     anchors.fill: parent
+                    contentWidth: parent.width
+                    contentHeight: columnLayout.implicitHeight
+                    clip: true
 
-
+                    ColumnLayout {
+                        id: columnLayout
+                        width: parent.width
+                        spacing: 20
                     RowLayout
                     {
                         anchors.fill: parent
@@ -1143,7 +1148,7 @@ Window {
 
                         Item {
                             anchors.right: parent.right
-                            anchors.rightMargin: 120
+                            anchors.rightMargin: 150
                             anchors.top: parent.top
                             anchors.topMargin: 10
 
@@ -1151,20 +1156,13 @@ Window {
                             height: 30
 
                             // Circular arc
-                            ArcItem {
-                                id: circle
+                            Rectangle {
                                 width: parent.width
                                 height: parent.height
                                 anchors.centerIn: parent
-                                strokeWidth: 2
-                                strokeStyle: 1
-                                strokeColor: "#727272"
-                                outlineArc: true
-                                fillColor: "#727272"
+                                color: "#727272"
                                 opacity: 0.3
-                                end: 450.0    // Full circle
-                                begin: 90
-                                arcWidth: width / 2 // To keep it circular
+                                radius:180
                                 antialiasing: true
                             }
 
@@ -1174,17 +1172,10 @@ Window {
                                 height: parent.height
                                 anchors.centerIn: parent
 
-                                SvgPathItem
+                                Image
                                 {
-                                    width: 14
-                                    height: 14
-                                    anchors.verticalCenterOffset: 2
-                                    anchors.horizontalCenterOffset: 0
-                                    fillColor: "white"
-                                    strokeColor: "white"
-                                    strokeWidth: 1
                                     anchors.centerIn: parent
-                                    path: "M6.09185 1.49787C6.17688 1.41868 6.24508 1.32318 6.29238 1.21707C6.33968 1.11096 6.36512 0.99642 6.36717 0.880274C6.36922 0.764128 6.34784 0.648759 6.30432 0.54105C6.26079 0.43334 6.196 0.335497 6.11382 0.253357C6.03164 0.171216 5.93375 0.106462 5.82599 0.0629561C5.71823 0.0194505 5.60281 -0.00191464 5.48661 0.000134622C5.37041 0.00218388 5.25581 0.0276055 5.14965 0.0748837C5.04349 0.122162 4.94795 0.190327 4.86872 0.275314L0.253097 4.88872C0.0910308 5.05091 0 5.27077 0 5.5C0 5.72923 0.0910308 5.94909 0.253097 6.11128L4.86872 10.7247C4.94795 10.8097 5.04349 10.8778 5.14965 10.9251C5.25581 10.9724 5.37041 10.9978 5.48661 10.9999C5.60281 11.0019 5.71823 10.9806 5.82599 10.937C5.93375 10.8935 6.03164 10.8288 6.11382 10.7466C6.196 10.6645 6.26079 10.5667 6.30432 10.459C6.34784 10.3512 6.36922 10.2359 6.36717 10.1197C6.36512 10.0036 6.33968 9.88904 6.29238 9.78293C6.24508 9.67682 6.17688 9.58132 6.09185 9.50213L2.95323 6.36501H14.1346C14.3641 6.36501 14.5842 6.27388 14.7465 6.11166C14.9088 5.94944 15 5.72942 15 5.5C15 5.27058 14.9088 5.05057 14.7465 4.88834C14.5842 4.72612 14.3641 4.63499 14.1346 4.63499H2.95323L6.09185 1.49787Z"
+                                    source: "/Users/boyankiovtorov/Downloads/leftArrow.svg"
                                 }
                             }
                             Text {
@@ -1198,7 +1189,7 @@ Window {
 
                         Item {
                             anchors.right: parent.right
-                            anchors.rightMargin: 30
+                            anchors.rightMargin: 20
                             anchors.top: parent.top
                             anchors.topMargin: 10
 
@@ -1206,21 +1197,17 @@ Window {
                             height: 30
 
                             // Circular arc
-                            ArcItem {
+                            Rectangle {
                                 id: circle2
                                 width: parent.width
                                 height: parent.height
                                 anchors.centerIn: parent
-                                strokeWidth: 2
-                                strokeStyle: 1
-                                strokeColor: "#727272"
-                                outlineArc: true
-                                fillColor: "#727272"
+                                color: "#727272"
+
                                 opacity: 0.3
-                                end: 450.0    // Full circle
-                                begin: 90
-                                arcWidth: width / 2 // To keep it circular
                                 antialiasing: true
+
+                                radius: 180
                             }
 
                             // Arrow centered in the circle
@@ -1229,18 +1216,61 @@ Window {
                                 height: parent.height
                                 anchors.centerIn: parent
 
-                                SvgPathItem
+                                Image
                                 {
-                                    width: 14
-                                    height: 14
-                                    anchors.verticalCenterOffset: 0
-                                    anchors.horizontalCenterOffset: 0
-                                    fillColor: "white"
-                                    strokeColor: "white"
-                                    strokeWidth: 1
                                     anchors.centerIn: parent
+                                    source: "/Users/boyankiovtorov/Downloads/Analytics.svg"
+                                }
+                                Text {
+
+                                    width: 55
+                                    height: 16
+
+                                    text: qsTr("Analytics")
+                                    anchors.top: parent.bottom
+                                    anchors.right: parent.right
+                                    anchors.rightMargin: -15
+                                    anchors.topMargin: 1
+                                }
+                            }
+
+                        }
+                        Item {
+                            anchors.right: parent.right
+                            anchors.rightMargin: 85
+                            anchors.top: parent.top
+                            anchors.topMargin: 10
+
+                            width: 30
+                            height: 30
+
+                            // Circular arc
+                            Rectangle {
+                                id: circle5
+                                width: parent.width
+                                height: parent.height
+                                anchors.centerIn: parent
+                                anchors.left: parent.left
+                                anchors.leftMargin: 100
+                                color: "#727272"
+
+                                opacity: 0.3
+                                antialiasing: true
+
+                                radius: 180
+                            }
+
+                            // Arrow centered in the circle
+                            Item {
+                                width: parent.width
+                                height: parent.height
+                                anchors.left: parent.left
+
+                                Image
+                                {
+                                    anchors.centerIn: parent
+                                    source: "/Users/boyankiovtorov/Downloads/leftArrow.svg"
                                     rotation: -180
-                                    path: "M6.09185 1.49787C6.17688 1.41868 6.24508 1.32318 6.29238 1.21707C6.33968 1.11096 6.36512 0.99642 6.36717 0.880274C6.36922 0.764128 6.34784 0.648759 6.30432 0.54105C6.26079 0.43334 6.196 0.335497 6.11382 0.253357C6.03164 0.171216 5.93375 0.106462 5.82599 0.0629561C5.71823 0.0194505 5.60281 -0.00191464 5.48661 0.000134622C5.37041 0.00218388 5.25581 0.0276055 5.14965 0.0748837C5.04349 0.122162 4.94795 0.190327 4.86872 0.275314L0.253097 4.88872C0.0910308 5.05091 0 5.27077 0 5.5C0 5.72923 0.0910308 5.94909 0.253097 6.11128L4.86872 10.7247C4.94795 10.8097 5.04349 10.8778 5.14965 10.9251C5.25581 10.9724 5.37041 10.9978 5.48661 10.9999C5.60281 11.0019 5.71823 10.9806 5.82599 10.937C5.93375 10.8935 6.03164 10.8288 6.11382 10.7466C6.196 10.6645 6.26079 10.5667 6.30432 10.459C6.34784 10.3512 6.36922 10.2359 6.36717 10.1197C6.36512 10.0036 6.33968 9.88904 6.29238 9.78293C6.24508 9.67682 6.17688 9.58132 6.09185 9.50213L2.95323 6.36501H14.1346C14.3641 6.36501 14.5842 6.27388 14.7465 6.11166C14.9088 5.94944 15 5.72942 15 5.5C15 5.27058 14.9088 5.05057 14.7465 4.88834C14.5842 4.72612 14.3641 4.63499 14.1346 4.63499H2.95323L6.09185 1.49787Z"
                                 }
                                 Text {
 
@@ -1290,6 +1320,7 @@ Window {
 
                     Rectangle
                     {
+                        id: rectangle_1
                         anchors.top: searchField2.bottom
                         anchors.topMargin: 50
                         anchors.left: searchField2.left
@@ -1328,21 +1359,15 @@ Window {
                             height: 5
 
                             // Circular arc
-                            ArcItem {
+                            Rectangle {
                                 id: circle3
                                 width: 32
-                                height: 27
+                                height: 32
 
                                 anchors.centerIn: parent
-                                strokeWidth: 2
-                                strokeStyle: 1
-                                strokeColor: "#0074FF"
-                                outlineArc: true
-                                fillColor: "#0074FF"
+                                color: "#0074FF"
                                 opacity: 0.3
-                                end: 450.0    // Full circle
-                                begin: 90
-                                arcWidth: width / 2 // To keep it circular
+                               radius:180
                             }
 
                             // Arrow centered in the circle
@@ -1350,17 +1375,10 @@ Window {
 
                                 anchors.centerIn: parent
 
-                                SvgPathItem
+                                Image
                                 {
-                                    width: 14
-                                    height: 10
-                                    anchors.verticalCenterOffset: 2
-                                    anchors.horizontalCenterOffset: 0
-                                    fillColor: "white"
-                                    strokeColor: "white"
-                                    strokeWidth: 1
                                     anchors.centerIn: parent
-                                    path: "M7.70685 7.70701C7.51933 7.89448 7.26502 7.99979 6.99985 7.99979C6.73469 7.99979 6.48038 7.89448 6.29285 7.70701L0.635855 2.05001C0.540345 1.95776 0.464162 1.84742 0.411753 1.72541C0.359344 1.60341 0.331758 1.47219 0.330604 1.33941C0.32945 1.20663 0.354752 1.07495 0.405033 0.952054C0.455314 0.829157 0.529567 0.717505 0.62346 0.623612C0.717353 0.529719 0.829004 0.455466 0.951901 0.405185C1.0748 0.354904 1.20648 0.329603 1.33926 0.330757C1.47204 0.331911 1.60325 0.359497 1.72526 0.411906C1.84726 0.464315 1.95761 0.540497 2.04985 0.636007L6.99985 5.58601L11.9499 0.636007C12.1385 0.453849 12.3911 0.353055 12.6533 0.355333C12.9155 0.357611 13.1663 0.46278 13.3517 0.648188C13.5371 0.833596 13.6423 1.08441 13.6445 1.34661C13.6468 1.6088 13.546 1.86141 13.3639 2.05001L7.70685 7.70701Z"
+                                    source: "/Users/boyankiovtorov/Downloads/Vector.png"
                                 }
                             }
 
@@ -1377,7 +1395,122 @@ Window {
 
                     }
 
+                    Rectangle
+                    {
+                        id: rectangle_2
+                        anchors.top: rectangle_1.bottom
+                        anchors.topMargin: 30
+                        anchors.left: searchField2.left
+                        anchors.right: searchField2.right
+                        anchors.rightMargin: 50
+                        Layout.fillWidth: true
+                        implicitHeight:180
+                        radius: 20
+                        border.width: 1
 
+                        Text
+                        {
+                            anchors.left: parent.left
+                            anchors.top: parent.top
+                            anchors.topMargin: 20
+                            anchors.leftMargin: 20
+                            text:qsTr("Transactions")
+                        }
+                        ColumnLayout
+                        {
+                            anchors.fill: parent
+                            anchors.topMargin: 40
+                        }
+
+                    }
+
+
+                    Rectangle
+                    {
+                        id: rectangle_3
+                        anchors.top: rectangle_1.bottom
+                        anchors.topMargin: 230
+                        anchors.left: searchField2.left
+                        anchors.right: searchField2.right
+                        anchors.rightMargin: 50
+                        Layout.fillWidth: true
+                        implicitHeight:300
+                        radius: 20
+
+                        ColumnLayout
+                        {
+                            anchors.fill: parent
+
+                            Rectangle
+                            {
+                                implicitHeight: 100
+                            }
+                            ListModel {
+                                    id: itemModel
+                                    ListElement { imageSource: "/Users/boyankiovtorov/Downloads/Group.svg"; text: "Cash"; text2: "Bulgarian Lev"; color: "#667DFF" }
+                                    ListElement { imageSource: "/Users/boyankiovtorov/Downloads/safe.svg"; text: "Savings & Funds"; text2: "Earn interest";color: "#FF7A41" }
+                                    ListElement { imageSource: "/Users/boyankiovtorov/Downloads/invest.svg"; text: "Invest"; text2: "Invest for as little as 1 лв";color: "#2AB2FE" }
+                                    ListElement { imageSource: "/Users/boyankiovtorov/Downloads/bitcoin.svg"; text: "Crypto" ; text2: "Invest for as little as 1 лв";color: "#BF5BF3"}
+                                }
+
+
+                            ListView {
+                                id: listView
+                                anchors.fill: parent
+                                anchors.margins: 15
+                                spacing: 10
+                                clip: true
+
+                                model: itemModel
+
+                                delegate: Item {
+                                    width: listView.width
+                                    height: 60
+
+                                    Row {
+                                        spacing: 10
+                                        height: parent.height // Ensures proper alignment without anchors
+                                        anchors.fill: parent // Removed to prevent conflicts
+
+                                        Rectangle {
+                                            id: circle
+                                            width: 40
+                                            height: 40
+                                            color: model.color // Pre-applied transparency
+                                            radius: 25
+                                            
+                                            Image
+                                            {
+                                                anchors.centerIn: parent
+                                                width:18
+                                                height:18
+                                                source: model.imageSource
+                                            }
+                                        }
+                                        
+
+                                        Text {
+                                            id:text1
+                                            text: model.text
+                                            font.pixelSize: 16
+                                            anchors.left: parent.left
+                                            anchors.leftMargin: 50
+                                        }
+
+                                        Text
+                                        {
+                                            anchors.top: text1.bottom
+                                            text: model.text2
+                                            font.pixelSize: 16
+                                            anchors.left: parent.left
+                                            anchors.leftMargin: 50
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                    }
 
                     Item
                     {
@@ -1388,5 +1521,6 @@ Window {
             }
 
         }
+    }
 
 }
