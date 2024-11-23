@@ -8,7 +8,7 @@ set(CMAKE_AUTOMOC ON)
         set(CMAKE_AUTORCC ON)
         set(CMAKE_AUTOUIC ON)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Quick)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Multimedia)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
@@ -24,6 +24,9 @@ qt_add_qml_module(appFinbank
         RESOURCES resources/resources.qrc
 )
 
+qt_add_ios_ffmpeg_libraries(appFinbank)
+
+
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.
@@ -36,7 +39,7 @@ set_target_properties(appFinbank PROPERTIES
 )
 
 target_link_libraries(appFinbank
-    PRIVATE Qt6::Quick
+    PRIVATE Qt6::Quick Qt6::Multimedia
 )
 
 include(GNUInstallDirs)
