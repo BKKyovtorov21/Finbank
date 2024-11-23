@@ -21,6 +21,11 @@
 /Qt_6_7_1_for_iOS_Simulator-Profile
 
 *.qtds
+*.qtds.*
+*.user
+*.conf
+*.shared
+
 
 # Qt-es
 object_script.*.Release
