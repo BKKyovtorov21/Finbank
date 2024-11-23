@@ -1,58 +1,43 @@
+cmake_minimum_required(VERSION 3.16)
 
-cmake_minimum_required(VERSION 3.21.1)
+project(Finbank VERSION 0.1 LANGUAGES CXX)
 
-option(LINK_INSIGHT "Link Qt Insight Tracker library" ON)
-option(BUILD_QDS_COMPONENTS "Build design studio components" ON)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-project(FinbankApp LANGUAGES CXX)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Quick)
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+qt_standard_project_setup(REQUIRES 6.5)
 
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(QT_QML_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/qml)
-set(QML_IMPORT_PATH
-    ${CMAKE_SOURCE_DIR}/App
-    ${CMAKE_BINARY_DIR}/qml
-    CACHE STRING "Import paths for Qt Creator's code model"
-    FORCE
+qt_add_executable(appFinbank
+    src/main.cpp
 )
 
-find_package(Qt6 6.7 REQUIRED COMPONENTS Core Gui Qml Quick Sql NetworkAuth Charts Multimedia)
-qt_standard_project_setup()
-
-
-qt_add_executable(${CMAKE_PROJECT_NAME}
-    App/register.hpp App/register.cpp
-    App/databasemanager.hpp App/databasemanager.cpp
-    App/login.hpp App/login.cpp
-    App/googlegateway.hpp App/googlegateway.cpp
-    App/dashboard.hpp App/dashboard.cpp
-    App/searchrecipent.hpp App/searchrecipent.cpp
-    App/createtransaction.hpp App/createtransaction.cpp
-    App/stockapiclient.hpp App/stockapiclient.cpp
-
-
-
+qt_add_qml_module(appFinbank
+    URI Finbank
+    VERSION 1.0
+    QML_FILES
+        src/Main.qml
+        RESOURCES resources/resources.qrc
 )
-qt_add_resources(${CMAKE_PROJECT_NAME} "configuration"
-    PREFIX "/"
-    FILES
-        qtquickcontrols2.conf)
 
-include(qds)
+# Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
+# If you are developing for iOS or macOS you should consider setting an
+# explicit, fixed bundle identifier manually though.
+set_target_properties(appFinbank PROPERTIES
+#    MACOSX_BUNDLE_GUI_IDENTIFIER com.example.appFinbank
+    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+    MACOSX_BUNDLE TRUE
+    WIN32_EXECUTABLE TRUE
+)
 
-if (BUILD_QDS_COMPONENTS)
-    include(qmlcomponents OPTIONAL)
-endif()
-
-if (LINK_INSIGHT)
-    include(insight OPTIONAL)
-endif ()
+target_link_libraries(appFinbank
+    PRIVATE Qt6::Quick
+)
 
 include(GNUInstallDirs)
-install(TARGETS ${CMAKE_PROJECT_NAME}
-  BUNDLE DESTINATION .
-  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+install(TARGETS appFinbank
+    BUNDLE DESTINATION .
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
