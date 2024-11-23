@@ -1,5 +1,28 @@
 <RCC>
     <qresource prefix="/resources">
         <file>apple.png</file>
+        <file>user.png</file>
+        <file>usd.png</file>
+        <file>stocks_market_graph_chart_on_laptop_screen_linear_icon_trading_p.png</file>
+        <file>signin.gif</file>
+        <file>SentMoney.png</file>
+        <file>sek.png</file>
+        <file>rectangle_9.png</file>
+        <file>paymentLink.png</file>
+        <file>logo2.png</file>
+        <file>logo1.png</file>
+        <file>landingpage2.mp4</file>
+        <file>landingpage.mp4</file>
+        <file>jpy.png</file>
+        <file>gbp.png</file>
+        <file>eur.png</file>
+        <file>ellipseGreen.png</file>
+        <file>ellipse_7.png</file>
+        <file>ellipse_6.png</file>
+        <file>ellipse_6_1.png</file>
+        <file>credit_card_teller_card_debit_card_icon_vector_illustration_8583.png</file>
+        <file>cad.png</file>
+        <file>bgn.png</file>
+        <file>aud.png</file>
     </qresource>
 </RCC>

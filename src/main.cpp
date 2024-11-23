@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
         &app,
         []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
-    engine.loadFromModule("Finbank", "Main");
+    engine.loadFromModule("Finbank", "LandingPage");
 
     return app.exec();
 }

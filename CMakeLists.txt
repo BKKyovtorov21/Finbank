@@ -20,7 +20,7 @@ qt_add_qml_module(appFinbank
     URI Finbank
     VERSION 1.0
     QML_FILES
-        src/Main.qml
+        src/Main.qml src/LandingPage.qml
         RESOURCES resources/resources.qrc
 )
 
