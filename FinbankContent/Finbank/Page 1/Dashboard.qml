@@ -7,7 +7,7 @@ import QtQuick.Timeline
 Window {
     id: rootdashboard
     width: 899
-    height: Screen.height
+    height: 2000
     minimumWidth: 400
     visible: true
     property bool isTablet: width < 900
@@ -1133,6 +1133,7 @@ Window {
                     ColumnLayout {
                         id: columnLayout
                         width: parent.width
+                        implicitHeight: 1500
                         spacing: 20
                     RowLayout
                     {
@@ -1327,7 +1328,7 @@ Window {
                         anchors.right: searchField2.right
                         anchors.rightMargin: 50
                         Layout.fillWidth: true
-                        height:300
+                        height:400
                         radius: 20
 
                         Text
@@ -1336,7 +1337,7 @@ Window {
                             anchors.top: parent.top
                             anchors.left: parent.left
                             anchors.leftMargin: 20
-                            anchors.topMargin: 15
+                            anchors.topMargin: 40
                             text: qsTr("$1222.22")
                             font.pixelSize: 30
                             font.bold: true
@@ -1393,49 +1394,183 @@ Window {
                             source: "../assets/eur.png"
                         }
 
-                    }
-
-                    Rectangle
-                    {
-                        id: rectangle_2
-                        anchors.top: rectangle_1.bottom
-                        anchors.topMargin: 30
-                        anchors.left: searchField2.left
-                        anchors.right: searchField2.right
-                        anchors.rightMargin: 50
-                        Layout.fillWidth: true
-                        implicitHeight:180
-                        radius: 20
-                        border.width: 1
-
-                        Text
-                        {
+                        Text {
                             anchors.left: parent.left
                             anchors.top: parent.top
-                            anchors.topMargin: 20
+                            anchors.topMargin: 15
                             anchors.leftMargin: 20
-                            text:qsTr("Transactions")
+                            text: qsTr("Transactions")
                         }
-                        ColumnLayout
-                        {
+
+
+                        RowLayout {
+                            anchors.top: parent.top
+                            anchors.topMargin: 120
+                            implicitWidth: parent.width
+                            implicitHeight: 50
+                            anchors.horizontalCenter: parent.horizontalCenter
+
+                            Item {
+                                width: parent.width
+                                height: 100
+                                anchors.horizontalCenter: parent.horizontalCenter
+
+                                ListView {
+                                    width: contentWidth // Ensure ListView wraps its content
+                                    height: 70
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    orientation: ListView.Horizontal
+                                    spacing: 30
+                                    model: ListModel {
+                                        ListElement {source: "/Users/boyankiovtorov/Downloads/plus.svg"; text: "Add"}
+                                        ListElement {source: "/Users/boyankiovtorov/Downloads/move.svg"; text: "Move"}
+                                        ListElement {source: "/Users/boyankiovtorov/Downloads/bank.svg"; text: "Bank"}
+                                        ListElement {source: "/Users/boyankiovtorov/Downloads/more.svg"; text: "More"}
+                                    }
+                                    delegate: Item {
+                                        width: 70
+                                        height: 70
+
+                                        Rectangle {
+                                            id: options
+                                            width: 50
+                                            height: 50
+                                            color: "#5A5C6B"
+                                            radius: 25
+                                            anchors.horizontalCenter: parent.horizontalCenter
+                                            anchors.top: parent.top
+                                            anchors.topMargin: 5
+
+                                            Image {
+                                                anchors.centerIn: parent
+                                                source: model.source
+                                            }
+                                        }
+
+                                        Text {
+                                            anchors.horizontalCenter: parent.horizontalCenter
+                                            anchors.top: options.bottom
+                                            anchors.topMargin: 5
+                                            text: model.text
+                                            font.pixelSize: 12
+                                            color: "black"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        ColumnLayout {
                             anchors.fill: parent
-                            anchors.topMargin: 40
+                            anchors.topMargin: 220
+
+                            ListModel {
+                                id: listmodeltransactions
+                                ListElement { source: "/Users/boyankiovtorov/Downloads/billa.png"; store: "Billa"; date: "Yesterday"; price: "-0,99 BGN" }
+                                ListElement { source: "/Users/boyankiovtorov/Downloads/apple.png"; store: "Apple"; date: "Yesterday"; price: "-2,50 BGN" }
+                            }
+
+                            // Rectangle wrapping ListView with border
+                            Rectangle {
+                                id: transactions
+                               anchors.fill: parent
+                               anchors.leftMargin: 10
+                               anchors.rightMargin: 10
+                               anchors.bottomMargin: 20
+                                border.color: "#F7F7F7"  // Set border color
+                                border.width: 2  // Set border width
+                                radius: 10  // Optional: rounded corners
+
+                                ListView {
+                                    id: listViewTransactions
+                                    anchors.fill: parent
+                                    anchors.topMargin: 20
+                                    anchors.rightMargin: 10
+                                    anchors.leftMargin: 10
+                                    clip: true
+                                    model: listmodeltransactions
+                                    interactive: false
+                                    delegate: Item {
+                                        width: listViewTransactions.width
+                                        height: 80
+
+                                        Rectangle {
+                                            id: mask
+                                            anchors.left: parent.left
+                                            anchors.leftMargin: 15
+                                            width: 50
+                                            height: 50
+                                            radius: 25
+                                            clip: true
+                                        }
+
+                                        Image {
+                                            id: storeIcon
+                                            anchors.fill: mask
+                                            source: model.source
+                                        }
+
+                                        Text {
+                                            id: storeName
+                                            anchors.left: storeIcon.right
+                                            anchors.leftMargin: 20
+                                            anchors.verticalCenter: storeIcon.verticalCenter
+                                            anchors.verticalCenterOffset: -10
+                                            text: model.store
+                                        }
+
+                                        Text {
+                                            anchors.top: storeName.bottom
+                                            anchors.topMargin: 0
+                                            anchors.left: storeName.left
+                                            text: model.date
+                                        }
+
+                                        Text {
+                                            anchors.right: parent.right
+                                            text: model.price
+                                            anchors.rightMargin: 20
+                                        }
+                                    }
+                                }
+                            }
+
+                            Button {
+                                anchors.bottom: parent.bottom
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                background: Text {
+                                    text: qsTr("Show all")
+                                    color: "#667DFF"
+                                }
+                            }
                         }
 
                     }
+
 
 
                     Rectangle
                     {
                         id: rectangle_3
                         anchors.top: rectangle_1.bottom
-                        anchors.topMargin: 230
+                        anchors.topMargin: 50
                         anchors.left: searchField2.left
                         anchors.right: searchField2.right
                         anchors.rightMargin: 50
                         Layout.fillWidth: true
                         implicitHeight:300
                         radius: 20
+                        Text {
+                            id: widgetsText
+                            text: qsTr("Widgets")
+                            anchors.top: parent.top
+                            anchors.topMargin: -25
+                            anchors.left: parent.left
+                            anchors.leftMargin: 15
+                            font.pixelSize: 20
+                            color: "black"
+                        }
+
 
                         ColumnLayout
                         {
@@ -1457,12 +1592,12 @@ Window {
                             ListView {
                                 id: listView
                                 anchors.fill: parent
-                                anchors.margins: 15
+                                anchors.margins: 20
                                 spacing: 10
                                 clip: true
 
                                 model: itemModel
-
+                                interactive: false
                                 delegate: Item {
                                     width: listView.width
                                     height: 60
@@ -1512,11 +1647,21 @@ Window {
                         }
                     }
 
-                    Item
+                    Rectangle
                     {
-                        Layout.fillHeight: true
-                    }
+                        anchors.top: rectangle_3.bottom
+                        anchors.topMargin: 50
+                        anchors.left: searchField2.left
+                        anchors.right: searchField2.right
+                        anchors.rightMargin: 50
+                        Layout.fillWidth: true
+                        implicitHeight:300
+                        radius: 20                    }
 
+                   Item
+                   {
+                       implicitHeight: 300
+                   }
                 }
             }
 
