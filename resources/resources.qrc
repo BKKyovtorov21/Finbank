@@ -1,1 +1,5 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/resources">
+        <file>apple.png</file>
+    </qresource>
+</RCC>
