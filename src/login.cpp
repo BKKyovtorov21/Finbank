@@ -6,16 +6,16 @@
 #include <QDebug>
 #include <QSqlError>
 #include "login.hpp"
-
-LogIn::LogIn(QObject *parent)
-    : QObject{parent}
+#include "databasemanager.hpp"
+LogIn::LogIn(DatabaseManager* dbManager, QObject *parent)
+    : QObject{parent}, m_dbManager(dbManager)  // Initialize with passed DatabaseManager
 {
 }
 
 void LogIn::logInUser(const QString &username, const QString &password, const bool& isGoogleRegistered)
 {
     m_username = username;
-    QSqlQuery qry;
+    QSqlQuery qry(m_dbManager->GetDatabase());
 
     if (!isGoogleRegistered)
     {
@@ -103,6 +103,7 @@ void LogIn::logInUser(const QString &username, const QString &password, const bo
             return;
         }
     }
+
 }
 
 QString LogIn::Hash(const QString &password, const QString &salt)

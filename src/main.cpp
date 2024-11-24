@@ -1,4 +1,4 @@
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include "register.hpp"
 #include "databasemanager.hpp"
@@ -12,25 +12,26 @@
 int main(int argc, char *argv[])
 {
     // Initialize the application
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
 
     DatabaseManager* db = new DatabaseManager();
     db->OpenConnection();
 
-    const QUrl url(u"qrc:/resources/Dashboard.qml"_qs);
+    // Handle object creation failure
     QObject::connect(
-        &engine, &QQmlApplicationEngine::objectCreationFailed,
-        &app, [url]() {
-            qCritical() << "Failed to load QML file:" << url;
-            QCoreApplication::exit(-1);
-        });
-    engine.load(url);
+        &engine,
+        &QQmlApplicationEngine::objectCreationFailed,
+        &app,
+        []() { QCoreApplication::exit(-1); },
+        Qt::QueuedConnection);
+
+    // Set the QML module and initial page
     engine.loadFromModule("Finbank", "LandingPage");
 
     // C++ objects to be used in QML
-    LogIn login;
+    LogIn* login = new LogIn(db);
     Register registercls;
     Dashboard dashboard;
     GoogleGateway googleGateway;
@@ -39,7 +40,7 @@ int main(int argc, char *argv[])
     StockAPIClient stockAPIClient;
 
     // Set context properties
-    engine.rootContext()->setContextProperty("login", &login);
+    engine.rootContext()->setContextProperty("login", login);
     engine.rootContext()->setContextProperty("register", &registercls);
     engine.rootContext()->setContextProperty("dashboard", &dashboard);
     engine.rootContext()->setContextProperty("googlegateway", &googleGateway);

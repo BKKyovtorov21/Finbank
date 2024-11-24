@@ -1,12 +1,13 @@
 import QtQuick
 import QtQuick.Controls
-import QtCharts
+import QtCharts 2.8
 import QtQuick.Layouts
 import QtQuick.Timeline
+import Qt5Compat.GraphicalEffects
 Window {
     id: rootdashboard
     width: 899
-    height: 2000
+    height: Screen.height
     minimumWidth: 400
     visible: true
     property bool isTablet: width < 900
@@ -44,7 +45,7 @@ Window {
 
     ColumnLayout
     {
-        visible: false
+        visible: !rootdashboard.isTablet
         property real expensesValue
         property real incomeValue: 3000
         anchors.fill: parent
@@ -103,7 +104,8 @@ Window {
             }
 
             Item {
-                Layout.fillWidth: true // Ensure this item takes up available space
+                Layout.fillWidth: true
+                height: 30
 
                 RowLayout {
 
@@ -119,7 +121,7 @@ Window {
 
                             source: "qrc:/resources/search.svg"
                             anchors.top: parent.top
-                            anchors.topMargin: 12
+                            anchors.topMargin: 5
                             anchors.left: parent.left
                             anchors.leftMargin: 5
                         }
@@ -146,13 +148,12 @@ Window {
 
                 Image {
                     id: element5
-                    anchors.left: parent.left
-                    anchors.right: parent.right
+                    width: 20
+                    height: 20
                     anchors.top: parent.top
-                    anchors.bottom: parent.bottom
+                    anchors.left: parent.left
+                    anchors.topMargin: 15
                     source: "qrc:/resources/chat.svg"
-                    antialiasing: true
-                    anchors.topMargin: 13// Adjust this to move the icon down
                     anchors.leftMargin: 5
                 }
                 Text {
@@ -490,7 +491,7 @@ Window {
                         width: 40
                         height: 40
                         Rectangle {
-                            id: ellipse_3
+                            id: ellipse_7
                             width: 40
                             height: 40
                             anchors.left: parent.left
@@ -502,35 +503,34 @@ Window {
                         }
 
                         Rectangle {
-                            id: ellipse_4
+                            id: ellipse_6
                             width: 36
                             height: 36
                             anchors.left: parent.left
                             anchors.top: parent.top
                             anchors.leftMargin: 2
                             anchors.topMargin: 2
-                            radius: 30
+                            radius: 50
                             color: "#ffffff"
 
                             antialiasing: true
                         }
 
                         Item {
-                            id: group
-                            x: 13
-                            y: 13
-                            width: 14
-                            height: 14
+                            id: group1
+                            x: 5
+                            y: 5
+
+                            width: parent.width - 10
+                            height: parent.height - 10
                             Image {
-                                id: element14
-                                anchors.left: parent.left
-                                anchors.right: parent.right
-                                anchors.top: parent.top
-                                anchors.bottom: parent.bottom
-                                anchors.bottomMargin: 11
-                                antialiasing: true
+                                id: element18
+                                anchors.centerIn: parent
                                 source: "qrc:/resources/income.svg"
+                                antialiasing: true
                             }
+
+
                         }
                     }
 
@@ -665,29 +665,42 @@ Window {
                         y: 11
                         width: 40
                         height: 40
-                        Image {
+                        Rectangle {
                             id: ellipse_5
                             width: 40
                             height: 40
                             anchors.left: parent.left
                             anchors.top: parent.top
-                            source: "qrc:/resources/expenses.svg"
+                            radius: 25
+                            color: "#d9d9d9"
+
+                            antialiasing: true
+                        }
+
+                        Rectangle {
+                            id: ellipse_8
+                            width: 36
+                            height: 36
+                            anchors.left: parent.left
+                            anchors.top: parent.top
+                            anchors.leftMargin: 2
+                            anchors.topMargin: 2
+                            radius: 50
+                            color: "#ffffff"
+
                             antialiasing: true
                         }
 
                         Item {
-                            id: group1
-                            x: 13
-                            y: 13
-                            width: 14
-                            height: 14
+                            id: group3
+                            x: 5
+                            y: 5
+
+                            width: parent.width - 10
+                            height: parent.height - 10
                             Image {
-                                id: element18
-                                anchors.left: parent.left
-                                anchors.right: parent.right
-                                anchors.top: parent.top
-                                anchors.bottom: parent.bottom
-                                anchors.bottomMargin: 11
+                                id: element12
+                                anchors.centerIn: parent
                                 source: "qrc:/resources/expenses.svg"
                                 antialiasing: true
                             }
@@ -963,13 +976,9 @@ Window {
 
                         Image
                         {
-                            width: 38
-                            height: 40
+
                             source: "qrc:/resources/home.svg"
-                            anchors.left: parent.left
-                            anchors.leftMargin: 12
-                            anchors.top: parent.top
-                            anchors.topMargin: 10
+                            anchors.centerIn:parent
                         }
                     }
                     Rectangle
@@ -980,13 +989,9 @@ Window {
                         color: "transparent"
                         Image
                         {
-                            width: 38
-                            height: 26
-                            source: "qrc:/resources/transfers.svg"
-                            anchors.left: parent.left
-                            anchors.leftMargin: 12
-                            anchors.top: parent.top
-                            anchors.topMargin: 10
+
+                            source: "qrc:/resources/analytics.svg"
+                            anchors.centerIn:parent
                         }
                     }
                     Rectangle
@@ -1000,11 +1005,8 @@ Window {
                             width: 30
                             height: 32
 
-                            source: "qrc:/resources/stats.svg"
-                            anchors.left: parent.left
-                            anchors.leftMargin: 12
-                            anchors.top: parent.top
-                            anchors.topMargin: 10
+                            source: "qrc:/resources/transfers.svg"
+                            anchors.centerIn:parent
                         }
                     }
                     Item
@@ -1074,7 +1076,8 @@ Window {
                                 Image
                                 {
                                     anchors.centerIn: parent
-                                    source: "/Users/boyankiovtorov/Downloads/leftArrow.svg"
+                                    rotation: -180
+                                    source: "qrc:/resources/rightArrow.svg"
                                 }
                             }
                             Text {
@@ -1118,7 +1121,9 @@ Window {
                                 Image
                                 {
                                     anchors.centerIn: parent
-                                    source: "/Users/boyankiovtorov/Downloads/Analytics.svg"
+                                    width:20
+                                    height: 20
+                                    source: "qrc:/resources/analytics.svg"
                                 }
                                 Text {
 
@@ -1168,8 +1173,7 @@ Window {
                                 Image
                                 {
                                     anchors.centerIn: parent
-                                    source: "/Users/boyankiovtorov/Downloads/leftArrow.svg"
-                                    rotation: -180
+                                    source: "qrc:/resources/rightArrow.svg"
                                 }
                                 Text {
 
@@ -1275,7 +1279,7 @@ Window {
                                 Image
                                 {
                                     anchors.centerIn: parent
-                                    source: "/Users/boyankiovtorov/Downloads/Vector.png"
+                                    source: "qrc:/resources/downArrow2.svg"
                                 }
                             }
 
@@ -1318,10 +1322,10 @@ Window {
                                     orientation: ListView.Horizontal
                                     spacing: 30
                                     model: ListModel {
-                                        ListElement {source: "/Users/boyankiovtorov/Downloads/plus.svg"; text: "Add"}
-                                        ListElement {source: "/Users/boyankiovtorov/Downloads/move.svg"; text: "Move"}
-                                        ListElement {source: "/Users/boyankiovtorov/Downloads/bank.svg"; text: "Bank"}
-                                        ListElement {source: "/Users/boyankiovtorov/Downloads/more.svg"; text: "More"}
+                                        ListElement {source: "qrc:/resources/plus.svg"; text: "Add"}
+                                        ListElement {source: "qrc:/resources/shuffle.svg"; text: "Move"}
+                                        ListElement {source: "qrc:/resources/bank.svg"; text: "Bank"}
+                                        ListElement {source: "qrc:/resources/more.svg"; text: "More"}
                                     }
                                     delegate: Item {
                                         width: 70
@@ -1362,8 +1366,8 @@ Window {
 
                             ListModel {
                                 id: listmodeltransactions
-                                ListElement { source: "/Users/boyankiovtorov/Downloads/billa.png"; store: "Billa"; date: "Yesterday"; price: "-0,99 BGN" }
-                                ListElement { source: "/Users/boyankiovtorov/Downloads/apple.png"; store: "Apple"; date: "Yesterday"; price: "-2,50 BGN" }
+                                ListElement { source: "qrc:/resources/billa.png"; store: "Billa"; date: "Yesterday"; price: "-0,99 BGN" }
+                                ListElement { source: "qrc:/resources/apple.png"; store: "Apple"; date: "Yesterday"; price: "-2,50 BGN" }
                             }
 
                             // Rectangle wrapping ListView with border
@@ -1404,7 +1408,13 @@ Window {
                                             id: storeIcon
                                             anchors.fill: mask
                                             source: model.source
+                                            fillMode: Image.PreserveAspectCrop
+                                            layer.enabled: true
+                                            layer.effect: OpacityMask {
+                                            maskSource: mask
+                                            }
                                         }
+
 
                                         Text {
                                             id: storeName
@@ -1478,10 +1488,10 @@ Window {
                             }
                             ListModel {
                                     id: itemModel
-                                    ListElement { imageSource: "/Users/boyankiovtorov/Downloads/Group.svg"; text: "Cash"; text2: "Bulgarian Lev"; color: "#667DFF" }
-                                    ListElement { imageSource: "/Users/boyankiovtorov/Downloads/safe.svg"; text: "Savings & Funds"; text2: "Earn interest";color: "#FF7A41" }
-                                    ListElement { imageSource: "/Users/boyankiovtorov/Downloads/invest.svg"; text: "Invest"; text2: "Invest for as little as 1 лв";color: "#2AB2FE" }
-                                    ListElement { imageSource: "/Users/boyankiovtorov/Downloads/bitcoin.svg"; text: "Crypto" ; text2: "Invest for as little as 1 лв";color: "#BF5BF3"}
+                                    ListElement { imageSource: "qrc:/resources/cash.svg"; text: "Cash"; text2: "Bulgarian Lev"; color: "#667DFF" }
+                                    ListElement { imageSource: "qrc:/resources/safe.svg"; text: "Savings & Funds"; text2: "Earn interest";color: "#FF7A41" }
+                                    ListElement { imageSource: "qrc:/resources/invest.svg"; text: "Invest"; text2: "Invest for as little as 1 лв";color: "#2AB2FE" }
+                                    ListElement { imageSource: "qrc:/resources/crypto.svg"; text: "Crypto" ; text2: "Invest for as little as 1 лв";color: "#BF5BF3"}
                                 }
 
 
@@ -1509,7 +1519,7 @@ Window {
                                             height: 40
                                             color: model.color // Pre-applied transparency
                                             radius: 25
-                                            
+
                                             Image
                                             {
                                                 anchors.centerIn: parent
@@ -1518,7 +1528,7 @@ Window {
                                                 source: model.imageSource
                                             }
                                         }
-                                        
+
 
                                         Text {
                                             id:text1
@@ -1563,5 +1573,4 @@ Window {
 
         }
     }
-
 }

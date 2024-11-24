@@ -9,13 +9,11 @@ QSqlDatabase DatabaseManager::GetDatabase() {
 }
 
 void DatabaseManager::OpenConnection() {
-    // Configure the database connection parameters
-    m_db = QSqlDatabase::addDatabase("QMYSQL");
-    m_db.setHostName("localhost");
-    m_db.setPort(3306);  // Default MySQL port
-    m_db.setDatabaseName("Finbank");
-    m_db.setUserName("root");
-    m_db.setPassword("bobii4i4i");
+    // Configure the database connection parameters for SQLite
+    m_db = QSqlDatabase::addDatabase("QSQLITE");
+
+    // Set the SQLite database file location (ensure the path is correct)
+    m_db.setDatabaseName("/Users/boyankiovtorov/Desktop/Finbank/resources/Finbank.db");
 
     // Open the database connection and handle success or failure
     if (m_db.open() && m_db.isOpen()) {

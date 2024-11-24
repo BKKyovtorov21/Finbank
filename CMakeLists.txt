@@ -12,8 +12,9 @@ find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Multimedia NetworkAuth Sql Charts
 
 qt_standard_project_setup(REQUIRES 6.5)
 
+
 qt_add_executable(appFinbank
-    src/main.cpp
+        src/main.cpp
         src/register.hpp src/register.cpp
         src/databasemanager.hpp src/databasemanager.cpp
         src/login.hpp src/login.cpp
@@ -23,7 +24,6 @@ qt_add_executable(appFinbank
         src/createtransaction.hpp src/createtransaction.cpp
         src/stockapiclient.hpp src/stockapiclient.cpp
 )
-
 qt_add_qml_module(appFinbank
     URI Finbank
     VERSION 1.0

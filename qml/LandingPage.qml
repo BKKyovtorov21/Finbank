@@ -94,7 +94,7 @@ Window {
                     }
                     Text {
                         anchors.centerIn: parent
-                        text: "Open account"
+                        text: "Sign in"
                         color: "black"
                         font.pixelSize: 16
                     }
