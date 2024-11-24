@@ -38,5 +38,16 @@
         <file>downArrow.svg</file>
         <file>chat.svg</file>
         <file>Dashboard.qml</file>
+        <file>analytics.svg</file>
+        <file>cash.svg</file>
+        <file>crypto.svg</file>
+        <file>downArrow2.svg</file>
+        <file>invest.svg</file>
+        <file>more.svg</file>
+        <file>safe.svg</file>
+        <file>shuffle.svg</file>
+        <file>plus.svg</file>
+        <file>bank.svg</file>
+        <file>billa.png</file>
     </qresource>
 </RCC>
