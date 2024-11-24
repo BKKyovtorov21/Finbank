@@ -24,5 +24,19 @@
         <file>cad.png</file>
         <file>bgn.png</file>
         <file>aud.png</file>
+        <file>visibility.svg</file>
+        <file>google.svg</file>
+        <file>github.svg</file>
+        <file>rightArrow.svg</file>
+        <file>stats.svg</file>
+        <file>transfers.svg</file>
+        <file>search.svg</file>
+        <file>RightArrows.svg</file>
+        <file>income.svg</file>
+        <file>home.svg</file>
+        <file>expenses.svg</file>
+        <file>downArrow.svg</file>
+        <file>chat.svg</file>
+        <file>Dashboard.qml</file>
     </qresource>
 </RCC>
