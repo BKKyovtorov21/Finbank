@@ -5,7 +5,17 @@ import QtQuick.Controls.iOS
 import QtMultimedia
 
 
+
+
 Window {
+
+    SignIn
+    {
+        id: signInWindow
+        visible: false
+    }
+
+
     id:root
     visible: true
     title: "Responsive Layout Example"
@@ -337,20 +347,21 @@ Window {
     }
 
     logInButton.onClicked: {
-        landingpage.visible = false
-        loader.source = "SignIn.qml"
+        signInWindow.visible = true
+        root.visible = false
     }
     registerButton.onClicked: {
-        landingpage.visible = false
-        loader.source = "SignUp.qml"
+        root.visible = false
     }
 
     logInButton1.onClicked: {
-        landingpage.visible = false
-        loader.source = "SignIn.qml"
+        signInWindow.visible = true
+        root.visible = false
     }
     registerButton1.onClicked: {
-        landingpage.visible = false
-        loader.source = "SignUp.qml"
+        root.visible = false
     }
+
+    onClosing: Qt.quit()
+
 }

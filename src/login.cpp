@@ -12,20 +12,22 @@ LogIn::LogIn(DatabaseManager* dbManager, QObject *parent)
 {
 }
 
-void LogIn::logInUser(const QString &username, const QString &password, const bool& isGoogleRegistered)
+void LogIn::logInUser(const QString &phone, const QString &password, const bool& isGoogleRegistered)
 {
-    m_username = username;
     QSqlQuery qry(m_dbManager->GetDatabase());
-
+    QString modifiedPhone = "0" + phone; // Add '0' at the beginning of the phone
+            qDebug() << modifiedPhone;
     if (!isGoogleRegistered)
     {
-        qry.prepare("SELECT * FROM users WHERE username = :username");
-        qry.bindValue(":username", username);
+        qry.prepare("SELECT * FROM users WHERE phone = :phone");
+        qry.bindValue(":phone", modifiedPhone);
 
         if (qry.exec())
         {
             if (qry.next())
             {
+                m_username == qry.value("username");
+                qDebug() << qry.value("username");
                 QString hashedPassword = Hash(password, qry.value("passwordSalt").toString());
 
                 if (qry.value("password").toString() == hashedPassword)
@@ -65,7 +67,7 @@ void LogIn::logInUser(const QString &username, const QString &password, const bo
     else // Google registration case
     {
         qry.prepare("SELECT * FROM users WHERE username = :username");
-        qry.bindValue(":username", username);
+        qry.bindValue(":username", m_username);
 
         if (qry.exec())
         {

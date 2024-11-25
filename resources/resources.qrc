@@ -25,7 +25,6 @@
         <file>bgn.png</file>
         <file>aud.png</file>
         <file>visibility.svg</file>
-        <file>google.svg</file>
         <file>github.svg</file>
         <file>rightArrow.svg</file>
         <file>stats.svg</file>
@@ -49,5 +48,7 @@
         <file>plus.svg</file>
         <file>bank.svg</file>
         <file>billa.png</file>
+        <file>google.png</file>
+        <file>email.svg</file>
     </qresource>
 </RCC>

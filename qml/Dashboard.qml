@@ -6,7 +6,7 @@ import QtQuick.Timeline
 import Qt5Compat.GraphicalEffects
 Window {
     id: rootdashboard
-    width: 899
+    width: Screen.width
     height: Screen.height
     minimumWidth: 400
     visible: true
@@ -114,10 +114,15 @@ Window {
 
 
                     TextField {
+                        background: Rectangle
+                        {
+                            color: "transparent"
+                        }
+
                         Image {
                             id: searchIcon
-                            width: 22
-                            height: 18
+                            fillMode: Image.PreserveAspectFit
+
 
                             source: "qrc:/resources/search.svg"
                             anchors.top: parent.top
@@ -132,8 +137,9 @@ Window {
                         Layout.fillWidth: true // Make it expand to fill the remaining space
 
                         placeholderText: qsTr("Search")
+                        placeholderTextColor: "grey"
                         font.pixelSize: 18
-                        color: "#802f2f2f"
+                        color: "black"
 
                         leftPadding: 30 // Adds space around the text, adjusting the padding as needed
                     }
@@ -148,8 +154,8 @@ Window {
 
                 Image {
                     id: element5
-                    width: 20
-                    height: 20
+                    fillMode: Image.PreserveAspectFit
+
                     anchors.top: parent.top
                     anchors.left: parent.left
                     anchors.topMargin: 15
@@ -528,6 +534,8 @@ Window {
                                 anchors.centerIn: parent
                                 source: "qrc:/resources/income.svg"
                                 antialiasing: true
+                                fillMode: Image.PreserveAspectFit
+
                             }
 
 
@@ -703,6 +711,8 @@ Window {
                                 anchors.centerIn: parent
                                 source: "qrc:/resources/expenses.svg"
                                 antialiasing: true
+                                fillMode: Image.PreserveAspectFit
+
                             }
 
 
@@ -979,6 +989,8 @@ Window {
 
                             source: "qrc:/resources/home.svg"
                             anchors.centerIn:parent
+                            fillMode: Image.PreserveAspectFit
+
                         }
                     }
                     Rectangle
@@ -992,6 +1004,8 @@ Window {
 
                             source: "qrc:/resources/analytics.svg"
                             anchors.centerIn:parent
+                            fillMode: Image.PreserveAspectFit
+
                         }
                     }
                     Rectangle
@@ -1002,8 +1016,8 @@ Window {
                         color: "transparent"
                         Image
                         {
-                            width: 30
-                            height: 32
+                            fillMode: Image.PreserveAspectFit
+
 
                             source: "qrc:/resources/transfers.svg"
                             anchors.centerIn:parent
@@ -1078,6 +1092,8 @@ Window {
                                     anchors.centerIn: parent
                                     rotation: -180
                                     source: "qrc:/resources/rightArrow.svg"
+                                    fillMode: Image.PreserveAspectFit
+
                                 }
                             }
                             Text {
@@ -1121,8 +1137,8 @@ Window {
                                 Image
                                 {
                                     anchors.centerIn: parent
-                                    width:20
-                                    height: 20
+                                    fillMode: Image.PreserveAspectFit
+
                                     source: "qrc:/resources/analytics.svg"
                                 }
                                 Text {
@@ -1173,6 +1189,8 @@ Window {
                                 Image
                                 {
                                     anchors.centerIn: parent
+                                    fillMode: Image.PreserveAspectFit
+
                                     source: "qrc:/resources/rightArrow.svg"
                                 }
                                 Text {
@@ -1190,10 +1208,13 @@ Window {
                     }
 
                     TextField {
+                        background: Rectangle
+                        {
+                            color: "transparent"
+                        }
                         Image {
                             id: searchIcon2
-                            width: 22
-                            height: 18
+                            fillMode: Image.PreserveAspectFit
 
                             source: "qrc:/resources/search.svg"
                             anchors.top: parent.top
@@ -1212,9 +1233,9 @@ Window {
                         anchors.right: parent.right
                         anchors.rightMargin: 1
 
-                        placeholderText: qsTr("Search")
+                        placeholderTextColor: "grey"
                         font.pixelSize: 18
-                        color: "#802f2f2f"
+                        color: "black"
 
                         leftPadding: 30 // Adds space around the text, adjusting the padding as needed
                     }
@@ -1280,6 +1301,8 @@ Window {
                                 {
                                     anchors.centerIn: parent
                                     source: "qrc:/resources/downArrow2.svg"
+                                    fillMode: Image.PreserveAspectFit
+
                                 }
                             }
 
