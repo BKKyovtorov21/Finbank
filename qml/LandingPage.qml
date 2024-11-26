@@ -19,8 +19,8 @@ Window {
     id:root
     visible: true
     title: "Responsive Layout Example"
-    width: Screen.width * 0.9
-    height: Screen.height * 0.9
+    width: Screen.width
+    height: Screen.height
     minimumWidth: 414
     minimumHeight: Screen.height * 0.8
 
@@ -99,6 +99,7 @@ Window {
                     id: logInButton
                     anchors.fill: parent
                     anchors.rightMargin: 15
+                    anchors.topMargin: 10
                     background: Rectangle
                     {
                     }
@@ -117,6 +118,7 @@ Window {
                 Layout.preferredWidth: 150
                 Layout.preferredHeight: 50
                 Layout.alignment: Qt.AlignTop
+                Layout.topMargin: 5
                 Button {
                     id: registerButton
                     anchors.fill: parent
@@ -362,6 +364,5 @@ Window {
         root.visible = false
     }
 
-    onClosing: Qt.quit()
 
 }

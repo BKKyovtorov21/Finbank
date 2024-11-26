@@ -10,7 +10,7 @@ set(CMAKE_AUTOMOC ON)
         #set(CMAKE_OSX_SYSROOT iphoneos) # Use `iphonesimulator` for the simulator
         #set(CMAKE_OSX_ARCHITECTURES arm64) # iOS devices typically require arm64 architecture
         #set(CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE YES)
-        #set(CMAKE_OSX_DEPLOYMENT_TARGET "14.0") # Adjust the version based on your requirements
+       # set(CMAKE_OSX_DEPLOYMENT_TARGET "14.0") # Adjust the version based on your requirements
 
 find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Multimedia NetworkAuth Sql Charts)
 

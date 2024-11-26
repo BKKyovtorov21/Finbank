@@ -6,12 +6,12 @@ import QtQuick.Timeline
 import Qt5Compat.GraphicalEffects
 Window {
     id: rootdashboard
-    width: Screen.width
+    width: 899
     height: Screen.height
     minimumWidth: 400
     visible: true
     property bool isTablet: width < 900
-    property bool isPhone: width < 450
+    property bool isPhone: width < 500
 
     property string usernameRef: ""
        property real balance: 3000
@@ -45,7 +45,7 @@ Window {
 
     ColumnLayout
     {
-        visible: !rootdashboard.isTablet
+        visible: false
         property real expensesValue
         property real incomeValue: 3000
         anchors.fill: parent
@@ -956,13 +956,14 @@ Window {
             visible: isTablet  // Corrected to 'isTablet'
 
             Rectangle {
+                visible: !isPhone
+
                 color: "#F7F7F7"
                 Layout.fillHeight: true
-                Layout.preferredWidth: 100
+                Layout.preferredWidth: 70
 
                 ColumnLayout
                 {
-
 
                     anchors.fill: parent
                     spacing: 10
@@ -1052,12 +1053,14 @@ Window {
                     RowLayout
                     {
                         anchors.fill: parent
-                        anchors.topMargin: 100
+                        anchors.topMargin: 50
                         anchors.leftMargin: 35
                         Text {
+                            visible: !isPhone
                             id:test
                             text: qsTr("Good evening, Boyan")
-                            font.pixelSize: 30
+                            font.pixelSize: 20
+
                             font.bold: true
                         }
 
@@ -1210,7 +1213,8 @@ Window {
                     TextField {
                         background: Rectangle
                         {
-                            color: "transparent"
+                            color: "white"
+                            radius: 20
                         }
                         Image {
                             id: searchIcon2
@@ -1218,7 +1222,7 @@ Window {
 
                             source: "qrc:/resources/search.svg"
                             anchors.top: parent.top
-                            anchors.topMargin: 12
+                            anchors.topMargin: 10
                             anchors.left: parent.left
                             anchors.leftMargin: 5
 
@@ -1226,16 +1230,17 @@ Window {
                         id: searchField2
 
                         Layout.fillWidth: true
-                        anchors.top: parent.top
-                        anchors.topMargin: 170
-                        anchors.left: parent.left
-                        anchors.leftMargin: 35
-                        anchors.right: parent.right
-                        anchors.rightMargin: 1
+                        Layout.topMargin: !isPhone ? 170 : 4
+
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.rightMargin: !isPhone ? 50 : 200
+                        Layout.leftMargin: 50
+
 
                         placeholderTextColor: "grey"
                         font.pixelSize: 18
                         color: "black"
+
 
                         leftPadding: 30 // Adds space around the text, adjusting the padding as needed
                     }
@@ -1243,11 +1248,10 @@ Window {
                     Rectangle
                     {
                         id: rectangle_1
-                        anchors.top: searchField2.bottom
-                        anchors.topMargin: 50
-                        anchors.left: searchField2.left
-                        anchors.right: searchField2.right
-                        anchors.rightMargin: 50
+                        Layout.topMargin: 40
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.rightMargin: 50
+                        Layout.leftMargin: 50
                         Layout.fillWidth: true
                         height:400
                         radius: 20
@@ -1343,7 +1347,7 @@ Window {
                                     height: 70
                                     anchors.horizontalCenter: parent.horizontalCenter
                                     orientation: ListView.Horizontal
-                                    spacing: 30
+                                    spacing: !isPhone ? 30 : 15
                                     model: ListModel {
                                         ListElement {source: "qrc:/resources/plus.svg"; text: "Add"}
                                         ListElement {source: "qrc:/resources/shuffle.svg"; text: "Move"}
@@ -1356,8 +1360,8 @@ Window {
 
                                         Rectangle {
                                             id: options
-                                            width: 50
-                                            height: 50
+                                            width: !isPhone ? 40 : 30
+                                            height: !isPhone ? 40 : 30
                                             color: "#5A5C6B"
                                             radius: 25
                                             anchors.horizontalCenter: parent.horizontalCenter
@@ -1481,13 +1485,12 @@ Window {
                     Rectangle
                     {
                         id: rectangle_3
-                        anchors.top: rectangle_1.bottom
-                        anchors.topMargin: 50
-                        anchors.left: searchField2.left
-                        anchors.right: searchField2.right
-                        anchors.rightMargin: 50
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.rightMargin: 50
+                        Layout.leftMargin: 50
+                        Layout.topMargin: 30
                         Layout.fillWidth: true
-                        implicitHeight:300
+                        Layout.preferredHeight:300
                         radius: 20
                         Text {
                             id: widgetsText
@@ -1504,7 +1507,6 @@ Window {
                         ColumnLayout
                         {
                             anchors.fill: parent
-
                             Rectangle
                             {
                                 implicitHeight: 100
@@ -1593,7 +1595,63 @@ Window {
                    }
                 }
             }
+                Rectangle {
+                            visible: isPhone
+                            id: footer
+                            height: 60
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.bottom: parent.bottom
+                            color: "grey"
 
+                            RowLayout {
+                                anchors.fill: parent
+                                Layout.margins: 10
+                                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                                spacing: 20
+
+                                Button {
+                                    text: qsTr("Home")
+                                    icon.source: "qrc:/resources/home.svg"
+                                    background: Rectangle
+                                    {
+                                        color: "transparent"
+                                    }
+
+                                    onClicked: console.log("Home clicked")
+                                }
+
+                                Button {
+                                    background: Rectangle
+                                    {
+                                        color: "transparent"
+                                    }
+                                    text: qsTr("Invest")
+                                    icon.source: "qrc:/resources/invest.svg"
+                                    onClicked: console.log("Settings clicked")
+                                }
+
+                                Button {
+                                    text: qsTr("Payments")
+                                    background: Rectangle
+                                    {
+                                        color: "transparent"
+                                    }
+                                    icon.source: "qrc:/resources/transfers.svg"
+                                    onClicked: console.log("Profile clicked")
+                                }
+                                Button {
+                                    background: Rectangle
+                                    {
+                                        color: "transparent"
+                                    }
+                                    text: qsTr("Bitcoin")
+                                    icon.source: "qrc:/resources/crypto.svg"
+                                    onClicked: console.log("Profile clicked")
+                                }
+                            }
+                        }
         }
+
     }
 }
