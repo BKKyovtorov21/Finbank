@@ -12,11 +12,11 @@ CreateTransaction::CreateTransaction(QObject *parent)
 
 void CreateTransaction::makeTransaction(const QString &senderIBAN, const QString &recipentIBAN, const QString &sendingInfo, const QString &receivingInfo)
 {
+    qDebug() << "sds";
     QSqlQuery qry;
     // Extract sending value and currency using a regex
     QRegularExpression sendingRegex(R"(\$\s*([\d,]+(?:\.\d{1,2})?)\s*(\w{3}))");
     QRegularExpressionMatch sendingMatch = sendingRegex.match(sendingInfo);
-
     if (!sendingMatch.hasMatch()) {
         qDebug() << "Invalid sending information format:" << sendingInfo;
         return;
@@ -125,6 +125,7 @@ void CreateTransaction::makeTransaction(const QString &senderIBAN, const QString
 
 void CreateTransaction::showTransactions(const QString &userIBAN, const bool &showMore)
 {
+    qDebug() << "sds3";
     QString baseQuery = R"(
         SELECT sendingValue, sendingCurrency, receivingValue, receivingCurrency, senderIBAN, recipentIBAN
         FROM transactions
@@ -182,6 +183,7 @@ void CreateTransaction::showTransactions(const QString &userIBAN, const bool &sh
 
 void CreateTransaction::buyStock(const QString& username, const int& shares, const QString& stockTicker, const QString& stockPrice)
 {
+    qDebug() << "sds4";
     QSqlQuery qry;
 
     // Step 1: Retrieve the current balance of the user

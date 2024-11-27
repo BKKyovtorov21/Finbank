@@ -36,7 +36,6 @@
         <file>expenses.svg</file>
         <file>downArrow.svg</file>
         <file>chat.svg</file>
-        <file>Dashboard.qml</file>
         <file>analytics.svg</file>
         <file>cash.svg</file>
         <file>crypto.svg</file>
@@ -50,5 +49,37 @@
         <file>billa.png</file>
         <file>google.png</file>
         <file>email.svg</file>
+        <file>Finbank.db</file>
+        <file>settings.svg</file>
+        <file>realEstate.svg</file>
+        <file>nike.svg</file>
+        <file>news.svg</file>
+        <file>marketStock.svg</file>
+        <file>insight.svg</file>
+        <file>helpCenter.svg</file>
+        <file>health.svg</file>
+        <file>finance.svg</file>
+        <file>energy.svg</file>
+        <file>bmw.svg</file>
+        <file>appleIcon.svg</file>
+        <file>dashboard.svg</file>
+        <file>deposit.svg</file>
+        <file>portfolio.svg</file>
+        <file>stocks.svg</file>
+        <file>twitter.svg</file>
+        <file>plus2.svg</file>
+        <file>left.svg</file>
+        <file>convert.svg</file>
+        <file>notSelectiveLine.svg</file>
+        <file>selectiveLine.svg</file>
+        <file>Tick.svg</file>
+        <file>bank2.svg</file>
+        <file>debitCard.svg</file>
+        <file>receiving.svg</file>
+        <file>resources.qrc</file>
+        <file>sending.svg</file>
+        <file>wallet.svg</file>
+        <file>edit.svg</file>
+        <file>tick.svg</file>
     </qresource>
 </RCC>

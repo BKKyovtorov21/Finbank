@@ -6,14 +6,14 @@ import QtQuick.Timeline
 import Qt5Compat.GraphicalEffects
 Window {
     id: rootdashboard
-    width: 899
+    width: Screen.width
     height: Screen.height
     minimumWidth: 400
     visible: true
     property bool isTablet: width < 900
     property bool isPhone: width < 500
 
-    property string usernameRef: ""
+        property string usernameRef: "test"
        property real balance: 3000
        property real income: 3000
        property real expenses: 3000
@@ -22,7 +22,25 @@ Window {
        property string lastName: ""
        property string pfp: ""
 
+    TradingDashboard
+    {
+        id:tradingPage
+        visible: false
+    }
+
+    onVisibleChanged:
+    {
+        balanceAnimation.running = true
+        incomeAnimation.running = true
+        expenseAnimation.running = true
+        pie1Animation.running = true
+        pie2Animation.running = true
+        console.log("sds" + rootdashboard.usernameRef)
+    }
+
     Component.onCompleted: {
+        console.log("username: " + usernameRef)
+
             if (usernameRef !== "") {
                 balance = dashboard.getDbVariable(usernameRef, "balance");
                 income = dashboard.getDbVariable(usernameRef, "income");
@@ -45,7 +63,7 @@ Window {
 
     ColumnLayout
     {
-        visible: false
+        visible: !isTablet
         property real expensesValue
         property real incomeValue: 3000
         anchors.fill: parent
@@ -275,7 +293,7 @@ Window {
             {
 
                 background:Text {
-                    id: tradingPage
+                    id: tradingPageButton
                     text: qsTr("Trading")
                     color: "#2F2F2F"
                     font.pixelSize: 15
@@ -284,8 +302,8 @@ Window {
                 }
                 onClicked:
                 {
-                    dashboardwindowDesktop.visible = false
-                    loader.source = "TradingDashboard.qml"
+                    tradingPage.visible = true
+                    rootdashboard.visible = false
                 }
             }
             Button
@@ -367,8 +385,9 @@ Window {
                             anchors.left: parent.left
 
                             SequentialAnimation on balanceValue {
+                                id: balanceAnimation
                                 NumberAnimation {
-                                    running: true
+                                    running: false
                                     loops: 1
                                     from: 0.0
                                     to: 2285.93
@@ -569,15 +588,16 @@ Window {
                         anchors.top: parent.top
                         anchors.leftMargin: 14
                         anchors.topMargin: 92
-                        font.pixelSize: 32
+                        font.pixelSize: width > 1000 ? 32 : 25
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignTop
                         wrapMode: Text.NoWrap
                         font.weight: Font.Normal
 
                         SequentialAnimation on incomeValue {
+                            id: incomeAnimation
                             NumberAnimation {
-                                running: true
+                                running: false
                                 loops: 1
                                 from: 0.0
                                 to: 2403.84
@@ -747,14 +767,16 @@ Window {
                         anchors.top: parent.top
                         anchors.leftMargin: 8
                         anchors.topMargin: 92
-                        font.pixelSize: 32
+                        font.pixelSize: width > 1000 ? 32 : 25
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignTop
                         wrapMode: Text.NoWrap
                         font.weight: Font.Normal
 
                         SequentialAnimation on expensesValue {
+                            id:expenseAnimation
                             NumberAnimation {
+                                running: false
                                 from: 0.0
                                 to: 157
                                 duration: 2000
@@ -847,7 +869,8 @@ Window {
 
                         // Sequential animation for "filling" effect
                         SequentialAnimation {
-                            running: true // Start automatically
+                            id: pie1Animation
+                            running: false // Start automatically
                             loops: 1 // Run once
 
                             NumberAnimation {
@@ -898,7 +921,9 @@ Window {
 
                         // Sequential animation for "filling" effect
                         SequentialAnimation {
-                            running: true // Start automatically
+                            id: pie2Animation
+
+                            running: false // Start automatically
                             loops: 1 // Run once
 
                             NumberAnimation {
@@ -973,7 +998,7 @@ Window {
                     }
                     Image {
                         id: pfp
-                        source: "../assets/user.png"
+                        source: "qrc:/resources/user.png"
                         width:30
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
 

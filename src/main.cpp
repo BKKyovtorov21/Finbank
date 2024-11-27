@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
     DatabaseManager* db = new DatabaseManager();
     db->OpenConnection();
 
+
     // Handle object creation failure
     QObject::connect(
         &engine,

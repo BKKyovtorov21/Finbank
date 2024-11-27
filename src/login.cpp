@@ -8,12 +8,13 @@
 #include "login.hpp"
 #include "databasemanager.hpp"
 LogIn::LogIn(DatabaseManager* dbManager, QObject *parent)
-    : QObject{parent}, m_dbManager(dbManager)  // Initialize with passed DatabaseManager
+    : QObject{parent}, m_dbManager(dbManager)
 {
 }
 
 void LogIn::logInUser(const QString &phone, const QString &password, const bool& isGoogleRegistered)
 {
+    qDebug() << "sd";
     QSqlQuery qry(m_dbManager->GetDatabase());
     QString modifiedPhone = "0" + phone; // Add '0' at the beginning of the phone
             qDebug() << modifiedPhone;
@@ -26,13 +27,13 @@ void LogIn::logInUser(const QString &phone, const QString &password, const bool&
         {
             if (qry.next())
             {
-                m_username == qry.value("username");
+                m_username = qry.value("username").toString();
                 qDebug() << qry.value("username");
                 QString hashedPassword = Hash(password, qry.value("passwordSalt").toString());
 
                 if (qry.value("password").toString() == hashedPassword)
                 {
-                    emit logInSuccessful();
+                    emit logInSuccessful(qry.value("username").toString());
                     return; // Exit the function if login is successful
                 }
                 else
@@ -75,7 +76,7 @@ void LogIn::logInUser(const QString &phone, const QString &password, const bool&
             {
                 if (qry.value("googleRegistered").toBool() == isGoogleRegistered)
                 {
-                    emit logInSuccessful();
+                    emit logInSuccessful("");
                     return;
                 }
                 else

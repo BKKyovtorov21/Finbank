@@ -2,7 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtCharts 2.15
 
-Item {
+Window {
     visible: true
     id: root
     width: 1280
@@ -23,9 +23,6 @@ Item {
 
     TradingDashboardWindow {
         id: tradingdashboard
-        imageSource: rootdashboard.pfp
-        username: "@" + rootdashboard.usernameRef
-        userFullname: rootdashboard.firstName + " " + rootdashboard.lastName;
         anchors.fill: parent
 
         ChartView {

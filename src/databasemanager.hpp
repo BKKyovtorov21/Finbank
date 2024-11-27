@@ -12,7 +12,6 @@ public:
     void OpenConnection();
     void CloseConnection();
 
-
 private:
     QSqlDatabase m_db;
 };

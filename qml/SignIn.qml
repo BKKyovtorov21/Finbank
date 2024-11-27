@@ -11,6 +11,7 @@ Window {
     minimumWidth: 400
     minimumHeight: 800
     property bool isTablet: width < 900
+    property bool isPhone: width < 500
 
 
     Dashboard
@@ -26,16 +27,17 @@ Window {
         clip: true
 
         ColumnLayout {
-            anchors.centerIn: parent
             spacing: 20
             width: Math.min(root.width * 0.8, 500) // Limit max width for better centering
-            Layout.alignment: Qt.AlignHCenter
+            anchors.centerIn: parent
+
 
             Image {
                 source: "qrc:/resources/logo1.png"
                 fillMode: Image.PreserveAspectFit
-                Layout.alignment: Qt.AlignHCenter
                 Layout.preferredHeight: 100
+                Layout.alignment: Qt.AlignHCenter
+                Layout.leftMargin: !isTablet ? 10 : -5
             }
 
             Text {
@@ -51,12 +53,15 @@ Window {
                 font.pixelSize: 15
                 Layout.alignment: Qt.AlignHCenter
                 wrapMode: Text.WordWrap
+                Layout.preferredWidth: parent.width
                 maximumLineCount: 2
+
             }
 
             RowLayout {
                 Layout.alignment: Qt.AlignHCenter
                 spacing: 10
+                Layout.leftMargin: !isTablet ? 40 : undefined
 
                 Rectangle {
                     id: countryPhone
@@ -66,7 +71,6 @@ Window {
                     Layout.preferredHeight: 80
                     RowLayout {
                         anchors.fill: parent
-
                         Image {
                             id: country
                             Layout.preferredWidth: 40
@@ -79,7 +83,7 @@ Window {
                         Text {
                             text: qsTr("+359")
                             Layout.alignment: Qt.AlignVCenter
-                            font.pixelSize: isTablet ? 15 : 25
+                            font.pixelSize: isTablet ? 15 : 20
                         }
                     }
                 }
@@ -96,7 +100,7 @@ Window {
                             radius: 5       // Rounded corners (optional)
                         }
                         anchors.fill: parent
-                        font.pointSize: isTablet ? 20 : 30
+                        font.pixelSize: isTablet ? 15 : 20
                         placeholderText: qsTr("Phone number")
                         placeholderTextColor: "gray"  // Set the placeholder text color to gray
                         color: "black"  // Set the text color to black
@@ -117,9 +121,10 @@ Window {
             }
 
             Rectangle {
-                Layout.preferredHeight: 80
-                width: Math.min(root.width * 0.6, 300)
+                Layout.preferredHeight: 70
+                Layout.preferredWidth: Math.min(root.width * 0.8, 400)
                 Layout.alignment: Qt.AlignHCenter
+
                 color: "#4B50E0"
                 radius: 50
                 Text {
@@ -138,18 +143,19 @@ Window {
             }
             Connections {
                         target: login
-                        onLogInSuccessful: {
+                        onLogInSuccessful: function(username){
                             dashboardWindow.visible = true
+                            dashboardWindow.usernameRef = "username"
                             root.visible = false;
                         }
                     }
             ColumnLayout {
                 spacing: 20
                 Layout.fillWidth: true
-                Layout.leftMargin: !isTablet ? 70 : 30
+                Layout.alignment: Qt.AlignHCenter
                 Rectangle {
                     Layout.preferredHeight: 80
-                    width: Math.min(root.width * 0.8, 400)
+                    Layout.preferredWidth: Math.min(root.width * 0.8, 400)
                     color: "transparent"
                     border.width: 1
                     radius: 50
@@ -176,7 +182,7 @@ Window {
 
                 Rectangle {
                     Layout.preferredHeight: 80
-                    width: Math.min(root.width * 0.8, 400)
+                    Layout.preferredWidth: Math.min(root.width * 0.8, 400)
                     color: "transparent"
                     border.width: 1
                     radius: 50
@@ -187,8 +193,7 @@ Window {
                             id: methodImage2
                             Layout.preferredWidth: 30
                             Layout.preferredHeight: 30
-                            anchors.left: parent.left
-                            anchors.leftMargin: 25
+                            Layout.leftMargin: 25
                             source: "qrc:/resources/google.png"
                         }
 
@@ -202,7 +207,7 @@ Window {
 
                 Rectangle {
                     Layout.preferredHeight: 80
-                    width: Math.min(root.width * 0.8, 400)
+                    Layout.preferredWidth: Math.min(root.width * 0.8, 400)
                     color: "transparent"
                     border.width: 1
                     radius: 50
@@ -214,8 +219,7 @@ Window {
                             Layout.preferredWidth: 30
                             Layout.preferredHeight: 30
                             source: "qrc:/resources/apple.png"
-                            anchors.left: parent.left
-                            anchors.leftMargin: 25
+                            Layout.leftMargin: 25
                         }
 
                         Text {

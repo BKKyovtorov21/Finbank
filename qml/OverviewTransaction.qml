@@ -14,6 +14,13 @@ Item {
         source: ""  // Start with no source, will load dynamically
     }
 
+
+    Dashboard
+    {
+        id:dashbaordwindow
+        visible: false
+    }
+
     // The main component: IntroWindow
     OverviewTransactionWindow {
         id: overviewTransactionWindow

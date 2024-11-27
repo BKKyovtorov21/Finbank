@@ -26,12 +26,6 @@ Window {
 
     property bool isWideScreen: width > height
     property bool isPhone: width < 860
-
-    property alias logInButton: logInButton
-    property alias registerButton: registerButton
-
-    property alias logInButton1: loginButton1
-    property alias registerButton1: registerButton1
     Loader {
         id: loader
         source: ""
@@ -45,24 +39,24 @@ Window {
 
         RowLayout {
             id: rowLayout
-            anchors.topMargin: 15
+            Layout.topMargin: 15
 
             Rectangle {
-                visible: !isPhone
+                visible: !root.isPhone
                 Layout.preferredWidth: 100
                 Layout.preferredHeight: 50
                 Layout.alignment: Qt.AlignTop
                 Text { anchors.centerIn: parent; text: "Personal"; font.pixelSize: 20 }
             }
             Rectangle {
-                visible: !isPhone
+                visible: !root.isPhone
                 Layout.preferredWidth: 100
                 Layout.preferredHeight: 50
                 Layout.alignment: Qt.AlignTop
                 Text { anchors.centerIn: parent; text: "Business" ; font.pixelSize: 20}
             }
             Rectangle {
-                visible: !isPhone
+                visible: !root.isPhone
                 Layout.preferredWidth: 100
                 Layout.preferredHeight: 50
                 Layout.alignment: Qt.AlignTop
@@ -82,14 +76,14 @@ Window {
             }
             Item { Layout.fillWidth: true }
             Rectangle {
-                visible: !isPhone
+                visible: !root.isPhone
                 Layout.preferredWidth: 100
                 Layout.preferredHeight: 50
                 Layout.alignment: Qt.AlignTop
                 Text { anchors.centerIn: parent; text: "Help"; font.pixelSize: 20 }
             }
             Rectangle {
-                visible: !isPhone
+                visible: !root.isPhone
 
                 Layout.preferredWidth: 100
                 Layout.preferredHeight: 50
@@ -109,11 +103,16 @@ Window {
                         color: "black"
                         font.pixelSize: 16
                     }
+                    onClicked:
+                    {
+                        signInWindow.visible = true
+                        root.visible = false
+                    }
                 }
 
             }
             Rectangle {
-                visible: !isPhone
+                visible: !root.isPhone
 
                 Layout.preferredWidth: 150
                 Layout.preferredHeight: 50
@@ -142,9 +141,9 @@ Window {
             Layout.fillHeight: true
 
             Item {
-                visible: !isPhone
+                visible: !root.isPhone
 
-                 width: 50
+                 implicitWidth: 50
             }
 
             Rectangle {
@@ -174,7 +173,7 @@ Window {
                 Text {
                     id: desc
                     text: qsTr("Save, Manage and track your money. Open a full bank account from every platform")
-                    font.pixelSize: isPhone ? 16 : 20
+                    font.pixelSize: root.isPhone ? 16 : 20
                     color: "white"
                     wrapMode: Text.WordWrap
 
@@ -204,6 +203,11 @@ Window {
                     {
                         color: "white"
                         radius: 20
+                    }
+                    onClicked:
+                    {
+                        signInWindow.visible = true
+                        root.visible = false
                     }
 
 
@@ -253,9 +257,9 @@ Window {
 
         Drawer
         {
-            width:150
-            height: parent.height
-            interactive: isPhone
+            implicitWidth:150
+            implicitHeight: parent.height
+            interactive: root.isPhone
             edge: Qt.LeftEdge
 
             background: Rectangle
@@ -274,7 +278,7 @@ Window {
 
         Item {
             id: spacer
-            visible: !isPhone
+            visible: !root.isPhone
             Layout.preferredHeight: 50
 
         }
@@ -346,22 +350,6 @@ Window {
                 }
             }
         }
-    }
-
-    logInButton.onClicked: {
-        signInWindow.visible = true
-        root.visible = false
-    }
-    registerButton.onClicked: {
-        root.visible = false
-    }
-
-    logInButton1.onClicked: {
-        signInWindow.visible = true
-        root.visible = false
-    }
-    registerButton1.onClicked: {
-        root.visible = false
     }
 
 

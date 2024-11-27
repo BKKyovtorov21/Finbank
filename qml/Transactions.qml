@@ -1,13 +1,12 @@
 import QtQuick
 import QtQuick.Controls
-import QtCharts
 
 Item {
     id: root
     width: 1280
     height: 832
 
-    property string username: rootdashboard.usernameRef
+    property string username: "test"
     property string iban: dashboard.getDbVariable(rootdashboard.usernameRef, "IBAN");
     property bool showmore: false
 

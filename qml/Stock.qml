@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Studio.Components 1.0
 import QtQuick.Shapes 1.0
 
 Button {
@@ -22,20 +21,15 @@ Button {
         anchors.rightMargin: 327
         anchors.topMargin: 23
         anchors.bottomMargin: 30
-        ArcItem {
+        Rectangle {
             id: ellipse_14
             width: 20
             height: 20
             anchors.left: parent.left
             anchors.top: parent.top
-            strokeWidth: 0
-            strokeStyle: 0
-            strokeColor: "transparent"
-            outlineArc: true
-            fillColor: "#45474d"
-            end: 450.00001
-            begin: 90
-            arcWidth: 10
+            radius: 20
+            color: "#45474d"
+
             antialiasing: true
         }
 
@@ -100,18 +94,13 @@ Button {
         }
     }
 
-    SvgPathItem {
+    Image {
         id: line_34_Stroke_
         width: 374
         height: 1
         anchors.left: parent.left
         anchors.top: parent.top
-        strokeWidth: 1
-        strokeStyle: 1
-        strokeColor: "transparent"
-        path: "M 374.0013427734375 1 L 0 1 L 0 0 L 374.0013427734375 0 L 374.0013427734375 1 Z"
-        joinStyle: 0
-        fillColor: "#494949"
+    source: "qrc:/resources/plus2.svg"
         antialiasing: true
     }
 
