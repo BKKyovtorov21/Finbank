@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Dialogs
 
 Item {
     visible: true
@@ -59,12 +60,26 @@ Item {
         }
 
         // Handle send button click event
-        sendButton.onClicked:
-        {
-            createtransaction.makeTransaction(senderIBANStr, recipentIBANStr, moneySending, recipentReceiving);
-            overviewTransactionWindow.visible = false;
-            dashbaordwindow.visible = true;
-        }
+        sendButton.onClicked: {
+               // Assuming makeTransaction is defined and works correctly
+               createtransaction.makeTransaction(senderIBANStr, recipentIBANStr, moneySending, recipentReceiving);
+
+               // Show a message dialog after making the transaction
+               messageDialog.title = "Transaction Status";
+               messageDialog.text = "Transaction completed successfully!";
+               messageDialog.open();
+
+               // Optionally, hide and show windows
+               overviewTransactionWindow.visible = false;
+               dashbaordwindow.visible = true;
+           }
+
+           MessageDialog {
+               id: messageDialog
+               onAccepted: {
+                   console.log("OK clicked, returning to dashboard.");
+               }
+           }
         backButton.onClicked:
         {
             overviewTransactionWindow.visible = false;

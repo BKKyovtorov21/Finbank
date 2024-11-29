@@ -49,7 +49,6 @@
         <file>billa.png</file>
         <file>google.png</file>
         <file>email.svg</file>
-        <file>Finbank.db</file>
         <file>settings.svg</file>
         <file>realEstate.svg</file>
         <file>nike.svg</file>
@@ -81,5 +80,8 @@
         <file>wallet.svg</file>
         <file>edit.svg</file>
         <file>tick.svg</file>
+        <file>Finbank.db</file>
+        <file>identifier.sqlite</file>
+        <file>pfp.jpg</file>
     </qresource>
 </RCC>

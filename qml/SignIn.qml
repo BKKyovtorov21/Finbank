@@ -177,7 +177,13 @@ Window {
                             font.pixelSize: isTablet ? 15 : 20
                             font.bold: true
                         }
+
+                        MouseArea
+                        {
+                            anchors.fill: parent
+                        }
                     }
+
                 }
 
                 Rectangle {
@@ -201,6 +207,15 @@ Window {
                             text: qsTr("Continue with google")
                             font.pixelSize: isTablet ? 15 : 20
                             font.bold: true
+                        }
+                    }
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        onClicked:
+                        {
+                            console.log("sds");
+                            googlegateway.click();
                         }
                     }
                 }
@@ -240,4 +255,13 @@ Window {
             }
         }
     }
+
+    Connections {
+                target: googlegateway
+                onGoogleLoginSuccessful: {
+                    console.log("google")
+                    var username = googlegateway.userName || "";  // Use empty string if undefined
+                    login.logInUser(username, "", true); // Call login function with Google flag as true
+                }
+            }
 }

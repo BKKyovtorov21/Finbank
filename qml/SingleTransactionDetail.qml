@@ -11,8 +11,9 @@ Rectangle {
     property alias status: status.text
     property alias value: value.text
     property alias transactionType: transactionType.text
-    property alias ellipseColor: ellipse.source
-    property alias arrow: element.source
+    property alias ellipse: ellipse.source
+    property alias arrowSrc: element.source
+    property alias arrowRotation: element.rotation
 
 
     Item {
@@ -33,7 +34,9 @@ Rectangle {
                 anchors.left: parent.left
                 anchors.top: parent.top
                 anchors.leftMargin: 8
-                anchors.topMargin: 0
+                anchors.topMargin: 4
+                width: 30
+                height:30
                 source: "qrc:/resources/ellipse_6.png"
             }
 
@@ -46,13 +49,15 @@ Rectangle {
                 rotation: 0
                 Image {
                     id: element
-                    anchors.fill: parent
-                    source: "qrc:/resources/RightArrows.svg"
-                    rotation: 90
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.top: parent.top
+                    anchors.topMargin: 3
+                    source: "qrc:/resources/rightArrow.svg"
+                    rotation: -90
+                    height: 20
+                    width: 20
                     antialiasing: true
                 }
-
-
             }
         }
 

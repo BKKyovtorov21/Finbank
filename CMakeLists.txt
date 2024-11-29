@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
         set(CMAKE_AUTORCC ON)
         set(CMAKE_AUTOUIC ON)
-        #set(CMAKE_OSX_SYSROOT iphoneos) # Use `iphonesimulator` for the simulator
+        #set(CMAKE_OSX_SYSROOT iphonesimulator) # Use `iphonesimulator` for the simulator
         #set(CMAKE_OSX_ARCHITECTURES arm64) # iOS devices typically require arm64 architecture
         #set(CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE YES)
        # set(CMAKE_OSX_DEPLOYMENT_TARGET "14.0") # Adjust the version based on your requirements
@@ -34,11 +34,11 @@ qt_add_qml_module(appFinbank
     QML_FILES
             qml/LandingPage.qml
             qml/SignUp.qml
-            qml/SignInWindow.ui.qml
+
             qml/TradingDashboard.qml
             qml/Stock.qml
             qml/TransactionsWindow.ui.qml
-            qml/DashboardWindow.ui.qml
+
             qml/SendMoneyWindow.ui.qml
             qml/SelectRecipent.qml
             qml/RecipentDescription.qml
@@ -59,7 +59,6 @@ qt_add_qml_module(appFinbank
             qml/TransactionDetailsWindows.ui.qml
             qml/SendMoney.qml
             qml/SignUpWindow.ui.qml
-            qml/LogInWindow.ui.qml
             qml/SelectedRecipent.qml
             qml/TradingDashboardWindow.ui.qml
             qml/OverviewTransaction.qml

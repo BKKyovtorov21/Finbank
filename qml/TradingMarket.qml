@@ -442,14 +442,36 @@ Item {
                 }
             }
 
-            TextEdit {
+            Text
+            {
+                anchors.right: shares.left
+                anchors.top: shares.top
+                anchors.topMargin: 4
+                anchors.rightMargin: 20
+                text: qsTr("Quantity:")
+            }
+
+            TextField {
                 id: shares
                 x: 340
                 y: 256
-                width: 80
-                height: 20
+                width: 89
+                height: 30
                 text: qsTr("")
                 font.pixelSize: 12
+                leftPadding: 8
+                topPadding: 5
+                placeholderText: "Quantity"
+                placeholderTextColor: "grey"
+
+                color: "black"
+                background:Rectangle
+                {
+                    anchors.fill: parent
+                    border.width: 1
+                    radius: 5
+                    color: "transparent"
+                }
             }
         }
     }

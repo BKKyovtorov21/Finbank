@@ -59,15 +59,16 @@ Rectangle {
             id: imageSource
             width: 70
             height: 70
+
             anchors.left: parent.left
             anchors.top: parent.top
-            anchors.leftMargin: -23
-            anchors.topMargin: 1
-            source: "qrc:/resources/user.png"
+            anchors.leftMargin: -32
+            anchors.topMargin: -9
+            source: "qrc:/resources/pfp.jpg"
         }
 
         Text {
-            id: boyan_Kiovtorov
+            id: userFullname
             width: 112
             height: 19
             color: "#000000"
@@ -85,7 +86,7 @@ Rectangle {
         }
 
         Text {
-            id: kiovtorov
+            id: username
             width: 78
             height: 19
             color: "#802f2f2f"

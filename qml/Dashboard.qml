@@ -196,29 +196,36 @@ Window {
             {
 
                 Layout.preferredWidth: 200
-                Layout.preferredHeight: 56
+                Layout.preferredHeight: 50
 
                 Image {
                     id: userpfp
-                    source: "../assets/user.png"
+                    x: 14
+                    source: "qrc:/resources/pfp.jpg"
+                    width:70
+                    height:70
                     anchors.top: parent.top
-                    anchors.topMargin: 8
+                    anchors.topMargin: 4
                 }
                 Text
                 {
                     id: fullname
-                    width:130
-                    anchors.left: userpfp.right
-                    anchors.leftMargin: 10
+                    width:96
+                    height: 16
+                    anchors.left: parent.right
+                    anchors.leftMargin: -96
                     anchors.top: parent.top
-                    anchors.topMargin: 8
+                    anchors.topMargin: 17
 
 
                     text: qsTr("Boyan Kiovtorov")
                 }
 
                 Text {
-                    width: 130
+                    x: 112
+                    y: 39
+                    width: 69
+                    height: 16
                     anchors.top: fullname.bottom
                     anchors.topMargin: 10
                     anchors.left: fullname.left
@@ -231,13 +238,14 @@ Window {
         RowLayout
         {
             spacing: 10
+            Layout.topMargin: 40
+
             Text {
                 text: qsTr("Good morning, Boyan")
                 font.pixelSize: !isTablet ? 35 : 15
                 font.bold: true
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop // Combine alignment flags
                 Layout.leftMargin: 15
-                Layout.topMargin: 15
             }
 
 
@@ -249,7 +257,6 @@ Window {
 
             Button
             {
-
                 background:Text {
                     id: overviewPage
                     text: qsTr("Overview")
@@ -390,8 +397,8 @@ Window {
                                     running: false
                                     loops: 1
                                     from: 0.0
-                                    to: 2285.93
-                                    duration: 2000
+                                    to: 8753.31
+                                    duration: 3000
                                 }
                             }
 
@@ -978,7 +985,7 @@ Window {
     RowLayout {
             id: layouttablet
             anchors.fill: parent
-            visible: isTablet  // Corrected to 'isTablet'
+            visible: false  // Corrected to 'isTablet'
 
             Rectangle {
                 visible: !isPhone
@@ -998,9 +1005,11 @@ Window {
                     }
                     Image {
                         id: pfp
-                        source: "qrc:/resources/user.png"
+                        source: "qrc:/resources/pfp.jpg"
                         width:30
-                        Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+                        height:30
+                        fillMode: Image.PreserveAspectFit
+
 
                     }
                     Rectangle

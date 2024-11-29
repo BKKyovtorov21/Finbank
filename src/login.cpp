@@ -14,12 +14,10 @@ LogIn::LogIn(DatabaseManager* dbManager, QObject *parent)
 
 void LogIn::logInUser(const QString &phone, const QString &password, const bool& isGoogleRegistered)
 {
-    qDebug() << "sd";
     QSqlQuery qry(m_dbManager->GetDatabase());
-    QString modifiedPhone = "0" + phone; // Add '0' at the beginning of the phone
-            qDebug() << modifiedPhone;
     if (!isGoogleRegistered)
     {
+        QString modifiedPhone = "0" + phone;
         qry.prepare("SELECT * FROM users WHERE phone = :phone");
         qry.bindValue(":phone", modifiedPhone);
 
@@ -69,6 +67,7 @@ void LogIn::logInUser(const QString &phone, const QString &password, const bool&
     {
         qry.prepare("SELECT * FROM users WHERE username = :username");
         qry.bindValue(":username", m_username);
+        emit logInSuccessful("");
 
         if (qry.exec())
         {
@@ -76,7 +75,6 @@ void LogIn::logInUser(const QString &phone, const QString &password, const bool&
             {
                 if (qry.value("googleRegistered").toBool() == isGoogleRegistered)
                 {
-                    emit logInSuccessful("");
                     return;
                 }
                 else
@@ -90,11 +88,11 @@ void LogIn::logInUser(const QString &phone, const QString &password, const bool&
             }
             else
             {
-                qDebug() << "Login failed: Username not found (Google registration)";
+                // qDebug() << "Login failed: Username not found (Google registration)";
 
-                // Show error message for username not found in Google registration
-                QMessageBox::critical(nullptr, "Login Failed", "Username not found.");
-                return;
+                // // Show error message for username not found in Google registration
+                // QMessageBox::critical(nullptr, "Login Failed", "Username not found.");
+                // return;
             }
         }
         else
@@ -106,7 +104,6 @@ void LogIn::logInUser(const QString &phone, const QString &password, const bool&
             return;
         }
     }
-
 }
 
 QString LogIn::Hash(const QString &password, const QString &salt)

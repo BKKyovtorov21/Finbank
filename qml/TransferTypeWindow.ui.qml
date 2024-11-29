@@ -243,7 +243,7 @@ Rectangle {
             anchors.top: parent.top
             anchors.leftMargin: -23
             anchors.topMargin: -9
-            source: "../assets/user.png"
+            source: "qrc:/resources/pfp.jpg"
         }
 
         Text {

@@ -272,7 +272,7 @@ Rectangle {
             height: 70
 
             anchors.fill: parent
-            source: "qrc:/resources/user.png"
+            source: "qrc:/resources/pfp.jpg"
         }
 
         Text {

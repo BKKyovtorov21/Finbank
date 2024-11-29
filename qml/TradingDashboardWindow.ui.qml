@@ -88,7 +88,7 @@ Rectangle {
             anchors.top: parent.top
             anchors.leftMargin: -32
             anchors.topMargin: -9
-            source: "qrc:/resources/user.png"
+            source: "qrc:/resources/pfp.jpg"
         }
 
         Text {
@@ -2490,8 +2490,15 @@ Rectangle {
         id: backButton
         x: 39
         y: 776
-        text: qsTr("Back to Finbank")
-        font.pixelSize: 18
-        background: Rectangle {}
+
+
+        background:Text
+        {
+            anchors.centerIn:parent
+            text: qsTr("Back to Finbank")
+            font.pixelSize: 18
+            color: "black"
+        }
+
     }
 }

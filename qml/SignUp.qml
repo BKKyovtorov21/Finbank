@@ -71,7 +71,7 @@ Item {
 
                 if (googlegateway.userEmail !== undefined) {
                     signUpWindow.emailField = googlegateway.userEmail; // Direct assignment to the email property
-                } else {
+                } else {2
                     console.log("Error: googlegateway.email is undefined");
                 }
                 if (googlegateway.userFirstName !== undefined) {

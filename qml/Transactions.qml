@@ -1,13 +1,12 @@
 import QtQuick
 import QtQuick.Controls
-
 Item {
     id: root
     width: 1280
     height: 832
 
     property string username: "test"
-    property string iban: dashboard.getDbVariable(rootdashboard.usernameRef, "IBAN");
+    property string iban: "BG12FINB98765432109876"
     property bool showmore: false
 
     ScrollView {
@@ -17,47 +16,54 @@ Item {
         width: 1094
         height: 220
         clip: true
-        z:10
+        z: 10
         Column {
             id: transactionListLayout
             spacing: 10
-            width:1094
-            height:220
-            z:10
+            width: 1094
+            height: 220
+            z: 10
         }
     }
 
-    Loader
-    {
+    Loader {
         id: loader
         source: ""
     }
 
     TransactionsWindow {
-
-
         id: transactionwindow
         anchors.fill: parent
         imageSource: rootdashboard.pfp
-        balance: dashboard.getDbVariable(rootdashboard.usernameRef, "balance");
+        balance: "8753.31"
+
         Component.onCompleted: {
             createtransaction.showTransactions(iban, showmore);
         }
 
         overviewButton.onClicked: {
-            transactionwindow.visible = false
+            root.clearTransactions();
+
+            transactionwindow.visible = false;
             loader.setSource("Dashboard.qml", { "usernameRef": username });
         }
 
         sendButton.onClicked: {
-            transactionwindow.visible = false
+            root.clearTransactions();
+            transactionwindow.visible = false;
             loader.source = "SelectRecipent.qml";
         }
 
-        backButton.onClicked:
-        {
-            transactionwindow.visible = false
+        backButton.onClicked: {
+            root.clearTransactions();
+            transactionwindow.visible = false;
             loader.setSource("Dashboard.qml", { "usernameRef": username });
+        }
+
+        tradingButton.onClicked: {
+            root.clearTransactions();
+            transactionwindow.visible = false;
+            loader.source = "TradingDashboard.qml";
         }
 
         Connections {
@@ -70,11 +76,10 @@ Item {
                     var transactionDetail = transactionComponent.createObject(transactionListLayout, {
                         recipent: fullname,
                         value: receivingValue + " " + receivingCurrency,
-                                                                                  transactionType: transaction,
-                                                                                  ellipseColor: isReceiving ? "../assets/ellipseGreen.png" : "../assets/ellipse_6.png",
-                                                                                  arrowRotation: isReceiving ? -180 : 0,
-                                                                                  arrowvec1color: isReceiving ? "#228556" : "#611C37",
-                                                                                  arrowvec2color: isReceiving ? "#228556" : "#611C37"
+                        transactionType: transaction,
+                        arrowSrc: isReceiving ? "qrc:/resources/receiving.svg" : "qrc:/resources/sending.svg",
+                        ellipse: isReceiving ? "qrc:/resources/ellipseGreen.png" : "qrc:/resources/ellipse_6.png",
+                        arrowRotation: isReceiving ? -180 : 180
                     });
 
                     if (transactionDetail) {
@@ -87,14 +92,13 @@ Item {
                 }
             }
         }
-
-        tradingButton.onClicked:
-        {
-            transactionwindow.visible = false
-            loader.source = "TradingDashboard.qml"
-        }
-
     }
 
+    function clearTransactions() {
+        for (var i = transactionListLayout.children.length - 1; i >= 0; i--) {
+            transactionListLayout.children[i].destroy();
+        }
+    }
 
+    // Call clearTransactions() when needed, e.g., before loading new transactions
 }

@@ -297,7 +297,7 @@ Rectangle {
             anchors.top: parent.top
             anchors.leftMargin: -23
             anchors.topMargin: -9
-            source: "qrc:/resources/user.svg"
+            source: "qrc:/resources/pfp.jpg"
         }
         Text {
             id: boyan_Kiovtorov
@@ -331,20 +331,6 @@ Rectangle {
             verticalAlignment: Text.AlignTop
             wrapMode: Text.NoWrap
             font.weight: Font.Normal
-        }
-
-        Image {
-            id: element7
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.leftMargin: 168
-            anchors.topMargin: 33
-            anchors.bottomMargin: 13
-            source: "qrc:/resources/search.svg"
-            rotation: -90
-            antialiasing: true
         }
     }
 
