@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtCharts
 import QtQuick.Shapes 1.0
+import QtQuick.Dialogs
 Item {
     id: root
     width: 1280
@@ -21,6 +22,7 @@ Item {
         property bool stockAvailable: false
 
         property string stockTicker
+        property string stockName
         property int stockShares
         property double stockPrice
         anchors.fill: parent
@@ -46,6 +48,10 @@ Item {
         buyButton.onClicked:
         {
             createtransaction.buyStock(rootdashboard.usernameRef, shares.text, tradingmarket.stockTicker, tradingmarket.stockPrice);
+            messageDialog.title = "Stock bought";
+            messageDialog.text = "You successfully bought " + tradingmarket.stockName + " for " + tradingmarket.stockPrice;
+            messageDialog.open();
+
         }
 
         Connections {
@@ -86,7 +92,6 @@ Item {
 
             onStockDataFetched: function(stockData) {
 
-                console.log("Stock data visible:", stockData.visible);
                 tradingmarket.stockAvailable = true;
                 // Update the stock data in the UI
                 openPrice.text = stockData["openPrice"];
@@ -100,6 +105,7 @@ Item {
                 epsprice.text = stockData["eps"] !== undefined ? stockData["eps"] : "N/A";
                 tradingmarket.stockTicker = stockData["ticker"];
                 tradingmarket.stockPrice = stockData["openPrice"];
+                tradingmarket.stockName = stockData["name"];
                 var stockComponent = Qt.createComponent("Stock.qml");
                 if (stockComponent.status === Component.Ready) {
                     var stockInstance = stockComponent.createObject(stockFlow, {
@@ -153,7 +159,7 @@ Item {
             y: 491
             width: 658
             height: 323
-            visible: true
+            //visible: tradingmarket.stockAvailable
 
             Text {
                 id: open
@@ -489,5 +495,13 @@ Item {
         visible: true
         z: 10
         clip: true
+    }
+
+    MessageDialog {
+        id: messageDialog
+        onAccepted: {
+            overviewTransactionWindow.visible = false;
+            dashbaordwindow.visible = true;
+        }
     }
 }

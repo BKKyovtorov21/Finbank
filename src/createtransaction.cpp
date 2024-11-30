@@ -183,7 +183,6 @@ void CreateTransaction::showTransactions(const QString &userIBAN, const bool &sh
 
 void CreateTransaction::buyStock(const QString& username, const int& shares, const QString& stockTicker, const QString& stockPrice)
 {
-    qDebug() << "sds4";
     QSqlQuery qry;
 
     // Step 1: Retrieve the current balance of the user

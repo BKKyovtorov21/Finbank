@@ -177,7 +177,7 @@ Rectangle {
                 anchors.rightMargin: 2
                 anchors.topMargin: 2
                 anchors.bottomMargin: 2
-                source: "qrc:/resources/dashboard.svg"
+                source: "qrc:/resources/dashboardInactive.svg"
                 antialiasing: true
             }
             clip: true
@@ -446,7 +446,7 @@ Rectangle {
                 anchors.rightMargin: 3
                 anchors.topMargin: 4
                 anchors.bottomMargin: 4
-                source: "qrc:/resources/marketStock.svg"
+                source: "qrc:/resources/marketStockActive.svg"
                 antialiasing: true
             }
             clip: true

@@ -73,7 +73,7 @@ Window {
             spacing: 8 // Adjust spacing between icon and TextField
             Image {
                 id: name
-                source: !isTablet ? "../assets/logo1.png" : "../assets/user.png"
+                source: !isTablet ? "qrc:/resources/logo1.png" : "qrc:/resources/pfp.jpg"
             }
             Rectangle
             {
@@ -134,7 +134,7 @@ Window {
                     TextField {
                         background: Rectangle
                         {
-                            color: "transparent"
+                            color: "#4dececec"
                         }
 
                         Image {
@@ -241,7 +241,7 @@ Window {
             Layout.topMargin: 40
 
             Text {
-                text: qsTr("Good morning, Boyan")
+                text: qsTr("Good afternoon, Boyan")
                 font.pixelSize: !isTablet ? 35 : 15
                 font.bold: true
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop // Combine alignment flags
@@ -985,7 +985,7 @@ Window {
     RowLayout {
             id: layouttablet
             anchors.fill: parent
-            visible: false  // Corrected to 'isTablet'
+            visible: isTablet  // Corrected to 'isTablet'
 
             Rectangle {
                 visible: !isPhone
@@ -1003,15 +1003,7 @@ Window {
                     {
                         height:30
                     }
-                    Image {
-                        id: pfp
-                        source: "qrc:/resources/pfp.jpg"
-                        width:30
-                        height:30
-                        fillMode: Image.PreserveAspectFit
 
-
-                    }
                     Rectangle
                     {
                         width:50

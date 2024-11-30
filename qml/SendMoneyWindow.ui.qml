@@ -16,7 +16,7 @@ Rectangle {
     property alias currencyReceivingImage: currencyReceivingImage.source
     property alias continueButton: continueButton
     property alias backButton: backButton
-    property alias imageSource: image.source
+    property alias total: total.text
     id: transactions_Send_money
     width: 1280
     height: 832
@@ -141,11 +141,11 @@ Rectangle {
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        anchors.leftMargin: 304
+        anchors.leftMargin: 295
         anchors.rightMargin: 957
         anchors.topMargin: 49
         anchors.bottomMargin: 768
-        source: "qrc:/resources/rightArrows.svg"
+        source: "qrc:/resources/RightArrows.svg"
         antialiasing: true
     }
 
@@ -255,15 +255,13 @@ Rectangle {
         width: 181
         height: 52
         Image {
-            id: image
+            id: userpfp
+            x: -23
+            source: "qrc:/resources/pfp.jpg"
             width: 70
             height: 70
-
-            anchors.left: parent.left
             anchors.top: parent.top
-            anchors.leftMargin: -23
             anchors.topMargin: -9
-            source: "qrc:/resources/pfp.jpg"
         }
         Text {
             id: boyan_Kiovtorov
@@ -505,6 +503,8 @@ Rectangle {
                 id: receivingCurrencyButton
                 x: 544
                 y: 4
+                width: 108
+                height: 44
                 opacity: 0
             }
         }
@@ -606,11 +606,10 @@ Rectangle {
     }
 
     Text {
-        id: uSD2
+        id: total
         width: 108
         height: 25
         color: "#000000"
-        text: qsTr("$1000 USD")
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.leftMargin: 888
@@ -750,15 +749,15 @@ Rectangle {
 
         Item {
             id: group_6
-            x: 122
-            y: 18
-            width: 14
-            height: 27
+            x: 98
+            y: 20
+            width: 30
+            height: 15
             Image {
                 id: element16
                 anchors.fill: parent
-                source: "qrc:/resources/rightArrow.svg"
-                rotation: -180
+                source: "qrc:/resources/rightArrow2.svg"
+                rotation: 0
                 antialiasing: true
             }
         }

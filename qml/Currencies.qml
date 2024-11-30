@@ -29,14 +29,14 @@ Rectangle {
         id: currenciesWindow
         visible: true
 
-        usdButton.onClicked: selectCurrency("USD", "../assets/usd.png")
-        cadButton.onClicked: selectCurrency("CAD", "../assets/cad.png")
-        jpyButton.onClicked: selectCurrency("JPY", "../assets/jpy.png")
-        audButton.onClicked: selectCurrency("AUD", "../assets/aud.png")
-        bgnButton.onClicked: selectCurrency("BGN", "../assets/bgn.png")
-        gbpButton.onClicked: selectCurrency("GBP", "../assets/gbp.png")
-        sekButton.onClicked: selectCurrency("SEK", "../assets/sek.png")
-        eurButton.onClicked: selectCurrency("EUR", "../assets/eur.png")
+        usdButton.onClicked: selectCurrency("USD", "qrc:/resources/usd.png")
+        cadButton.onClicked: selectCurrency("CAD", "qrc:/resources/cad.png")
+        jpyButton.onClicked: selectCurrency("JPY", "qrc:/resources/jpy.png")
+        audButton.onClicked: selectCurrency("AUD", "qrc:/resources/aud.png")
+        bgnButton.onClicked: selectCurrency("BGN", "qrc:/resources/bgn.png")
+        gbpButton.onClicked: selectCurrency("GBP", "qrc:/resources/gbp.png")
+        sekButton.onClicked: selectCurrency("SEK", "qrc:/resources/sek.png")
+        eurButton.onClicked: selectCurrency("EUR", "qrc:/resources/eur.png")
 
         // Add more currency buttons here if needed
     }

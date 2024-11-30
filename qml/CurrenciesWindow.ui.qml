@@ -30,7 +30,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 4
-            source: "../assets/usd.png"
+            source: "qrc:/resources/usd.png"
         }
 
         Text {
@@ -62,7 +62,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 4
-            source: "../assets/cad.png"
+            source: "qrc:/resources/cad.png"
         }
 
         Text {
@@ -94,7 +94,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 4
-            source: "../assets/eur.png"
+            source: "qrc:/resources/eur.png"
         }
 
         Text {
@@ -126,7 +126,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 4
-            source: "../assets/gbp.png"
+            source: "qrc:/resources/gbp.png"
         }
 
         Text {
@@ -158,7 +158,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 8
-            source: "../assets/jpy.png"
+            source: "qrc:/resources/jpy.png"
         }
 
         Text {
@@ -190,7 +190,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 4
-            source: "../assets/aud.png"
+            source: "qrc:/resources/aud.png"
         }
 
         Text {
@@ -222,7 +222,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 4
-            source: "../assets/sek.png"
+            source: "qrc:/resources/sek.png"
         }
 
         Text {
@@ -254,7 +254,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 4
-            source: "../assets/bgn.png"
+            source: "qrc:/resources/bgn.png"
         }
 
         Text {

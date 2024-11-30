@@ -4,7 +4,6 @@ import QtQuick.Shapes 1.0
 
 Rectangle {
     property alias searchbarUser: searchbarUser
-    property alias imageSource: image.source
 
     id: selectRecipent
     width: 1280
@@ -267,12 +266,13 @@ Rectangle {
         width: 181
         height: 52
         Image {
-            id: image
+            id: userpfp
+            x: -23
+            source: "qrc:/resources/pfp.jpg"
             width: 70
             height: 70
-
-            anchors.fill: parent
-            source: "qrc:/resources/pfp.jpg"
+            anchors.top: parent.top
+            anchors.topMargin: -9
         }
 
         Text {

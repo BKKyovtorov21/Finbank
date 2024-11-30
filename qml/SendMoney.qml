@@ -21,13 +21,13 @@ Rectangle {
 
 
         anchors.fill: parent
-        imageSource: rootdashboard.pfp
-
 
         property string currencyReceivingRef: currencyReceiving
         moneySending: moneySending_TF
         property real moneySendingRef: moneySending
         sendingValue: moneySending + 5 + "$ " + currencySending
+        total: moneySending + 5 + "$ " + currencySending
+
         recipentReceiving: moneySending * conversionRate;
         property string recipentReceivingRef: recipentReceiving
         property string currencySendingRef: currencySending

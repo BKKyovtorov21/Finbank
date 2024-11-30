@@ -7,7 +7,6 @@ Rectangle {
 
     property alias overviewButton: overviewButton
     property alias sendButton: sendButton
-    property alias imageSource: image.source
     property alias transaction: transaction.text
     property alias balance: balance.text
     property alias backButton: backButton
@@ -820,7 +819,7 @@ Rectangle {
                 text: qsTr("Send")
                 anchors.left: parent.left
                 anchors.top: parent.top
-                anchors.leftMargin: 31
+                anchors.leftMargin: 39
                 anchors.topMargin: 8
                 font.pixelSize: 16
                 horizontalAlignment: Text.AlignHCenter
@@ -831,15 +830,15 @@ Rectangle {
 
             Item {
                 id: group_6
-                x: 21
-                y: 8
-                width: 10
-                height: 20
+                x: 12
+                y: 14
+                width: 21
+                height: 8
                 Image {
-                    id: element14
+                    id: element1623
                     anchors.fill: parent
-                    source: "qrc:/resources/rightArrow.svg"
-                    rotation: 90
+                    source: "qrc:/resources/rightArrow2.svg"
+                    rotation: 0
                     antialiasing: true
                 }
             }
@@ -863,35 +862,29 @@ Rectangle {
         }
 
         Item {
-            id: group_7
-            x: 20
-            y: 9
-            width: 10
-            height: 20
+            id: group_63
+            x: 12
+            y: 14
+            width: 21
+            height: 8
             Image {
-                id: element16
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.leftMargin: 4
-                anchors.rightMargin: 4
-                anchors.bottomMargin: 2
-                source: "qrc:/resources/rightArrow.svg"
-                rotation: -90
+                id: element162
+                anchors.fill: parent
+                source: "qrc:/resources/rightArrow2.svg"
+                rotation: 180
                 antialiasing: true
             }
         }
 
         Text {
             id: request
-            width: 78
+            width: 85
             height: 20
             color: "#ffffff"
             text: qsTr("Request")
             anchors.left: parent.left
             anchors.top: parent.top
-            anchors.leftMargin: 30
+            anchors.leftMargin: 37
             anchors.topMargin: 8
             font.pixelSize: 16
             horizontalAlignment: Text.AlignHCenter

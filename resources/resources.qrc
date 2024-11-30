@@ -83,5 +83,8 @@
         <file>Finbank.db</file>
         <file>identifier.sqlite</file>
         <file>pfp.jpg</file>
+        <file>rightArrow2.svg</file>
+        <file>dashboardInactive.svg</file>
+        <file>marketStockActive.svg</file>
     </qresource>
 </RCC>

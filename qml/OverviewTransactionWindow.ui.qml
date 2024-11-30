@@ -14,7 +14,6 @@ Rectangle {
     property alias recipentIBAN: recipentIBAN.text
     property alias sendButton: sendButton
     property alias backButton: backButton
-    property alias imageSource: image.source
     id: overviewTransactionWindow
     width: 1280
     height: 832
@@ -242,15 +241,13 @@ Rectangle {
         width: 181
         height: 52
         Image {
-            id: image
+            id: userpfp
+            x: -23
+            source: "qrc:/resources/pfp.jpg"
             width: 70
             height: 70
-
-            anchors.left: parent.left
             anchors.top: parent.top
-            anchors.leftMargin: -23
             anchors.topMargin: -9
-            source: "qrc:/resources/pfp.jpg"
         }
 
         Text {
@@ -324,22 +321,15 @@ Rectangle {
 
         Item {
             id: group_6
-            x: 122
-            y: 18
-            width: 14
-            height: 27
+            x: 98
+            y: 20
+            width: 30
+            height: 15
             Image {
-                id: element13
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.leftMargin: -16
-                anchors.rightMargin: 28
-                anchors.topMargin: -5
-                anchors.bottomMargin: 8
-                source: "qrc:/resources/rightArrow.svg"
-
+                id: element1643
+                anchors.fill: parent
+                source: "qrc:/resources/rightArrow2.svg"
+                rotation: 0
                 antialiasing: true
             }
         }
@@ -904,7 +894,7 @@ Rectangle {
             width: 298
             height: 24
             color: "#000000"
-            text: qsTr("vichovichev07@gmail.com")
+            text: qsTr("boyankiovtorov@gmail.com")
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 220
@@ -944,12 +934,12 @@ Rectangle {
             width: 251
             height: 24
             color: "#000000"
-            text: qsTr("CENAIDJA - Bank Central Asia (BCA)")
+            text: qsTr("Bulgarian national bank(BNB)")
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 258
             font.pixelSize: 14
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
             font.weight: Font.Medium
@@ -984,7 +974,7 @@ Rectangle {
             width: 264
             height: 24
             color: "#000000"
-            text: qsTr("Vicho Vichev")
+            text: qsTr("Boyan Kiovtorov")
             anchors.left: parent.left
             anchors.top: parent.top
             anchors.leftMargin: 225

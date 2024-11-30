@@ -8,7 +8,7 @@ Rectangle {
     property alias payingMethodFinbank: payingMethodFinbank
     property alias continueButton: continueButton
     property alias backButton: backButton
-    property alias imageSource: image.source
+    property alias method1: methodrect1
     width: 1280
     height: 832
     color: "#ffffff"
@@ -24,8 +24,6 @@ Rectangle {
         clip: true
     }
 
-
-
     Rectangle {
         id: logo
         width: 86
@@ -40,7 +38,7 @@ Rectangle {
             anchors.right: parent.right
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            source: "../assets/logo1.png"
+            source: "qrc:/resources/logo1.png"
         }
     }
 
@@ -62,8 +60,6 @@ Rectangle {
             anchors.top: parent.top
         }
 
-
-
         Text {
             id: personal_account
             width: 141
@@ -81,8 +77,6 @@ Rectangle {
             font.weight: Font.Normal
             font.family: "Gelasio"
         }
-
-
     }
 
     Item {
@@ -122,7 +116,19 @@ Rectangle {
         }
     }
 
-
+    Image {
+        id: element2
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.leftMargin: 295
+        anchors.rightMargin: 957
+        anchors.topMargin: 49
+        anchors.bottomMargin: 768
+        source: "qrc:/resources/RightArrows.svg"
+        antialiasing: true
+    }
 
     Item {
         id: searchbar
@@ -206,7 +212,6 @@ Rectangle {
 
                 antialiasing: true
             }
-
         }
 
         Text {
@@ -235,15 +240,13 @@ Rectangle {
         width: 181
         height: 52
         Image {
-            id: image
+            id: userpfp
+            x: -23
+            source: "qrc:/resources/pfp.jpg"
             width: 70
             height: 70
-
-            anchors.left: parent.left
             anchors.top: parent.top
-            anchors.leftMargin: -23
             anchors.topMargin: -9
-            source: "qrc:/resources/pfp.jpg"
         }
 
         Text {
@@ -281,7 +284,6 @@ Rectangle {
             font.weight: Font.Normal
             font.family: "Gelasio"
         }
-
     }
 
     Item {
@@ -419,8 +421,6 @@ Rectangle {
                 font.weight: Font.Normal
                 font.family: "Gelasio"
             }
-
-
         }
 
         Item {
@@ -532,15 +532,15 @@ Rectangle {
 
         Item {
             id: group_6
-            x: 122
-            y: 18
-            width: 14
-            height: 27
+            x: 98
+            y: 20
+            width: 30
+            height: 15
             Image {
-                id: element13
+                id: element1623
                 anchors.fill: parent
-                source: "qrc:/resources/rightArrow.svg"
-                rotation: -180
+                source: "qrc:/resources/rightArrow2.svg"
+                rotation: 0
                 antialiasing: true
             }
         }
@@ -762,6 +762,10 @@ Rectangle {
             font.weight: Font.Bold
             font.family: "Gelasio"
         }
+        Rectangle {
+            id: methodrect1
+            anchors.fill: parent
+        }
 
         Item {
             id: group_39
@@ -804,8 +808,8 @@ Rectangle {
             text: qsTr("Use money in your Finbak+ account to pay for your transfer instantly.Should arrive in seconds")
             anchors.left: parent.left
             anchors.top: parent.top
-            anchors.leftMargin: 66
-            anchors.topMargin: 40
+            anchors.leftMargin: 65
+            anchors.topMargin: 10
             font.pixelSize: 16
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignTop
@@ -818,8 +822,12 @@ Rectangle {
         id: group_49
         x: 273
         y: 440
-        width: 401
+        width: 812
         height: 85
+        Rectangle {
+            id: methodrect2
+            anchors.fill: parent
+        }
         background: Text {
             id: debit_card
             width: 142
@@ -844,14 +852,13 @@ Rectangle {
             height: 40
             color: "#666666"
             text: qsTr("Send from your Visa or Mastercafd. \nShould arrive in seconds")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 44
-            anchors.topMargin: 45
+            anchors.centerIn: parent
             font.pixelSize: 16
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
+            anchors.verticalCenterOffset: -1
+            anchors.horizontalCenterOffset: -169
             font.weight: Font.Medium
             font.family: "Gelasio"
         }
@@ -900,10 +907,15 @@ Rectangle {
 
     Button {
         id: group_51
-        x: 322
-        y: 602
-        width: 412
-        height: 75
+        x: 325
+        y: 592
+        width: 752
+        height: 60
+
+        Rectangle {
+            id: methodrect3
+            anchors.fill: parent
+        }
         background: Text {
             id: transfer_the_money_from_your_bank_account
             width: 389
@@ -926,14 +938,13 @@ Rectangle {
             height: 40
             color: "#666666"
             text: qsTr("Transfer the money using you bank account balance.\nShould arrive in seconds")
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 19
-            anchors.topMargin: 35
+            anchors.centerIn: parent
             font.pixelSize: 16
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignTop
             wrapMode: Text.Wrap
+            anchors.verticalCenterOffset: 0
+            anchors.horizontalCenterOffset: -145
             font.weight: Font.Medium
             font.family: "Gelasio"
         }
@@ -1010,8 +1021,6 @@ Rectangle {
             font.weight: Font.Medium
             font.family: "Gelasio"
         }
-
-
     }
 
     Item {
@@ -1053,8 +1062,6 @@ Rectangle {
             font.weight: Font.Medium
             font.family: "Gelasio"
         }
-
-
     }
 
     Item {
@@ -1097,8 +1104,6 @@ Rectangle {
             font.weight: Font.Medium
             font.family: "Gelasio"
         }
-
-
     }
 
     Item {
@@ -1134,5 +1139,4 @@ Rectangle {
             antialiasing: true
         }
     }
-
 }

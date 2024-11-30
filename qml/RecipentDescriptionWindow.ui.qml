@@ -8,8 +8,6 @@ Rectangle {
     property alias rectangle_42: rectangle_42
     property alias recipentIBAN: recipentIBAN.text
     property alias backButton: backButton
-    property alias imageSource: image.source
-
     id: selectRecipentDescRiptionWindow
     width: 1280
     height: 832
@@ -115,7 +113,7 @@ Rectangle {
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        anchors.leftMargin: 304
+        anchors.leftMargin: 298
         anchors.rightMargin: 957
         anchors.topMargin: 49
         anchors.bottomMargin: 768
@@ -230,15 +228,13 @@ Rectangle {
         width: 181
         height: 52
         Image {
-            id: image
+            id: userpfp
+            x: -23
+            source: "qrc:/resources/pfp.jpg"
             width: 70
             height: 70
-
-            anchors.left: parent.left
             anchors.top: parent.top
-            anchors.leftMargin: -23
             anchors.topMargin: -9
-            source: "qrc:/resources/pfp.jpg"
         }
 
         Text {
@@ -312,15 +308,15 @@ Rectangle {
 
         Item {
             id: group_6
-            x: 122
-            y: 18
-            width: 14
-            height: 27
+            x: 98
+            y: 20
+            width: 30
+            height: 15
             Image {
-                id: element14
+                id: element1643
                 anchors.fill: parent
-                source: "qrc:/resources/rightArrow.svg"
-                rotation: -180
+                source: "qrc:/resources/rightArrow2.svg"
+                rotation: 0
                 antialiasing: true
             }
         }

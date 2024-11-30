@@ -25,7 +25,6 @@ Item {
     // The main component: IntroWindow
     OverviewTransactionWindow {
         id: overviewTransactionWindow
-        imageSource: rootdashboard.pfp
 
         property string recipentIBANStr
         property string senderIBANStr
@@ -66,18 +65,18 @@ Item {
 
                // Show a message dialog after making the transaction
                messageDialog.title = "Transaction Status";
-               messageDialog.text = "Transaction completed successfully!";
+               messageDialog.text = "You successfully transfered " + overviewTransactionWindow.sendingAndFees + " to " + recipentsWindow.fullNameRef;
                messageDialog.open();
 
                // Optionally, hide and show windows
-               overviewTransactionWindow.visible = false;
-               dashbaordwindow.visible = true;
+
            }
 
            MessageDialog {
                id: messageDialog
                onAccepted: {
-                   console.log("OK clicked, returning to dashboard.");
+                   overviewTransactionWindow.visible = false;
+                   dashbaordwindow.visible = true;
                }
            }
         backButton.onClicked:

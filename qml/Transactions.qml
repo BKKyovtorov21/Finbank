@@ -34,7 +34,6 @@ Item {
     TransactionsWindow {
         id: transactionwindow
         anchors.fill: parent
-        imageSource: rootdashboard.pfp
         balance: "8753.31"
 
         Component.onCompleted: {

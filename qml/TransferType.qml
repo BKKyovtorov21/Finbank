@@ -17,8 +17,6 @@ Item {
         id: transactionType
         anchors.fill: parent
 
-        imageSource: rootdashboard.pfp
-
         payingMethodFinbank.onClicked:
         {
             timelineAnimation.running = true;

@@ -253,6 +253,11 @@ Window {
 
                 }
             }
+            Item {
+                visible: !root.isPhone
+
+                 implicitWidth: 50
+            }
         }
 
         Drawer
