@@ -465,14 +465,7 @@ Rectangle {
             anchors.top: parent.top
             Image {
                 id: element10
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.leftMargin: 3
-                anchors.rightMargin: 3
-                anchors.topMargin: 4
-                anchors.bottomMargin: 4
+                anchors.centerIn: parent
                 source: "qrc:/resources/marketStock.svg"
                 antialiasing: true
             }
@@ -729,20 +722,12 @@ Rectangle {
                     color: "#fd7653"
 
                     antialiasing: true
-                }
-
-                Image {
-                    id: element14
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    anchors.bottom: parent.bottom
-                    anchors.leftMargin: 10
-                    anchors.rightMargin: 10
-                    anchors.topMargin: 13
-                    anchors.bottomMargin: 12
-                    source: "qrc:/resources/realEstate.svg"
-                    antialiasing: true
+                    Image {
+                        id: element14
+                        anchors.centerIn: parent
+                        source: "qrc:/resources/realEstate.svg"
+                        antialiasing: true
+                    }
                 }
             }
         }
@@ -920,20 +905,12 @@ Rectangle {
                     color: "#20c0f6"
 
                     antialiasing: true
-                }
-
-                Image {
-                    id: element20
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    anchors.bottom: parent.bottom
-                    anchors.leftMargin: 16
-                    anchors.rightMargin: 16
-                    anchors.topMargin: 16
-                    anchors.bottomMargin: 16
-                    source: "qrc:/resources/health.svg"
-                    antialiasing: true
+                    Image {
+                        id: element20
+                        anchors.centerIn: parent
+                        source: "qrc:/resources/health.svg"
+                        antialiasing: true
+                    }
                 }
             }
         }
@@ -1512,20 +1489,12 @@ Rectangle {
                 color: "#d9d9d9"
 
                 antialiasing: true
-            }
-
-            Image {
-                id: element35
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.leftMargin: 13
-                anchors.rightMargin: 7
-                anchors.topMargin: 18
-                anchors.bottomMargin: 18
-                source: "qrc:/resources/nike.svg"
-                antialiasing: true
+                Image {
+                    id: element35
+                    anchors.centerIn: parent
+                    source: "qrc:/resources/nike.svg"
+                    antialiasing: true
+                }
             }
         }
     }
@@ -1740,20 +1709,12 @@ Rectangle {
                             color: "#d9d9d9"
                             radius: 30
                             antialiasing: true
-                        }
-
-                        Image {
-                            id: element40
-                            anchors.left: parent.left
-                            anchors.right: parent.right
-                            anchors.top: parent.top
-                            anchors.bottom: parent.bottom
-                            anchors.leftMargin: 11
-                            anchors.rightMargin: 12
-                            anchors.topMargin: 10
-                            anchors.bottomMargin: 10
-                            source: "qrc:/resources/appleIcon.svg"
-                            antialiasing: true
+                            Image {
+                                id: element40
+                                anchors.centerIn: parent
+                                source: "qrc:/resources/appleIcon.svg"
+                                antialiasing: true
+                            }
                         }
                     }
                 }
@@ -1838,20 +1799,12 @@ Rectangle {
                             color: "#d9d9d9"
 
                             antialiasing: true
-                        }
-
-                        Image {
-                            id: element41
-                            anchors.left: parent.left
-                            anchors.right: parent.right
-                            anchors.top: parent.top
-                            anchors.bottom: parent.bottom
-                            anchors.leftMargin: 9
-                            anchors.rightMargin: 9
-                            anchors.topMargin: 9
-                            anchors.bottomMargin: 9
-                            source: "qrc:/resources/twitter.svg"
-                            antialiasing: true
+                            Image {
+                                id: element41
+                                anchors.centerIn: parent
+                                source: "qrc:/resources/twitter.svg"
+                                antialiasing: true
+                            }
                         }
                     }
                 }
@@ -2037,32 +1990,12 @@ Rectangle {
                             color: "#d9d9d9"
                             radius: 30
                             antialiasing: true
-                        }
-                    }
-
-                    Item {
-                        id: group_122
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        anchors.top: parent.top
-                        anchors.bottom: parent.bottom
-                        anchors.leftMargin: 9
-                        anchors.rightMargin: 9
-                        anchors.topMargin: 9
-                        anchors.bottomMargin: 9
-
-                        Image {
-                            id: element48
-                            anchors.left: parent.left
-                            anchors.right: parent.right
-                            anchors.top: parent.top
-                            anchors.bottom: parent.bottom
-                            anchors.leftMargin: 1
-                            anchors.rightMargin: 1
-                            anchors.topMargin: 1
-                            anchors.bottomMargin: 1
-                            source: "qrc:/resources/bmw.svg"
-                            antialiasing: true
+                            Image {
+                                id: element48
+                                anchors.centerIn: parent
+                                source: "qrc:/resources/bmw.svg"
+                                antialiasing: true
+                            }
                         }
                     }
                 }
@@ -2309,20 +2242,12 @@ Rectangle {
                     color: "#fd633d"
                     radius: 25
                     antialiasing: true
-                }
-
-                Image {
-                    id: element53
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    anchors.bottom: parent.bottom
-                    anchors.leftMargin: 18
-                    anchors.rightMargin: 17
-                    anchors.topMargin: 9
-                    anchors.bottomMargin: 6
-                    source: "qrc:/resources/energy.svg"
-                    antialiasing: true
+                    Image {
+                        id: element53
+                        anchors.centerIn: parent
+                        source: "qrc:/resources/energy.svg"
+                        antialiasing: true
+                    }
                 }
             }
         }
@@ -2469,20 +2394,12 @@ Rectangle {
             color: "#4060eb"
             radius: 40
             antialiasing: true
-        }
-
-        Image {
-            id: element59
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.leftMargin: 13
-            anchors.rightMargin: 12
-            anchors.topMargin: 13
-            anchors.bottomMargin: 12
-            source: "qrc:/resources/finance.svg"
-            antialiasing: true
+            Image {
+                id: element59
+                anchors.centerIn: parent
+                source: "qrc:/resources/finance.svg"
+                antialiasing: true
+            }
         }
     }
 
@@ -2491,14 +2408,10 @@ Rectangle {
         x: 39
         y: 776
 
-
-        background:Text
-        {
-            anchors.centerIn:parent
-            text: qsTr("Back to Finbank")
+        background: Text {
+             text: qsTr("Back to Finbank")
             font.pixelSize: 18
             color: "black"
         }
-
     }
 }
