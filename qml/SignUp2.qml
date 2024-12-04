@@ -115,7 +115,7 @@ Window {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 400
                 Layout.preferredHeight: 50
-                placeholderText: "Enter your username"
+                placeholderText: "Enter your first name"
                 placeholderTextColor: "#535353"
                 topPadding: 10
                 font.pixelSize: 23
@@ -128,14 +128,14 @@ Window {
             }
             Item
             {
-                Layout.preferredHeight: 3
+                Layout.preferredHeight: 10
             }
             TextField
             {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 400
                 Layout.preferredHeight: 50
-                placeholderText: "Enter your email"
+                placeholderText: "Enter your last name"
                 placeholderTextColor: "#535353"
                 topPadding: 10
                 font.pixelSize: 23
@@ -149,14 +149,14 @@ Window {
             }
             Item
             {
-                Layout.preferredHeight: 3
+                Layout.preferredHeight: 10
             }
             TextField
             {
                 Layout.preferredWidth: 400
                 Layout.preferredHeight: 50
                 Layout.alignment: Qt.AlignHCenter
-                placeholderText: "Enter your password"
+                placeholderText: "Enter your date of birth"
                 placeholderTextColor: "#535353"
                 topPadding: 10
                 font.pixelSize: 23
@@ -176,6 +176,72 @@ Window {
 
                 }
             }
+            Item
+            {
+                Layout.preferredHeight: 10
+            }
+            TextField
+            {
+                Layout.preferredWidth: 400
+                Layout.preferredHeight: 50
+                Layout.alignment: Qt.AlignHCenter
+                placeholderText: "Enter your phone number"
+                placeholderTextColor: "#535353"
+                topPadding: 10
+                font.pixelSize: 23
+                color: "#535353"
+
+                background: Rectangle
+                {
+                    color: "#DEDEDE"
+                    radius: 10
+                }
+                Image
+                {
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.rightMargin: 20
+                    source: "qrc:/resources/visibility.svg"
+
+                }
+            }
+
+            RowLayout
+            {
+                Layout.preferredWidth: 150
+                Layout.alignment: Qt.AlignHCenter
+                Rectangle {
+                    Layout.preferredWidth: 50
+                    Layout.preferredHeight: 50
+                    border.color: "black"
+                    border.width: 2
+                    radius: 5
+                    anchors.centerIn: parent
+                    color: "white"
+
+                    CheckBox {
+                        anchors.fill: parent
+                        anchors.centerIn: parent
+                        text: "I agree"
+                    }
+                }
+                Rectangle {
+                    Layout.preferredWidth: 50
+                    Layout.preferredHeight: 50
+                    border.color: "black"
+                    border.width: 2
+                    radius: 5
+                    anchors.centerIn: parent
+                    color: "white"
+
+                    CheckBox {
+                        anchors.fill: parent
+                        anchors.centerIn: parent
+                        text: "I disagree"
+                    }
+                }
+            }
+
             Item
             {
                 Layout.preferredHeight: 30
@@ -211,12 +277,14 @@ Window {
                     anchors.verticalCenterOffset: 2
                     source: "qrc:/resources/rightArrow.svg"
                 }
-                onClicked:
-                {
-                    loader.source = "SignUp2.qml"
-                    root.visible = false
-                }
             }
+
+            Item
+            {
+                Layout.preferredHeight: 10
+            }
+
+
             Item
             {
                 Layout.preferredHeight: 10
@@ -246,7 +314,7 @@ Window {
             {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                source: "qrc:/resources/bgif.mp4"
+                source: "qrc:/resources/.mp4"
                 autoPlay: true
                 loops: MediaPlayer.Infinite
                 fillMode: VideoOutput.Stretch
