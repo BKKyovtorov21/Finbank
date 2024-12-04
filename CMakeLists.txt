@@ -12,7 +12,7 @@ set(CMAKE_AUTOMOC ON)
         #set(CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE YES)
        # set(CMAKE_OSX_DEPLOYMENT_TARGET "14.0") # Adjust the version based on your requirements
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Multimedia NetworkAuth Sql Charts)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Multimedia Sql Charts)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
@@ -22,7 +22,7 @@ qt_add_executable(appFinbank
         src/register.hpp src/register.cpp
         src/databasemanager.hpp src/databasemanager.cpp
         src/login.hpp src/login.cpp
-        src/googlegateway.hpp src/googlegateway.cpp
+
         src/dashboard.hpp src/dashboard.cpp
         src/searchrecipent.hpp src/searchrecipent.cpp
         src/createtransaction.hpp src/createtransaction.cpp
@@ -66,7 +66,6 @@ qt_add_qml_module(appFinbank
             qml/TransferTypeWindow.ui.qml
         RESOURCES resources/resources.qrc
         QML_FILES qml/SignUp.qml
-        QML_FILES qml/SignUp2.qml
 )
 
 qt_add_ios_ffmpeg_libraries(appFinbank)
@@ -84,7 +83,7 @@ set_target_properties(appFinbank PROPERTIES
 )
 
 target_link_libraries(appFinbank
-    PRIVATE Qt6::Quick Qt6::Multimedia Qt6::NetworkAuth Qt6::Sql Qt6::Charts
+    PRIVATE Qt6::Quick Qt6::Multimedia Qt6::Sql Qt6::Charts
 )
 
 include(GNUInstallDirs)

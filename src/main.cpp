@@ -3,7 +3,6 @@
 #include "register.hpp"
 #include "databasemanager.hpp"
 #include "login.hpp"
-#include "googlegateway.hpp"
 #include "dashboard.hpp"
 #include "searchrecipent.hpp"
 #include "createtransaction.hpp"
@@ -35,7 +34,6 @@ int main(int argc, char *argv[])
     LogIn* login = new LogIn(db);
     Register registercls;
     Dashboard dashboard;
-    GoogleGateway googleGateway;
     SearchRecipent searchrecipent;
     CreateTransaction createTransaction;
     StockAPIClient stockAPIClient;
@@ -44,7 +42,6 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("login", login);
     engine.rootContext()->setContextProperty("register", &registercls);
     engine.rootContext()->setContextProperty("dashboard", &dashboard);
-    engine.rootContext()->setContextProperty("googlegateway", &googleGateway);
     engine.rootContext()->setContextProperty("searchrecipent", &searchrecipent);
     engine.rootContext()->setContextProperty("createtransaction", &createTransaction);
     engine.rootContext()->setContextProperty("stockAPIClient", &stockAPIClient);
