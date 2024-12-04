@@ -14,6 +14,11 @@ Window {
         id: signInWindow
         visible: false
     }
+    SignUp
+    {
+        id:signUpWindow
+        visible: false
+    }
 
 
     id:root
@@ -236,6 +241,11 @@ Window {
                             anchors.centerIn: parent
                         }
                     }
+                    onClicked:
+                    {
+                        signUpWindow.visible = true
+                        root.visible = false
+                    }
 
                 }
 
@@ -243,7 +253,7 @@ Window {
                 {
 
                     width: parent.width
-                    height: parent.height / 2
+                    height: parent.height / 2.5
                     anchors.centerIn: parent
                     anchors.verticalCenterOffset: 74
                     source: "qrc:/resources/landingpage2.mp4"

@@ -10,7 +10,7 @@ class LogIn : public QObject
 public:
     explicit LogIn(DatabaseManager* dbManager, QObject *parent = nullptr);  // Constructor with DatabaseManager reference
 
-    Q_INVOKABLE void logInUser(const QString& phone, const QString& password, const bool& isGoogleRegistered);
+    Q_INVOKABLE void logInUser(const QString& input, const QString& password, const bool& isGoogleRegistered, const bool& isEmailLogin);
     Q_INVOKABLE QString getUsername();
 
 private:
