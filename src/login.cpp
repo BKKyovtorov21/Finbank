@@ -32,7 +32,8 @@ void LogIn::logInUser(const QString &input, const QString &password, const bool&
 
                 if (qry.value("password").toString() == hashedPassword)
                 {
-                    emit logInSuccessful(qry.value("username").toString());
+                    QString fullName= qry.value("first_name").toString() + " " + qry.value("last_name").toString();
+                    emit logInSuccessful(qry.value("username").toString(), fullName);
                     qDebug() << qry.value("username").toString();
                     return; // Exit the function if login is successful
                 }
@@ -80,7 +81,8 @@ void LogIn::logInUser(const QString &input, const QString &password, const bool&
 
                     if (qry.value("password").toString() == hashedPassword)
                     {
-                        emit logInSuccessful(qry.value("username").toString());
+                        QString fullName= qry.value("first_name").toString() + " " + qry.value("last_name").toString();
+                        emit logInSuccessful(qry.value("username").toString(), fullName);
                         return; // Exit the function if login is successful
                     }
                     else
@@ -125,7 +127,8 @@ void LogIn::logInUser(const QString &input, const QString &password, const bool&
                 m_username = qry.value("username").toString();
                 if (qry.value("googleRegistered").toBool() == isGoogleRegistered)
                 {
-                    emit logInSuccessful(m_username);
+                    QString fullName= qry.value("first_name").toString() + " " + qry.value("last_name").toString();
+                    emit logInSuccessful(m_username, fullName);
                     return;
                 }
                 else

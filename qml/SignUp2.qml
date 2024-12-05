@@ -12,11 +12,33 @@ Window {
     minimumHeight: 800
     property bool isTablet: width < 900
     property bool isPhone: width < 500
-
+    property string username
+    property string email
+    property string password
+    property string gender
+    property alias firstNameTextField: firstNameTextField
+    property alias lastNameTextField: lastNameTextField
+    property alias dateOfBirthTextField: dateTextField
+    property alias phoneNumberTextField: phoneNumberTextField
     Loader
     {
         id: loader
         source: ""
+    }
+    Dashboard
+    {
+        id: dasboard
+        visible: false
+    }
+
+    Connections
+    {
+        target: register
+        onRegisterSuccessful:
+        {
+            dasboard.visible = true
+            root.visible = false
+        }
     }
 
     RowLayout
@@ -71,50 +93,15 @@ Window {
             }
             Item
             {
-                Layout.preferredHeight: 40
-            }
-            RowLayout
-            {
-                Layout.alignment: Qt.AlignHCenter
-                Rectangle
-                {
-                    Layout.preferredWidth: 60
-                    Layout.preferredHeight: 60
-                    color: "#DEDEDE"
-                    radius: 10
-                    Image
-                    {
-                        source: "qrc:/resources/google.svg"
-                        anchors.centerIn: parent
-                        width: 30
-                        height:30
-                    }
-                }
-                Rectangle
-                {
-                    Layout.preferredWidth: 60
-                    Layout.preferredHeight: 60
-                    color: "#DEDEDE"
-                    radius: 10
-                    Image
-                    {
-                        source: "qrc:/resources/github.svg"
-                        anchors.centerIn: parent
-                        width: 30
-                        height:30
-                    }
-                }
-            }
-            Item
-            {
-                Layout.preferredHeight: 50
+                Layout.preferredHeight: 30
             }
 
             TextField
             {
+                id: firstNameTextField
                 Layout.alignment: Qt.AlignHCenter
-                Layout.preferredWidth: 400
-                Layout.preferredHeight: 50
+                Layout.preferredWidth: !root.isTablet ? 400 : 300
+                Layout.preferredHeight: !root.isTablet? 50 : 40
                 placeholderText: "Enter your first name"
                 placeholderTextColor: "#535353"
                 topPadding: 10
@@ -128,13 +115,15 @@ Window {
             }
             Item
             {
-                Layout.preferredHeight: 10
+                Layout.preferredHeight: 3
             }
             TextField
             {
+                id: lastNameTextField
+
                 Layout.alignment: Qt.AlignHCenter
-                Layout.preferredWidth: 400
-                Layout.preferredHeight: 50
+                Layout.preferredWidth: !root.isTablet ? 400 : 300
+                Layout.preferredHeight: !root.isTablet? 50 : 40
                 placeholderText: "Enter your last name"
                 placeholderTextColor: "#535353"
                 topPadding: 10
@@ -149,41 +138,59 @@ Window {
             }
             Item
             {
-                Layout.preferredHeight: 10
+                Layout.preferredHeight: 3
             }
-            TextField
-            {
-                Layout.preferredWidth: 400
-                Layout.preferredHeight: 50
-                Layout.alignment: Qt.AlignHCenter
-                placeholderText: "Enter your date of birth"
-                placeholderTextColor: "#535353"
-                topPadding: 10
-                font.pixelSize: 23
-                color: "#535353"
+            TextField {
+                    id: dateTextField
+                    Layout.preferredWidth: !root.isTablet ? 400 : 300
+                    Layout.preferredHeight: !root.isTablet ? 50 : 40
+                    Layout.alignment: Qt.AlignHCenter
+                    placeholderText: "Enter your date of birth (YYYY-MM-DD)"
+                    placeholderTextColor: "#535353"
+                    topPadding: 10
+                    font.pixelSize: 20
+                    color: "#535353"
+                    background: Rectangle {
+                        color: "#DEDEDE"
+                        radius: 10
+                    }
 
-                background: Rectangle
-                {
-                    color: "#DEDEDE"
-                    radius: 10
-                }
-                Image
-                {
-                    anchors.right: parent.right
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.rightMargin: 20
-                    source: "qrc:/resources/visibility.svg"
+                    // Allow only digits and dashes
+                    onTextChanged: {
+                        // Remove any non-numeric and non-dash characters
+                        text = text.replace(/[^0-9\-]/g, '');
 
+                        // Automatically insert dashes after the appropriate number of characters
+                        if (text.length > 4 && text[4] !== '-') {
+                            text = text.substring(0, 4) + '-' + text.substring(4);
+                        }
+                        if (text.length > 7 && text[7] !== '-') {
+                            text = text.substring(0, 7) + '-' + text.substring(7);
+                        }
+
+                        // Ensure that the date follows the YYYY-MM-DD format
+                        if (text.length > 10) {
+                            text = text.substring(0, 10); // Limit input to 10 characters (YYYY-MM-DD)
+                        }
+                    }
+
+                    Image {
+                        visible: !root.isTablet
+                        anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.rightMargin: 20
+                        source: "qrc:/resources/calendar.svg"
+                    }
                 }
-            }
             Item
             {
-                Layout.preferredHeight: 10
+                Layout.preferredHeight: 3
             }
             TextField
             {
-                Layout.preferredWidth: 400
-                Layout.preferredHeight: 50
+                id: phoneNumberTextField
+                Layout.preferredWidth: !root.isTablet ? 400 : 300
+                Layout.preferredHeight: !root.isTablet? 50 : 40
                 Layout.alignment: Qt.AlignHCenter
                 placeholderText: "Enter your phone number"
                 placeholderTextColor: "#535353"
@@ -201,43 +208,82 @@ Window {
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.rightMargin: 20
-                    source: "qrc:/resources/visibility.svg"
+                    source: "qrc:/resources/phone.svg"
 
                 }
             }
-
+            Item
+            {
+                Layout.preferredHeight: 10
+            }
             RowLayout
             {
-                Layout.preferredWidth: 150
                 Layout.alignment: Qt.AlignHCenter
+                spacing: 100
                 Rectangle {
-                    Layout.preferredWidth: 50
-                    Layout.preferredHeight: 50
-                    border.color: "black"
-                    border.width: 2
-                    radius: 5
-                    anchors.centerIn: parent
-                    color: "white"
+                    id: rect2
+                    property bool clicked: false // Initialize to false
+                    Layout.preferredWidth: 60
+                    Layout.preferredHeight: 60
+                    color: "transparent"
+                    border.color: "#999999"
+                    border.width: 1
+                    radius: 10
 
-                    CheckBox {
-                        anchors.fill: parent
+                    Image {
+                        visible: rect2.clicked // Tied to clicked property
+                        source: "qrc:/resources/tickCB.svg"
                         anchors.centerIn: parent
-                        text: "I agree"
+                        width: 20
+                        height: 20
+                    }
+
+                    Text {
+                        anchors.left: parent.right
+                        anchors.leftMargin: 10
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: qsTr("Male")
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            rect2.clicked = !rect2.clicked; // Toggle clicked state
+                            root.gender = "Male"
+                        }
                     }
                 }
                 Rectangle {
-                    Layout.preferredWidth: 50
-                    Layout.preferredHeight: 50
-                    border.color: "black"
-                    border.width: 2
-                    radius: 5
-                    anchors.centerIn: parent
-                    color: "white"
+                    id: rect1
+                    property bool clicked: false // Initialize to false
+                    Layout.preferredWidth: 60
+                    Layout.preferredHeight: 60
+                    color: "transparent"
+                    border.color: "#999999"
+                    border.width: 1
+                    radius: 10
 
-                    CheckBox {
-                        anchors.fill: parent
+                    Image {
+                        visible: rect1.clicked // Tied to clicked property
+                        source: "qrc:/resources/tickCB.svg"
                         anchors.centerIn: parent
-                        text: "I disagree"
+                        width: 20
+                        height: 20
+                    }
+
+                    Text {
+                        anchors.left: parent.right
+                        anchors.leftMargin: 10
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: qsTr("Female")
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            rect1.clicked = !rect1.clicked; // Toggle clicked state
+                            root.gender = "Female"
+                        }
                     }
                 }
             }
@@ -264,27 +310,15 @@ Window {
                 {
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenterOffset: -20
                     font.pixelSize: 20
-                    text: "Continue"
+                    text: "Register"
 
                 }
-                Image
+                onClicked:
                 {
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenterOffset: 40
-                    anchors.verticalCenterOffset: 2
-                    source: "qrc:/resources/rightArrow.svg"
+                    register.registerAccount(root.username, root.email, root.password, root.firstNameTextField.text, root.lastNameTextField.text, root.dateOfBirthTextField.text, root.gender, root.phoneNumberTextField.text, false, "")
                 }
             }
-
-            Item
-            {
-                Layout.preferredHeight: 10
-            }
-
-
             Item
             {
                 Layout.preferredHeight: 10
@@ -314,7 +348,7 @@ Window {
             {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                source: "qrc:/resources/.mp4"
+                source: "qrc:/resources/bgif.mp4"
                 autoPlay: true
                 loops: MediaPlayer.Infinite
                 fillMode: VideoOutput.Stretch

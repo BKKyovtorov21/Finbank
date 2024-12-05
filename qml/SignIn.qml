@@ -209,9 +209,10 @@ Window {
             }
             Connections {
                         target: login
-                        onLogInSuccessful: function(username){
+                        onLogInSuccessful: function(username, fullName){
                             dashboardWindow.visible = true
-                            dashboardWindow.usernameRef = "username"
+                            dashboardWindow.usernameRef = username
+                            dashboardWindow.fullName = fullName
                             root.visible = false;
                         }
                     }

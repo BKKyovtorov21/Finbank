@@ -12,11 +12,33 @@ Window {
     minimumHeight: 800
     property bool isTablet: width < 900
     property bool isPhone: width < 500
+    property alias usernameTextField: usernameTextField
+    property alias emailTextField: emailTextField
+    property alias passwordTextField: passwordTextField
+
 
     Loader
     {
         id: loader
         source: ""
+    }
+
+    SignUp2
+    {
+        id: signup2
+        visible: false
+    }
+
+    Connections
+    {
+        target: googlegateway
+        onGoogleLoginSuccessful:
+        {
+            signup2.visible = true
+            root.visible = false
+            signup2.username = userName
+            signup2.email = userEmail
+        }
     }
 
     RowLayout
@@ -89,6 +111,14 @@ Window {
                         width: 30
                         height:30
                     }
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        onClicked:
+                        {
+                            googlegateway.click();
+                        }
+                    }
                 }
                 Rectangle
                 {
@@ -112,9 +142,10 @@ Window {
 
             TextField
             {
+                id:usernameTextField
                 Layout.alignment: Qt.AlignHCenter
-                Layout.preferredWidth: 400
-                Layout.preferredHeight: 50
+                Layout.preferredWidth: !root.isTablet ? 400 : 300
+                Layout.preferredHeight: !root.isTablet? 50 : 40
                 placeholderText: "Enter your username"
                 placeholderTextColor: "#535353"
                 topPadding: 10
@@ -132,9 +163,10 @@ Window {
             }
             TextField
             {
+                id:emailTextField
                 Layout.alignment: Qt.AlignHCenter
-                Layout.preferredWidth: 400
-                Layout.preferredHeight: 50
+                Layout.preferredWidth: !root.isTablet ? 400 : 300
+                Layout.preferredHeight: !root.isTablet? 50 : 40
                 placeholderText: "Enter your email"
                 placeholderTextColor: "#535353"
                 topPadding: 10
@@ -153,8 +185,9 @@ Window {
             }
             TextField
             {
-                Layout.preferredWidth: 400
-                Layout.preferredHeight: 50
+                id:passwordTextField
+                Layout.preferredWidth: !root.isTablet ? 400 : 300
+                Layout.preferredHeight: !root.isTablet? 50 : 40
                 Layout.alignment: Qt.AlignHCenter
                 placeholderText: "Enter your password"
                 placeholderTextColor: "#535353"
@@ -213,8 +246,12 @@ Window {
                 }
                 onClicked:
                 {
-                    loader.source = "SignUp2.qml"
+                    signup2.visible = true
                     root.visible = false
+                    signup2.username = root.usernameTextField.text
+                    signup2.email = root.emailTextField.text
+                    signup2.password = root.passwordTextField.text
+
                 }
             }
             Item

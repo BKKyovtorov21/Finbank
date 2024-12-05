@@ -13,13 +13,12 @@ Window {
     property bool isTablet: width < 900
     property bool isPhone: width < 500
 
-        property string usernameRef: "test"
+        property string usernameRef
        property real balance: 3000
        property real income: 3000
        property real expenses: 3000
        property string cardInfo: ""
-       property string firstName: ""
-       property string lastName: ""
+       property string fullName
        property string pfp: ""
 
     TradingDashboard
@@ -216,9 +215,7 @@ Window {
                     anchors.leftMargin: -96
                     anchors.top: parent.top
                     anchors.topMargin: 17
-
-
-                    text: qsTr("Boyan Kiovtorov")
+                    text: rootdashboard.fullName
                 }
 
                 Text {
@@ -229,7 +226,7 @@ Window {
                     anchors.top: fullname.bottom
                     anchors.topMargin: 10
                     anchors.left: fullname.left
-                    text: qsTr("@kiovtorov")
+                    text: "@" + rootdashboard.usernameRef
                 }
             }
 
@@ -985,8 +982,8 @@ Window {
     RowLayout {
             id: layouttablet
             anchors.fill: parent
-            visible: isTablet  // Corrected to 'isTablet'
-
+            //visible: isTablet  // Corrected to 'isTablet'
+            visible: false
             Rectangle {
                 visible: !isPhone
 

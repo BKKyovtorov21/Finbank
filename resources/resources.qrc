@@ -89,5 +89,7 @@
         <file>phone.svg</file>
         <file>google.svg</file>
         <file>bgif.mp4</file>
+        <file>calendar.svg</file>
+        <file>tickCB.svg</file>
     </qresource>
 </RCC>

@@ -64,9 +64,9 @@ qt_add_qml_module(appFinbank
             qml/OverviewTransaction.qml
 
             qml/TransferTypeWindow.ui.qml
+            qml/SignUp.qml
+            qml/SignUp2.qml
         RESOURCES resources/resources.qrc
-        QML_FILES qml/SignUp.qml
-        QML_FILES qml/SignUp2.qml
 )
 
 qt_add_ios_ffmpeg_libraries(appFinbank)

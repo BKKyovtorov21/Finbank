@@ -19,5 +19,5 @@ private:
     QString Hash(const QString &password, const QString &salt);
 
 signals:
-    void logInSuccessful(const QString& username);
+    void logInSuccessful(const QString& username, const QString& fullName);
 };
