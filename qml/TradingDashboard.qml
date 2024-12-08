@@ -2,10 +2,10 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtCharts 2.15
 
-Window {
+Item {
     visible: true
     id: root
-    width: 1280
+    width: Math.max(parent.width, 800)
     height: 832
 
     property var monthLabels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]

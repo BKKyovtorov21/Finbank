@@ -12,12 +12,15 @@ Window {
     minimumHeight: 800
     property bool isTablet: width < 900
     property bool isPhone: width < 500
+    property bool emailLogin
+    property bool validlogin
+    property int spaceCounter: 0
 
 
-    Dashboard
+    Loader
     {
-        id:dashboardWindow
-        visible: false
+        id: loader
+        source: ""
     }
 
     Flickable {
@@ -37,13 +40,13 @@ Window {
                 fillMode: Image.PreserveAspectFit
                 Layout.preferredHeight: 100
                 Layout.alignment: Qt.AlignHCenter
-                Layout.leftMargin: !isTablet ? 10 : -5
+                Layout.leftMargin: !root.isTablet ? 10 : -5
             }
 
             Text {
                 id: welcome
                 text: qsTr("Welcome back")
-                font.pixelSize: isTablet ? 20 : 40
+                font.pixelSize: root.isTablet ? 20 : 40
                 Layout.alignment: Qt.AlignHCenter
             }
 
@@ -61,16 +64,19 @@ Window {
             RowLayout {
                 Layout.alignment: Qt.AlignHCenter
                 spacing: 10
-                Layout.leftMargin: !isTablet ? 40 : undefined
+                Layout.leftMargin: !root.isTablet ? 40 : undefined
 
                 Rectangle {
+                    visible: !root.emailLogin
                     id: countryPhone
                     radius: 20
                     color: "#EBEBF1"
-                    Layout.preferredWidth: isTablet ? 100 : 150
+                    Layout.preferredWidth: root.isTablet ? 100 : 150
                     Layout.preferredHeight: 80
                     RowLayout {
                         anchors.fill: parent
+                        visible: !root.emailLogin
+
                         Image {
                             id: country
                             Layout.preferredWidth: 40
@@ -83,7 +89,7 @@ Window {
                         Text {
                             text: qsTr("+359")
                             Layout.alignment: Qt.AlignVCenter
-                            font.pixelSize: isTablet ? 15 : 20
+                            font.pixelSize: root.isTablet ? 15 : 20
                         }
                     }
                 }
@@ -91,26 +97,101 @@ Window {
                 Rectangle {
                     radius: 20
                     color: "#EBEBF1"
-                    Layout.preferredWidth: isTablet ? 170 : 220
+                    Layout.preferredWidth: root.emailLogin ? (root.isTablet ? 300 : 400) : (root.isTablet ? 170 : 220)
                     Layout.preferredHeight: 80
+
+                    // Email TextField
                     TextField {
-                        id:textField
+                        focus: root.emailLogin
+                        id: emailTextField
+                        visible: root.emailLogin
                         background: Rectangle {
-                            color: "transparent"  // Background color
-                            radius: 5       // Rounded corners (optional)
+                            color: "transparent"
+                            radius: 5
                         }
                         anchors.fill: parent
-                        font.pixelSize: isTablet ? 15 : 20
+                        font.pixelSize: root.isTablet ? 15 : 20
+                        placeholderText: qsTr("Email")
+                        placeholderTextColor: "gray"
+                        color: "black"
+                        inputMethodHints: Qt.ImhNone
+                    }
+
+                    // Phone Number TextField
+                    TextField {
+                        focus: !root.emailLogin
+                        id: phoneTextField
+                        visible: !root.emailLogin
+                        background: Rectangle {
+                            color: "transparent"
+                            radius: 5
+                        }
+                        anchors.fill: parent
+                        font.pixelSize: root.isTablet ? 15 : 20
                         placeholderText: qsTr("Phone number")
-                        placeholderTextColor: "gray"  // Set the placeholder text color to gray
-                        color: "black"  // Set the text color to black
+                        placeholderTextColor: "gray"
+                        color: "black"
                         inputMethodHints: Qt.ImhFormattedNumbersOnly
                         validator: IntValidator {
                             bottom: 0
                             top: 999999999
                         }
+                        Keys.onPressed: {
+                                    if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+                                        root.validlogin = true;
+                                        console.log("Enter pressed, validlogin:", validlogin)
+                                                    event.accepted = true;  // Optionally stop further propagation of the event
+                                    }
+                                }
                     }
                 }
+            }
+
+            RowLayout
+            {
+                visible: root.validlogin
+
+                    Layout.alignment: Qt.AlignHCenter
+                    spacing: 10
+                    Layout.leftMargin: !root.isTablet ? 40 : undefined
+                    Rectangle {
+                        radius: 20
+                        color: "#EBEBF1"
+                        Layout.preferredWidth: root.isTablet ? 300 : 400
+                        Layout.preferredHeight: 80
+
+                        // Email TextField
+                        TextField {
+                            id: passwordTextField
+                            focus: root.validlogin
+                            echoMode: TextInput.Password
+                            background: Rectangle {
+                                color: "transparent"
+                                radius: 5
+                            }
+                            anchors.fill: parent
+                            font.pixelSize: root.isTablet ? 15 : 20
+                            placeholderText: qsTr("Password")
+                            placeholderTextColor: "gray"
+                            color: "black"
+                            Keys.onPressed: {
+                                        if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+                                            if(root.validlogin)
+                                                {
+                                                if(root.emailLogin)
+                                                {
+                                                login.logInUser(emailTextField.text, passwordTextField.text, false, true);
+                                                }
+                                                else
+                                                {
+                                                    login.logInUser(phoneTextField.text, passwordTextField.text, false, false);
+                                                }
+                                            }
+                                        }
+                                    }
+                        }
+                    }
+
             }
 
             Text {
@@ -130,22 +211,35 @@ Window {
                 Text {
                     anchors.centerIn: parent
                     color: "white"
-                    text: qsTr("Continue")
+                    text: !root.validlogin ? qsTr("Next") : qsTr("Log In")
                     font.pixelSize: 20
                 }
 
                 MouseArea {
                         anchors.fill: parent // Fills the entire rectangle
                         onClicked: {
-                            login.logInUser(textField.text, "test", false); // Call the login function with Google flag as false
+                            if(root.validlogin)
+                                {
+                                if(root.emailLogin)
+                                {
+                                login.logInUser(emailTextField.text, passwordTextField.text, false, true);
+                                }
+                                else
+                                {
+                                    login.logInUser(phoneTextField.text, passwordTextField.text, false, false);
+                                }
+                            }
+                            root.validlogin = true;
                         }
+
                     }
             }
             Connections {
                         target: login
-                        onLogInSuccessful: function(username){
-                            dashboardWindow.visible = true
-                            dashboardWindow.usernameRef = "username"
+                        onLogInSuccessful: function(username, fullName){
+                            loader.source = "Dashboard.qml";
+                            loader.item.usernameRef = username;
+                            loader.item.fullName = fullName;
                             root.visible = false;
                         }
                     }
@@ -165,22 +259,31 @@ Window {
                         Image {
                             id: methodImage1
                             Layout.preferredWidth: 30
-                            Layout.preferredHeight: 24
-                            source: "qrc:/resources/email.svg"
-                            anchors.left: parent.left
-                            anchors.leftMargin: 25
+                            Layout.preferredHeight: 30
+                            source: !root.emailLogin ? "qrc:/resources/email.svg" : "qrc:/resources/phone.svg"
+                            Layout.leftMargin: 25
 
                         }
 
                         Text {
-                            text: qsTr("Continue with email")
-                            font.pixelSize: isTablet ? 15 : 20
+                            text: !root.emailLogin ? qsTr("Continue with email") : qsTr("Continue with phone")
+                            font.pixelSize: root.isTablet ? 15 : 20
                             font.bold: true
                         }
 
                         MouseArea
                         {
                             anchors.fill: parent
+                            onClicked:
+                            {
+                                if(!root.emailLogin){
+                                root.emailLogin = true
+                                }
+                                else
+                                {
+                                    root.emailLogin = false
+                                }
+                            }
                         }
                     }
 
@@ -205,7 +308,7 @@ Window {
 
                         Text {
                             text: qsTr("Continue with google")
-                            font.pixelSize: isTablet ? 15 : 20
+                            font.pixelSize: root.isTablet ? 15 : 20
                             font.bold: true
                         }
                     }
@@ -214,7 +317,6 @@ Window {
                         anchors.fill: parent
                         onClicked:
                         {
-                            console.log("sds");
                             googlegateway.click();
                         }
                     }
@@ -239,7 +341,7 @@ Window {
 
                         Text {
                             text: qsTr("Continue with apple")
-                            font.pixelSize: isTablet ? 15 : 20
+                            font.pixelSize: root.isTablet ? 15 : 20
                             font.bold: true
 
                         }
@@ -260,8 +362,8 @@ Window {
                 target: googlegateway
                 onGoogleLoginSuccessful: {
                     console.log("google")
-                    var username = googlegateway.userName || "";  // Use empty string if undefined
-                    login.logInUser(username, "", true); // Call login function with Google flag as true
+                    var email = googlegateway.userEmail; // Get the email from the signal
+                    login.logInUser(email, "", true, false); // Call login function with Google flag as true
                 }
             }
 }

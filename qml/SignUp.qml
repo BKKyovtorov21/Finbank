@@ -1,97 +1,292 @@
 import QtQuick
+import QtQuick.Layouts
 import QtQuick.Controls
-Item {
+import QtMultimedia
+Window {
     visible: true
     id: root
-    width: 1280
-    height: Screen.width * 0.9
+    width: Screen.width
+    height: Screen.height
 
-    // This Loader will load the external QML file when the button is clicked
-    Loader {
+    minimumWidth: 400
+    minimumHeight: 800
+    property bool isTablet: width < 900
+    property bool isPhone: width < 500
+    property alias usernameTextField: usernameTextField
+    property alias emailTextField: emailTextField
+    property alias passwordTextField: passwordTextField
+
+
+    Loader
+    {
         id: loader
-        anchors.fill: parent
-        source: ""  // Start with no source, will load dynamically
+        source: ""
+    }
 
-        onStatusChanged: {
-            if (loader.status === Loader.Ready && loader.item) {
-                // Pass the variables to the loaded QML file
+    SignUp2
+    {
+        id: signup2
+        visible: false
+    }
 
-                loader.item.username = username;
-                loader.item.email = email;
-                loader.item.password = password;
-                loader.item.firstNamegoogle = firstNamegoogle;
-                loader.item.lastNamegoogle = lastNamegoogle;
-                loader.item.googleRegister = googleRegister;
-                loader.item.pfp = pfp
-            }
+    Connections
+    {
+        target: googlegateway
+        onGoogleLoginSuccessful:
+        {
+            signup2.visible = true
+            root.visible = false
+            signup2.username = userName
+            signup2.email = userEmail
         }
     }
 
-    // Variables to hold form data
-    property string username: ""
-    property string email: ""
-    property string password: ""
-    property string usernameGoogle: ""
-    property string firstNamegoogle: ""
-    property string lastNamegoogle: ""
-    property bool googleRegister: false
-    property string pfp: ""
-
-    SignUpWindow {
-        id: signUpWindow
-        anchors.fill: parent // Fill the parent window
-
-        signUp_PB.onClicked: {
-            if(usernameField !== "" && emailField !== "" && passwordField !== "") {
-                username = usernameField;
-                email = emailField;
-                password = passwordField;
-                // Load the new QML file
-                signUpWindow.visible = false
-                loader.source = "SignUp1.qml";
-            }
-        }
-
-        googleFast1.onClicked:
+    RowLayout
+    {
+        anchors.fill: parent
+        ColumnLayout
         {
-            googlegateway.click();
+            Layout.preferredWidth: parent.width / 2
+            Layout.fillHeight: true
+            Layout.alignment: root.isTablet ? Qt.AlignHCenter : undefined | Qt.AlignTop
+            Image
+            {
+                Layout.alignment: Qt.AlignHCenter
+                source: "qrc:/resources/logo1.png"
+            }
+            Item
+            {
+                Layout.preferredHeight: 15
+            }
+
+            Text
+            {
+                text: qsTr("Create your account")
+                font.bold: true
+                Layout.alignment: Qt.AlignHCenter
+                font.pixelSize: 20
+
+            }
+            Item
+            {
+                Layout.preferredHeight: 15
+            }
+            Text
+            {
+                text: qsTr("Sign up account")
+                font.bold: true
+                Layout.alignment: Qt.AlignHCenter
+                font.pixelSize: 30
+
+            }
+            Item
+            {
+                Layout.preferredHeight: 15
+            }
+            Text
+            {
+                text: qsTr("Enter your personal data to create your account")
+                font.bold: true
+                Layout.alignment: Qt.AlignHCenter
+                font.pixelSize: 15
+
+            }
+            Item
+            {
+                Layout.preferredHeight: 40
+            }
+            RowLayout
+            {
+                Layout.alignment: Qt.AlignHCenter
+                Rectangle
+                {
+                    Layout.preferredWidth: 60
+                    Layout.preferredHeight: 60
+                    color: "#DEDEDE"
+                    radius: 10
+                    Image
+                    {
+                        source: "qrc:/resources/google.svg"
+                        anchors.centerIn: parent
+                        width: 30
+                        height:30
+                    }
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        onClicked:
+                        {
+                            googlegateway.click();
+                        }
+                    }
+                }
+                Rectangle
+                {
+                    Layout.preferredWidth: 60
+                    Layout.preferredHeight: 60
+                    color: "#DEDEDE"
+                    radius: 10
+                    Image
+                    {
+                        source: "qrc:/resources/github.svg"
+                        anchors.centerIn: parent
+                        width: 30
+                        height:30
+                    }
+                }
+            }
+            Item
+            {
+                Layout.preferredHeight: 50
+            }
+
+            TextField
+            {
+                id:usernameTextField
+                Layout.alignment: Qt.AlignHCenter
+                Layout.preferredWidth: !root.isTablet ? 400 : 300
+                Layout.preferredHeight: !root.isTablet? 50 : 40
+                placeholderText: "Enter your username"
+                placeholderTextColor: "#535353"
+                topPadding: 10
+                font.pixelSize: 23
+                color: "#535353"
+                background: Rectangle
+                {
+                    color: "#DEDEDE"
+                    radius: 10
+                }
+            }
+            Item
+            {
+                Layout.preferredHeight: 3
+            }
+            TextField
+            {
+                id:emailTextField
+                Layout.alignment: Qt.AlignHCenter
+                Layout.preferredWidth: !root.isTablet ? 400 : 300
+                Layout.preferredHeight: !root.isTablet? 50 : 40
+                placeholderText: "Enter your email"
+                placeholderTextColor: "#535353"
+                topPadding: 10
+                font.pixelSize: 23
+                color: "#535353"
+
+                background: Rectangle
+                {
+                    color: "#DEDEDE"
+                    radius: 10
+                }
+            }
+            Item
+            {
+                Layout.preferredHeight: 3
+            }
+            TextField
+            {
+                id:passwordTextField
+                Layout.preferredWidth: !root.isTablet ? 400 : 300
+                Layout.preferredHeight: !root.isTablet? 50 : 40
+                Layout.alignment: Qt.AlignHCenter
+                placeholderText: "Enter your password"
+                placeholderTextColor: "#535353"
+                topPadding: 10
+                font.pixelSize: 23
+                color: "#535353"
+
+                background: Rectangle
+                {
+                    color: "#DEDEDE"
+                    radius: 10
+                }
+                Image
+                {
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.rightMargin: 20
+                    source: "qrc:/resources/visibility.svg"
+
+                }
+            }
+            Item
+            {
+                Layout.preferredHeight: 30
+            }
+
+            Button
+            {
+                Layout.preferredWidth: 300
+                Layout.preferredHeight: 60
+                Layout.alignment: Qt.AlignHCenter
+
+                background: Rectangle
+                {
+                    color: "transparent"
+                    border.width: 1
+                    border.color: "#535353"
+                    radius: 15
+                }
+                Text
+                {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenterOffset: -20
+                    font.pixelSize: 20
+                    text: "Continue"
+
+                }
+                Image
+                {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenterOffset: 40
+                    anchors.verticalCenterOffset: 2
+                    source: "qrc:/resources/rightArrow.svg"
+                }
+                onClicked:
+                {
+                    signup2.visible = true
+                    root.visible = false
+                    signup2.username = root.usernameTextField.text
+                    signup2.email = root.emailTextField.text
+                    signup2.password = root.passwordTextField.text
+
+                }
+            }
+            Item
+            {
+                Layout.preferredHeight: 10
+            }
+
+            Button
+            {
+                Layout.alignment: Qt.AlignHCenter
+                background: Text
+                {
+                    text: "Already have an account?"
+                    color: "#6E6E6E"
+                }
+            }
+            Item
+            {
+                Layout.fillHeight: true
+            }
+
         }
-        Connections {
-            target: googlegateway
-            onGoogleLoginSuccessful: {
-                signUpWindow.isGoogleRegistration = true; // Set to true for Google registration
-                googleRegister = true;
-                // Ensure that googlegateway.userName and googlegateway.email are not undefined
-                if (googlegateway.userName !== undefined) {
-                    signUpWindow.usernameField = googlegateway.userName;
-                    console.log(signUpWindow.usernameField);
-                } else {
-                    console.log("Error: googlegateway.userName is undefined");
-                }
-
-                if (googlegateway.userEmail !== undefined) {
-                    signUpWindow.emailField = googlegateway.userEmail; // Direct assignment to the email property
-                } else {2
-                    console.log("Error: googlegateway.email is undefined");
-                }
-                if (googlegateway.userFirstName !== undefined) {
-                    firstNamegoogle = googlegateway.userFirstName; // Direct assignment to the email propertyco
-                } else {
-                    console.log("Error: googlegateway.userFirstName is undefined");
-                }
-                if (googlegateway.userLastName !== undefined) {
-                    lastNamegoogle = googlegateway.userLastName; // Direct assignment to the email property
-                } else {
-                    console.log("Error: googlegateway.userLastName is undefined");
-                }
-
-                pfp = googlegateway.userPicture
-                signUpWindow.visible = false
-                username = signUpWindow.usernameField;
-                email = signUpWindow.emailField;
-                password = signUpWindow.passwordField;
-                loader.source = "SignUp1.qml";
-
+        ColumnLayout
+        {
+            visible: !root.isTablet
+           Layout.preferredWidth: parent.width / 2
+           Layout.preferredHeight: parent.height
+            Video
+            {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                source: "qrc:/resources/bgif.mp4"
+                autoPlay: true
+                loops: MediaPlayer.Infinite
+                fillMode: VideoOutput.Stretch
             }
         }
     }

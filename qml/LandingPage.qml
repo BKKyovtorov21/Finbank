@@ -8,14 +8,6 @@ import QtMultimedia
 
 
 Window {
-
-    SignIn
-    {
-        id: signInWindow
-        visible: false
-    }
-
-
     id:root
     visible: true
     title: "Responsive Layout Example"
@@ -105,7 +97,7 @@ Window {
                     }
                     onClicked:
                     {
-                        signInWindow.visible = true
+                        loader.source = "SignIn.qml"
                         root.visible = false
                     }
                 }
@@ -124,6 +116,11 @@ Window {
                     background: Rectangle {
                         color: "#1c1f31"
                         radius: 20
+                    }
+                    onClicked:
+                    {
+                        loader.source = "SignUp.qml"
+                        root.visible = false
                     }
                 }
                 Text {
@@ -206,7 +203,7 @@ Window {
                     }
                     onClicked:
                     {
-                        signInWindow.visible = true
+                        loader.setSource = "SignIn.qml"
                         root.visible = false
                     }
 
@@ -236,6 +233,11 @@ Window {
                             anchors.centerIn: parent
                         }
                     }
+                    onClicked:
+                    {
+                        loader.source = "SignUp.qml"
+                        root.visible = false
+                    }
 
                 }
 
@@ -243,7 +245,7 @@ Window {
                 {
 
                     width: parent.width
-                    height: parent.height / 2
+                    height: parent.height / 2.5
                     anchors.centerIn: parent
                     anchors.verticalCenterOffset: 74
                     source: "qrc:/resources/landingpage2.mp4"

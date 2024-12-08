@@ -86,5 +86,11 @@
         <file>rightArrow2.svg</file>
         <file>dashboardInactive.svg</file>
         <file>marketStockActive.svg</file>
+        <file>phone.svg</file>
+        <file>google.svg</file>
+        <file>bgif.mp4</file>
+        <file>calendar.svg</file>
+        <file>tickCB.svg</file>
+        <file>filter.svg</file>
     </qresource>
 </RCC>

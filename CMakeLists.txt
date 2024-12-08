@@ -33,7 +33,7 @@ qt_add_qml_module(appFinbank
     VERSION 1.0
     QML_FILES
             qml/LandingPage.qml
-            qml/SignUp.qml
+
 
             qml/TradingDashboard.qml
             qml/Stock.qml
@@ -42,7 +42,7 @@ qt_add_qml_module(appFinbank
             qml/SendMoneyWindow.ui.qml
             qml/SelectRecipent.qml
             qml/RecipentDescription.qml
-            qml/SignUpWindow_1.ui.qml
+
             qml/RecipentDescriptionWindow.ui.qml
             qml/TransferType.qml
             qml/SignIn.qml
@@ -58,12 +58,14 @@ qt_add_qml_module(appFinbank
             qml/SingleTransactionDetail.qml
             qml/TransactionDetailsWindows.ui.qml
             qml/SendMoney.qml
-            qml/SignUpWindow.ui.qml
+
             qml/SelectedRecipent.qml
             qml/TradingDashboardWindow.ui.qml
             qml/OverviewTransaction.qml
-            qml/SignUp1.qml
+
             qml/TransferTypeWindow.ui.qml
+            qml/SignUp.qml
+            qml/SignUp2.qml
         RESOURCES resources/resources.qrc
 )
 

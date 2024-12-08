@@ -13,20 +13,13 @@ Window {
     property bool isTablet: width < 900
     property bool isPhone: width < 500
 
-        property string usernameRef: "test"
+        property string usernameRef
        property real balance: 3000
        property real income: 3000
        property real expenses: 3000
        property string cardInfo: ""
-       property string firstName: ""
-       property string lastName: ""
+       property string fullName
        property string pfp: ""
-
-    TradingDashboard
-    {
-        id:tradingPage
-        visible: false
-    }
 
     onVisibleChanged:
     {
@@ -63,7 +56,8 @@ Window {
 
     ColumnLayout
     {
-        visible: !isTablet
+        visible: !rootdashboard.isTablet
+        //visible: false
         property real expensesValue
         property real incomeValue: 3000
         anchors.fill: parent
@@ -73,7 +67,7 @@ Window {
             spacing: 8 // Adjust spacing between icon and TextField
             Image {
                 id: name
-                source: !isTablet ? "qrc:/resources/logo1.png" : "qrc:/resources/pfp.jpg"
+                source: !rootdashboard.isTablet ? "qrc:/resources/logo1.png" : "qrc:/resources/pfp.jpg"
             }
             Rectangle
             {
@@ -123,7 +117,7 @@ Window {
 
             Item {
                 Layout.fillWidth: true
-                height: 30
+                Layout.preferredHeight: 30
 
                 RowLayout {
 
@@ -216,9 +210,7 @@ Window {
                     anchors.leftMargin: -96
                     anchors.top: parent.top
                     anchors.topMargin: 17
-
-
-                    text: qsTr("Boyan Kiovtorov")
+                    text: rootdashboard.fullName
                 }
 
                 Text {
@@ -229,7 +221,7 @@ Window {
                     anchors.top: fullname.bottom
                     anchors.topMargin: 10
                     anchors.left: fullname.left
-                    text: qsTr("@kiovtorov")
+                    text: "@" + rootdashboard.usernameRef
                 }
             }
 
@@ -242,7 +234,7 @@ Window {
 
             Text {
                 text: qsTr("Good afternoon, Boyan")
-                font.pixelSize: !isTablet ? 35 : 15
+                font.pixelSize: !rootdashboard.isTablet ? 35 : 15
                 font.bold: true
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop // Combine alignment flags
                 Layout.leftMargin: 15
@@ -282,7 +274,7 @@ Window {
             {
 
                 background:Text {
-                    id: transactionsPage
+                    id: transactions
                     text: qsTr("Transactions")
                     color: "#2F2F2F"
                     font.pixelSize: 15
@@ -291,9 +283,10 @@ Window {
                 }
                 onClicked:
                 {
-                    dashboardwindowDesktop.visible = false
                     loader.source = "Transactions.qml"
-
+                    loader.item.username = rootdashboard.usernameRef
+                    loader.item.fullName = rootdashboard.fullName
+                    rootdashboard.visible = false
                 }
             }
             Button
@@ -309,8 +302,7 @@ Window {
                 }
                 onClicked:
                 {
-                    tradingPage.visible = true
-                    rootdashboard.visible = false
+                    loader.source = "TradingDashboard.qml"
                 }
             }
             Button
@@ -374,23 +366,20 @@ Window {
                         anchors.fill: parent
                     RowLayout {
                         id: textRow
-                        width: parent.width
-                        height: 48
-                        anchors.top: parent.top
-                        anchors.topMargin: 40
-                        anchors.horizontalCenter: parent.horizontalCenter
-
+                        Layout.preferredWidth: parent.width
+                        Layout.preferredHeight: 48
+                        Layout.topMargin: 10
+                        Layout.alignment: Qt.AlignHCenter
 
 
                         Text {
                             property real balanceValue: rootdashboard.balance
-                            visible: !isPhone
+                            visible: !rootdashboard.isPhone
                             id: balance
                             color: "black"
                             text: "$" + balanceValue.toFixed(2)
                             font.pixelSize: 40
-                            anchors.left: parent.left
-
+                            Layout.alignment: Qt.AlignLeft
                             SequentialAnimation on balanceValue {
                                 id: balanceAnimation
                                 NumberAnimation {
@@ -418,8 +407,7 @@ Window {
                                text: qsTr("Compared to last month")
                                font.pixelSize: 15
                                color: "#2f2f2f" // Optional for styling
-                               anchors.left:  percent.right
-                               anchors.leftMargin: 10
+                               Layout.leftMargin: 10
                         }
                     }
 
@@ -985,10 +973,10 @@ Window {
     RowLayout {
             id: layouttablet
             anchors.fill: parent
-            visible: isTablet  // Corrected to 'isTablet'
-
+            visible: rootdashboard.isTablet  // Corrected to 'isTablet'
+            //visible: true
             Rectangle {
-                visible: !isPhone
+                visible: !rootdashboard.isPhone
 
                 color: "#F7F7F7"
                 Layout.fillHeight: true
@@ -1425,7 +1413,7 @@ Window {
 
                             // Rectangle wrapping ListView with border
                             Rectangle {
-                                id: transactions
+                                id: transactions2
                                anchors.fill: parent
                                anchors.leftMargin: 10
                                anchors.rightMargin: 10

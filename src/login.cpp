@@ -12,12 +12,14 @@ LogIn::LogIn(DatabaseManager* dbManager, QObject *parent)
 {
 }
 
-void LogIn::logInUser(const QString &phone, const QString &password, const bool& isGoogleRegistered)
+void LogIn::logInUser(const QString &input, const QString &password, const bool& isGoogleRegistered, const bool& isEmailLogin)
 {
     QSqlQuery qry(m_dbManager->GetDatabase());
     if (!isGoogleRegistered)
     {
-        QString modifiedPhone = "0" + phone;
+        if(!isEmailLogin)
+        {
+        QString modifiedPhone = "0" + input;
         qry.prepare("SELECT * FROM users WHERE phone = :phone");
         qry.bindValue(":phone", modifiedPhone);
 
@@ -26,12 +28,13 @@ void LogIn::logInUser(const QString &phone, const QString &password, const bool&
             if (qry.next())
             {
                 m_username = qry.value("username").toString();
-                qDebug() << qry.value("username");
                 QString hashedPassword = Hash(password, qry.value("passwordSalt").toString());
 
                 if (qry.value("password").toString() == hashedPassword)
                 {
-                    emit logInSuccessful(qry.value("username").toString());
+                    QString fullName= qry.value("first_name").toString() + " " + qry.value("last_name").toString();
+                    emit logInSuccessful(qry.value("username").toString(), fullName);
+                    qDebug() << qry.value("username").toString();
                     return; // Exit the function if login is successful
                 }
                 else
@@ -62,19 +65,70 @@ void LogIn::logInUser(const QString &phone, const QString &password, const bool&
             QMessageBox::critical(nullptr, "Login Error", "Database query failed: " + qry.lastError().text());
             return;
         }
+        }
+        else
+        {
+            qry.prepare("SELECT * FROM users WHERE email = :email");
+            qry.bindValue(":email", input);
+
+            if (qry.exec())
+            {
+                if (qry.next())
+                {
+                    m_username = qry.value("username").toString();
+                    qDebug() << qry.value("username");
+                    QString hashedPassword = Hash(password, qry.value("passwordSalt").toString());
+
+                    if (qry.value("password").toString() == hashedPassword)
+                    {
+                        QString fullName= qry.value("first_name").toString() + " " + qry.value("last_name").toString();
+                        emit logInSuccessful(qry.value("username").toString(), fullName);
+                        return; // Exit the function if login is successful
+                    }
+                    else
+                    {
+                        qDebug() << "Login failed: Password mismatch";
+                        qDebug() << "Stored password hash:" << qry.value("password").toString();
+                        qDebug() << "Computed hash with input:" << hashedPassword;
+
+                        // Show error message for password mismatch
+                        QMessageBox::critical(nullptr, "Login Failed", "Incorrect username or password.");
+                        return;
+                    }
+                }
+                else
+                {
+                    qDebug() << "Login failed: Username not found";
+
+                    // Show error message for username not found
+                    QMessageBox::critical(nullptr, "Login Failed", "Username not found.");
+                    return;
+                }
+            }
+            else
+            {
+                qDebug() << "Query execution failed:" << qry.lastError().text();
+
+                // Show error message for query execution failure
+                QMessageBox::critical(nullptr, "Login Error", "Database query failed: " + qry.lastError().text());
+                return;
+            }
+        }
     }
     else // Google registration case
     {
-        qry.prepare("SELECT * FROM users WHERE username = :username");
-        qry.bindValue(":username", m_username);
-        emit logInSuccessful("");
+        qry.prepare("SELECT * FROM users WHERE email = :email");
+        qry.bindValue(":email", input);
 
         if (qry.exec())
         {
             if (qry.next())
             {
+                m_username = qry.value("username").toString();
                 if (qry.value("googleRegistered").toBool() == isGoogleRegistered)
                 {
+                    QString fullName= qry.value("first_name").toString() + " " + qry.value("last_name").toString();
+                    emit logInSuccessful(m_username, fullName);
                     return;
                 }
                 else

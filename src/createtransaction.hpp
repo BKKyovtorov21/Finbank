@@ -10,7 +10,7 @@ public:
 
     Q_INVOKABLE void makeTransaction(const QString& senderIBAN, const QString& recipentIBAN, const QString& sendingInfo, const QString& receivingInfo);
 
-    Q_INVOKABLE void showTransactions(const QString& userIBAN, const bool& showMore);
+    Q_INVOKABLE void showTransactions(const QString& userIBAN);
 
     Q_INVOKABLE void buyStock(const QString& username, const int& shares, const QString& stockTicker, const QString& stockPrice);
 signals:
