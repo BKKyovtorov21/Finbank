@@ -11,7 +11,7 @@ Rectangle {
     property alias username: username.text
     property alias stockMarketButton: stockMarketButton
     id: tradingDashboardWindow
-    width: 1280
+    width: Math.max(Screen.width, 800) // Ensure minimum width of 200px
     height: 832
     color: "#ffffff"
 
@@ -2409,7 +2409,7 @@ Rectangle {
         y: 776
 
         background: Text {
-             text: qsTr("Back to Finbank")
+            text: qsTr("Back to Finbank")
             font.pixelSize: 18
             color: "black"
         }

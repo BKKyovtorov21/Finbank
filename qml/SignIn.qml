@@ -14,12 +14,13 @@ Window {
     property bool isPhone: width < 500
     property bool emailLogin
     property bool validlogin
+    property int spaceCounter: 0
 
 
-    Dashboard
+    Loader
     {
-        id:dashboardWindow
-        visible: false
+        id: loader
+        source: ""
     }
 
     Flickable {
@@ -101,6 +102,7 @@ Window {
 
                     // Email TextField
                     TextField {
+                        focus: root.emailLogin
                         id: emailTextField
                         visible: root.emailLogin
                         background: Rectangle {
@@ -117,6 +119,7 @@ Window {
 
                     // Phone Number TextField
                     TextField {
+                        focus: !root.emailLogin
                         id: phoneTextField
                         visible: !root.emailLogin
                         background: Rectangle {
@@ -133,6 +136,13 @@ Window {
                             bottom: 0
                             top: 999999999
                         }
+                        Keys.onPressed: {
+                                    if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+                                        root.validlogin = true;
+                                        console.log("Enter pressed, validlogin:", validlogin)
+                                                    event.accepted = true;  // Optionally stop further propagation of the event
+                                    }
+                                }
                     }
                 }
             }
@@ -153,6 +163,7 @@ Window {
                         // Email TextField
                         TextField {
                             id: passwordTextField
+                            focus: root.validlogin
                             echoMode: TextInput.Password
                             background: Rectangle {
                                 color: "transparent"
@@ -162,8 +173,24 @@ Window {
                             font.pixelSize: root.isTablet ? 15 : 20
                             placeholderText: qsTr("Password")
                             placeholderTextColor: "gray"
-                            color: "black"                        }
+                            color: "black"
+                            Keys.onPressed: {
+                                        if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+                                            if(root.validlogin)
+                                                {
+                                                if(root.emailLogin)
+                                                {
+                                                login.logInUser(emailTextField.text, passwordTextField.text, false, true);
+                                                }
+                                                else
+                                                {
+                                                    login.logInUser(phoneTextField.text, passwordTextField.text, false, false);
+                                                }
+                                            }
+                                        }
+                                    }
                         }
+                    }
 
             }
 
@@ -210,9 +237,9 @@ Window {
             Connections {
                         target: login
                         onLogInSuccessful: function(username, fullName){
-                            dashboardWindow.visible = true
-                            dashboardWindow.usernameRef = username
-                            dashboardWindow.fullName = fullName
+                            loader.source = "Dashboard.qml";
+                            loader.item.usernameRef = username;
+                            loader.item.fullName = fullName;
                             root.visible = false;
                         }
                     }

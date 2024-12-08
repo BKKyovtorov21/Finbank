@@ -123,9 +123,9 @@ void CreateTransaction::makeTransaction(const QString &senderIBAN, const QString
     }
 }
 
-void CreateTransaction::showTransactions(const QString &userIBAN, const bool &showMore)
+void CreateTransaction::showTransactions(const QString &userIBAN)
 {
-    qDebug() << "sds3";
+    qDebug() << "called";
     QString baseQuery = R"(
         SELECT sendingValue, sendingCurrency, receivingValue, receivingCurrency, senderIBAN, recipentIBAN
         FROM transactions
