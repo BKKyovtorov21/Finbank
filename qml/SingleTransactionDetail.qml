@@ -4,7 +4,8 @@ import QtQuick.Layouts
 Rectangle {
     id: root
     height: 50
-    property real widthRef
+    width: Screen.width
+    property string status
     property string recipent
     property string value
     property string transactionType
@@ -17,22 +18,21 @@ Rectangle {
 
         Image {
             id: ellipse
-            source: "qrc:/resources/ellipse_6.png"
+            source: root.ellipseColor
             Image {
                 anchors.centerIn: parent
-                source: "qrc:/resources/rightArrow.svg"
-                rotation: -90
+                source: root.arrow
             }
         }
         Text {
             id: transactionType
-            text: qsTr("Sending money to")
+            text: root.transactionType
         }
         Text {
             Layout.leftMargin: 5
             font.bold: true
             id: recipent
-            text: qsTr("Vicho")
+            text: root.recipent
         }
         Text {
             Layout.leftMargin: 10
@@ -44,7 +44,7 @@ Rectangle {
             Layout.fillWidth: true
         }
         Text {
-            text: "-500 BGN"
+            text: root.value
             Layout.alignment: Qt.AlignRight
         }
     }

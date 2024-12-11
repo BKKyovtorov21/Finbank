@@ -91,6 +91,12 @@
         <file>bgif.mp4</file>
         <file>calendar.svg</file>
         <file>tickCB.svg</file>
+        <file>bars.svg</file>
+        <file>bitcoin.svg</file>
+        <file>contact.svg</file>
         <file>filter.svg</file>
+        <file>invest.png</file>
+        <file>invest2.svg</file>
+        <file>more2.svg</file>
     </qresource>
 </RCC>

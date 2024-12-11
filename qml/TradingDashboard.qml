@@ -2,7 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtCharts 2.15
 
-Item {
+Window {
     visible: true
     id: root
     width: Math.max(parent.width, 800)

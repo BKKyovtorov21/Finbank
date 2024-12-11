@@ -95,11 +95,16 @@ Window {
                         color: "black"
                         font.pixelSize: 16
                     }
-                    onClicked:
-                    {
-                        loader.source = "SignIn.qml"
-                        root.visible = false
-                    }
+                    onClicked: {
+                            var component = Qt.createComponent("SignIn.qml");
+                            if (component.status === Component.Ready) {
+                                var signInWindow = component.createObject();
+                                signInWindow.visible = true;
+                                root.close(); // Close the current window
+                            } else {
+                                console.log("Error loading SignIn.qml: " + component.errorString());
+                            }
+                        }
                 }
 
             }
@@ -203,8 +208,8 @@ Window {
                     }
                     onClicked:
                     {
-                        loader.setSource = "SignIn.qml"
-                        root.visible = false
+                        loader.source = "SignIn.qml"
+                        root.close()
                     }
 
 

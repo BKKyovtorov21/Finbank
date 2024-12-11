@@ -1,72 +1,93 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Shapes 1.0
+import QtQuick.Layouts
 
-Button {
-    id: foundUserWindow
-    width: 236
-    height: 175
-    property alias userEmail: email.text
-    property alias userFullname: fullName.text
-    property alias userPfp: pfp.source
+Item {
+    id: root
+    property bool isPhone
+    property string fullName
+    property string email
+    property string pfp
 
-    background:Text {
-        id: fullName
-        width: 163
-        height: 28
-        color: "#000000"
-        text: qsTr("Boyan Kiovtorov")
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: 12
-        anchors.topMargin: 104
-        font.pixelSize: 18
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignTop
-        wrapMode: Text.Wrap
-        font.weight: Font.Bold
-        font.family: "Gelasio"
+    property alias overlayButton: overlayButton
+
+    width: 300
+    height: root.isPhone ? 100 : 200
+
+    RowLayout {
+        visible: root.isPhone
+        anchors.fill: parent
+        Image {
+            Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+            source: root.pfp
+            Layout.preferredWidth: 80
+            Layout.preferredHeight: 80
+            Layout.leftMargin: 20
+        }
+        ColumnLayout {
+            Text {
+                Layout.leftMargin: 5
+                text: root.fullName
+                font.pixelSize: 20
+                color: "#504F56"
+                font.bold: true
+            }
+            Text {
+                Layout.leftMargin: 5
+                text: root.email
+                font.pixelSize: 15
+                color: "#727272"
+            }
+        }
     }
 
-    Text {
-        id: email
-        width: 188
-        height: 24
-        color: "#727272"
-        text: qsTr("boyankiovtorov@gmail.com")
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: 12
-        anchors.topMargin: 140
-        font.pixelSize: 14
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignTop
-        wrapMode: Text.Wrap
-        font.weight: Font.Medium
-        font.family: "Gelasio"
+    ColumnLayout {
+        visible: !root.isPhone
+        anchors.fill: parent
+        RowLayout {
+            Layout.preferredWidth: parent.width
+            Image {
+                Layout.alignment: Qt.AlignLeft
+                source: root.pfp
+                Layout.preferredWidth: 100
+                Layout.preferredHeight: 100
+                Layout.topMargin: 20
+                Layout.leftMargin: 20
+            }
+            Image {
+                Layout.alignment: Qt.AlignRight
+                source: "qrc:/resources/more2.svg"
+            }
+        }
+        Text {
+            Layout.leftMargin: 25
+            text: root.fullName
+            font.pixelSize: 30
+            color: "#727272"
+        }
+        Text {
+            Layout.leftMargin: 25
+            Layout.bottomMargin: 10
+            text: root.email
+            font.pixelSize: 20
+            color: "#727272"
+        }
     }
 
-    Image {
-        id: element
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.leftMargin: 199
-        anchors.rightMargin: 17
-        anchors.topMargin: 31
-        anchors.bottomMargin: 142
-        source: "qrc:/resources/more.svg"
-        antialiasing: true
-    }
-
-    Image {
-        id: pfp
-        x: 18
-        y: 15
-        width: 70
-        height: 70
-
-        source: "../assets/usd.png"
+    // Invisible Button Overlay
+    Rectangle {
+        id: overlayButton
+        anchors.fill: parent
+        color: "transparent" // Fully transparent
+        opacity: 0          // Invisible
+        enabled: true        // Still clickable
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                console.log("Button clicked!");
+                // Add your button click logic here
+            }
+        }
     }
 }

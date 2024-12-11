@@ -17,12 +17,6 @@ Window {
     property int spaceCounter: 0
 
 
-    Loader
-    {
-        id: loader
-        source: ""
-    }
-
     Flickable {
         anchors.fill: parent
         contentWidth: root.width
@@ -136,13 +130,13 @@ Window {
                             bottom: 0
                             top: 999999999
                         }
-                        Keys.onPressed: {
-                                    if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                                        root.validlogin = true;
-                                        console.log("Enter pressed, validlogin:", validlogin)
-                                                    event.accepted = true;  // Optionally stop further propagation of the event
-                                    }
-                                }
+                        Keys.onPressed: function(event) {
+                            if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+                                root.validlogin = true;
+                                console.log("Enter pressed, validlogin:", root.validlogin);
+                                event.accepted = true;  // Optionally stop further propagation of the event
+                            }
+                        }
                     }
                 }
             }
@@ -174,21 +168,17 @@ Window {
                             placeholderText: qsTr("Password")
                             placeholderTextColor: "gray"
                             color: "black"
-                            Keys.onPressed: {
-                                        if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                                            if(root.validlogin)
-                                                {
-                                                if(root.emailLogin)
-                                                {
-                                                login.logInUser(emailTextField.text, passwordTextField.text, false, true);
-                                                }
-                                                else
-                                                {
-                                                    login.logInUser(phoneTextField.text, passwordTextField.text, false, false);
-                                                }
-                                            }
+                            Keys.onPressed: function(event) {
+                                if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+                                    if (root.validlogin) {
+                                        if (root.emailLogin) {
+                                            login.logInUser(emailTextField.text, passwordTextField.text, false, true);
+                                        } else {
+                                            login.logInUser(phoneTextField.text, passwordTextField.text, false, false);
                                         }
                                     }
+                                }
+                            }
                         }
                     }
 
@@ -235,14 +225,20 @@ Window {
                     }
             }
             Connections {
-                        target: login
-                        onLogInSuccessful: function(username, fullName){
-                            loader.source = "Dashboard.qml";
-                            loader.item.usernameRef = username;
-                            loader.item.fullName = fullName;
-                            root.visible = false;
-                        }
+                target: login
+
+                // Define the signal handler as a function
+                function onLogInSuccessful(username, fullName) {
+                    var component = Qt.createComponent("Dashboard.qml");
+                    if (component.status === Component.Ready) {
+                        var signInWindow = component.createObject(null, { "usernameRef": username, "fullName": fullName }); // Pass the variable here
+                        signInWindow.visible = true;
+                        root.close();
+                    } else {
+                        console.log("Error loading Dashboard.qml: " + component.errorString());
                     }
+                }
+            }
             ColumnLayout {
                 spacing: 20
                 Layout.fillWidth: true
@@ -271,18 +267,18 @@ Window {
                             font.bold: true
                         }
 
-                        MouseArea
+                    }
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        onClicked:
                         {
-                            anchors.fill: parent
-                            onClicked:
+                            if(!root.emailLogin){
+                            root.emailLogin = true
+                            }
+                            else
                             {
-                                if(!root.emailLogin){
-                                root.emailLogin = true
-                                }
-                                else
-                                {
-                                    root.emailLogin = false
-                                }
+                                root.emailLogin = false
                             }
                         }
                     }
@@ -359,11 +355,11 @@ Window {
     }
 
     Connections {
-                target: googlegateway
-                onGoogleLoginSuccessful: {
-                    console.log("google")
-                    var email = googlegateway.userEmail; // Get the email from the signal
-                    login.logInUser(email, "", true, false); // Call login function with Google flag as true
-                }
-            }
+        target: googlegateway
+        function onGoogleLoginSuccessful() {
+            console.log("google")
+            var email = googlegateway.userEmail; // Get the email from the signal
+            login.logInUser(email, "", true, false); // Call login function with Google flag as true
+        }
+    }
 }

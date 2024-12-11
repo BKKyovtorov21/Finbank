@@ -2,16 +2,17 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Qt5Compat.GraphicalEffects
+import QtQuick.Timeline
 Window {
-    visible: true
     id: root
+    visible: true
     width: Screen.width
     height: Screen.height
 
     minimumWidth: 400
     minimumHeight: 800
-    property bool isTablet: width < 900
-    property bool isPhone: width < 500
+    property bool isTablet: width <= 900
+    property bool isPhone: width <= 500
 
     property string fullName
     property string username
@@ -30,23 +31,58 @@ Window {
     ListModel {
         id: transactionModel
     }
+    Timeline {
+        id: timeline
+        animations: [
+            TimelineAnimation {
+                id: timelineAnimation
+                running: false
+                loops: 1
+                duration: 200
+                to: 200
+                from: 0
+            }
+        ]
+        startFrame: 0
+        endFrame: 200
+        enabled: true
+        KeyframeGroup {
+            target: newContactRect
+            property: "border.color"
+            Keyframe {
+                value: "#66cd8b"
+                frame: 200
+            }
+        }
+        KeyframeGroup
+        {
+            target: continueButton
+            property: "color"
+            Keyframe
+            {
+                value: "#1A2035"
+                frame: 200
+            }
+        }
+    }
     Connections {
         target: createtransaction
-        onTransactionFound: function(fullname, receivingValue, receivingCurrency, isReceiving) {
+        function onTransactionFound(fullname, receivingValue, receivingCurrency, isReceiving) {
             var transaction = isReceiving ? "Receiving" : "Sending";
             transactionModel.append({
                 recipent: fullname,
-                value: receivingValue + " " + receivingCurrency,
+                value: isReceiving ? "+" + receivingValue + " " + receivingCurrency : "-" + receivingValue + " " + receivingCurrency,
                 transactionType: transaction,
-                ellipseColor: isReceiving ? "qrc:/resources/ellipseGreen.png" : "../assets/ellipse_6.png",
-                arrow: isReceiving ? "qrc:/resources/receiving.svg" : "qrc:/resources/sending.svg"
+                ellipseColor: isReceiving ? "qrc:/resources/ellipseGreen.png" : "qrc:/resources/ellipse_6.png",
+                arrow: isReceiving ? "qrc:/resources/receiving.svg" : "qrc:/resources/sending.svg",
+                status: isReceiving ? "Received" : "Sent"
             });
         }
     }
     //desktop view
     ColumnLayout
     {
-        visible: !isTablet
+        visible: !root.isTablet
         anchors.fill: parent
         RowLayout
         {
@@ -104,7 +140,7 @@ Window {
 
             Item {
                 Layout.fillWidth: true
-                height: 30
+                Layout.preferredHeight: 30
 
                 RowLayout {
 
@@ -130,9 +166,6 @@ Window {
                             anchors.leftMargin: 5
                         }
                         id: searchField
-
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.verticalCenterOffset: -3 // Shift upwards by 5 pixels
                         Layout.fillWidth: true // Make it expand to fill the remaining space
 
                         placeholderText: qsTr("Search")
@@ -202,13 +235,13 @@ Window {
 
                 Text {
                     x: 112
-                    y: 39
                     width: 69
                     height: 16
                     anchors.top: fullname.bottom
                     anchors.topMargin: 10
                     anchors.left: fullname.left
                     text: "@" + root.username
+                    anchors.verticalCenter: userpfp.verticalCenter
                 }
             }
 
@@ -344,6 +377,13 @@ Window {
                     height: 15
                     rotation: -90
                 }
+                onClicked:
+                {
+                    loader.source = "SelectRecipent.qml"
+                    loader.item.username = root.username
+                    loader.item.fullName = root.fullName
+                    root.visible = false;
+                }
             }
             Button
             {
@@ -374,6 +414,10 @@ Window {
                     width: 15
                     height: 15
                     rotation: 90
+                }
+                onClicked:
+                {
+
                 }
             }
             Button
@@ -538,8 +582,9 @@ Window {
             id:navbar
             Layout.preferredWidth: 100
             Layout.fillHeight: true
-            visible: !isPhone
+            visible: !root.isPhone
             spacing: 10
+
             Item
             {
                 Layout.preferredHeight:15
@@ -550,18 +595,6 @@ Window {
                 Layout.preferredWidth: 50
                 Layout.preferredHeight: 50
                 Layout.alignment: Qt.AlignHCenter
-                layer.effect: OpacityMask {
-                maskSource: mask
-                }
-            }
-
-            Image {
-                id: storeIcon
-                anchors.fill: mask
-                source: model.source
-                fillMode: Image.PreserveAspectCrop
-                layer.enabled: true
-
             }
 
             Rectangle
@@ -647,9 +680,9 @@ Window {
                 Layout.preferredHeight: 60
                 Layout.alignment: Qt.AlignHCenter
                 orientation: ListView.Horizontal
-                spacing: !isPhone ? 30 : 15
+                spacing: !root.isPhone ? 30 : 15
                 model: ListModel {
-                    ListElement {source: "qrc:/resources/rightArrow2.svg"; text: "Send";rotation: -90}
+                    ListElement {source: "qrc:/resources/rightArrow2.svg"; text: "Send";rotation: -90; method1: true}
                     ListElement {source: "qrc:/resources/rightArrow2.svg"; text: "Request"; rotation: 90}
                     ListElement {source: "qrc:/resources/convert.svg"; text: "Convert"; rotation: 0}
                     ListElement {source: "qrc:/resources/more.svg"; text: "More"; rotation: 0}
@@ -673,6 +706,14 @@ Window {
                             source: model.source
                             rotation: model.rotation
                         }
+                        MouseArea
+                        {
+                            anchors.fill: parent
+                            onClicked:
+                            {
+                                bottomDrawer.open();
+                            }
+                        }
                     }
 
                     Text {
@@ -692,7 +733,7 @@ Window {
                 Text {
                             text: "Goals 1000/2000 USD"
                             font.pixelSize: 20
-                            anchors.horizontalCenter: parent.horizontalCenter
+                            Layout.alignment: Qt.AlignHCenter
                         }
 
                         Rectangle {
@@ -813,9 +854,231 @@ Window {
                                 }
                             }
                         }
+                        Drawer
+                        {
+                            id: bottomDrawer
+                                    width: parent.width
+                                    height: 550
+                                    edge: Qt.BottomEdge
+                                    Rectangle {
+                                                width: parent.width
+                                                height: parent.height
+                                                color: "white"
+
+                                                ColumnLayout
+                                                {
+                                                    anchors.fill: parent
+                                                    Text
+                                                    {
+                                                        font.pixelSize: 25
+                                                        Layout.preferredHeight: 30
+                                                        Layout.leftMargin: 30
+                                                        Layout.topMargin: 15
+                                                        font.bold: true
+                                                        text: qsTr("Where would you send
+the money?")
+                                                    }
+
+                                                    Rectangle
+                                                    {
+                                                        id:newContactRect
+                                                        border.width: 1
+                                                        Layout.fillWidth: true
+                                                        Layout.rightMargin: 25
+                                                        Layout.leftMargin: 25
+                                                        Layout.topMargin: 40
+
+                                                        Layout.preferredHeight: 80
+                                                        radius:20
+                                                        MouseArea
+                                                        {
+                                                            anchors.fill: parent
+                                                            onClicked:
+                                                            {
+                                                                timelineAnimation.running = true
+                                                            }
+                                                        }
+                                                        Rectangle
+                                                        {
+                                                            width: 50
+                                                            height: 50
+                                                            anchors.verticalCenter: parent.verticalCenter
+                                                            anchors.left: parent.left
+                                                            anchors.leftMargin: 10
+                                                            color: "grey"
+                                                            opacity: 0.5
+                                                            radius: 30
+                                                            Image
+                                                            {
+                                                                anchors.centerIn: parent
+                                                                source: "qrc:/resources/contact.svg"
+
+                                                            }
+
+                                                        }
+                                                        Text
+                                                        {
+                                                            id:method1
+                                                            anchors.left: parent.left
+                                                            anchors.leftMargin: 70
+                                                            anchors.top: parent.top
+                                                            anchors.topMargin: 5
+                                                            text: "New Recipent"
+                                                            font.bold: true
+                                                            font.pixelSize: 18
+                                                        }
+                                                        Text
+                                                        {
+                                                            width: parent.width - 100
+                                                            anchors.left: method1.left
+                                                            anchors.top: method1.top
+                                                            anchors.topMargin: 30
+                                                            text: "Send money to people whose contact you don't have"
+                                                            wrapMode: Text.Wrap
+                                                            opacity: 0.5
+
+                                                            font.pixelSize: 18
+                                                        }
+
+                                                    }
+                                                    Rectangle
+                                                    {
+                                                        border.width: 1
+                                                        Layout.fillWidth: true
+                                                        Layout.rightMargin: 25
+                                                        Layout.leftMargin: 25
+                                                        Layout.preferredHeight: 80
+                                                        radius:20
+                                                        Rectangle
+                                                        {
+                                                            width: 50
+                                                            height: 50
+                                                            anchors.verticalCenter: parent.verticalCenter
+                                                            anchors.left: parent.left
+                                                            anchors.leftMargin: 10
+                                                            color: "grey"
+                                                            opacity: 0.5
+                                                            radius: 30
+                                                            Image
+                                                            {
+                                                                anchors.centerIn: parent
+                                                                source: "qrc:/resources/contact.svg"
+
+                                                            }
+
+                                                        }
+                                                        Text
+                                                        {
+                                                            id:method2
+                                                            anchors.left: parent.left
+                                                            anchors.leftMargin: 70
+                                                            anchors.top: parent.top
+                                                            anchors.topMargin: 5
+                                                            text: "Contact"
+                                                            font.bold: true
+                                                            font.pixelSize: 18
+                                                        }
+                                                        Text
+                                                        {
+                                                            width: parent.width - 100
+                                                            anchors.left: method2.left
+                                                            anchors.top: method2.top
+                                                            anchors.topMargin: 30
+                                                            text: "Send money to one of the contact lists I have"
+                                                            wrapMode: Text.Wrap
+                                                            opacity: 0.5
+
+                                                            font.pixelSize: 18
+                                                        }
+                                                    }
+                                                    Rectangle
+                                                    {
+                                                        border.width: 1
+                                                        Layout.fillWidth: true
+                                                        Layout.rightMargin: 25
+                                                        Layout.leftMargin: 25
+                                                        Layout.preferredHeight: 80
+
+                                                        radius:20
+                                                        Rectangle
+                                                        {
+                                                            width: 50
+                                                            height: 50
+                                                            anchors.verticalCenter: parent.verticalCenter
+                                                            anchors.left: parent.left
+                                                            anchors.leftMargin: 10
+                                                            color: "grey"
+                                                            opacity: 0.5
+                                                            radius: 30
+                                                            Image
+                                                            {
+                                                                id: icon3
+                                                                anchors.centerIn: parent
+                                                                source: "qrc:/resources/contact.svg"
+                                                            }
+
+                                                        }
+                                                        Text
+                                                        {
+                                                            id:method3
+                                                            anchors.left: parent.left
+                                                            anchors.leftMargin: 70
+                                                            anchors.top: parent.top
+                                                            anchors.topMargin: 5
+                                                            text: "My Self"
+                                                            font.bold: true
+                                                            font.pixelSize: 18
+                                                        }
+                                                        Text
+                                                        {
+                                                            width: parent.width - 100
+                                                            anchors.left: method3.left
+                                                            anchors.top: method3.top
+                                                            anchors.topMargin: 30
+                                                            text: "Withdraw the balance of money to my local bank account"
+                                                            wrapMode: Text.Wrap
+                                                            opacity: 0.5
+
+                                                            font.pixelSize: 18
+                                                        }
+                                                    }
+
+                                                    Button
+                                                    {
+                                                        Layout.topMargin: 30
+                                                        Layout.bottomMargin: 30
+                                                        Layout.preferredHeight: 60
+                                                        Layout.fillWidth: true
+                                                        Layout.rightMargin: 5
+                                                        Layout.leftMargin: 5
+                                                        background: Rectangle
+                                                        {
+                                                            id: continueButton
+                                                            color: "#B7C2CA"
+                                                            radius: 20
+                                                            Text
+                                                            {
+                                                                anchors.centerIn: parent
+                                                                text: "Continue"
+                                                                color: "white"
+                                                            }
+
+                                                        }
+
+                                                        onClicked:
+                                                        {
+                                                            loader.source = "SelectRecipent.qml"
+                                                            loader.item.username = root.username
+                                                            loader.item.fullName = root.fullName
+                                                            root.visible = false;
+                                                        }
+                                                    }
+
+                                                }
+                                            }
+                        }
                     }
                 }
-
 
 
         }
