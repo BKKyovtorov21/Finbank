@@ -10,7 +10,9 @@
 
 StockAPIClient::StockAPIClient(QObject *parent)
     : QObject{parent}
-{}
+{
+    converterApi = "43eb5f5641de66852e2c07c9";
+}
 
 void StockAPIClient::fetchStockData(const QString &ticker) {
     // Fetch historical price data from Polygon.io
@@ -143,4 +145,50 @@ void StockAPIClient::fetchFundamentalData(const QString &ticker, QVariantMap sto
     });
 
     manager->get(request);
+}
+
+
+void StockAPIClient::fetchExchangeRates(const QString &baseCurrency) {
+    QUrl url("https://v6.exchangerate-api.com/v6/" + converterApi + "/latest/" + baseCurrency);
+    QNetworkRequest request(url);
+
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+
+    auto reply = manager->get(request);
+    connect(reply, &QNetworkReply::finished, this, [this, reply]() {
+        if (reply->error() == QNetworkReply::NoError) {
+            QJsonDocument jsonDoc = QJsonDocument::fromJson(reply->readAll());
+            QJsonObject jsonObject = jsonDoc.object();
+            if (jsonObject.contains("conversion_rates")) {
+                QJsonObject rates = jsonObject["conversion_rates"].toObject();
+                exchangeRates.clear();
+                for (const QString &key : rates.keys()) {
+                    exchangeRates[key] = rates[key].toDouble();
+                }
+                emit exchangeRatesUpdated(exchangeRates);
+            } else {
+                emit errorOccurred("Unexpected API response format.");
+            }
+        } else {
+            emit errorOccurred(reply->errorString());
+        }
+        reply->deleteLater();
+    });
+}
+
+double StockAPIClient::convertCurrency(const QString &base, const QString &target, double amount) {
+
+    qDebug() << base << " " << target << " " << amount;
+    if (!exchangeRates.contains(base) || !exchangeRates.contains(target)) {
+        return -1; // Error: either base or target currency not available
+    }
+
+    double baseRate = exchangeRates.value(base).toDouble(); // rate for the base currency
+    double targetRate = exchangeRates.value(target).toDouble(); // rate for the target currency
+
+    qDebug() << baseRate;
+    qDebug() << targetRate;
+    // If exchangeRates contains rates relative to USD or another base currency
+    double amountInBaseCurrency = amount / baseRate; // Convert the amount to base currency
+    return amountInBaseCurrency * targetRate; // Convert from base currency to target currency
 }
