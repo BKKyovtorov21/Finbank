@@ -51,15 +51,7 @@ Window {
                     // Add to foundUsers array without updating recipentsWindow properties
                     root.foundUsers.push(userInstance);
 
-                    // Connect the button's onClicked to handleUserClick, passing user data
-                    userInstance.overlayButton.onClicked.connect(function() {
-                        root.handleUserClick({
-                            fullName: firstname + " " + lastname,
-                            email: email,
-                            username: username,  // Include username in the user data
-                            pfp: pfp
-                        });
-                    });
+
                 } else {
                     console.error("Error: User instance creation failed.");
                 }
@@ -358,7 +350,7 @@ Window {
                             Text
                             {
                                 Layout.fillWidth: true
-                                text: "1|5 Select money"
+                                text: "1|5 Select recipent"
                                 horizontalAlignment: Text.AlignHCenter
                                 font.pixelSize: 15
                                 font.bold: true
@@ -501,6 +493,17 @@ money to?")
                         anchors.centerIn: parent
                         text: "Continue"
                         color: "white"
+                    }
+                    onClicked:
+                    {
+                        var component = Qt.createComponent("SendMoney.qml");
+                                if (component.status === Component.Ready) {
+                                    var window = component.createObject(null, { "username": root.username, "fullName": root.fullName}); // Pass the variable here
+                                    window.visible = true;
+                                    root.close();
+                                } else {
+                                    console.log("Error loading SignIn.qml: " + component.errorString());
+                                }
                     }
                 }
 
