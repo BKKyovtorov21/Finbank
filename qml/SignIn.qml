@@ -27,6 +27,7 @@ Window {
             spacing: 20
             width: Math.min(root.width * 0.8, 500) // Limit max width for better centering
             anchors.centerIn: parent
+            anchors.verticalCenterOffset: root.isPhone ? -100: 0
 
 
             Image {
@@ -187,7 +188,7 @@ Window {
             Text {
                 font.pixelSize: 20
                 color: "#4F55F1"
-                text: qsTr("Lost access to my phone")
+                text: root.emailLogin ? qsTr("Lost access to my email") : qsTr("Lost access to my phone")
                 Layout.alignment: Qt.AlignHCenter
             }
 
@@ -265,6 +266,9 @@ Window {
                             text: !root.emailLogin ? qsTr("Continue with email") : qsTr("Continue with phone")
                             font.pixelSize: root.isTablet ? 15 : 20
                             font.bold: true
+                            Layout.fillWidth: true
+                            horizontalAlignment: Text.AlignHCenter
+                            Layout.rightMargin: 50
                         }
 
                     }
@@ -303,9 +307,13 @@ Window {
                         }
 
                         Text {
+
                             text: qsTr("Continue with google")
                             font.pixelSize: root.isTablet ? 15 : 20
                             font.bold: true
+                            Layout.fillWidth: true
+                            horizontalAlignment: Text.AlignHCenter
+                            Layout.rightMargin: 50
                         }
                     }
                     MouseArea
@@ -339,16 +347,34 @@ Window {
                             text: qsTr("Continue with apple")
                             font.pixelSize: root.isTablet ? 15 : 20
                             font.bold: true
+                            Layout.fillWidth: true
+                            horizontalAlignment: Text.AlignHCenter
+                            Layout.rightMargin: 50
 
                         }
                     }
                 }
 
-                Text {
-                    text: qsTr("Create account")
+                Button {
                     Layout.alignment: Qt.AlignHCenter
-                    font.pixelSize: 20
-                    color: "#4F55F1"
+
+                    background: Text
+                    {
+                        text: qsTr("Create account")
+                        font.pixelSize: 20
+                        color: "#4F55F1"
+                    }
+                    onClicked:
+                    {
+                        var component = Qt.createComponent("SignUp.qml");
+                        if (component.status === Component.Ready) {
+                            var signInWindow = component.createObject(null, { "usernameRef": username, "fullName": fullName }); // Pass the variable here
+                            signInWindow.visible = true;
+                            root.close();
+                        } else {
+                            console.log("Error loading Dashboard.qml: " + component.errorString());
+                        }
+                    }
                 }
             }
         }

@@ -14,6 +14,12 @@ Window {
     property string username
     property string fullName
 
+    property string sendingCurrency: "USD"
+    property string recipentCurrency: "CAD"
+    property real convertedAmount
+    property real exchangeRate
+    property bool sending: false
+
     Loader
     {
         id: loader
@@ -27,12 +33,20 @@ Window {
                 onExchangeRatesUpdated: {
                     console.log("Exchange rates updated:", exchangeRates);
                     // Here you can update the UI with the fetched exchange rates
+                    for (var currency in exchangeRates) {
+                                console.log("Currency:", currency, "Rate:", exchangeRates[currency]);
+                            }
                 }
 
                 onErrorOccurred: {
                     console.log("Error occurred:", errorMessage);
                     // You can show an error message or perform other actions
                 }
+
+                onGetExchangeRate: {
+                        root.exchangeRate = rate
+                        // Update the UI or perform other actions with the rate
+                    }
             }
 
     ColumnLayout
@@ -389,83 +403,7 @@ to send") : "How much do you want to send"
                                 Layout.fillWidth: true
                             }
                         }
-                        Rectangle {
-                                id: comboBox
-                                width: parent.width
-                                height: parent.height
-                                border.color: "gray"
-                                border.width: 1
-                                radius: 5
 
-                                // Currency label
-                                Text {
-                                    id: currencyLabel
-                                    text: "IDR"
-                                    font.bold: true
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    anchors.left: parent.left
-                                    anchors.leftMargin: 10
-                                }
-
-                                // Flag icon
-                                Image {
-                                    id: flagIcon
-                                    source: "qrc:/images/indonesia_flag.png"
-                                    width: 20
-                                    height: 20
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    anchors.right: parent.right
-                                    anchors.rightMargin: 10
-                                }
-
-                                // Dropdown arrow
-                                Image {
-                                    id: dropdownArrow
-                                    source: "qrc:/images/dropdown_arrow.png"
-                                    width: 15
-                                    height: 15
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    anchors.right: flagIcon.left
-                                    anchors.rightMargin: 5
-                                    rotation: 90
-                                }
-
-                                // Popup menu
-                                Popup {
-                                    id: currencyPopup
-                                    visible: true
-
-
-                                    ListView {
-                                        id: currencyList
-                                        anchors.fill: parent
-                                        model: ["USD", "EUR", "GBP", "JPY"]
-                                        delegate: Rectangle {
-                                            width: parent.width
-                                            height: 30
-                                            border.color: "gray"
-                                            border.width: 1
-                                            Text {
-                                                anchors.centerIn: parent
-                                                text: modelData
-                                            }
-                                            MouseArea {
-                                                anchors.fill: parent
-                                                onClicked: {
-                                                    currencyLabel.text = modelData
-                                                    currencyPopup.visible = false
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-
-                                // Mouse area to trigger popup
-                                MouseArea {
-                                    anchors.fill: parent
-                                    onClicked: currencyPopup.visible = !currencyPopup.visible
-                                }
-                            }
                         Text
                         {
                             text: qsTr("You will send")
@@ -488,9 +426,149 @@ to send") : "How much do you want to send"
                                 anchors.margins: 1
                                 anchors.rightMargin: 100
                                 background:Item{}
+                                font.pixelSize: 25
+                                color: "black"
+                                onTextChanged:
+                                {
+
+                                    let amount = currency.text
+                                    stockAPIClient.fetchExchangeRates(sendingCurrencyRef.text);
+                                stockAPIClient.exchangeRatesUpdated.connect(function() {
+                                    root.convertedAmount = stockAPIClient.convertCurrency(root.sendingCurrency, root.recipentCurrency, amount);
+                                });
+
+                                stockAPIClient.errorOccurred.connect(function(errorMessage) {
+                                    console.error("Error fetching exchange rates:", errorMessage);
+                                });
+
+                                }
+                            }
+
+                            Popup {
+                                id: currencyPopup
+                                visible: false
+                                width: 300
+                                height: 300
+                                clip: true
+
+
+                                closePolicy: Popup.NoAutoClose
+                                Column {
+                                    anchors.fill: parent
+
+                                    TextField {
+                                        id: searchField3
+                                        width: parent.width
+                                        height: 30
+                                        anchors.left: parent.left
+                                        anchors.right: parent.right
+                                        anchors.leftMargin: 5
+                                        anchors.rightMargin: 5
+                                        placeholderText: "Search currency"
+
+                                        onTextChanged: {
+                                                        currencyList.filterModel(searchField3.text); // Filter model when text changes
+                                                    }
+                                    }
+
+                                    ListView {
+                                        id: currencyList
+                                        anchors.left: parent.left
+                                        anchors.right: parent.right
+                                        anchors.bottom: parent.bottom
+                                        anchors.topMargin: 5
+                                        height: parent.height - searchField3.height - 10
+                                        clip: true // Ensure content stays within the ListView boundaries
+
+                                        model: filteredModel
+
+                                        delegate: Rectangle {
+                                            width: parent.width
+                                            height: 70
+                                            z: 10
+
+                                            Image {
+                                                id: currencyImagePopup
+                                                anchors.left: parent.left
+                                                anchors.leftMargin: 5
+                                                width: 40
+                                                height: 40
+                                                source: model.image
+                                            }
+
+                                            Text {
+                                                id: currencyTextPopup
+                                                anchors.left: currencyImagePopup.right
+                                                anchors.leftMargin: 20
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                anchors.verticalCenterOffset: -25
+                                                text: model.text
+                                            }
+
+                                            Text {
+                                                id:currencyTicker
+                                                anchors.top: currencyTextPopup.bottom
+                                                anchors.topMargin: 5
+                                                anchors.left: currencyTextPopup.left
+                                                color: "#BBBBC0"
+                                                text: model.text
+                                            }
+
+                                            MouseArea {
+                                                anchors.fill: parent
+                                                onClicked: {
+                                                    currencyPopup.visible = false;
+                                                    console.log(currencyTicker.text)
+                                                    if(root.sending){
+                                                        root.sendingCurrency = currencyTicker.text
+                                                        stockAPIClient.fetchExchangeRates(sendingCurrencyRef.text);
+                                                    }
+                                                    else
+                                                    {
+                                                        root.recipentCurrency = currencyTicker.text
+                                                        stockAPIClient.fetchExchangeRates(recipentCurrency.text);
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        ListModel {
+                                                id: currencyModel
+                                                ListElement { image: "qrc:/resources/usd.png"; text: "USD" }
+                                                ListElement { image: "qrc:/resources/cad.png"; text: "CAD" }
+                                                ListElement { image: "qrc:/resources/jpy.png"; text: "JPY" }
+                                                ListElement { image: "qrc:/resources/usd.png"; text: "More" }
+                                                ListElement { image: "qrc:/resources/usd.png"; text: "More" }
+                                            }
+
+                                            // Filtered data model
+                                            ListModel {
+                                                id: filteredModel
+                                            }
+
+                                            // Filtering function
+                                            function filterModel(query) {
+                                                filteredModel.clear(); // Clear the current filtered model
+
+                                                for (var i = 0; i < currencyModel.count; i++) {
+                                                    var item = currencyModel.get(i);
+                                                    if (item.text.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
+                                                        filteredModel.append(item); // Add matching items to filteredModel
+                                                    }
+                                                }
+                                            }
+
+                                            // Initialize the filtered model with all items
+                                            Component.onCompleted: {
+                                                filterModel(""); // Populate filteredModel with all items initially
+                                            }
+
+                                    }
+                                }
                             }
                             Rectangle
                             {
+                                id:sendingInfo
                                 anchors.right: parent.right
                                 height: parent.height
                                 width: parent.width - currency.width
@@ -502,15 +580,22 @@ to send") : "How much do you want to send"
                                 Image
                                 {
                                     id: currencyImage
+                                    property string resourceRef: "qrc:/resources/" + root.sendingCurrency.toLocaleLowerCase() + ".png"
+
                                     Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-                                    source: "qrc:/resources/usd.png"
+                                    source: resourceRef
                                     Layout.preferredWidth: 30
                                     Layout.preferredHeight: 30
+                                    Component.onCompleted:
+                                    {
+                                        console.log(resourceRef)
+                                    }
                                 }
                                 Text
                                 {
+                                    id: sendingCurrencyRef
                                     Layout.rightMargin: 20
-                                    text: "USD"
+                                    text: root.sendingCurrency
                                     font.pixelSize: 20
                                 }
                                 }
@@ -520,7 +605,10 @@ to send") : "How much do you want to send"
                                     anchors.fill: parent
                                     onClicked:
                                     {
-
+                                        root.sending = true
+                                        currencyPopup.visible = true
+                                        currencyPopup.x = sendingInfo.x - sendingInfo.width * 2
+                                        currencyPopup.y = sendingInfo.y + 70
                                     }
                                 }
                             }
@@ -540,16 +628,21 @@ to send") : "How much do you want to send"
                             border.width: 1
                            Layout.leftMargin: !root.isTablet ? 150 : root.isPhone ? 10 : 50
                             Layout.rightMargin: !root.isTablet ? 200 : root.isPhone ? 10 : 100
-                            TextField
+                            Text
                             {
                                 id: currency2
-                                anchors.fill: parent
-                                anchors.margins: 1
-                                anchors.rightMargin: 100
-                                background:Item{}
+                                width: parent.width - 100
+
+                                anchors.right: parent.right
+                                anchors.rightMargin: 80
+                                anchors.verticalCenter: parent.verticalCenter
+
+                                font.pixelSize: 25
+                                text: root.convertedAmount
                             }
                             Rectangle
                             {
+                                id: receivingInfo
                                 anchors.right: parent.right
                                 height: parent.height
                                 width: parent.width - currency2.width
@@ -560,19 +653,31 @@ to send") : "How much do you want to send"
 
                                 Image
                                 {
+                                    property string resourceRef: "qrc:/resources/" + root.recipentCurrency.toLowerCase() + ".png"
                                     id: currencyImage2
                                     Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-                                    source: "qrc:/resources/usd.png"
+                                    source: resourceRef
                                     Layout.preferredWidth: 30
                                     Layout.preferredHeight: 30
                                 }
                                 Text
                                 {
-
-                                    Layout.rightMargin: 20
-                                    text: "USD"
+                                    id: recipentCurrency
+                                    text: root.recipentCurrency
                                     font.pixelSize: 20
+
                                 }
+                                }
+                                MouseArea
+                                {
+                                    anchors.fill: parent
+                                    onClicked:
+                                    {
+                                        root.sending = false
+                                        currencyPopup.visible = true
+                                        currencyPopup.x = receivingInfo.x - receivingInfo.width * 2
+                                        currencyPopup.y = receivingInfo.y + 200
+                                    }
                                 }
                             }
                         }
@@ -604,7 +709,7 @@ to send") : "How much do you want to send"
                                     Text
                                     {
                                         Layout.alignment: Qt.AlignRight
-                                        text: "$ 5 USD"
+                                        text: "$ 2 USD"
                                         color: "black"
                                         font.pixelSize: root.isPhone ? 15 : 20
                                         font.bold: true
@@ -632,7 +737,7 @@ to send") : "How much do you want to send"
                                     Text
                                     {
                                         Layout.alignment: Qt.AlignRight
-                                        text: "$ 5 USD"
+                                        text: "$ " + currency.text + " " + root.sendingCurrency
                                         color: "black"
                                         font.pixelSize: root.isPhone ? 15 : 20
                                         font.bold: true
@@ -658,7 +763,7 @@ to send") : "How much do you want to send"
                                     Text
                                     {
                                         Layout.alignment: Qt.AlignRight
-                                        text: "$ 5 USD"
+                                        text: "$ " + currency.text + " " + root.sendingCurrency
                                         color: "black"
                                         font.pixelSize: root.isPhone ? 15 : 20
                                         font.bold: true
@@ -685,7 +790,7 @@ to send") : "How much do you want to send"
                                     Text
                                     {
                                         Layout.alignment: Qt.AlignRight
-                                        text: "$ 5 USD"
+                                        text: root.exchangeRate
                                         color: "black"
                                         font.pixelSize: root.isPhone ? 15 : 20
                                         font.bold: true
@@ -751,18 +856,6 @@ to send") : "How much do you want to send"
                         color: "white"
                     }
                     onClicked: {
-                                    let baseCurrency = "USD";
-                                    let targetCurrency = "CAD";
-                                    let amount = 5
-                        stockAPIClient.fetchExchangeRates(baseCurrency);
-
-                                stockAPIClient.exchangeRatesUpdated.connect(function() {
-                                    let result = stockAPIClient.convertCurrency(baseCurrency, targetCurrency, amount);
-                                });
-
-                                stockAPIClient.errorOccurred.connect(function(errorMessage) {
-                                    console.error("Error fetching exchange rates:", errorMessage);
-                                });
 
 
                                 }

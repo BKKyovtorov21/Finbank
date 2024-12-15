@@ -3,7 +3,7 @@
 #include <QObject>
 #include <QVariantMap>
 #include <QVariantList>
-
+#include <QNetworkAccessManager>
 class StockAPIClient : public QObject
 {
     Q_OBJECT
@@ -28,9 +28,12 @@ signals:
 
     void exchangeRatesUpdated(const QVariantMap &rates);
     void errorOccurred(const QString &error);
+    void getExchangeRate(const double& rate);
 
 private:
     QString converterApi;
     QVariantMap exchangeRates;
+
+    QNetworkAccessManager *networkManager;
 
 };

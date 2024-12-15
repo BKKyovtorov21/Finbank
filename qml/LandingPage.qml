@@ -10,7 +10,7 @@ import QtMultimedia
 Window {
     id:root
     visible: true
-    title: "Responsive Layout Example"
+    title: "Landing page"
     width: Screen.width
     height: Screen.height
     minimumWidth: 414
@@ -80,20 +80,19 @@ Window {
                 Layout.preferredWidth: 100
                 Layout.preferredHeight: 50
                 Layout.alignment: Qt.AlignTop
+                Layout.topMargin: -3
 
                 Button {
                     id: logInButton
                     anchors.fill: parent
                     anchors.rightMargin: 15
                     anchors.topMargin: 10
-                    background: Rectangle
-                    {
-                    }
+                    background: Rectangle{}
                     Text {
                         anchors.centerIn: parent
                         text: "Sign in"
                         color: "black"
-                        font.pixelSize: 16
+                        font.pixelSize: 20
                     }
                     onClicked: {
                             var component = Qt.createComponent("SignIn.qml");
@@ -114,7 +113,7 @@ Window {
                 Layout.preferredWidth: 150
                 Layout.preferredHeight: 50
                 Layout.alignment: Qt.AlignTop
-                Layout.topMargin: 5
+                Layout.topMargin: 2
                 Button {
                     id: registerButton
                     anchors.fill: parent
@@ -132,7 +131,7 @@ Window {
                     anchors.centerIn: parent
                     text: "Open account"
                     color: "white"
-                    font.pixelSize: 16
+                    font.pixelSize: 20
                 }
             }
             Item { Layout.preferredWidth: 20 }

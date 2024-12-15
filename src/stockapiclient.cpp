@@ -9,14 +9,11 @@
 #include <QDebug>
 
 StockAPIClient::StockAPIClient(QObject *parent)
-    : QObject{parent}
-{
+    : QObject{parent}, networkManager(new QNetworkAccessManager(this)) {
     converterApi = "43eb5f5641de66852e2c07c9";
 }
 
 void StockAPIClient::fetchStockData(const QString &ticker) {
-    // Fetch historical price data from Polygon.io
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QString apiKey = "4i0TVOoTyfYiwPsaXDd3YCuqju1kl9nH";
 
     QString endDate = QDate::currentDate().toString("yyyy-MM-dd");
@@ -26,12 +23,10 @@ void StockAPIClient::fetchStockData(const QString &ticker) {
                  .arg(ticker, startDate, endDate, apiKey));
     QNetworkRequest request(url);
 
-    connect(manager, &QNetworkAccessManager::finished, this, [=](QNetworkReply *reply) {
+    connect(networkManager, &QNetworkAccessManager::finished, this, [=](QNetworkReply *reply) {
         if (reply->error() == QNetworkReply::NoError) {
             QJsonDocument jsonResponse = QJsonDocument::fromJson(reply->readAll());
             QJsonObject jsonObject = jsonResponse.object();
-
-            // Extract metadata for main stock information
             QString indexTicker = jsonObject["ticker"].toString();
             QJsonArray resultsArray = jsonObject["results"].toArray();
 
@@ -93,11 +88,10 @@ void StockAPIClient::fetchStockData(const QString &ticker) {
         reply->deleteLater();
     });
 
-    manager->get(request);
+    networkManager->get(request);
 }
 
 void StockAPIClient::fetchFundamentalData(const QString &ticker, QVariantMap stockData) {
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QString apiKey = "8N4UQXABERJCWEZL";
 
     // URL for Alpha Vantage’s stock overview data
@@ -105,7 +99,7 @@ void StockAPIClient::fetchFundamentalData(const QString &ticker, QVariantMap sto
                  .arg(ticker, apiKey));
     QNetworkRequest request(url);
 
-    connect(manager, &QNetworkAccessManager::finished, this, [=](QNetworkReply* reply)  {
+    connect(networkManager, &QNetworkAccessManager::finished, this, [=](QNetworkReply* reply)  {
         QVariantMap combinedData = stockData;  // Copy stockData into a new map to add fundamental data
 
         if (reply->error() == QNetworkReply::NoError) {
@@ -144,7 +138,7 @@ void StockAPIClient::fetchFundamentalData(const QString &ticker, QVariantMap sto
         reply->deleteLater();
     });
 
-    manager->get(request);
+    networkManager->get(request);
 }
 
 
@@ -152,9 +146,7 @@ void StockAPIClient::fetchExchangeRates(const QString &baseCurrency) {
     QUrl url("https://v6.exchangerate-api.com/v6/" + converterApi + "/latest/" + baseCurrency);
     QNetworkRequest request(url);
 
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-
-    auto reply = manager->get(request);
+    auto reply = networkManager->get(request);
     connect(reply, &QNetworkReply::finished, this, [this, reply]() {
         if (reply->error() == QNetworkReply::NoError) {
             QJsonDocument jsonDoc = QJsonDocument::fromJson(reply->readAll());
@@ -180,15 +172,12 @@ double StockAPIClient::convertCurrency(const QString &base, const QString &targe
 
     qDebug() << base << " " << target << " " << amount;
     if (!exchangeRates.contains(base) || !exchangeRates.contains(target)) {
-        return -1; // Error: either base or target currency not available
+        return -1;
     }
 
-    double baseRate = exchangeRates.value(base).toDouble(); // rate for the base currency
-    double targetRate = exchangeRates.value(target).toDouble(); // rate for the target currency
-
-    qDebug() << baseRate;
-    qDebug() << targetRate;
-    // If exchangeRates contains rates relative to USD or another base currency
-    double amountInBaseCurrency = amount / baseRate; // Convert the amount to base currency
-    return amountInBaseCurrency * targetRate; // Convert from base currency to target currency
+    double baseRate = exchangeRates.value(base).toDouble();
+    double targetRate = exchangeRates.value(target).toDouble();
+    emit getExchangeRate(targetRate);
+    double amountInBaseCurrency = amount / baseRate;
+    return amountInBaseCurrency * targetRate;
 }

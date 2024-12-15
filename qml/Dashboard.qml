@@ -1594,16 +1594,28 @@ Window {
                                     }
                                     icon.source: "qrc:/resources/transfers.svg"
                                     icon.color: "black"
-                                    onClicked:
-                                    {
+                                    onClicked: {
                                         var component = Qt.createComponent("Transactions.qml");
-                                                if (component.status === Component.Ready) {
-                                                    var window = component.createObject(null, { "username": rootdashboard.usernameRef, "fullName": rootdashboard.fullName}); // Pass the variable here
-                                                    window.visible = true;
-                                                    rootdashboard.close();
-                                                } else {
-                                                    console.log("Error loading SignIn.qml: " + component.errorString());
-                                                }
+
+                                        if (component.status === Component.Loading) {
+                                            console.log("Component is still loading. Please wait...");
+                                            return; // Prevent creation until loading is complete
+                                        }
+
+                                        if (component.status === Component.Ready) {
+                                            var window = component.createObject(null, {
+                                                "username": rootdashboard.usernameRef,
+                                                "fullName": rootdashboard.fullName
+                                            });
+                                            if (window) {
+                                                window.visible = true;
+                                                rootdashboard.close();
+                                            } else {
+                                                console.log("Failed to create the component instance.");
+                                            }
+                                        } else {
+                                            console.log("Error loading Transactions.qml: " + component.errorString());
+                                        }
                                     }
                                 }
                                 Button {

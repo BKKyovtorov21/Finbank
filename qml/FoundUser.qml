@@ -5,7 +5,7 @@ import QtQuick.Layouts
 
 Item {
     id: root
-    property bool isPhone
+    property bool isPhone: true
     property string fullName
     property string email
     property string pfp
