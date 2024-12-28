@@ -404,8 +404,8 @@ destination") : qsTr("Select recipent bank destination")
 
                             Rectangle
                             {
-                                width: 40
-                                height: 40
+                                Layout.preferredWidth:  40
+                                Layout.preferredHeight:  40
 
                                 radius: 40
                                 color: "#F7F8FC"
