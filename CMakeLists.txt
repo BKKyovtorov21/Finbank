@@ -43,14 +43,14 @@ qt_add_qml_module(appFinbank
             qml/SelectRecipent.qml
             qml/RecipentDescription.qml
 
-            qml/RecipentDescriptionWindow.ui.qml
+
             qml/TransferType.qml
             qml/SignIn.qml
             qml/Currencies.qml
             qml/TradingMarket.qml
             qml/SelectRecipentWindow.ui.qml
             qml/TradingMarketWindow.ui.qml
-            qml/OverviewTransactionWindow.ui.qml
+
             qml/CurrenciesWindow.ui.qml
             qml/FoundUser.qml
             qml/Dashboard.qml
@@ -61,9 +61,9 @@ qt_add_qml_module(appFinbank
 
             qml/SelectedRecipent.qml
             qml/TradingDashboardWindow.ui.qml
-            qml/OverviewTransaction.qml
 
-            qml/TransferTypeWindow.ui.qml
+
+
             qml/SignUp.qml
             qml/SignUp2.qml
         RESOURCES resources/resources.qrc

@@ -856,9 +856,15 @@ to send") : "How much do you want to send"
                         color: "white"
                     }
                     onClicked: {
-
-
+                        var component = Qt.createComponent("RecipentDescription.qml");
+                                if (component.status === Component.Ready) {
+                                    var window = component.createObject(null, { "username": root.username, "fullName": root.fullName}); // Pass the variable here
+                                    window.visible = true;
+                                    root.close();
+                                } else {
+                                    console.log("Error loading SignIn.qml: " + component.errorString());
                                 }
+                            }
                 }
 
 

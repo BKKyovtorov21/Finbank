@@ -368,8 +368,8 @@ Window {
                     {
                         var component = Qt.createComponent("SignUp.qml");
                         if (component.status === Component.Ready) {
-                            var signInWindow = component.createObject(null, { "usernameRef": username, "fullName": fullName }); // Pass the variable here
-                            signInWindow.visible = true;
+                            var signUpWindow = component.createObject(); // Pass the variable here
+                            signUpWindow.visible = true;
                             root.close();
                         } else {
                             console.log("Error loading Dashboard.qml: " + component.errorString());
