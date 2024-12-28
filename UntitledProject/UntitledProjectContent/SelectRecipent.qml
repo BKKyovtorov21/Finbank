@@ -262,11 +262,11 @@ Window {
 
                 ColumnLayout {
                     visible: !root.isTablet
-                    spacing: 16
-                    Layout.preferredWidth: 150
+                    spacing: 25
+                    Layout.preferredWidth: 200
                     Layout.fillHeight: true
                     Layout.alignment: Qt.AlignTop
-                    Layout.topMargin: 100
+                    Layout.topMargin: 280
 
                     // Sidebar tabs
                     RowLayout
@@ -278,7 +278,10 @@ Window {
                         {
                             source: "resources/selectiveLine.svg"
                         }
-                        Text { text: "Select Recipient" }
+                        Text { text: "Select Recipient"
+                        font.pixelSize: 20
+                        font.bold: true
+                        }
 
                     }
                     RowLayout
@@ -290,7 +293,9 @@ Window {
                         {
                             source: "resources/notSelectiveLine.svg"
                         }
-                        Text { text: "Amount" }
+                        Text { text: "Amount"
+                        font.pixelSize: 20
+                        }
 
                     }
                     RowLayout
@@ -302,7 +307,9 @@ Window {
                         {
                             source: "resources/notSelectiveLine.svg"
                         }
-                        Text { text: "Details Recipent" }
+                        Text { text: "Details Recipent"
+                        font.pixelSize: 20
+                        }
 
                     }
                     RowLayout
@@ -314,7 +321,9 @@ Window {
                         {
                             source: "resources/notSelectiveLine.svg"
                         }
-                        Text { text: "Transfer Type" }
+                        Text { text: "Transfer Type"
+                        font.pixelSize: 20
+                        }
 
                     }
                     RowLayout
@@ -326,7 +335,9 @@ Window {
                         {
                             source: "resources/notSelectiveLine.svg"
                         }
-                        Text { text: "Overview" }
+                        Text { text: "Overview"
+                        font.pixelSize: 20
+                        }
 
                     }
 
