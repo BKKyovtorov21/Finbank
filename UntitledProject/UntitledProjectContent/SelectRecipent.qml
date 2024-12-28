@@ -276,7 +276,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "resources/selectiveLine.svg"
+                            source: "qrc:/resources/selectiveLine.svg"
                         }
                         Text { text: "Select Recipient"
                         font.pixelSize: 20
@@ -291,7 +291,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "resources/notSelectiveLine.svg"
+                            source: "qrc:/resources/notSelectiveLine.svg"
                         }
                         Text { text: "Amount"
                         font.pixelSize: 20
@@ -305,7 +305,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "resources/notSelectiveLine.svg"
+                            source: "qrc:/resources/notSelectiveLine.svg"
                         }
                         Text { text: "Details Recipent"
                         font.pixelSize: 20
@@ -319,7 +319,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "resources/notSelectiveLine.svg"
+                            source: "qrc:/resources/notSelectiveLine.svg"
                         }
                         Text { text: "Transfer Type"
                         font.pixelSize: 20
@@ -333,7 +333,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "resources/notSelectiveLine.svg"
+                            source: "qrc:/resources/notSelectiveLine.svg"
                         }
                         Text { text: "Overview"
                         font.pixelSize: 20
@@ -407,7 +407,7 @@ money to?")
                             id: searchBar
                             Image
                             {
-                                source: "resources/search.svg"
+                                source: "qrc:/resources/search.svg"
                                 anchors.verticalCenter: parent.verticalCenter
                                 anchors.left: parent.left
                                 anchors.leftMargin: 20

@@ -226,7 +226,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "resources/tick.svg"
+                            source: "qrc:/resources/tick.svg"
                         }
                         Text { text: "Select Recipient"
                         font.pixelSize: 20
@@ -240,7 +240,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "resources/SelectiveLine.svg"
+                            source: "qrc:/resources/SelectiveLine.svg"
                         }
                         Text { text: "Amount"
                         font.pixelSize: 20
@@ -255,7 +255,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "resources/notSelectiveLine.svg"
+                            source: "qrc:/resources/notSelectiveLine.svg"
                         }
                         Text { text: "Details Recipent"
                         font.pixelSize: 20
@@ -269,7 +269,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "resources/notSelectiveLine.svg"
+                            source: "qrc:/resources/notSelectiveLine.svg"
                         }
                         Text { text: "Transfer Type"
                         font.pixelSize: 20
@@ -283,7 +283,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "resources/notSelectiveLine.svg"
+                            source: "qrc:/resources/notSelectiveLine.svg"
                         }
                         Text { text: "Overview"
                         font.pixelSize: 20
@@ -534,11 +534,11 @@ to send") : "How much do you want to send"
 
                                         ListModel {
                                                 id: currencyModel
-                                                ListElement { image: "resources/usd.png"; text: "USD" }
-                                                ListElement { image: "resources/cad.png"; text: "CAD" }
-                                                ListElement { image: "resources/jpy.png"; text: "JPY" }
-                                                ListElement { image: "resources/usd.png"; text: "More" }
-                                                ListElement { image: "resources/usd.png"; text: "More" }
+                                                ListElement { image: "qrc:/resources/usd.png"; text: "USD" }
+                                                ListElement { image: "qrc:/resources/cad.png"; text: "CAD" }
+                                                ListElement { image: "qrc:/resources/jpy.png"; text: "JPY" }
+                                                ListElement { image: "qrc:/resources/usd.png"; text: "More" }
+                                                ListElement { image: "qrc:/resources/usd.png"; text: "More" }
                                             }
 
                                             // Filtered data model

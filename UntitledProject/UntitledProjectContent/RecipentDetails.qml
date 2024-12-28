@@ -232,11 +232,10 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "resources/selectiveLine.svg"
+                            source: "qrc:/resources/tick.svg"
                         }
                         Text { text: "Select Recipient"
                         font.pixelSize: 20
-                        font.bold: true
                         }
 
                     }
@@ -247,7 +246,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "resources/notSelectiveLine.svg"
+                            source: "qrc:/resources/tick.svg"
                         }
                         Text { text: "Amount"
                         font.pixelSize: 20
@@ -261,10 +260,11 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "resources/notSelectiveLine.svg"
+                            source: "qrc:/resources/SelectiveLine.svg"
                         }
                         Text { text: "Details Recipent"
                         font.pixelSize: 20
+                        font.bold: true
                         }
 
                     }
@@ -275,7 +275,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "resources/notSelectiveLine.svg"
+                            source: "qrc:/resources/notSelectiveLine.svg"
                         }
                         Text { text: "Transfer Type"
                         font.pixelSize: 20
@@ -289,7 +289,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "resources/notSelectiveLine.svg"
+                            source: "qrc:/resources/notSelectiveLine.svg"
                         }
                         Text { text: "Overview"
                         font.pixelSize: 20
@@ -427,7 +427,7 @@ destination") : qsTr("Select recipent bank destination")
 
                                 Image
                                 {
-                                    source: "resources/bank2.svg"
+                                    source: "qrc:/resources/bank2.svg"
                                     anchors.centerIn: parent
                                     width: 20
                                     height: 20
@@ -489,7 +489,7 @@ destination") : qsTr("Select recipent bank destination")
 
                                 Image
                                 {
-                                    source: "resources/bank2.svg"
+                                    source: "qrc:/resources/bank2.svg"
                                     anchors.centerIn: parent
                                     width: 20
                                     height: 20
@@ -551,7 +551,7 @@ destination") : qsTr("Select recipent bank destination")
 
                                 Image
                                 {
-                                    source: "resources/bank2.svg"
+                                    source: "qrc:/resources/bank2.svg"
                                     anchors.centerIn: parent
                                     width: 20
                                     height: 20
