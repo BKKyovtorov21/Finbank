@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+
 Window {
     id: root
     visible: true
@@ -218,7 +219,7 @@ Window {
                 ColumnLayout {
                     visible: !root.isTablet
                     spacing: 25
-                    Layout.preferredWidth: 280
+                    Layout.preferredWidth: 180
                     Layout.fillHeight: true
                     Layout.alignment: Qt.AlignTop
                     Layout.topMargin: 280
@@ -370,7 +371,7 @@ Window {
                             Layout.alignment: root.isPhone ? Qt.AlignLeft : Qt.AlignHCenter
 
 
-                            Layout.topMargin: 30
+
                             color: "#FFFFFF"
 
                             Layout.leftMargin: root.isPhone ? 10 : 0
@@ -381,7 +382,7 @@ Window {
 
                         RowLayout
                         {
-                            Layout.topMargin: 15
+                            Layout.topMargin: 10
                             Layout.fillWidth: true
                             Layout.preferredHeight: 10
                             Item
@@ -394,11 +395,11 @@ Window {
 
                                 text: "Transfer details"
                                 font.bold: true
-                                font.pixelSize: 17
+                                font.pixelSize: 20
                             }
                             Item
                             {
-                                Layout.preferredWidth: root.isPhone ? 200 : (root.isTablet ? 350 : 475)
+                                Layout.preferredWidth: root.isPhone ? 200 : (root.isTablet ? 335 : 475)
 
                             }
 
@@ -416,7 +417,8 @@ Window {
                         }
                         Rectangle
                         {
-                            Layout.preferredWidth: root.isPhone ? 375 : (root.isTablet ? 525 : 660)
+                            Layout.topMargin: -20
+                            Layout.preferredWidth: root.isPhone ? 400 : (root.isTablet ? 525 : 660)
 
                             Layout.alignment: Qt.AlignHCenter
 
@@ -425,6 +427,8 @@ Window {
 
                         }
                         ColumnLayout{
+                            Layout.topMargin: -10
+                            spacing: 10
                         RowLayout
                         {
 
@@ -438,6 +442,7 @@ Window {
                             Text
                             {
 
+                                font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
                                 text: "You send"
                             }
                             Item
@@ -448,6 +453,7 @@ Window {
 
                             Text
                             {
+                                font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
                                 text: "$1.000 USD"
                             }
                             Item
@@ -467,17 +473,18 @@ Window {
                             }
                             Text
                             {
-
+                                font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
                                 text: "Finbank fees"
                             }
                             Item
                             {
-                                Layout.preferredWidth: root.isPhone ? 200 : (root.isTablet ? 350 : 475)
+                                Layout.preferredWidth: root.isPhone ? 200 : (root.isTablet ? 355 : 480)
 
                             }
 
                             Text
                             {
+                                font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
                                 text: "$5 USD"
                             }
                             Item
@@ -492,22 +499,22 @@ Window {
                             Layout.preferredHeight: 10
                             Item
                             {
-                                Layout.rightMargin: 0
                                 Layout.fillWidth: true
                             }
                             Text
                             {
-
+                                font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
                                 text: "Payment method fees"
                             }
                             Item
                             {
-                                Layout.preferredWidth: root.isPhone ? 140 : (root.isTablet ? 290 : 415)
+                                Layout.preferredWidth: root.isPhone ? 140 : (root.isTablet ? 285 : 408)
 
                             }
 
                             Text
                             {
+                                font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
                                 text: "$5 USD"
                             }
                             Item
@@ -527,12 +534,12 @@ Window {
                             }
                             Text
                             {
-
+                                font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
                                 text: "You will pay"
                             }
                             Item
                             {
-                                Layout.preferredWidth: root.isPhone ? 143 : (root.isTablet ? 293 : 418)
+                                Layout.preferredWidth: root.isPhone ? 143 : (root.isTablet ? 305 : 435)
 
                             }
 
@@ -549,7 +556,7 @@ Window {
                         }
                         Rectangle {
                             id: overviewRectangle
-                            Layout.preferredWidth: root.isPhone ? 380 : (root.isTablet ? 530 : 650)
+                            Layout.preferredWidth: root.isPhone ? 370 : (root.isTablet ? 540 : 670)
                             Layout.preferredHeight: root.isPhone ? 65 : (root.isTablet ? 75 : 85)
                             radius: 20
                             Layout.alignment: Qt.AlignHCenter
@@ -600,11 +607,11 @@ Window {
 
                                 text: "Recipient details"
                                 font.bold: true
-                                font.pixelSize: 17
+                                font.pixelSize: 20
                             }
                             Item
                             {
-                                Layout.preferredWidth: root.isPhone ? 200 : (root.isTablet ? 350 : 475)
+                                Layout.preferredWidth: root.isPhone ? 180 : (root.isTablet ? 335 : 460)
 
                             }
 
@@ -622,7 +629,8 @@ Window {
                         }
                         Rectangle
                         {
-                            Layout.preferredWidth: root.isPhone ? 375 : (root.isTablet ? 525 : 660)
+                            Layout.topMargin: -10
+                            Layout.preferredWidth: root.isPhone ? 400 : (root.isTablet ? 525 : 660)
 
                             Layout.alignment: Qt.AlignHCenter
 
@@ -632,6 +640,7 @@ Window {
                         }
                         ColumnLayout
                         {
+                        spacing: 10
 
                         RowLayout
                         {
@@ -645,17 +654,18 @@ Window {
                             }
                             Text
                             {
-
+                                font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
                                 text: "Email"
                             }
                             Item
                             {
-                                Layout.preferredWidth: root.isPhone ? 125 : (root.isTablet ? 275 : 400)
+                                Layout.preferredWidth: root.isPhone ? 120 : (root.isTablet ? 273 : 395)
 
                             }
 
                             Text
                             {
+                                font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
                                 text: "vichovichev07@gmail.com"
                             }
                             Item
@@ -675,7 +685,7 @@ Window {
                             }
                             Text
                             {
-
+                                font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
                                 text: "Account Holder"
                             }
                             Item
@@ -686,6 +696,7 @@ Window {
 
                             Text
                             {
+                                font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
                                 text: "Vicho Vichev"
                             }
                             Item
@@ -705,17 +716,18 @@ Window {
                             }
                             Text
                             {
-
+                                font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
                                 text: "Routing number"
                             }
                             Item
                             {
-                                Layout.preferredWidth: root.isPhone ? 170 : (root.isTablet ? 320 : 445)
+                                Layout.preferredWidth: root.isPhone ? 170 : (root.isTablet ? 323 : 445)
 
                             }
 
                             Text
                             {
+                                font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
                                 text: "**** 4238"
                             }
                             Item
@@ -735,17 +747,18 @@ Window {
                             }
                             Text
                             {
-
+                                font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
                                 text: "Bank name"
                             }
                             Item
                             {
-                                Layout.preferredWidth: root.isPhone ? 103 : (root.isTablet ? 260 : 380)
+                                Layout.preferredWidth: root.isPhone ? 100 : (root.isTablet ? 248 : 375)
 
                             }
 
                             Text
                             {
+                                font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
                                 text: "Bulgarian National Bank"
                             }
                             Item
