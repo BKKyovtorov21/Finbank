@@ -340,12 +340,12 @@ Window {
                         Text
                         {
                             Layout.topMargin: 50
-                            horizontalAlignment: root.isTablet? Qt.AlignLeft :Qt.AlignHCenter
+                            horizontalAlignment: Qt.AlignHCenter
                             Layout.fillWidth: true
                             font.pixelSize: root.isTablet ? 30 :40
                             font.bold: true
-                            text: root.isPhone ? qsTr("Select recipent bank
-destination") : qsTr("Select recipent bank destination")
+                            text: qsTr("Select recipent bank destination")
+                            wrapMode: Text.WordWrap
 
                         }
 
@@ -404,14 +404,13 @@ destination") : qsTr("Select recipent bank destination")
 
                             Rectangle
                             {
-                                width: 40
-                                height: 40
+                                Layout.preferredWidth: 40
+                                Layout.preferredHeight: 40
 
                                 radius: 40
                                 color: "#F7F8FC"
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
-                                anchors.leftMargin: 15
+                                Layout.alignment: Qt.AlignVCenter
+                                Layout.leftMargin:15
 
                                 Image
                                 {
@@ -466,14 +465,13 @@ destination") : qsTr("Select recipent bank destination")
 
                             Rectangle
                             {
-                                width: 40
-                                height: 40
+                                Layout.preferredWidth: 40
+                                Layout.preferredHeight: 40
 
                                 radius: 40
                                 color: "#F7F8FC"
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
-                                anchors.leftMargin: 15
+                                Layout.alignment: Qt.AlignVCenter
+                                Layout.leftMargin:15
 
                                 Image
                                 {
@@ -528,14 +526,13 @@ destination") : qsTr("Select recipent bank destination")
 
                             Rectangle
                             {
-                                width: 40
-                                height: 40
+                                Layout.preferredWidth: 40
+                                Layout.preferredHeight: 40
 
                                 radius: 40
                                 color: "#F7F8FC"
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
-                                anchors.leftMargin: 15
+                                Layout.alignment: Qt.AlignVCenter
+                                Layout.leftMargin:15
 
                                 Image
                                 {
@@ -627,11 +624,11 @@ destination") : qsTr("Select recipent bank destination")
                         color: "white"
                     }
                     onClicked: {
-                        var component = Qt.createComponent("Transactions.qml");
+                        var component = Qt.createComponent("TransferType.qml");
                                 if (component.status === Component.Ready) {
-                                    var window = component.createObject(null, { "username": rootdashboard.usernameRef, "fullName": rootdashboard.fullName}); // Pass the variable here
+                                    var window = component.createObject(null, { "username": root.username, "fullName": root.fullName}); // Pass the variable here
                                     window.visible = true;
-                                    rootdashboard.close();
+                                    root.close();
                                 } else {
                                     console.log("Error loading SignIn.qml: " + component.errorString());
                                 }

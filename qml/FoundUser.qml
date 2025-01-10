@@ -1,16 +1,20 @@
-import QtQuick
-import QtQuick.Controls
+import QtQuick 2.15
+import QtQuick.Controls 2.15
 import QtQuick.Shapes 1.0
 import QtQuick.Layouts
 
-Item {
+Button {
     id: root
     property bool isPhone: true
     property string fullName
     property string email
     property string pfp
 
-    property alias overlayButton: overlayButton
+
+    background: Rectangle
+    {
+        color: "transparent"
+    }
 
     width: 300
     height: root.isPhone ? 100 : 200
@@ -72,22 +76,6 @@ Item {
             text: root.email
             font.pixelSize: 20
             color: "#727272"
-        }
-    }
-
-    // Invisible Button Overlay
-    Rectangle {
-        id: overlayButton
-        anchors.fill: parent
-        color: "transparent" // Fully transparent
-        opacity: 0          // Invisible
-        enabled: true        // Still clickable
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                console.log("Button clicked!");
-                // Add your button click logic here
-            }
         }
     }
 }

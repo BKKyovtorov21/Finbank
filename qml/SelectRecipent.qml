@@ -51,7 +51,17 @@ Window {
                     // Add to foundUsers array without updating recipentsWindow properties
                     root.foundUsers.push(userInstance);
 
-
+                    userInstance.onClicked.connect(function() {
+                        var component = Qt.createComponent("SendMoney.qml");
+                                if (component.status === Component.Ready) {
+                                    var window = component.createObject(null, { "username": root.username, "fullName": root.fullName}); // Pass the variable here
+                                    window.visible = true;
+                                    root.close();
+                                } else {
+                                    console.log("Error loading SignIn.qml: " + component.errorString());
+                                }
+                            }
+                    );
                 } else {
                     console.error("Error: User instance creation failed.");
                 }
@@ -253,11 +263,11 @@ Window {
 
                 ColumnLayout {
                     visible: !root.isTablet
-                    spacing: 16
-                    Layout.preferredWidth: 150
+                    spacing: 25
+                    Layout.preferredWidth: 200
                     Layout.fillHeight: true
                     Layout.alignment: Qt.AlignTop
-                    Layout.topMargin: 100
+                    Layout.topMargin: 280
 
                     // Sidebar tabs
                     RowLayout
@@ -269,7 +279,10 @@ Window {
                         {
                             source: "qrc:/resources/selectiveLine.svg"
                         }
-                        Text { text: "Select Recipient" }
+                        Text { text: "Select Recipient"
+                        font.pixelSize: 20
+                        font.bold: true
+                        }
 
                     }
                     RowLayout
@@ -281,7 +294,9 @@ Window {
                         {
                             source: "qrc:/resources/notSelectiveLine.svg"
                         }
-                        Text { text: "Amount" }
+                        Text { text: "Amount"
+                        font.pixelSize: 20
+                        }
 
                     }
                     RowLayout
@@ -293,7 +308,9 @@ Window {
                         {
                             source: "qrc:/resources/notSelectiveLine.svg"
                         }
-                        Text { text: "Details Recipent" }
+                        Text { text: "Details Recipent"
+                        font.pixelSize: 20
+                        }
 
                     }
                     RowLayout
@@ -305,7 +322,9 @@ Window {
                         {
                             source: "qrc:/resources/notSelectiveLine.svg"
                         }
-                        Text { text: "Transfer Type" }
+                        Text { text: "Transfer Type"
+                        font.pixelSize: 20
+                        }
 
                     }
                     RowLayout
@@ -317,7 +336,9 @@ Window {
                         {
                             source: "qrc:/resources/notSelectiveLine.svg"
                         }
-                        Text { text: "Overview" }
+                        Text { text: "Overview"
+                        font.pixelSize: 20
+                        }
 
                     }
 
@@ -350,7 +371,7 @@ Window {
                             Text
                             {
                                 Layout.fillWidth: true
-                                text: "1|5 Select recipent"
+                                text: "1|5 Select money"
                                 horizontalAlignment: Text.AlignHCenter
                                 font.pixelSize: 15
                                 font.bold: true
@@ -372,14 +393,16 @@ Window {
 
                         Text
                         {
-                            visible: root.isTablet
-                            text: qsTr("Who do you want to send
-money to?")
-                            font.pixelSize: root.isTablet ? 30 : 20
+
+                            text: qsTr("Who do you want to send money to?")
+                            font.pixelSize: root.isTablet ? 30 : 30
                             Layout.fillWidth: true
-                            Layout.leftMargin: 30
                             Layout.topMargin: 20
+                            Layout.alignment: Qt.AlignHCenter
+                            wrapMode: Text.WordWrap
                             font.bold: true
+                            horizontalAlignment: Qt.AlignHCenter
+
                         }
 
                         // Search bar
@@ -393,7 +416,6 @@ money to?")
                                 anchors.leftMargin: 20
                             }
 
-                            Layout.topMargin: root.isTablet ? 20 : 100
                             placeholderText: "Search"
                             Layout.rightMargin: 30
                             Layout.leftMargin: 30

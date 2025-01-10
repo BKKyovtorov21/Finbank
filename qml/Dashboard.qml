@@ -59,7 +59,7 @@ Window {
             spacing: 8 // Adjust spacing between icon and TextField
             Image {
                 id: name
-                source: !rootdashboard.isTablet ? "qrc:/resources/logo1.png" : "qrc:/resources/pfp.jpg"
+                source: !rootdashboard.isTablet ? "resources/logo1.png" : "resources/pfp.jpg"
             }
             Rectangle
             {
@@ -87,7 +87,7 @@ Window {
 
                 Layout.preferredHeight: 20
                 Layout.preferredWidth: 20
-                source: "qrc:/resources/RightArrows.svg"
+                source: "resources/RightArrows.svg"
                 antialiasing: true
             }
             Rectangle
@@ -128,7 +128,7 @@ Window {
                             fillMode: Image.PreserveAspectFit
 
 
-                            source: "qrc:/resources/search.svg"
+                            source: "resources/search.svg"
                             anchors.top: parent.top
                             anchors.topMargin: 5
                             anchors.left: parent.left
@@ -162,7 +162,7 @@ Window {
                     anchors.top: parent.top
                     anchors.left: parent.left
                     anchors.topMargin: 15
-                    source: "qrc:/resources/chat.svg"
+                    source: "resources/chat.svg"
                     anchors.leftMargin: 5
                 }
                 Text {
@@ -186,7 +186,7 @@ Window {
                 Image {
                     id: userpfp
                     x: 14
-                    source: "qrc:/resources/pfp.jpg"
+                    source: "resources/pfp.jpg"
                     width:70
                     height:70
                     anchors.top: parent.top
@@ -550,7 +550,7 @@ Window {
                             Image {
                                 id: element18
                                 anchors.centerIn: parent
-                                source: "qrc:/resources/income.svg"
+                                source: "resources/income.svg"
                                 antialiasing: true
                                 fillMode: Image.PreserveAspectFit
 
@@ -562,15 +562,13 @@ Window {
 
                     Text {
                         id: monthly_Income
-                        width: 138
+                        width: parent.width
                         height: 23
                         color: "#000000"
                         text: qsTr("Monthly Income")
-                        anchors.left: parent.left
                         anchors.top: parent.top
-                        anchors.leftMargin: 16
                         anchors.topMargin: 63
-                        font.pixelSize: 20
+                        font.pixelSize: 17
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignTop
                         wrapMode: Text.NoWrap
@@ -579,13 +577,10 @@ Window {
                     Text {
                         property real incomeValue: dashboardwindowDesktop.incomeValue
                         id: income
-                        width: 174
-                        height: 40
+                        width: parent.width
                         color: "#000000"
                         text: "$" + incomeValue.toFixed(2)
-                        anchors.left: parent.left
                         anchors.top: parent.top
-                        anchors.leftMargin: 14
                         anchors.topMargin: 92
                         font.pixelSize: width > 1000 ? 32 : 25
                         horizontalAlignment: Text.AlignHCenter
@@ -728,7 +723,7 @@ Window {
                             Image {
                                 id: element12
                                 anchors.centerIn: parent
-                                source: "qrc:/resources/expenses.svg"
+                                source: "resources/expenses.svg"
                                 antialiasing: true
                                 fillMode: Image.PreserveAspectFit
 
@@ -740,15 +735,14 @@ Window {
 
                     Text {
                         id: monthly_Expenses
-                        width: 153
+                        width: parent.width
                         height: 23
                         color: "#000000"
                         text: qsTr("Monthly Expenses")
                         anchors.left: parent.left
                         anchors.top: parent.top
-                        anchors.leftMargin: 15
                         anchors.topMargin: 63
-                        font.pixelSize: 18
+                        font.pixelSize: 17
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignTop
                         wrapMode: Text.NoWrap
@@ -758,8 +752,8 @@ Window {
                     Text {
                         property real expensesValue: dashboardwindowDesktop.expensesValue
                         id: expenses
-                        width: 174
-                        height: 40
+                        width: parent.width
+
                         color: "#000000"
                         text: "$" + expensesValue.toFixed(2)
                         anchors.left: parent.left
@@ -789,9 +783,9 @@ Window {
                     Layout.row: 1
                     Layout.column: 0
                     Layout.columnSpan: 3
-                    Layout.fillWidth: true
+                    Layout.preferredWidth: 600
                     Layout.fillHeight: true
-                    Layout.preferredHeight: 200
+                    Layout.fillWidth: true
                     border.width: 1
                     border.color: "#727272"
                     radius: 10
@@ -996,7 +990,7 @@ Window {
                         Layout.preferredWidth: 50
                         Layout.topMargin: 20
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                        source: "qrc:/resources/pfp.jpg"
+                        source: "resources/pfp.jpg"
                     }
 
                     Rectangle
@@ -1010,7 +1004,7 @@ Window {
                         Image
                         {
 
-                            source: "qrc:/resources/home.svg"
+                            source: "resources/home.svg"
                             anchors.centerIn:parent
                             fillMode: Image.PreserveAspectFit
 
@@ -1025,7 +1019,7 @@ Window {
                         Image
                         {
 
-                            source: "qrc:/resources/bars.svg"
+                            source: "resources/bars.svg"
                             anchors.centerIn:parent
 
                             fillMode: Image.PreserveAspectFit
@@ -1043,7 +1037,7 @@ Window {
                             fillMode: Image.PreserveAspectFit
 
 
-                            source: "qrc:/resources/transfers.svg"
+                            source: "resources/transfers.svg"
                             anchors.centerIn:parent
                         }
                     }
@@ -1057,7 +1051,7 @@ Window {
             }
 
             Rectangle {
-                color: "#F7F7F7"
+                color: "#F8F8F8"
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
@@ -1100,7 +1094,7 @@ Window {
                                 Layout.preferredWidth: 50
                                 Layout.preferredHeight: 50
 
-                                source: "qrc:/resources/pfp.jpg"
+                                source: "resources/pfp.jpg"
                                 fillMode: Image.PreserveAspectCrop
 
                             }
@@ -1126,7 +1120,7 @@ Window {
                                 leftPadding: 30
                                 background: Rectangle
                                 {
-                                    color: "white"
+                                    color: "#F3F1F2"
                                     radius: 20
                                     border.width: 1
                                     opacity: 0.8
@@ -1135,10 +1129,11 @@ Window {
                                 Image {
                                     id: searchIcon5
                                     fillMode: Image.PreserveAspectFit
+                                    width: 25
+                                    height: 25
+                                    source: "resources/search.svg"
 
-                                    source: "qrc:/resources/search.svg"
-                                    anchors.top: parent.top
-                                    anchors.topMargin: 10
+                                    anchors.verticalCenter: parent.verticalCenter
                                     anchors.left: parent.left
                                     anchors.leftMargin: 5
 
@@ -1150,13 +1145,12 @@ Window {
                                 Layout.preferredHeight: 50
                                 Layout.preferredWidth: 50
                                 radius: 50
-                                Button
+                                Image
                                 {
                                     anchors.centerIn: parent
-                                    background: Image
-                                    {
-                                        source: "qrc:/resources/wallet.svg"
-                                    }
+                                    source: "resources/walletBlack.svg"
+                                    fillMode: Image.PreserveAspectFit
+
                                 }
                             }
 
@@ -1192,7 +1186,7 @@ Window {
                             id: searchIcon2
                             fillMode: Image.PreserveAspectFit
 
-                            source: "qrc:/resources/search.svg"
+                            source: "resources/search.svg"
                             anchors.top: parent.top
                             anchors.topMargin: 10
                             anchors.left: parent.left
@@ -1207,8 +1201,8 @@ Window {
                         id: rectangle_1
                         Layout.topMargin: 20
                         Layout.alignment: Qt.AlignHCenter
-                        Layout.rightMargin: 30
-                        Layout.leftMargin: 30
+                        Layout.rightMargin: 15
+                        Layout.leftMargin: 15
                         Layout.fillWidth: true
                         Layout.preferredHeight:400
                         radius: 20
@@ -1220,7 +1214,7 @@ Window {
                             anchors.left: parent.left
                             anchors.leftMargin: 20
                             anchors.topMargin: 40
-                            text: qsTr("$1222.22")
+                            text: qsTr("1222.22")
                             font.pixelSize: 30
                             font.bold: true
                         }
@@ -1230,9 +1224,11 @@ Window {
                             anchors.left: balanceTablet.left
                             width: 150
                             text: qsTr("Euro")
-                            font.pixelSize: 20
+                            font.pixelSize: 25
+                            font.bold: true
                         }
                         Item {
+                            visible: !rootdashboard.isPhone
                             anchors.left: balanceTablet.right
                             anchors.leftMargin: 29
                             anchors.top: balanceTablet.top
@@ -1243,6 +1239,7 @@ Window {
 
                             // Circular arc
                             Rectangle {
+
                                 id: circle3
                                 width: 32
                                 height: 32
@@ -1261,7 +1258,7 @@ Window {
                                 Image
                                 {
                                     anchors.centerIn: parent
-                                    source: "qrc:/resources/downArrow2.svg"
+                                    source: "resources/downArrow2.svg"
                                     fillMode: Image.PreserveAspectFit
 
                                 }
@@ -1270,12 +1267,13 @@ Window {
 
                         }
                         Image {
+                            visible: !rootdashboard.isPhone
                             id: currencyImage
                             anchors.right: parent.right
                             anchors.rightMargin: 50
                             anchors.top: parent.top
                             anchors.topMargin: 50
-                            source: "qrc:/resources/eur.png"
+                            source: "resources/eur.png"
                         }
 
                         Text {
@@ -1284,6 +1282,7 @@ Window {
                             anchors.topMargin: 15
                             anchors.leftMargin: 20
                             text: qsTr("Transactions")
+                            font.pixelSize: 20
                         }
 
 
@@ -1304,10 +1303,10 @@ Window {
                                     orientation: ListView.Horizontal
                                     spacing: !rootdashboard.isPhone ? 30 : 15
                                     model: ListModel {
-                                        ListElement {source: "qrc:/resources/plus.svg"; text: "Add"}
-                                        ListElement {source: "qrc:/resources/shuffle.svg"; text: "Move"}
-                                        ListElement {source: "qrc:/resources/bank.svg"; text: "Bank"}
-                                        ListElement {source: "qrc:/resources/more.svg"; text: "More"}
+                                        ListElement {source: "resources/plus.svg"; text: "Add"}
+                                        ListElement {source: "resources/shuffle.svg"; text: "Move"}
+                                        ListElement {source: "resources/bank.svg"; text: "Bank"}
+                                        ListElement {source: "resources/more.svg"; text: "More"}
                                     }
                                     delegate: Item {
                                         width: 70
@@ -1322,9 +1321,11 @@ Window {
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             anchors.top: parent.top
                                             anchors.topMargin: 5
+                                            opacity: 0.7
 
                                             Image {
                                                 anchors.centerIn: parent
+
                                                 source: model.source
                                             }
                                         }
@@ -1348,8 +1349,8 @@ Window {
 
                             ListModel {
                                 id: listmodeltransactions
-                                ListElement { source: "qrc:/resources/billa.png"; store: "Billa"; date: "Yesterday"; price: "-0,99 BGN" }
-                                ListElement { source: "qrc:/resources/apple.png"; store: "Apple"; date: "Yesterday"; price: "-2,50 BGN" }
+                                ListElement { source: "resources/billa.png"; store: "Billa"; date: "Yesterday"; price: "-0,99 BGN" }
+                                ListElement { source: "resources/apple.png"; store: "Apple"; date: "Yesterday"; price: "-2,50 BGN" }
                             }
 
                             // Rectangle wrapping ListView with border
@@ -1442,8 +1443,8 @@ Window {
                     {
                         id: rectangle_3
                         Layout.alignment: Qt.AlignHCenter
-                        Layout.rightMargin: 30
-                        Layout.leftMargin: 30
+                        Layout.rightMargin: 15
+                        Layout.leftMargin: 15
                         Layout.topMargin: 30
                         Layout.fillWidth: true
                         Layout.preferredHeight:300
@@ -1465,10 +1466,10 @@ Window {
                             anchors.fill: parent
                             ListModel {
                                     id: itemModel
-                                    ListElement { imageSource: "qrc:/resources/cash.svg"; text: "Cash"; text2: "Bulgarian Lev"; color: "#667DFF" }
-                                    ListElement { imageSource: "qrc:/resources/safe.svg"; text: "Savings & Funds"; text2: "Earn interest";color: "#FF7A41" }
-                                    ListElement { imageSource: "qrc:/resources/invest.svg"; text: "Invest"; text2: "Invest for as little as 1 лв";color: "#2AB2FE" }
-                                    ListElement { imageSource: "qrc:/resources/crypto.svg"; text: "Crypto" ; text2: "Invest for as little as 1 лв";color: "#BF5BF3"}
+                                    ListElement { imageSource: "resources/cash.svg"; text: "Cash"; text2: "Bulgarian Lev"; color: "#667DFF" }
+                                    ListElement { imageSource: "resources/safe.svg"; text: "Savings & Funds"; text2: "Earn interest";color: "#FF7A41" }
+                                    ListElement { imageSource: "resources/invest.svg"; text: "Invest"; text2: "Invest for as little as 1 лв";color: "#2AB2FE" }
+                                    ListElement { imageSource: "resources/crypto.svg"; text: "Crypto" ; text2: "Invest for as little as 1 лв";color: "#BF5BF3"}
                                 }
 
 
@@ -1487,10 +1488,12 @@ Window {
                                     width: listView.width
                                     Layout.preferredHeight: 60
 
-                                    Row {
-                                        spacing: 10
+                                    ColumnLayout {
+
                                         height: parent.height // Ensures proper alignment without anchors
                                         anchors.fill: parent // Removed to prevent conflicts
+                                        RowLayout
+                                        {
 
                                         Rectangle {
                                             id: circle
@@ -1514,17 +1517,18 @@ Window {
                                             text: model.text
                                             font.pixelSize: 16
                                             Layout.alignment: Qt.AlignLeft
-                                            Layout.leftMargin: 50
-                                        }
 
+                                        }
+                                        }
                                         Text
                                         {
                                             anchors.top: text1.bottom
                                             text: model.text2
                                             font.pixelSize: 16
-                                            Layout.alignment: Qt.AlignLeft
-                                            Layout.leftMargin: 50
+                                            Layout.leftMargin: 45
+
                                         }
+
                                     }
                                 }
                             }
@@ -1555,78 +1559,103 @@ Window {
                             anchors.left: parent.left
                             anchors.right: parent.right
                             anchors.bottom: parent.bottom
-                            color: "white"
+                            color: "#F8F8F8"
 
 
                             RowLayout {
                                 anchors.fill: parent
-                                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                                spacing: 10
+                                Layout.alignment: Qt.AlignHCenter
 
-                                Button {
-                                    text: qsTr("Home")
-                                    icon.source: "qrc:/resources/home.svg"
-                                    icon.color: "black"
-                                    background: Rectangle
-                                    {
-                                        color: "transparent"
-                                    }
 
-                                    onClicked: console.log("Home clicked")
-                                }
-
-                                Button {
-                                    background: Rectangle
-                                    {
-                                        color: "transparent"
-                                    }
-                                    text: qsTr("Invest")
-                                    icon.source: "qrc:/resources/invest.svg"
-                                    icon.color: "black"
-                                    onClicked: console.log("Settings clicked")
-                                }
-
-                                Button {
-                                    text: qsTr("Payments")
-                                    background: Rectangle
-                                    {
-                                        color: "transparent"
-                                    }
-                                    icon.source: "qrc:/resources/transfers.svg"
-                                    icon.color: "black"
-                                    onClicked: {
-                                        var component = Qt.createComponent("Transactions.qml");
-
-                                        if (component.status === Component.Loading) {
-                                            console.log("Component is still loading. Please wait...");
-                                            return; // Prevent creation until loading is complete
+                                ColumnLayout
+                                {
+                                    Layout.preferredHeight: parent.height
+                                    Layout.leftMargin: 15
+                                    Button {
+                                       Layout.topMargin: 15
+                                        Layout.preferredHeight: 20
+                                        background:Image
+                                        {
+                                            width: 20
+                                            height: 20
+                                            source: "resources/home.png"
                                         }
+                                        onClicked: console.log("Home clicked")
+                                    }
+                                    Text {
+                                       Layout.bottomMargin: 30
 
-                                        if (component.status === Component.Ready) {
-                                            var window = component.createObject(null, {
-                                                "username": rootdashboard.usernameRef,
-                                                "fullName": rootdashboard.fullName
-                                            });
-                                            if (window) {
-                                                window.visible = true;
-                                                rootdashboard.close();
-                                            } else {
-                                                console.log("Failed to create the component instance.");
-                                            }
-                                        } else {
-                                            console.log("Error loading Transactions.qml: " + component.errorString());
-                                        }
+                                        text: qsTr("text")
                                     }
                                 }
-                                Button {
-                                    background: Rectangle
-                                    {
-                                        color: "transparent"
+
+
+
+                                ColumnLayout
+                                {
+                                    Layout.preferredHeight: parent.height
+
+                                    Layout.leftMargin: 15
+                                    Button {
+                                       Layout.topMargin: 15
+                                        Layout.preferredHeight: 20
+                                        background:Image
+                                        {
+                                            width: 20
+                                            height: 20
+                                            source: "resources/home.svg"
+                                        }
+                                        onClicked: console.log("Home clicked")
                                     }
-                                    text: qsTr("Bitcoin")
-                                    icon.source: "qrc:/resources/bitcoin.svg"
-                                    icon.color: "black"
-                                    onClicked: console.log("Profile clicked")
+                                    Text {
+                                       Layout.bottomMargin: 30
+
+                                        text: qsTr("text")
+                                    }
+                                }
+
+                                ColumnLayout
+                                {
+                                    Layout.preferredHeight: parent.height
+                                    Layout.leftMargin: 15
+                                    Button {
+                                       Layout.topMargin: 15
+                                        Layout.preferredHeight: 20
+                                        background:Image
+                                        {
+                                            width: 20
+                                            height: 20
+
+                                            source: "resources/home.svg"
+                                        }
+                                        onClicked: console.log("Home clicked")
+                                    }
+                                    Text {
+                                       Layout.bottomMargin: 30
+
+                                        text: qsTr("text")
+                                    }
+                                }
+                                ColumnLayout
+                                {
+                                    Layout.preferredHeight: parent.height
+                                    Layout.leftMargin: 15
+                                    Button {
+                                       Layout.topMargin: 15
+                                        Layout.preferredHeight: 20
+                                        background:Image
+                                        {
+                                            width: 20
+                                            height: 20
+                                            source: "resources/home.svg"
+                                        }
+                                        onClicked: console.log("Home clicked")
+                                    }
+                                    Text {
+                                       Layout.bottomMargin: 30
+
+                                        text: qsTr("text")
+                                    }
                                 }
                             }
                         }

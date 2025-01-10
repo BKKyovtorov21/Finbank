@@ -67,6 +67,7 @@ qt_add_qml_module(appFinbank
             qml/SignUp.qml
             qml/SignUp2.qml
         RESOURCES resources/resources.qrc
+        QML_FILES qml/Overview.qml
 )
 
 qt_add_ios_ffmpeg_libraries(appFinbank)

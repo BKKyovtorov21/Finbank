@@ -343,12 +343,12 @@ Window {
 
                         Text
                         {
-                            horizontalAlignment: root.isTablet? Qt.AlignLeft :Qt.AlignHCenter
+                            horizontalAlignment: Qt.AlignHCenter
                             Layout.fillWidth: true
                             font.pixelSize: root.isTablet ? 30 :40
                             font.bold: true
-                            text: root.isTablet ? qsTr("How much do you want
-to send") : "How much do you want to send"
+                            wrapMode: Text.WordWrap
+                            text: root.isTablet ? qsTr("How much do you want to send") : "How much do you want to send"
                         }
 
                         RowLayout
