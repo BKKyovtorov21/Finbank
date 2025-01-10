@@ -1,95 +1,64 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import Qt5Compat.GraphicalEffects
 import QtQuick.Timeline
+import Qt5Compat.GraphicalEffects
+import QtCharts
 Window {
-    visible: true
-    id: root
+    id: rootdashboard
     width: Screen.width
     height: Screen.height
-
     minimumWidth: 400
-    minimumHeight: 800
+    visible: true
     property bool isTablet: width <= 900
-    property bool isPhone: width <= 500
+    property bool isPhone: width <= 600
 
-    property string fullName
-    property string username
-    property int dynamicWidth: 1600
+        property string usernameRef
+       property real balance: 3000
+       property real income: 3000
+       property real expenses: 3000
+       property string cardInfo: ""
+       property string fullName
+       property string pfp: ""
 
-    Loader
+    onVisibleChanged:
     {
-        id: loader
-        source: ""
+        balanceAnimation.running = true
+        incomeAnimation.running = true
+        expenseAnimation.running = true
+        pie1Animation.running = true
+        pie2Animation.running = true
     }
 
     Component.onCompleted: {
-        createtransaction.showTransactions("BG12FINB98765432109876");
-    }
 
-    ListModel {
-        id: transactionModel
-    }
-    Timeline {
-        id: timeline
-        animations: [
-            TimelineAnimation {
-                id: timelineAnimation
-                running: false
-                loops: 1
-                duration: 200
-                to: 200
-                from: 0
-            }
-        ]
-        startFrame: 0
-        endFrame: 200
-        enabled: true
-        KeyframeGroup {
-            target: newContactRect
-            property: "border.color"
-            Keyframe {
-                value: "#66cd8b"
-                frame: 200
+            if (rootdashboard.usernameRef !== "") {
+                balance = dashboard.getDbVariable(rootdashboard.usernameRef, "balance");
+                income = dashboard.getDbVariable(rootdashboard.usernameRef, "income");
+                expenses = dashboard.getDbVariable(rootdashboard.usernameRef, "expenses");
+                cardInfo = dashboard.getDbVariable(rootdashboard.usernameRef, "cardNumber");
+                firstName = dashboard.getDbVariable(rootdashboard.usernameRef, "first_name");
+                lastName = dashboard.getDbVariable(rootdashboard.usernameRef, "last_name");
+                pfp = dashboard.getDbVariable(rootdashboard.usernameRef, "pfp");
+                console.log("")
+            } else {
+                console.log("Username is empty");
             }
         }
-        KeyframeGroup
-        {
-            target: continueButton
-            property: "color"
-            Keyframe
-            {
-                value: "#1A2035"
-                frame: 200
-            }
-        }
-    }
-    Connections {
-        target: createtransaction
-        onTransactionFound: function(fullname, receivingValue, receivingCurrency, isReceiving) {
-            var transaction = isReceiving ? "Receiving" : "Sending";
-            transactionModel.append({
-                recipent: fullname,
-                value: receivingValue + " " + receivingCurrency,
-                transactionType: transaction,
-                ellipseColor: isReceiving ? "qrc:/resources/ellipseGreen.png" : "../assets/ellipse_6.png",
-                arrow: isReceiving ? "qrc:/resources/receiving.svg" : "qrc:/resources/sending.svg"
-            });
-        }
-    }
-    //desktop view
     ColumnLayout
     {
-        visible: !root.isTablet
+        visible: !rootdashboard.isTablet
+        //visible: false
+        property real expensesValue
+        property real incomeValue: 3000
         anchors.fill: parent
+        id: dashboardwindowDesktop
         RowLayout
         {
-            Layout.alignment: Qt.AlignTop
             spacing: 8 // Adjust spacing between icon and TextField
             Image {
                 id: name
-                source: "qrc:/resources/logo1.png"
+                source: !rootdashboard.isTablet ? "resources/logo1.png" : "resources/pfp.jpg"
             }
             Rectangle
             {
@@ -117,7 +86,7 @@ Window {
 
                 Layout.preferredHeight: 20
                 Layout.preferredWidth: 20
-                source: "qrc:/resources/RightArrows.svg"
+                source: "resources/RightArrows.svg"
                 antialiasing: true
             }
             Rectangle
@@ -158,7 +127,7 @@ Window {
                             fillMode: Image.PreserveAspectFit
 
 
-                            source: "qrc:/resources/search.svg"
+                            source: "resources/search.svg"
                             anchors.top: parent.top
                             anchors.topMargin: 5
                             anchors.left: parent.left
@@ -166,8 +135,7 @@ Window {
                         }
                         id: searchField
 
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.verticalCenterOffset: -3 // Shift upwards by 5 pixels
+                        Layout.alignment: Qt.AlignVCenter
                         Layout.fillWidth: true // Make it expand to fill the remaining space
 
                         placeholderText: qsTr("Search")
@@ -193,7 +161,7 @@ Window {
                     anchors.top: parent.top
                     anchors.left: parent.left
                     anchors.topMargin: 15
-                    source: "qrc:/resources/chat.svg"
+                    source: "resources/chat.svg"
                     anchors.leftMargin: 5
                 }
                 Text {
@@ -217,7 +185,7 @@ Window {
                 Image {
                     id: userpfp
                     x: 14
-                    source: "qrc:/resources/pfp.jpg"
+                    source: "resources/pfp.jpg"
                     width:70
                     height:70
                     anchors.top: parent.top
@@ -232,7 +200,7 @@ Window {
                     anchors.leftMargin: -96
                     anchors.top: parent.top
                     anchors.topMargin: 17
-                    text: root.fullName
+                    text: rootdashboard.fullName
                 }
 
                 Text {
@@ -243,823 +211,757 @@ Window {
                     anchors.top: fullname.bottom
                     anchors.topMargin: 10
                     anchors.left: fullname.left
-                    text: "@" + root.username
+                    text: "@" + rootdashboard.usernameRef
                 }
             }
 
-        }
-        Item
-        {
-            Layout.preferredHeight: 40
         }
 
         RowLayout
         {
-            Layout.leftMargin: 30
-            Button
-            {
-                Layout.preferredHeight: 30
-                Layout.preferredWidth: 30
-            background:Rectangle
-            {
-                radius: 25
-                border.width: 1
-                border.color: "#D4D4D4"
-
-                Image
-                {
-                    anchors.centerIn: parent
-                    source: "qrc:/resources/left.svg"
-                }
-                Text
-                {
-                    anchors.left: parent.right
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: qsTr("Back")
-                }
-            }
-            onClicked:
-            {
-                loader.source = "Dashboard.qml"
-                loader.item.usernameRef = root.username
-                loader.item.fullName = root.fullName
-                root.visible = false
-            }
-            }
-            Item
-            {
-                Layout.fillWidth: true
-            }
-            Button
-            {
-                background: Text
-                {
-                    text: qsTr("Overview");
-                }
-            }
-            Button
-            {
-                background: Text
-                {
-                    text: qsTr("Wallet");
-                }
-            }
-            Button
-            {
-                background: Text
-                {
-                    text: qsTr("Transactions");
-                }
-            }
-            Button
-            {
-                background: Text
-                {
-                    text: qsTr("Trading");
-                }
-            }
-            Button
-            {
-                background: Text
-                {
-                    text: qsTr("Settings");
-                }
-            }
-            Item
-            {
-                Layout.preferredWidth: 5
-            }
-
-        }
-        Item
-        {
-            Layout.preferredHeight: 40
-        }
-        ColumnLayout
-        {
-            Layout.leftMargin: 70
-        RowLayout
-        {
-            Text
-            {
-                text: qsTr("Total balances")
-            }
-            Item
-            {
-                Layout.fillWidth: true
-            }
-
-            Button
-            {
-                Layout.preferredWidth: 100
-                Layout.preferredHeight: 40
-                background: Rectangle
-                {
-                    color: "#1C1F31"
-                    radius: 15
-                }
-                Text
-                {
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenterOffset: 0
-                    anchors.horizontalCenterOffset: 8
-                    text: qsTr("Send")
-                    color: "white"
-                    font.pixelSize: 18
-
-                }
-                Image
-                {
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.horizontalCenterOffset: -30
-                    source: "qrc:/resources/rightArrow2.svg"
-                    width: 15
-                    height: 15
-                    rotation: -90
-                }
-            }
-            Button
-            {
-                Layout.preferredWidth: 100
-                Layout.preferredHeight: 40
-                background: Rectangle
-                {
-                    color: "#1C1F31"
-                    radius: 15
-                }
-                Text
-                {
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenterOffset: 0
-                    anchors.horizontalCenterOffset: 10
-                    text: qsTr("Request")
-                    color: "white"
-                    font.pixelSize: 18
-
-                }
-                Image
-                {
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.horizontalCenterOffset: -30
-                    source: "qrc:/resources/rightArrow2.svg"
-                    width: 15
-                    height: 15
-                    rotation: 90
-                }
-            }
-            Button
-            {
-                Layout.preferredWidth: 100
-                Layout.preferredHeight: 40
-                background: Rectangle
-                {
-                    color: "#1C1F31"
-                    radius: 15
-                }
-                Text
-                {
-                    width: 34
-                    height: 26
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenterOffset: 1
-                    anchors.horizontalCenterOffset: 0
-                    text: qsTr("Send")
-                    color: "white"
-                    font.pixelSize: 18
-                }
-                Image
-                {
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.horizontalCenterOffset: -30
-                    source: "qrc:/resources/convert.svg"
-                    width: 15
-                    height: 15
-                }
-            }
-            Button
-            {
-                Layout.preferredWidth: 40
-                Layout.preferredHeight: 44
-                background: Rectangle
-                {
-                    color: "#1C1F31"
-                    radius: 40
-                }
-                Text
-                {
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.verticalCenterOffset: -15
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: qsTr("...")
-                    color: "white"
-                    font.pixelSize: 50
-                }
-            }
-        }
-        RowLayout
-        {
-            Image
-            {
-                source: "qrc:/resources/usd.png"
-            }
-            Text
-            {
-                text: qsTr("1000.00 USD")
-            }
-        }
-        RowLayout
-        {
-            Layout.leftMargin: 60
-            Text
-            {
-                text: qsTr("1 USD = 1.78 BGN, as of today ")
-            }
-        }
-        Item
-        {
-            Layout.preferredHeight: 10
-        }
-
-        Text
-        {
-            text: "Transactions"
-            font.pixelSize: 30
-        }
-
-        TextField {
-            id: searchField2
-
-            Layout.preferredWidth: 400 // Make it expand to fill the remaining space
-            Layout.preferredHeight: 40
-            placeholderText: qsTr("Search")
-            placeholderTextColor: "grey"
-            font.pixelSize: 20
-            color: "black"
-
-            leftPadding: 30 // Adds space around the text, adjusting the padding as needed
-            topPadding: 7
-
-            background: Rectangle
-            {
-                color: "transparent"
-                border.width: 1
-                border.color: "#727272B2"
-                radius: 10
-            }
-
-            Image {
-                id: searchIcon2
-                fillMode: Image.PreserveAspectFit
-
-
-                source: "qrc:/resources/search.svg"
-                anchors.top: parent.top
-                anchors.topMargin: 5
-                anchors.left: parent.left
-                anchors.leftMargin: 5
-            }
-
-        }
-        Text
-        {
-            Layout.topMargin: 20
-            text: qsTr("Today, 5 December")
-            color: "#2F2F2F"
-            opacity: 0.5
-        }
-
-
-    }
-        ScrollView {
-
-            id:scrollView
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            Layout.leftMargin: 60
-
-            ColumnLayout {
-                id: transactionListLayout
-                anchors.fill: parent
-
-
-            }
-        }
-
-    }
-    //view for tablet and phone
-    RowLayout
-    {
-        id: tabletView
-        visible: root.isTablet
-        anchors.fill: parent
-        ColumnLayout
-        {
-            id:navbar
-            Layout.preferredWidth: 100
-            Layout.fillHeight: true
-            visible: !isPhone
             spacing: 10
+            Layout.topMargin: 40
+
+            Text {
+                text: qsTr("Good afternoon, Boyan")
+                font.pixelSize: !rootdashboard.isTablet ? 35 : 15
+                font.bold: true
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop // Combine alignment flags
+                Layout.leftMargin: 15
+            }
+
+
             Item
             {
-                Layout.preferredHeight:15
+
+                Layout.fillWidth: true
             }
-            Image
+
+            Button
             {
-                source: "qrc:/resources/pfp.jpg"
-                Layout.preferredWidth: 50
-                Layout.preferredHeight: 50
-                Layout.alignment: Qt.AlignHCenter
-                layer.effect: OpacityMask {
-                maskSource: mask
+                background:Text {
+                    id: overviewPage
+                    text: qsTr("Overview")
+                    color: "#367C21"
+                    font.pixelSize: 15
+
                 }
             }
 
-            Image {
-                id: storeIcon
-                anchors.fill: mask
-                source: model.source
-                fillMode: Image.PreserveAspectCrop
-                layer.enabled: true
-
-            }
-
-            Rectangle
+            Button
             {
-                Layout.preferredWidth:50
-                Layout.preferredHeight: 50
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                radius:10
 
-                Image
+                background:Text {
+                    id: walletPage
+                    text: qsTr("Wallet")
+                    color: "#2F2F2F"
+                    font.pixelSize: 15
+                    opacity: 0.5
+
+                }
+            }
+            Button
+            {
+
+                background:Text {
+                    id: transactions
+                    text: qsTr("Transactions")
+                    color: "#2F2F2F"
+                    font.pixelSize: 15
+                    opacity: 0.5
+
+                }
+                onClicked:
                 {
-
-                    source: "qrc:/resources/home.svg"
-                    anchors.centerIn:parent
-                    fillMode: Image.PreserveAspectFit
-
+                    var component = Qt.createComponent("Transactions.qml");
+                            if (component.status === Component.Ready) {
+                                var window = component.createObject(null, { "username": rootdashboard.usernameRef, "fullName": rootdashboard.fullName}); // Pass the variable here
+                                window.visible = true;
+                                rootdashboard.close();
+                            } else {
+                                console.log("Error loading SignIn.qml: " + component.errorString());
+                            }
                 }
             }
-            Rectangle
+            Button
             {
-                Layout.preferredWidth:50
-                Layout.preferredHeight: 50
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                color: "transparent"
-                Image
+
+                background:Text {
+                    id: tradingPageButton
+                    text: qsTr("Trading")
+                    color: "#2F2F2F"
+                    font.pixelSize: 15
+                    opacity: 0.5
+
+                }
+                onClicked:
                 {
-
-                    source: "qrc:/resources/analytics.svg"
-                    anchors.centerIn:parent
-                    fillMode: Image.PreserveAspectFit
-
+                    var component = Qt.createComponent("TradingDashboard.qml");
+                            if (component.status === Component.Ready) {
+                                var window = component.createObject(null, { "username": rootdashboard.usernameRef, "fullName": rootdashboard.fullName}); // Pass the variable here
+                                window.visible = true;
+                                rootdashboard.close();
+                            } else {
+                                console.log("Error loading SignIn.qml: " + component.errorString());
+                            }
                 }
             }
-            Rectangle
+            Button
             {
-                Layout.preferredWidth:50
-                Layout.preferredHeight: 50
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                color: "transparent"
-                Image
-                {
-                    fillMode: Image.PreserveAspectFit
 
+                background:Text {
+                    id: settingsPage
+                    text: qsTr("Settings")
+                    color: "#2F2F2F"
+                    font.pixelSize: 15
+                    opacity: 0.5
 
-                    source: "qrc:/resources/transfers.svg"
-                    anchors.centerIn:parent
                 }
-            }
-            Item
-            {
-                Layout.fillHeight: true
             }
         }
-        ColumnLayout
+        RowLayout
         {
-            Layout.preferredWidth: 500
-            Layout.topMargin: 100
-            Layout.fillHeight: true
-            Image
-            {
-                Layout.alignment: Qt.AlignHCenter
-                source: "qrc:/resources/usd.png"
-            }
+
             Text
             {
-                Layout.alignment: Qt.AlignHCenter
-                font.pixelSize: 30
-                font.bold: true
-                text: "1.567 USD"
+               text: qsTr("This is your finance report")
+               Layout.alignment: Qt.AlignTop | Qt.AlignLeft
+               Layout.topMargin: 10
+               Layout.leftMargin: 20
+               font.pixelSize: 20
+               color: "#2F2F2F"
+               opacity: 0.7
+
             }
-            Text
-            {
-                Layout.alignment: Qt.AlignHCenter
-                font.pixelSize: 20
-                text: "1 USD = 1,78 BGN, as of today"
-            }
+        }
+        GridLayout {
+                columns: 4
+                columnSpacing: 10
 
+                Layout.fillWidth: true
+                Layout.fillHeight: true
 
-            ListView {
-                Layout.topMargin: 20
-                Layout.bottomMargin: 20
-                width: contentWidth // Ensure ListView wraps its content
-                Layout.preferredHeight: 60
-                Layout.alignment: Qt.AlignHCenter
-                orientation: ListView.Horizontal
-                spacing: !root.isPhone ? 30 : 15
-                model: ListModel {
-                    ListElement {source: "qrc:/resources/rightArrow2.svg"; text: "Send";rotation: -90; method1: true}
-                    ListElement {source: "qrc:/resources/rightArrow2.svg"; text: "Request"; rotation: 90}
-                    ListElement {source: "qrc:/resources/convert.svg"; text: "Convert"; rotation: 0}
-                    ListElement {source: "qrc:/resources/more.svg"; text: "More"; rotation: 0}
-                }
-                delegate: Item {
-                    width: 70
-                    height: 70
+                // First rectangle
+                Rectangle {
+                    Layout.column: 0
+                    border.width: 1
+                    border.color: "#727272"
+                    Layout.preferredHeight: 186
+                    Layout.preferredWidth: 420
 
-                    Rectangle {
-                        id: options
-                        width: !root.isPhone ? 40 : 30
-                        height: !root.isPhone ? 40 : 30
-                        color: "#1C1F31"
-                        radius: 25
-                        anchors.horizontalCenter: parent.horizontalCenter
+                    radius: 10
+
+                    Text {
+
+                        color: "#b3000000"
+                        text: qsTr("My balance")
+                        font.pointSize: 16
                         anchors.top: parent.top
-                        anchors.topMargin: 5
+                        anchors.topMargin: 10
+                        anchors.left: parent.left
+                        anchors.leftMargin: 20
+                    }
+                    ColumnLayout
+                    {
+                        id:sd
+                        anchors.fill: parent
+                    RowLayout {
+                        id: textRow
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 48
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.topMargin: 40
 
-                        Image {
-                            anchors.centerIn: parent
-                            source: model.source
-                            rotation: model.rotation
+                        Text {
+                            property real balanceValue: rootdashboard.balance
+                            visible: !rootdashboard.isPhone
+                            id: balance
+                            color: "black"
+                            text: "$" + balanceValue.toFixed(2)
+                            font.pixelSize: 40
+                            Layout.alignment: Qt.AlignLeft
+                            SequentialAnimation on balanceValue {
+                                id: balanceAnimation
+                                NumberAnimation {
+                                    running: false
+                                    loops: 1
+                                    from: 0.0
+                                    to: 8753.31
+                                    duration: 3000
+                                }
+                            }
+
+
                         }
-                        MouseArea
+
+                        Text {
+
+                            id: percent
+                            text: qsTr("+6.7%")
+                            color: "#249226"
+                            font.pixelSize: 20
+                            Layout.alignment: Qt.AlignRight
+                        }
+                        Text {
+                               text: qsTr("Compared to last month")
+                               font.pixelSize: 15
+                               color: "#2f2f2f" // Optional for styling
+                               Layout.leftMargin: 10
+                        }
+                    }
+
+
+                        Text {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 20
+                            Layout.rightMargin: 10
+                            Layout.leftMargin: 20
+                            id: fdfd
+                            text: qsTr("**** **** ****  2472")
+                            Layout.alignment: Qt.AlignBottom
+                            font.pixelSize: 20
+
+                        }
+
+
+                    RowLayout
+                    {
+                        Layout.leftMargin: 5
+                        spacing: 15
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+
+
+                        Button
                         {
-                            anchors.fill: parent
-                            onClicked:
-                            {
-                                bottomDrawer.open();
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 37
+                            background: Rectangle {
+                                id: rectangle_28
+
+                                color: "#367c21"
+                                radius: 8
+                                anchors.left: parent.left
+                                anchors.top: parent.top
+                            }
+
+                            Text {
+                                id: send_money
+
+                                color: "#ececec"
+                                text: qsTr("Send money")
+                                font.pixelSize: 22
+                                anchors.centerIn: parent
+                                wrapMode: Text.NoWrap
+                                font.weight: Font.Medium
+                            }
+                        }
+
+                        Button
+                        {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 37
+                            background: Rectangle {
+                                id: rectangle_29
+
+                                color: "#33d9d9d9"
+                                radius: 8
+                                border.color: "#727272"
+                                border.width: 0.3
+                                anchors.left: parent.left
+                                anchors.top: parent.top
+                            }
+
+                            Text {
+                                id: request_money
+
+                                color: "#367c21"
+                                text: qsTr("Request money")
+                                anchors.left: parent.left
+                                anchors.top: parent.top
+                                anchors.leftMargin: 22
+                                anchors.topMargin: 5
+                                font.pixelSize: 22
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignTop
+                                wrapMode: Text.NoWrap
+                                font.weight: Font.Medium
+                            }
+                        }
+                    }
+                    Item
+                    {
+                        Layout.fillHeight: true
+                    }
+                }
+
+                }
+
+                // Second rectangle
+                Rectangle {
+
+                    Layout.column: 1
+                    border.width: 1
+                    border.color: "#727272"
+                    Layout.preferredHeight: 186
+                    Layout.fillWidth: true
+                    radius: 10
+
+                    Item {
+                        id: group_5
+                        x: 22
+                        y: 11
+                        width: 40
+                        height: 40
+                        Rectangle {
+                            id: ellipse_7
+                            width: 40
+                            height: 40
+                            anchors.left: parent.left
+                            anchors.top: parent.top
+                            radius: 25
+                            color: "#d9d9d9"
+
+                            antialiasing: true
+                        }
+
+                        Rectangle {
+                            id: ellipse_6
+                            width: 36
+                            height: 36
+                            anchors.left: parent.left
+                            anchors.top: parent.top
+                            anchors.leftMargin: 2
+                            anchors.topMargin: 2
+                            radius: 50
+                            color: "#ffffff"
+
+                            antialiasing: true
+                        }
+
+                        Item {
+                            id: group1
+                            x: 5
+                            y: 5
+
+                            width: parent.width - 10
+                            height: parent.height - 10
+                            Image {
+                                id: element18
+                                anchors.centerIn: parent
+                                source: "resources/income.svg"
+                                antialiasing: true
+                                fillMode: Image.PreserveAspectFit
+
+                            }
+
+
+                        }
+                    }
+
+                    Text {
+                        id: monthly_Income
+                        width: parent.width
+                        height: 23
+                        color: "#000000"
+                        text: qsTr("Monthly Income")
+                        anchors.top: parent.top
+                        anchors.topMargin: 63
+                        font.pixelSize: 17
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignTop
+                        wrapMode: Text.NoWrap
+                        font.weight: Font.Medium
+                    }
+                    Text {
+                        property real incomeValue: dashboardwindowDesktop.incomeValue
+                        id: income
+                        width: parent.width
+                        color: "#000000"
+                        text: "$" + incomeValue.toFixed(2)
+                        anchors.top: parent.top
+                        anchors.topMargin: 92
+                        font.pixelSize: width > 1000 ? 32 : 25
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignTop
+                        wrapMode: Text.NoWrap
+                        font.weight: Font.Normal
+
+                        SequentialAnimation on incomeValue {
+                            id: incomeAnimation
+                            NumberAnimation {
+                                running: false
+                                loops: 1
+                                from: 0.0
+                                to: 2403.84
+                                duration: 2000
                             }
                         }
                     }
 
                     Text {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.top: options.bottom
-                        anchors.topMargin: 5
-                        text: model.text
-                        font.pixelSize: 12
-                        color: "black"
+                        id: element13
+                        width: 55
+                        height: 26
+                        color: "#249226"
+                        text: qsTr("+6,7%")
+                        anchors.left: parent.left
+                        anchors.top: parent.top
+                        anchors.leftMargin: 14
+                        anchors.topMargin: 144
+                        font.pixelSize: 18
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignTop
+                        wrapMode: Text.Wrap
+                        font.weight: Font.Normal
+                    }
+
+                    Text {
+                        id: compared_to_last_month1
+                        width: 141
+                        height: 17
+                        color: "#b22f2f2f"
+                        text: qsTr("Compared to last month")
+                        anchors.left: parent.left
+                        anchors.top: parent.top
+                        anchors.leftMargin: 74
+                        anchors.topMargin: 145
+                        font.pixelSize: 13
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignTop
+                        wrapMode: Text.NoWrap
+                        font.weight: Font.Normal
                     }
                 }
-            }
 
-            ColumnLayout
-            {
-                Layout.alignment: Qt.AlignHCenter
-                Text {
-                            text: "Goals 1000/2000 USD"
-                            font.pixelSize: 20
-                            Layout.alignment: Qt.AlignHCenter
+                // Third rectangle
+                Rectangle {
+
+
+                    Layout.column: 2
+                    border.width: 1
+                    border.color: "#727272"
+                    Layout.preferredHeight: 186
+                    Layout.fillWidth: true
+
+                    radius: 10
+
+                    Text {
+                        id: element17
+                        width: 52
+                        height: 26
+                        color: "#d6453e"
+                        text: qsTr("-8,6%")
+                        anchors.left: parent.left
+                        anchors.top: parent.top
+                        anchors.leftMargin: 15
+                        anchors.topMargin: 144
+                        font.pixelSize: 18
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignTop
+                        wrapMode: Text.Wrap
+                        font.weight: Font.Normal
+                    }
+
+                    Text {
+                        id: compared_to_last_month2
+                        width: 141
+                        height: 17
+                        color: "#b22f2f2f"
+                        text: qsTr("Compared to last month")
+                        anchors.left: parent.left
+                        anchors.top: parent.top
+                        anchors.leftMargin: 74
+                        anchors.topMargin: 145
+                        font.pixelSize: 13
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignTop
+                        wrapMode: Text.NoWrap
+                        font.weight: Font.Normal
+                    }
+
+                    Item {
+                        id: group_7
+                        x: 22
+                        y: 11
+                        width: 40
+                        height: 40
+                        Rectangle {
+                            id: ellipse_5
+                            width: 40
+                            height: 40
+                            anchors.left: parent.left
+                            anchors.top: parent.top
+                            radius: 25
+                            color: "#d9d9d9"
+
+                            antialiasing: true
                         }
 
                         Rectangle {
-                            Layout.preferredWidth: 300
-                            Layout.preferredHeight: 7
-                            radius: 10
-                            color: "lightgray"
+                            id: ellipse_8
+                            width: 36
+                            height: 36
+                            anchors.left: parent.left
+                            anchors.top: parent.top
+                            anchors.leftMargin: 2
+                            anchors.topMargin: 2
+                            radius: 50
+                            color: "#ffffff"
 
-                            Rectangle {
-                                width: parent.width * 0.5 // 50% progress (1000/2000)
-                                height: parent.height
-                                radius: 10
-                                color: "green"
+                            antialiasing: true
+                        }
+
+                        Item {
+                            id: group3
+                            x: 5
+                            y: 5
+
+                            width: parent.width - 10
+                            height: parent.height - 10
+                            Image {
+                                id: element12
+                                anchors.centerIn: parent
+                                source: "resources/expenses.svg"
+                                antialiasing: true
+                                fillMode: Image.PreserveAspectFit
+
                             }
+
+
                         }
-            }
+                    }
 
-                Rectangle
-                {
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    Layout.topMargin: 20
-                    color: "white"
-                    radius:20
-                    ColumnLayout
-                    {
-                        anchors.fill: parent
-                        Text
-                        {
-                            text: "Transactions"
-                            font.pixelSize: 25
-                            font.bold:true
-                        }
-                        RowLayout
-                        {
-                            TextField {
-                                background: Rectangle
-                                {
-                                    color: "white"
-                                    border.width: 1
-                                    border.color: "#727272"
-                                    radius: 10
-                                }
-                                Image {
-                                    id: searchIcon3
-                                    fillMode: Image.PreserveAspectFit
+                    Text {
+                        id: monthly_Expenses
+                        width: parent.width
+                        height: 23
+                        color: "#000000"
+                        text: qsTr("Monthly Expenses")
+                        anchors.left: parent.left
+                        anchors.top: parent.top
+                        anchors.topMargin: 63
+                        font.pixelSize: 17
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignTop
+                        wrapMode: Text.NoWrap
+                        font.weight: Font.Medium
+                    }
 
-                                    source: "qrc:/resources/search.svg"
-                                    anchors.top: parent.top
-                                    anchors.topMargin: 10
-                                    anchors.left: parent.left
-                                    anchors.leftMargin: 5
+                    Text {
+                        property real expensesValue: dashboardwindowDesktop.expensesValue
+                        id: expenses
+                        width: parent.width
 
-                                }
-                                id: searchField3
+                        color: "#000000"
+                        text: "$" + expensesValue.toFixed(2)
+                        anchors.left: parent.left
+                        anchors.top: parent.top
+                        anchors.leftMargin: 8
+                        anchors.topMargin: 92
+                        font.pixelSize: width > 1000 ? 32 : 25
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignTop
+                        wrapMode: Text.NoWrap
+                        font.weight: Font.Normal
 
-                                Layout.fillWidth: true
-                                Layout.preferredHeight: 45
-                                Layout.alignment: Qt.AlignHCenter
-                                placeholderTextColor: "grey"
-                                font.pixelSize: 18
-                                color: "black"
-                                leftPadding: 30 // Adds space around the text, adjusting the padding as needed
+                        SequentialAnimation on expensesValue {
+                            id:expenseAnimation
+                            NumberAnimation {
+                                running: false
+                                from: 0.0
+                                to: 157
+                                duration: 2000
                             }
-                            Rectangle
-                            {
-                                Layout.preferredWidth: 100
-                                Layout.preferredHeight: 45
-                                Layout.leftMargin: 10
-                                border.width: 1
-                                radius: 10
-                                Image
-                                {
-                                    anchors.left: parent.left
-                                    anchors.leftMargin: 10
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    source: "qrc:/resources/filter.svg"
-                                }
-                                Text
-                                {
-                                    anchors.left: parent.left
-                                    anchors.leftMargin: 40
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    text: "Filter"
-                                    font.pixelSize: 20
-                                }
-                            }
-                        }
-                        Text
-                        {
-                            text: "Today 7 December"
-                        }
-                        ColumnLayout
-                        {
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-                            Layout.rightMargin: 20
-                            ScrollView {
-
-                                id:scrollView2
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                ColumnLayout {
-                                    id: transactionListLayout2
-                                    anchors.fill: parent
-
-
-                                }
-                            }
-                        }
-                        Drawer
-                        {
-                            id: bottomDrawer
-                                    width: parent.width
-                                    height: 550
-                                    edge: Qt.BottomEdge
-                                    Rectangle {
-                                                width: parent.width
-                                                height: parent.height
-                                                color: "white"
-
-                                                ColumnLayout
-                                                {
-                                                    anchors.fill: parent
-                                                    Text
-                                                    {
-                                                        font.pixelSize: 25
-                                                        Layout.preferredHeight: 30
-                                                        Layout.leftMargin: 30
-                                                        Layout.topMargin: 15
-                                                        font.bold: true
-                                                        text: qsTr("Where would you send
-the money?")
-                                                    }
-
-                                                    Rectangle
-                                                    {
-                                                        id:newContactRect
-                                                        border.width: 1
-                                                        Layout.fillWidth: true
-                                                        Layout.rightMargin: 25
-                                                        Layout.leftMargin: 25
-                                                        Layout.topMargin: 40
-
-                                                        Layout.preferredHeight: 80
-                                                        radius:20
-
-                                                        Rectangle
-                                                        {
-                                                            width: 50
-                                                            height: 50
-                                                            anchors.verticalCenter: parent.verticalCenter
-                                                            anchors.left: parent.left
-                                                            anchors.leftMargin: 10
-                                                            color: "grey"
-                                                            opacity: 0.5
-                                                            radius: 30
-                                                            Image
-                                                            {
-                                                                anchors.centerIn: parent
-                                                                source: "qrc:/resources/contact.svg"
-
-                                                            }
-
-                                                        }
-                                                        Text
-                                                        {
-                                                            id:method1
-                                                            anchors.left: parent.left
-                                                            anchors.leftMargin: 70
-                                                            anchors.top: parent.top
-                                                            anchors.topMargin: 5
-                                                            text: "New Recipent"
-                                                            font.bold: true
-                                                            font.pixelSize: 18
-                                                        }
-                                                        Text
-                                                        {
-                                                            width: parent.width - 100
-                                                            anchors.left: method1.left
-                                                            anchors.top: method1.top
-                                                            anchors.topMargin: 30
-                                                            text: "Send money to people whose contact you don't have"
-                                                            wrapMode: Text.Wrap
-                                                            opacity: 0.5
-
-                                                            font.pixelSize: 18
-                                                        }
-                                                        MouseArea
-                                                        {
-                                                            anchors.fill: parent
-                                                            hoverEnabled: true
-                                                            z:1
-                                                            onClicked:
-                                                            {
-                                                                 console.log("MouseArea clicked");
-                                                                timelineAnimation.running = true
-                                                            }
-                                                        }
-                                                    }
-                                                    Rectangle
-                                                    {
-                                                        border.width: 1
-                                                        Layout.fillWidth: true
-                                                        Layout.rightMargin: 25
-                                                        Layout.leftMargin: 25
-                                                        Layout.preferredHeight: 80
-                                                        radius:20
-                                                        Rectangle
-                                                        {
-                                                            width: 50
-                                                            height: 50
-                                                            anchors.verticalCenter: parent.verticalCenter
-                                                            anchors.left: parent.left
-                                                            anchors.leftMargin: 10
-                                                            color: "grey"
-                                                            opacity: 0.5
-                                                            radius: 30
-                                                            Image
-                                                            {
-                                                                anchors.centerIn: parent
-                                                                source: "qrc:/resources/contact.svg"
-
-                                                            }
-
-                                                        }
-                                                        Text
-                                                        {
-                                                            id:method2
-                                                            anchors.left: parent.left
-                                                            anchors.leftMargin: 70
-                                                            anchors.top: parent.top
-                                                            anchors.topMargin: 5
-                                                            text: "Contact"
-                                                            font.bold: true
-                                                            font.pixelSize: 18
-                                                        }
-                                                        Text
-                                                        {
-                                                            width: parent.width - 100
-                                                            anchors.left: method2.left
-                                                            anchors.top: method2.top
-                                                            anchors.topMargin: 30
-                                                            text: "Send money to one of the contact lists I have"
-                                                            wrapMode: Text.Wrap
-                                                            opacity: 0.5
-
-                                                            font.pixelSize: 18
-                                                        }
-                                                    }
-                                                    Rectangle
-                                                    {
-                                                        border.width: 1
-                                                        Layout.fillWidth: true
-                                                        Layout.rightMargin: 25
-                                                        Layout.leftMargin: 25
-                                                        Layout.preferredHeight: 80
-
-                                                        radius:20
-                                                        Rectangle
-                                                        {
-                                                            width: 50
-                                                            height: 50
-                                                            anchors.verticalCenter: parent.verticalCenter
-                                                            anchors.left: parent.left
-                                                            anchors.leftMargin: 10
-                                                            color: "grey"
-                                                            opacity: 0.5
-                                                            radius: 30
-                                                            Image
-                                                            {
-                                                                id: icon3
-                                                                anchors.centerIn: parent
-                                                                source: "qrc:/resources/contact.svg"
-                                                            }
-
-                                                        }
-                                                        Text
-                                                        {
-                                                            id:method3
-                                                            anchors.left: parent.left
-                                                            anchors.leftMargin: 70
-                                                            anchors.top: parent.top
-                                                            anchors.topMargin: 5
-                                                            text: "My Self"
-                                                            font.bold: true
-                                                            font.pixelSize: 18
-                                                        }
-                                                        Text
-                                                        {
-                                                            width: parent.width - 100
-                                                            anchors.left: method3.left
-                                                            anchors.top: method3.top
-                                                            anchors.topMargin: 30
-                                                            text: "Withdraw the balance of money to my local bank account"
-                                                            wrapMode: Text.Wrap
-                                                            opacity: 0.5
-
-                                                            font.pixelSize: 18
-                                                        }
-                                                    }
-
-                                                    Button
-                                                    {
-
-                                                        Layout.topMargin: 30
-                                                        Layout.bottomMargin: 30
-                                                        Layout.preferredHeight: 60
-                                                        Layout.fillWidth: true
-                                                        Layout.rightMargin: 5
-                                                        Layout.leftMargin: 5
-                                                        background: Rectangle
-                                                        {
-                                                            id:continueButton
-                                                            color: "#B7C2CA"
-                                                            radius: 20
-                                                            Text
-                                                            {
-
-                                                                anchors.centerIn: parent
-                                                                text: "Continue"
-                                                                color: "white"
-                                                            }
-                                                        }
-                                                    }
-
-                                                }
-                                            }
                         }
                     }
                 }
 
+                // Rectangle spanning below the first three
+                Rectangle {
+                    Layout.row: 1
+                    Layout.column: 0
+                    Layout.columnSpan: 3
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    border.width: 1
+                    border.color: "#727272"
+                    radius: 10
 
-        }
+                    ChartView {
+                        id: bar
+                        anchors.fill: parent
+                        animationOptions: ChartView.SeriesAnimations
+                        BarSeries {
+                            id: mySeries
 
+                            axisX: BarCategoryAxis {
+                                categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
+                                gridVisible: false
+                            }
+
+                            axisY: ValuesAxis {
+                                labelFormat: "$%.0f" // Format the labels to include '$' before each value
+                                min: 0
+                                max: 1200 // Adjust as needed for your data
+                            }
+
+                            // BarSet for "Earnings"
+                            BarSet {
+                                label: "Earnings"
+                                values: [800, 850, 900, 950, 1000, 1100] // Example values for each month
+                            }
+
+                            // BarSet for "Spendings"
+                            BarSet {
+                                label: "Spendings"
+                                values: [560, 600, 650, 700, 750, 800]
+                            }
+                        }
+                    }
+                }
+
+                // Side rectangle
+                Rectangle {
+                    Layout.row: 0
+                    Layout.rowSpan: 2
+                    Layout.column: 3
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    border.width: 1
+                    border.color: "#727272"
+                    radius: 10
+
+                    ColumnLayout
+                    {
+                        anchors.fill: parent
+
+                        ChartView {
+                            id: pie
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            PieSeries {
+                                name: "PieSeries"
+
+                                PieSlice {
+                                    id: incomePie
+                                    value: 0 // Start at 0 to animate "filling"
+                                    label: "Income"
+                                }
+
+                                PieSlice {
+                                    id: expensesPie
+                                    value: 0 // Start at 0 to animate "filling"
+                                    label: "Expenses"
+                                }
+                            }
+                        }
+
+                        // Sequential animation for "filling" effect
+                        SequentialAnimation {
+                            id: pie1Animation
+                            running: false // Start automatically
+                            loops: 1 // Run once
+
+                            NumberAnimation {
+                                target: incomePie
+                                property: "value"
+                                from: 0
+                                to: 13.5 // Final value for "Income" slice
+                                duration: 1500 // Duration in milliseconds
+                                easing.type: Easing.InOutQuad
+                            }
+
+                            NumberAnimation {
+                                target: expensesPie
+                                property: "value"
+                                from: 0
+                                to: 10.9 // Final value for "Expenses" slice
+                                duration: 1500 // Duration in milliseconds
+                                easing.type: Easing.InOutQuad
+                            }
+                        }
+
+                        ChartView {
+                            id: pie1
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            PieSeries {
+                                name: "PieSeries"
+
+                                PieSlice {
+                                    id: stocksPie
+                                    value: 0 // Start at 0 to animate "filling"
+                                    label: "Stocks"
+                                }
+
+                                PieSlice {
+                                    id: cryptoPie
+                                    value: 0 // Start at 0 to animate "filling"
+                                    label: "Crypto"
+                                }
+
+                                PieSlice {
+                                    id: transferPie
+                                    value: 0 // Start at 0 to animate "filling"
+                                    label: "Transfers"
+                                }
+                            }
+                        }
+
+                        // Sequential animation for "filling" effect
+                        SequentialAnimation {
+                            id: pie2Animation
+
+                            running: false // Start automatically
+                            loops: 1 // Run once
+
+                            NumberAnimation {
+                                target: stocksPie
+                                property: "value"
+                                from: 0
+                                to: 13.5 // Final value for "Stocks" slice
+                                duration: 1500 // Duration in milliseconds
+                                easing.type: Easing.InOutQuad
+                            }
+
+                            NumberAnimation {
+                                target: cryptoPie
+                                property: "value"
+                                from: 0
+                                to: 10.9 // Final value for "Crypto" slice
+                                duration: 1500 // Duration in milliseconds
+                                easing.type: Easing.InOutQuad
+                            }
+
+                            NumberAnimation {
+                                target: transferPie
+                                property: "value"
+                                from: 0
+                                to: 8.6 // Final value for "Transfers" slice
+                                duration: 1500 // Duration in milliseconds
+                                easing.type: Easing.InOutQuad
+                            }
+                        }
+
+                        Timeline {
+                            id: timeline
+                            animations: [
+                                TimelineAnimation {
+                                    id: timelineAnimation
+                                    running: true
+                                    loops: 1
+                                    duration: 1000
+                                    to: 1000
+                                    from: 0
+                                }
+                            ]
+                            startFrame: 0
+                            endFrame: 1000
+                            enabled: true
+                        }
+                    }
+                }
+            }
     }
 }
