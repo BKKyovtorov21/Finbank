@@ -975,6 +975,159 @@ Window {
     ColumnLayout
     {
         visible: rootdashboard.isTablet
+        RowLayout{
+            Layout.topMargin: 75
+            Layout.leftMargin: 70
+            ColumnLayout
+            {
+                Text{
+                text: "Hi, Vicho"
+                font.pixelSize: 30
+                font.bold: true
+                }
+                Text{
+                    text:"Welcome back!"
+                    font.pixelSize: 20
+                    color: "#C6C6C6"
+                    font.bold: true
+                }
+            }
+            spacing: fillWidth
+            Image{
+                Layout.leftMargin: 575
+                id: notification
+                Layout.preferredHeight: 30
+                Layout.preferredWidth: 30
+                source: "resources/mingcute--notification-line.svg"
+            }
+            Rectangle {
+                width: 16
+                height: 16
+                radius: width / 2
+                color: "red"
+                Layout.leftMargin: -20
+                Layout.topMargin: -20
+                anchors.margins: 15
+                Text {
+                    text: "6" // Replace "3" with the desired number
+                    color: "white"
+                    font.pixelSize: 12
+                    anchors.centerIn: parent
+                    }
+                }
+        }
+        ColumnLayout
+        {
+        Text {
+            Layout.topMargin: 40
+            Layout.leftMargin: 70
+            font.pixelSize: 20
+            color: "#C6C6C6"
+            font.bold: true
+            text: "Wallet Balance"
+        }
+        RowLayout{
+            Text{
+                text: "$17,298.20"
+                font.pixelSize: 40
+                Layout.leftMargin: 70
+                font.bold: true
+                font.letterSpacing: 2
+            }
+            Image{
+                source:"resources/eye.svg"
+                Layout.leftMargin: 5
+                Layout.topMargin: 2
+            }
+        }
+        }
+        RowLayout {
+            Layout.leftMargin: 70
+            Layout.topMargin: 40
+            spacing: 20 // Space between elements in the RowLayout
 
+            // "Cards" Text
+            Text {
+                text: "Cards"
+                font.pixelSize: 20
+            }
+
+            // Circles (Light green and dark green with "+")
+            RowLayout {
+                spacing: 10 // Space between the circles
+                Rectangle {
+                    width: 50
+                    height: 50
+                    radius: 25
+                    color: "lightgreen"
+                    Rectangle {
+                        width: 25
+                        height: 25
+                        radius: 12.5
+                        color: "darkgreen"
+                        anchors.centerIn: parent
+                        Text {
+                            text: "+"
+                            font.pixelSize: 20
+                            color: "white"
+                            font.bold: true
+                            anchors.centerIn: parent
+                        }
+                    }
+                }
+            }
+
+            // Credit Cards
+            RowLayout {
+                spacing: 20 // Space between credit cards
+                Rectangle {
+                    id: blueCard
+                    width: 300
+                    height: 150
+                    radius: 15 // Rounded corners for a card-like look
+                    color: "#1E90FF" // Blue color
+                    border.color: "#4682B4" // Slightly darker border
+                    border.width: 2
+                    Text {
+                        text: "**** 2515"
+                        font.pixelSize: 20
+                        font.bold: true
+                        color: "white" // White text for contrast
+                        anchors.centerIn: parent // Center the text in the card
+                    }
+                }
+
+                Rectangle {
+                    id: blackCard
+                    width: 300
+                    height: 150
+                    radius: 15 // Rounded corners for a card-like look
+                    color: "black" // Black color
+                    border.color: "#444444" // Dark gray border
+                    border.width: 2
+                    ColumnLayout {
+                        anchors.centerIn: parent // Center the column in the card
+                        spacing: 10
+                        Text {
+                            text: "**** 1240"
+                            font.pixelSize: 20
+                            font.bold: true
+                            color: "white" // White text for contrast
+                            horizontalAlignment: Text.AlignHCenter
+                        }
+                        Text {
+                            text: "$10,214.12"
+                            font.pixelSize: 24
+                            font.bold: true
+                            color: "gold" // Gold text for the amount
+                            horizontalAlignment: Text.AlignHCenter
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+        }
     }
-}
