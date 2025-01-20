@@ -30,6 +30,12 @@ Window {
         pie2Animation.running = true
     }
 
+
+    FontLoader {
+        id: phoneFont
+        source: "fonts/GolosText-VariableFont_wght.ttf"
+    }
+
     Component.onCompleted: {
 
             if (rootdashboard.usernameRef !== "") {
@@ -737,6 +743,7 @@ Window {
                         width: parent.width
                         height: 23
                         color: "#000000"
+
                         text: qsTr("Monthly Expenses")
                         anchors.left: parent.left
                         anchors.top: parent.top
@@ -963,5 +970,11 @@ Window {
                     }
                 }
             }
+    }
+
+    ColumnLayout
+    {
+        visible: rootdashboard.isTablet
+
     }
 }
