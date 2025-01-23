@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import QtQuick.Timeline
 import Qt5Compat.GraphicalEffects
 import QtCharts
+import QtQuick.Effects
 Window {
     id: rootdashboard
     width: Screen.width
@@ -11,7 +12,7 @@ Window {
     minimumWidth: 400
     visible: true
     property bool isTablet: width <= 900
-    property bool isPhone: width <= 600
+    property bool isPhone: width <= 620
 
         property string usernameRef
        property real balance: 3000
@@ -972,29 +973,37 @@ Window {
             }
     }
 
+    Rectangle
+    {
+        visible: rootdashboard.isTablet
+        anchors.fill: parent
+        color: "#FCFBFC"
+    }
+
     ColumnLayout
     {
         visible: rootdashboard.isTablet
+        anchors.fill: parent
+
         RowLayout{
-            Layout.topMargin: 75
-            Layout.leftMargin: 70
+            Layout.topMargin: 30
+            Layout.preferredWidth: parent.width
+            Layout.leftMargin: 40
             ColumnLayout
             {
                 Text{
-                text: "Hi, Vicho"
+                text: "Hi, Boyan"
                 font.pixelSize: 30
-                font.bold: true
                 }
                 Text{
                     text:"Welcome back!"
                     font.pixelSize: 20
                     color: "#C6C6C6"
-                    font.bold: true
                 }
             }
-            spacing: fillWidth
+
             Image{
-                Layout.leftMargin: 575
+                Layout.alignment: Qt.AlignRight
                 id: notification
                 Layout.preferredHeight: 30
                 Layout.preferredWidth: 30
@@ -1009,7 +1018,7 @@ Window {
                 Layout.topMargin: -20
                 anchors.margins: 15
                 Text {
-                    text: "6" // Replace "3" with the desired number
+                    text: "6"
                     color: "white"
                     font.pixelSize: 12
                     anchors.centerIn: parent
@@ -1018,9 +1027,11 @@ Window {
         }
         ColumnLayout
         {
+            Layout.preferredHeight: 100
+            Layout.preferredWidth: parent.width
         Text {
             Layout.topMargin: 40
-            Layout.leftMargin: 70
+            Layout.leftMargin: 40
             font.pixelSize: 20
             color: "#C6C6C6"
             font.bold: true
@@ -1030,8 +1041,8 @@ Window {
             Text{
                 text: "$17,298.20"
                 font.pixelSize: 40
-                Layout.leftMargin: 70
-                font.bold: true
+                Layout.leftMargin: 40
+
                 font.letterSpacing: 2
             }
             Image{
@@ -1042,19 +1053,17 @@ Window {
         }
         }
         RowLayout {
-            Layout.leftMargin: 70
+            Layout.leftMargin: 20
             Layout.topMargin: 40
-            spacing: 20 // Space between elements in the RowLayout
+            spacing: 20
 
             // "Cards" Text
             Text {
                 text: "Cards"
-                font.pixelSize: 20
+                font.pixelSize: 15
+                font.bold: true
+                color: "#144618"
             }
-
-            // Circles (Light green and dark green with "+")
-            RowLayout {
-                spacing: 10 // Space between the circles
                 Rectangle {
                     width: 50
                     height: 50
@@ -1067,67 +1076,271 @@ Window {
                         color: "darkgreen"
                         anchors.centerIn: parent
                         Text {
+
                             text: "+"
                             font.pixelSize: 20
                             color: "white"
                             font.bold: true
                             anchors.centerIn: parent
+                            anchors.verticalCenterOffset: -1.8
+                            anchors.horizontalCenterOffset: -0.2
                         }
                     }
+                }
+
+
+            // Credit Cards
+
+            RowLayout {
+                spacing: 20 // Space between credit cards
+                Image {
+                    Layout.preferredWidth: 230
+                    Layout.preferredHeight: rootdashboard.isPhone ? 120 : 150
+                    source: "resources/minimalistbg1.png"
+
+
+                    clip: true
+                    Text {
+                        id: cardNumbers
+
+                        text: "**** 2515"
+                        font.pixelSize: rootdashboard.isPhone ? 15 : 20
+                        font.bold: true
+                        color: "white" // White text for contrast
+                        anchors.left: parent.left
+                        anchors.bottom: parent.bottom
+                        anchors.leftMargin: 10
+                        anchors.bottomMargin: 30
+                    }
+
+                    Image
+                    {
+                        anchors.right: parent.right
+                        anchors.rightMargin: -10
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: 13
+
+                        source: "resources/visa.png"
+                        width: 80
+                        height: 50
+                    }
+                    Image
+                    {
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        anchors.topMargin: 10
+                        anchors.rightMargin: 10
+                        source: "resources/bulgariaflag.png"
+                        width: 25
+                        height: 25
+                        smooth: true
+                    }
+                    Text
+                    {
+
+                        anchors.left: parent.left
+                        anchors.top: cardNumbers.bottom
+                        anchors.topMargin: 2
+                        anchors.leftMargin: 12
+                        text: "BOYAN KYOVTOROV"
+                        font.bold: true
+                        color: "white"
+                        font.pixelSize: rootdashboard.isPhone ? 10 : 15
+                        font.letterSpacing: 2
+                    }
+                    }
+
+                Image {
+                    visible: !rootdashboard.isPhone
+                    Layout.preferredWidth: rootdashboard.isPhone ? 200 : (rootdashboard.isTablet ? 230 : 230)
+                    Layout.preferredHeight: rootdashboard.isPhone ? 100 : 150
+                    source: "resources/minimalistbg2.png"
+
+
+                    clip: true
+                    Text {
+                        id: cardNumbers2
+                        text: "**** 3411"
+                        font.pixelSize: 15
+                        font.bold: true
+                        color: "white" // White text for contrast
+                        anchors.left: parent.left
+                        anchors.bottom: parent.bottom
+                        anchors.leftMargin: 10
+                        anchors.bottomMargin: 30
+                    }
+
+                    Image
+                    {
+                        anchors.right: parent.right
+                        anchors.bottom: parent.bottom
+                            anchors.bottomMargin: 20
+                        source: "resources/mastercard_logo.png"
+                        width: 80
+                        height: 50
+                    }
+                    Image
+                    {
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        anchors.topMargin: 10
+                        anchors.rightMargin: 10
+                        source: "resources/usaflag.png"
+                        width: 25
+                        height: 25
+                        smooth: true
+                    }
+                    Text
+                    {
+                        anchors.left: parent.left
+                        anchors.top: cardNumbers2.bottom
+                        anchors.topMargin: 0
+                        anchors.leftMargin: 10
+                        text: "VICHO VICHEV"
+                        font.bold: true
+                        color: "white"
+                        font.pixelSize: 10
+                        font.letterSpacing: 2
+                    }
+                    }
+            }
+
+
+        }
+
+        RowLayout
+        {
+            Layout.topMargin: 40
+            Layout.alignment: Qt.AlignHCenter
+            Rectangle
+            {
+                Layout.preferredHeight: rootdashboard.isPhone ? 60 : 70
+                Layout.preferredWidth: rootdashboard.isPhone ? 120 : 180
+                Layout.leftMargin: width > 650 ? 40 : 8
+                color: "#144618"
+                radius: 30
+
+                Image
+                {
+                    id:receive
+                    width: 35
+                    height: 35
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: rootdashboard.isPhone ? 10 :30
+                    source: "resources/receive.svg"
+                }
+                Text
+                {
+                    anchors.left: receive.right
+                    anchors.leftMargin: rootdashboard.isPhone ? 15 : 25
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: "Send"
+                    font.pixelSize: rootdashboard.isPhone ? 18 : 25
+                    color: "#AEE780"
                 }
             }
 
-            // Credit Cards
-            RowLayout {
-                spacing: 20 // Space between credit cards
-                Rectangle {
-                    id: blueCard
-                    width: 300
-                    height: 150
-                    radius: 15 // Rounded corners for a card-like look
-                    color: "#1E90FF" // Blue color
-                    border.color: "#4682B4" // Slightly darker border
-                    border.width: 2
-                    Text {
-                        text: "**** 2515"
-                        font.pixelSize: 20
-                        font.bold: true
-                        color: "white" // White text for contrast
-                        anchors.centerIn: parent // Center the text in the card
-                    }
+
+            Rectangle
+            {
+                Layout.preferredHeight: rootdashboard.isPhone ? 60 : 70
+                Layout.preferredWidth: rootdashboard.isPhone ? 130 : 180
+                color: "#AEE780"
+                radius: 30
+
+                Image
+                {
+                    id:send
+                    width: 35
+                    height: 35
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: rootdashboard.isPhone ? 10 :30
+                    source: "resources/send.svg"
+                }
+                Text
+                {
+                    anchors.left: send.right
+                    anchors.leftMargin: 10
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: "Receive"
+                    font.pixelSize: rootdashboard.isPhone ? 18 : 25
+                    color: "#144618"
+                }
+            }
+
+            Rectangle
+            {
+                Layout.preferredHeight: rootdashboard.isPhone ? 60 : 70
+                Layout.preferredWidth: rootdashboard.isPhone ? 130 : 180
+                color: "transparent"
+                border.width: 2
+                border.color: "#144618"
+                radius: 30
+
+                Text
+                {
+                    text: "+"
+                    id: add
+                    font.pixelSize: 30
+                    anchors.left: parent.left
+                    anchors.leftMargin: rootdashboard.isPhone ? 10 : 20
+                    color: "#144618"
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.verticalCenterOffset: -2
                 }
 
-                Rectangle {
-                    id: blackCard
-                    width: 300
-                    height: 150
-                    radius: 15 // Rounded corners for a card-like look
-                    color: "black" // Black color
-                    border.color: "#444444" // Dark gray border
-                    border.width: 2
-                    ColumnLayout {
-                        anchors.centerIn: parent // Center the column in the card
-                        spacing: 10
-                        Text {
-                            text: "**** 1240"
-                            font.pixelSize: 20
-                            font.bold: true
-                            color: "white" // White text for contrast
-                            horizontalAlignment: Text.AlignHCenter
-                        }
-                        Text {
-                            text: "$10,214.12"
-                            font.pixelSize: 24
-                            font.bold: true
-                            color: "gold" // Gold text for the amount
-                            horizontalAlignment: Text.AlignHCenter
-                        }
-                    }
+                Text
+                {
+
+                    anchors.left: add.right
+                    anchors.leftMargin: 5
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.verticalCenterOffset: 0
+                    text: "Add money"
+                    color: "#144618"
+                    font.pixelSize: rootdashboard.isPhone ? 15 : 25
+
                 }
             }
         }
+        Rectangle
+        {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            color: "white"
+            Layout.margins: 10
+            radius: 10
+            ColumnLayout
+            {
+                anchors.fill: parent
+                RowLayout
+                {
+                    Layout.preferredWidth: parent.width - 20
+                    Layout.preferredHeight: 10
+                    Layout.topMargin: 20
+                    Layout.leftMargin: 20
 
+                    Text
+                    {
+                        text: "Recent Activity"
+                        font.pixelSize: 20
+                    }
 
+                    Text
+                    {
+                        text: "See Details"
+                        font.pixelSize: 20
+                        Layout.alignment: Qt.AlignRight
+                    }
 
+                }
+                Item
+                {
+                    Layout.fillHeight: true
+                }
+            }
+        }
         }
     }

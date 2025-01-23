@@ -10,8 +10,10 @@ Window {
     height: Screen.height
     minimumWidth: 400
     visible: true
-    property bool isTablet: width <= 900
+    property bool isTablet: width <= 950
     property bool isPhone: width <= 600
+
+    property bool screenCheckpoint1: width <= 1200
     property string fullName
     property string pfp: ""
 
@@ -134,50 +136,176 @@ Window {
                 Layout.preferredWidth: 150
                 Layout.fillHeight: true
                 Layout.alignment: Qt.AlignTop
+                Layout.topMargin: 30
+                spacing: 30
                 RowLayout
                 {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
+                    Layout.leftMargin: 10
+
                     Image
                     {
-                        source: "resources/marketStock.svg"
+                        source: "resources/dashboardactive.svg"
+
                     }
                     Text
                     {
                         text: "Dashboard"
+                        Layout.leftMargin: 10
+                        font.pixelSize: 20
                     }
                 }
                 RowLayout
                 {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
+                    Layout.leftMargin: 10
+
                     Image
                     {
-                        source: "resources/marketStock.svg"
+                        source: "resources/portfolio.svg"
+                        Layout.preferredWidth: 30
+                        Layout.preferredHeight: 30
                     }
                     Text
                     {
-                        text: "Dashboard"
+                        text: "Portfolio"
+                        Layout.leftMargin: 10
+                        font.pixelSize: 20
                     }
                 }
                 RowLayout
                 {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
+                    Layout.leftMargin: 10
+
                     Image
                     {
-                        source: "resources/marketStock.svg"
+                        source: "resources/stock.svg"
+
                     }
                     Text
                     {
-                        text: "Dashboard"
+                        text: "My Stock"
+                        Layout.leftMargin: 10
+                        font.pixelSize: 20
                     }
                 }
+                RowLayout
+                {
+                    Layout.leftMargin: 10
+
+                    Image
+                    {
+                        source: "resources/deposit.svg"
+
+                    }
+                    Text
+                    {
+                        text: "Deposit"
+                        Layout.leftMargin: 10
+                        font.pixelSize: 20
+                    }
+                }
+                RowLayout
+                {
+                    Layout.leftMargin: 10
+
+                    Image
+                    {
+                        source: "resources/insight.svg"
+
+                    }
+                    Text
+                    {
+                        text: "Insight"
+                        Layout.leftMargin: 10
+                        font.pixelSize: 20
+                    }
+                }
+                Rectangle
+                {
+                    Layout.preferredWidth: 150
+                    Layout.preferredHeight: 1
+                    Layout.leftMargin: 10
+                    color: "#000000"
+                    opacity: 0.3
+                }
+                RowLayout
+                {
+                    Layout.leftMargin: 10
+
+                    Image
+                    {
+                        source: "resources/marketStock.svg"
+
+                    }
+                    Text
+                    {
+                        text: "Market Stock"
+                        Layout.leftMargin: 10
+                        font.pixelSize: 20
+                    }
+                }
+                RowLayout
+                {
+                    Layout.leftMargin: 10
+
+                    Image
+                    {
+                        source: "resources/news.svg"
+
+                    }
+                    Text
+                    {
+                        text: "Market Stock"
+                        Layout.leftMargin: 10
+                        font.pixelSize: 20
+                    }
+                }
+                Rectangle
+                {
+                    Layout.preferredWidth: 150
+                    Layout.preferredHeight: 1
+                    Layout.leftMargin: 10
+                    color: "#000000"
+                    opacity: 0.3
+                }
+                RowLayout
+                {
+                    Layout.leftMargin: 10
+
+                    Image
+                    {
+                        source: "resources/help.svg"
+
+                    }
+                    Text
+                    {
+                        text: "Help Center"
+                        Layout.leftMargin: 10
+                        font.pixelSize: 20
+                    }
+                }
+                RowLayout
+                {
+                    Layout.leftMargin: 10
+
+                    Image
+                    {
+                        source: "resources/settings.svg"
+
+                    }
+                    Text
+                    {
+                        text: "Settings"
+                        Layout.leftMargin: 10
+                        font.pixelSize: 20
+                    }
+                }
+
             }
             Rectangle
             {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+
 
                 ColumnLayout
                 {
@@ -217,6 +345,7 @@ Window {
 
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
+
                                 Layout.rightMargin: 50
                                 Layout.leftMargin: 20
                                 color: "transparent"
@@ -243,7 +372,7 @@ Window {
                                                 {
                                                    text: "Portfolio Value"
                                                    color: "#727272"
-                                                   font.pixelSize: 25
+                                                   font.pixelSize: 20
                                                 }
                                                 Text
                                                 {
@@ -277,7 +406,7 @@ Window {
                                                 {
                                                    text: "Avg. Monthly Grow"
                                                    color: "#727272"
-                                                   font.pixelSize: 25
+                                                   font.pixelSize: 18
                                                 }
                                                 Text
                                                 {
@@ -298,18 +427,21 @@ Window {
                                             }
                                             Rectangle
                                             {
+                                                visible: !root.screenCheckpoint1
                                                 Layout.preferredHeight: parent.height / 2
-                                                Layout.preferredWidth: 5
+                                                Layout.preferredWidth: 3
                                                 color: "grey"
                                             }
                                             ColumnLayout
                                             {
+                                                visible: !root.screenCheckpoint1
                                                 Layout.leftMargin: 20
                                                 Text
                                                 {
                                                    text: "Best Profit Stock"
                                                    color: "#727272"
-                                                   font.pixelSize: 25
+                                                   font.pixelSize: 20
+
                                                 }
                                                 RowLayout
                                                 {
@@ -480,7 +612,7 @@ Window {
                                 ColumnLayout
                                 {
                                     anchors.fill: parent
-                                    spacing: 10
+                                    spacing: 20
                                     RowLayout
                                     {
                                         Layout.alignment: Qt.AlignTop
@@ -523,10 +655,12 @@ Window {
                                             Text
                                             {
                                                 text: "Apple"
+                                                font.pixelSize: 15
                                             }
                                             Text
                                             {
                                                 text: "Apple Inc"
+                                                font.pixelSize: 15
                                             }
                                         }
                                         Item
@@ -540,6 +674,7 @@ Window {
                                             Text
                                             {
                                                 text: "$193.6"
+                                                font.pixelSize: 15
                                             }
                                             RowLayout
                                             {
@@ -551,6 +686,7 @@ Window {
                                                 {
                                                     text: "0.76%"
                                                     color: "#04CB2E"
+                                                    font.pixelSize: 15
                                                 }
                                             }
                                         }
@@ -576,10 +712,12 @@ Window {
                                             Text
                                             {
                                                 text: "Twitter"
+                                                font.pixelSize: 15
                                             }
                                             Text
                                             {
                                                 text: "Twitter Inc"
+                                                font.pixelSize: 15
                                             }
                                         }
                                         Item
@@ -593,6 +731,7 @@ Window {
                                             Text
                                             {
                                                 text: "$193.6"
+                                                font.pixelSize: 15
                                             }
                                             RowLayout
                                             {
@@ -604,6 +743,7 @@ Window {
                                                 {
                                                     text: "0.76%"
                                                     color: "#FE1019"
+                                                    font.pixelSize: 15
                                                 }
                                             }
                                         }
@@ -628,7 +768,8 @@ Window {
                                         {
                                             Text
                                             {
-                                                text: "Bmw"
+                                                text: "BMW"
+                                                font.pixelSize: 15
                                             }
                                             Text
                                             {
@@ -646,6 +787,7 @@ Window {
                                             Text
                                             {
                                                 text: "$193.6"
+                                                font.pixelSize: 15
                                             }
                                             RowLayout
                                             {
@@ -657,6 +799,7 @@ Window {
                                                 {
                                                     text: "0.76%"
                                                     color: "#04CB2E"
+                                                    font.pixelSize: 15
                                                 }
                                             }
                                         }
@@ -683,10 +826,12 @@ Window {
                                             Text
                                             {
                                                 text: "Adidas"
+                                                font.pixelSize: 15
                                             }
                                             Text
                                             {
                                                 text: "Adidas Inc"
+                                                font.pixelSize: 15
                                             }
                                         }
                                         Item
@@ -700,6 +845,7 @@ Window {
                                             Text
                                             {
                                                 text: "$193.6"
+                                                font.pixelSize: 15
                                             }
                                             RowLayout
                                             {
@@ -711,6 +857,64 @@ Window {
                                                 {
                                                     text: "0.76%"
                                                     color: "#04CB2E"
+                                                    font.pixelSize: 15
+                                                }
+                                            }
+                                        }
+                                    }                                    RowLayout
+                                    {
+                                        Layout.leftMargin: 20
+                                        Layout.topMargin: 10
+                                        Rectangle
+                                        {
+                                            color: "#D9D9D9"
+                                            Layout.preferredHeight: 30
+                                            Layout.preferredWidth: 30
+                                            radius: 30
+                                            Image
+                                            {
+                                                anchors.centerIn: parent
+
+                                                source: "resources/tesla.svg"
+                                            }
+                                        }
+                                        ColumnLayout
+                                        {
+                                            Text
+                                            {
+                                                text: "Tesla"
+                                                font.pixelSize: 15
+                                            }
+                                            Text
+                                            {
+                                                text: "Tesla Inc"
+                                                font.pixelSize: 15
+                                            }
+                                        }
+                                        Item
+                                        {
+                                            Layout.fillWidth: true
+                                        }
+
+                                        ColumnLayout
+                                        {
+
+                                            Text
+                                            {
+                                                text: "$193.6"
+                                                font.pixelSize: 15
+                                            }
+                                            RowLayout
+                                            {
+                                                Image
+                                                {
+                                                    source: "resources/incomeArrow.svg"
+                                                }
+                                                Text
+                                                {
+                                                    text: "0.76%"
+                                                    color: "#04CB2E"
+                                                    font.pixelSize: 15
                                                 }
                                             }
                                         }
@@ -724,9 +928,166 @@ Window {
                         }
                     }
 
-                    Item
+                    Rectangle
                     {
                         Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        Layout.margins: 5
+                        border.width: 2
+                        border.color: "#F2F2F2"
+                        radius: 20
+
+                        ColumnLayout
+                        {
+                            anchors.fill: parent
+
+                            RowLayout
+                            {
+                                Text
+                                {
+                                    text: "My Stock"
+                                    font.pixelSize: 30
+                                    font.bold: true
+                                    Layout.leftMargin: 20
+                                    Layout.topMargin: 20
+                                }
+                            }
+                            Rectangle
+                            {
+                                Layout.fillWidth: true
+                                Layout.preferredHeight: 50
+                                Layout.leftMargin: 1
+                                Layout.rightMargin: 1
+                                color: "#F9F9F9"
+
+
+                                RowLayout
+                                {
+                                    anchors.fill: parent
+                                    anchors.leftMargin: 10
+
+                                    Text
+                                    {
+                                        text: "Name Stock"
+                                        color: "#797979"
+                                        Layout.alignment: Qt.AlignVCenter
+                                        Layout.leftMargin: 15
+                                    }
+                                    Text
+                                    {
+                                        text: "Invest Date"
+                                        color: "#797979"
+                                        Layout.alignment: Qt.AlignVCenter
+                                    }
+                                    Text
+                                    {
+                                        text: "Volume"
+                                        color: "#797979"
+                                        Layout.alignment: Qt.AlignVCenter
+                                    }
+                                    Text
+                                    {
+                                        text: "Change"
+                                        color: "#797979"
+                                        Layout.alignment: Qt.AlignVCenter
+                                    }
+                                    Text
+                                    {
+                                        text: "Price/stock"
+                                        color: "#797979"
+                                        Layout.alignment: Qt.AlignVCenter
+                                    }
+                                    Text
+                                    {
+                                        text: "Number of lots"
+                                        color: "#797979"
+                                        Layout.alignment: Qt.AlignVCenter
+                                    }
+
+                                }
+                            }
+
+                            Rectangle
+                            {
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+                                Layout.margins: 10
+
+                                ColumnLayout
+                                {
+                                    anchors.fill: parent
+
+
+
+                                    ColumnLayout {
+                                        anchors.fill: parent
+                                        spacing: 10
+
+                                        // Data Rows
+                                        TableRow {
+                                            name: "Apple Inc"
+                                            stockSymbol: "AAPL"
+                                            investDate: "January 23, 2024"
+                                            volume: "1.75B"
+                                            change: "+1.3%"
+                                            pricePerStock: "$145.67"
+                                            numberOfLots: "420"
+                                            iconSource: "resources/appleIcon.svg"
+                                        }
+
+                                        TableRow {
+                                            name: "Tesla Inc"
+                                            stockSymbol: "TSLA"
+                                            investDate: "February 14, 2024"
+                                            volume: "2.01B"
+                                            change: "-0.8%"
+                                            pricePerStock: "$198.23"
+                                            numberOfLots: "350"
+                                            iconSource: "resources/tesla.svg"
+                                        }
+
+                                        TableRow {
+                                            name: "Adidas"
+                                            stockSymbol: "ADS"
+                                            investDate: "March 5, 2024"
+                                            volume: "1.12B"
+                                            change: "+2.9%"
+                                            pricePerStock: "$89.45"
+                                            numberOfLots: "250"
+                                            iconSource: "resources/adidas2.svg"
+                                        }
+
+                                        TableRow {
+                                            name: "BMW"
+                                            stockSymbol: "BMW"
+                                            investDate: "May 18, 2024"
+                                            volume: "860M"
+                                            change: "+1.7%"
+                                            pricePerStock: "$95.34"
+                                            numberOfLots: "400"
+                                            iconSource: "resources/bmw.svg"
+                                        }
+
+                                        TableRow {
+                                            name: "Twitter"
+                                            stockSymbol: "TWTR"
+                                            investDate: "July 30, 2024"
+                                            volume: "1.53B"
+                                            change: "-2.1%"
+                                            pricePerStock: "$57.12"
+                                            numberOfLots: "300"
+                                            iconSource: "resources/twitter.svg"
+                                        }
+
+
+                                    }
+                                    Item
+                                    {
+                                        Layout.fillHeight: true
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
