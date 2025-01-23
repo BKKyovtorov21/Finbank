@@ -603,16 +603,18 @@ Window {
 
                             Rectangle
                             {
-                                Layout.preferredWidth: 300
+                                Layout.preferredWidth: 350
                                 Layout.fillHeight: true
                                 color: "white"
                                 border.width: 2
                                 border.color: "#F2F2F2"
                                 radius: 20
+                                Layout.rightMargin: 15
+                                Layout.leftMargin: -10
                                 ColumnLayout
                                 {
                                     anchors.fill: parent
-                                    spacing: 20
+                                    spacing: 15
                                     RowLayout
                                     {
                                         Layout.alignment: Qt.AlignTop
@@ -631,6 +633,7 @@ Window {
                                         {
                                             text: "Add New"
                                             font.pixelSize: 15
+                                            Layout.rightMargin: 10
                                         }
                                     }
 
@@ -675,6 +678,7 @@ Window {
                                             {
                                                 text: "$193.6"
                                                 font.pixelSize: 15
+                                                Layout.rightMargin: 10
                                             }
                                             RowLayout
                                             {
@@ -687,6 +691,7 @@ Window {
                                                     text: "0.76%"
                                                     color: "#04CB2E"
                                                     font.pixelSize: 15
+                                                    Layout.rightMargin: 10
                                                 }
                                             }
                                         }
@@ -732,6 +737,7 @@ Window {
                                             {
                                                 text: "$193.6"
                                                 font.pixelSize: 15
+                                                Layout.rightMargin: 10
                                             }
                                             RowLayout
                                             {
@@ -744,6 +750,7 @@ Window {
                                                     text: "0.76%"
                                                     color: "#FE1019"
                                                     font.pixelSize: 15
+                                                    Layout.rightMargin: 10
                                                 }
                                             }
                                         }
@@ -783,6 +790,7 @@ Window {
 
                                         ColumnLayout
                                         {
+                                            Layout.rightMargin: 10
 
                                             Text
                                             {
@@ -841,7 +849,7 @@ Window {
 
                                         ColumnLayout
                                         {
-
+                                            Layout.rightMargin: 10
                                             Text
                                             {
                                                 text: "$193.6"
@@ -898,7 +906,7 @@ Window {
 
                                         ColumnLayout
                                         {
-
+                                            Layout.rightMargin: 10
                                             Text
                                             {
                                                 text: "$193.6"

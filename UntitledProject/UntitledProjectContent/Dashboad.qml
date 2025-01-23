@@ -983,7 +983,13 @@ Window {
     ColumnLayout
     {
         visible: rootdashboard.isTablet
-        anchors.fill: parent
+        anchors.verticalCenter: dashboardwindowDesktop.verticalCenter
+        anchors.left: parent.left
+        anchors.right: dashboardwindowDesktop.left
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.rightMargin: -1536
+        anchors.horizontalCenter: dashboardwindowDesktop.horizontalCenter
 
         RowLayout{
             Layout.topMargin: 30
