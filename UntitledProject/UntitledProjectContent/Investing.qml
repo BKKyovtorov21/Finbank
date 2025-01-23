@@ -1100,6 +1100,46 @@ Window {
                 }
             }
             }
+
+        }
+
+    }
+    ColumnLayout
+    {
+        visible: root.isTablet
+        anchors.fill: parent
+        RowLayout{
+            anchors.top: parent.top
+            Image {
+                Layout.leftMargin: 50
+                Layout.topMargin: 50
+                Layout.preferredWidth: 80
+                Layout.preferredHeight: 80
+                source: "resources/pfp.jpg"
+            }
+            Text{
+            text: "Hey, Vicho"
+            Layout.topMargin: 50
+            Layout.leftMargin: 15
+            font.pixelSize: 17
+            font.bold: true
+            }
+            Image{
+                source: "resources/search.svg"
+                Layout.topMargin: 55
+                Layout.leftMargin: parent.width * 0.65
+                Layout.preferredWidth: 20
+                Layout.preferredHeight: 20
+
+            }
+            Image{
+                source: "resources/more2.svg"
+                Layout.topMargin: 65
+                Layout.leftMargin: 10
+                Layout.preferredWidth: 30
+                Layout.preferredHeight: 10
+
+            }
         }
     }
 }
