@@ -11,8 +11,8 @@ Window {
     height: Screen.height
     minimumWidth: 400
     visible: true
-    property bool isTablet: width < 900
-    property bool isPhone: width < 500
+    property bool isTablet: width <= 900
+    property bool isPhone: width <= 500
 
         property string usernameRef
        property real balance: 3000
@@ -973,664 +973,374 @@ Window {
             }
     }
 
-    RowLayout {
-            id: layouttablet
-            anchors.fill: parent
-            visible: rootdashboard.isTablet  // Corrected to 'isTablet'
-            //visible: true
-            Rectangle {
-                visible: !rootdashboard.isPhone
 
-                color: "#F7F7F7"
-                Layout.fillHeight: true
-                Layout.preferredWidth: 70
+    Rectangle
+    {
+        visible: rootdashboard.isTablet
+        anchors.fill: parent
+        color: "#FCFBFC"
+    }
 
-                ColumnLayout
-                {
+    ColumnLayout
+    {
+        visible: rootdashboard.isTablet
+        anchors.fill: parent
 
-                    anchors.fill: parent
-                    spacing: 10
-                    Image
-                    {
-                        Layout.preferredHeight: 50
-                        Layout.preferredWidth: 50
-                        Layout.topMargin: 20
-                        Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                        source: "qrc:/resources/pfp.jpg"
-                    }
-
-                    Rectangle
-                    {
-                        Layout.preferredHeight:50
-                        Layout.preferredWidth: 50
-                        Layout.topMargin: 15
-                        Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                        radius:10
-
-                        Image
-                        {
-
-                            source: "qrc:/resources/home.svg"
-                            anchors.centerIn:parent
-                            fillMode: Image.PreserveAspectFit
-
-                        }
-                    }
-                    Rectangle
-                    {
-                        Layout.preferredHeight:50
-                        Layout.preferredWidth: 50
-                        Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                        color: "transparent"
-                        Image
-                        {
-
-                            source: "qrc:/resources/bars.svg"
-                            anchors.centerIn:parent
-
-                            fillMode: Image.PreserveAspectFit
-
-                        }
-                    }
-                    Rectangle
-                    {
-                        Layout.preferredHeight:50
-                        Layout.preferredWidth: 50
-                        Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                        color: "transparent"
-                        Image
-                        {
-                            fillMode: Image.PreserveAspectFit
-
-
-                            source: "qrc:/resources/transfers.svg"
-                            anchors.centerIn:parent
-                        }
-                    }
-                    Item
-                    {
-                        Layout.fillHeight: true
-                    }
-
-
+        RowLayout{
+            Layout.topMargin: 30
+            Layout.preferredWidth: parent.width
+            Layout.leftMargin: 40
+            ColumnLayout
+            {
+                Text{
+                text: "Hi, Boyan"
+                font.pixelSize: 30
+                }
+                Text{
+                    text:"Welcome back!"
+                    font.pixelSize: 20
+                    color: "#C6C6C6"
                 }
             }
 
+            Image{
+                Layout.alignment: Qt.AlignRight
+                id: notification
+                Layout.preferredHeight: 30
+                Layout.preferredWidth: 30
+                source: "qrc:/resources/mingcute--notification-line.svg"
+            }
             Rectangle {
-                color: "#F8F8F8"
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-
-                Flickable {
-                    id: flickable
-                    anchors.fill: parent
-                    contentWidth: parent.width
-                    contentHeight: columnLayout.implicitHeight
-                    clip: true
-
-                    ColumnLayout {
-                        id: columnLayout
-                        width: parent.width
-                        implicitHeight: 1500
-                        spacing: 20
-
-
-                        Text {
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            Layout.topMargin: 50
-                            Layout.leftMargin: 35
-                            visible: !rootdashboard.isPhone
-                            id:test
-                            text: qsTr("Good evening, Boyan")
-                            font.pixelSize: 20
-
-                            font.bold: true
-                        }
-                        RowLayout
-                        {
-                            visible: rootdashboard.isPhone
-                            Layout.fillWidth: true
-                            Layout.preferredHeight: 50
-                            Layout.alignment: Qt.AlignTop
-                            Layout.topMargin: 10
-                            Layout.leftMargin: 10
-                            Image {
-
-                                Layout.preferredWidth: 50
-                                Layout.preferredHeight: 50
-
-                                source: "qrc:/resources/pfp.jpg"
-                                fillMode: Image.PreserveAspectCrop
-
-                            }
-
-
-
-                            TextField {
-                                id: searchField5
-                                visible: rootdashboard.isPhone
-                                Layout.fillWidth: true
-
-                                Layout.alignment: Qt.AlignHCenter| Qt.AlignTop
-                                Layout.rightMargin: 5
-                                Layout.leftMargin: 10
-                                Layout.topMargin: 10
-
-
-                                placeholderTextColor: "grey"
-                                font.pixelSize: 18
-                                color: "black"
-
-
-                                leftPadding: 30
-                                background: Rectangle
-                                {
-                                    color: "white"
-                                    radius: 20
-                                    border.width: 1
-                                    opacity: 0.8
-                                    border.color: "grey"
-                                }
-                                Image {
-                                    id: searchIcon5
-                                    fillMode: Image.PreserveAspectFit
-
-                                    source: "qrc:/resources/search.svg"
-                                    anchors.top: parent.top
-                                    anchors.topMargin: 10
-                                    anchors.left: parent.left
-                                    anchors.leftMargin: 5
-
-                                }
-
-                            }
-                            Rectangle
-                            {
-                                Layout.preferredHeight: 50
-                                Layout.preferredWidth: 50
-                                radius: 50
-                                Button
-                                {
-                                    anchors.centerIn: parent
-                                    background: Image
-                                    {
-                                        source: "qrc:/resources/wallet.svg"
-                                    }
-                                }
-                            }
-
-
-                        }
-
-                    TextField {
-                        id: searchField2
-                        visible: !rootdashboard.isPhone
-                        Layout.fillWidth: true
-                        Layout.topMargin: 15
-
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.rightMargin: 50
-                        Layout.leftMargin: 50
-
-
-                        placeholderTextColor: "grey"
-                        font.pixelSize: 18
-                        color: "black"
-
-
-                        leftPadding: 30
-                        background: Rectangle
-                        {
-                            color: "white"
-                            radius: 20
-                            border.width: 1
-                            border.color: "grey"
-                            opacity: 0.5
-                        }
-                        Image {
-                            id: searchIcon2
-                            fillMode: Image.PreserveAspectFit
-
-                            source: "qrc:/resources/search.svg"
-                            anchors.top: parent.top
-                            anchors.topMargin: 10
-                            anchors.left: parent.left
-                            anchors.leftMargin: 5
-
-                        }
-
+                Layout.preferredWidth: 16
+                Layout.preferredHeight: 16
+                radius: width / 2
+                color: "red"
+                Layout.leftMargin: -20
+                Layout.topMargin: -20
+                Text {
+                    text: "6"
+                    color: "white"
+                    font.pixelSize: 12
+                    anchors.centerIn: parent
                     }
-
-                    Rectangle
-                    {
-                        id: rectangle_1
-                        Layout.topMargin: 20
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.rightMargin: 30
-                        Layout.leftMargin: 30
-                        Layout.fillWidth: true
-                        Layout.preferredHeight:400
-                        radius: 20
-
-                        Text
-                        {
-                            id: balanceTablet
-                            anchors.top: parent.top
-                            anchors.left: parent.left
-                            anchors.leftMargin: 20
-                            anchors.topMargin: 40
-                            text: qsTr("$1222.22")
-                            font.pixelSize: 30
-                            font.bold: true
-                        }
-                        Text
-                        {
-                            anchors.top: balanceTablet.bottom
-                            anchors.left: balanceTablet.left
-                            width: 150
-                            text: qsTr("Euro")
-                            font.pixelSize: 20
-                        }
-                        Item {
-                            anchors.left: balanceTablet.right
-                            anchors.leftMargin: 29
-                            anchors.top: balanceTablet.top
-                            anchors.topMargin: 15
-
-                            width: 5
-                            height: 5
-
-                            // Circular arc
-                            Rectangle {
-                                id: circle3
-                                width: 32
-                                height: 32
-
-                                anchors.centerIn: parent
-                                color: "#0074FF"
-                                opacity: 0.3
-                               radius:180
-                            }
-
-                            // Arrow centered in the circle
-                            Item {
-
-                                anchors.centerIn: parent
-
-                                Image
-                                {
-                                    anchors.centerIn: parent
-                                    source: "qrc:/resources/downArrow2.svg"
-                                    fillMode: Image.PreserveAspectFit
-
-                                }
-                            }
-
-
-                        }
-                        Image {
-                            id: currencyImage
-                            anchors.right: parent.right
-                            anchors.rightMargin: 50
-                            anchors.top: parent.top
-                            anchors.topMargin: 50
-                            source: "qrc:/resources/eur.png"
-                        }
-
-                        Text {
-                            anchors.left: parent.left
-                            anchors.top: parent.top
-                            anchors.topMargin: 15
-                            anchors.leftMargin: 20
-                            text: qsTr("Transactions")
-                        }
-
-
-                        RowLayout {
-                            anchors.top: parent.top
-                            anchors.topMargin: 120
-                            implicitWidth: parent.width
-                            implicitHeight: 50
-                            anchors.horizontalCenter: parent.horizontalCenter
-
-                            Item {
-                                Layout.alignment: Qt.AlignHCenter
-
-                                ListView {
-                                    width: contentWidth // Ensure ListView wraps its content
-                                    height: 70
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                    orientation: ListView.Horizontal
-                                    spacing: !rootdashboard.isPhone ? 30 : 15
-                                    model: ListModel {
-                                        ListElement {source: "qrc:/resources/plus.svg"; text: "Add"}
-                                        ListElement {source: "qrc:/resources/shuffle.svg"; text: "Move"}
-                                        ListElement {source: "qrc:/resources/bank.svg"; text: "Bank"}
-                                        ListElement {source: "qrc:/resources/more.svg"; text: "More"}
-                                    }
-                                    delegate: Item {
-                                        width: 70
-                                        height: 70
-
-                                        Rectangle {
-                                            id: options
-                                            width: !rootdashboard.isPhone ? 40 : 30
-                                            height: !rootdashboard.isPhone ? 40 : 30
-                                            color: "#5A5C6B"
-                                            radius: 25
-                                            anchors.horizontalCenter: parent.horizontalCenter
-                                            anchors.top: parent.top
-                                            anchors.topMargin: 5
-
-                                            Image {
-                                                anchors.centerIn: parent
-                                                source: model.source
-                                            }
-                                        }
-
-                                        Text {
-                                            anchors.horizontalCenter: parent.horizontalCenter
-                                            anchors.top: options.bottom
-                                            anchors.topMargin: 5
-                                            text: model.text
-                                            font.pixelSize: 12
-                                            color: "black"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        ColumnLayout {
-                            anchors.fill: parent
-                            anchors.topMargin: 220
-
-                            ListModel {
-                                id: listmodeltransactions
-                                ListElement { source: "qrc:/resources/billa.png"; store: "Billa"; date: "Yesterday"; price: "-0,99 BGN" }
-                                ListElement { source: "qrc:/resources/apple.png"; store: "Apple"; date: "Yesterday"; price: "-2,50 BGN" }
-                            }
-
-                            // Rectangle wrapping ListView with border
-                            Rectangle {
-                                id: transactions2
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                Layout.leftMargin: 10
-                                Layout.rightMargin: 10
-                                Layout.bottomMargin: 20
-                                border.color: "#F7F7F7"  // Set border color
-                                border.width: 2  // Set border width
-                                radius: 10  // Optional: rounded corners
-
-                                ListView {
-                                    id: listViewTransactions
-                                    anchors.fill: parent
-                                    anchors.topMargin: 5
-                                    anchors.rightMargin: 10
-                                    anchors.leftMargin: 10
-                                    clip: true
-                                    model: listmodeltransactions
-                                    interactive: false
-                                    delegate: Item {
-                                        width: listViewTransactions.width
-                                        height: 80
-
-                                        Rectangle {
-                                            id: mask
-                                            anchors.left: parent.left
-                                            anchors.leftMargin: 15
-                                            width: 50
-                                            height: 50
-                                            radius: 25
-                                            clip: true
-                                        }
-
-                                        Image {
-                                            id: storeIcon
-                                            anchors.fill: mask
-                                            source: model.source
-                                            fillMode: Image.PreserveAspectCrop
-                                            layer.enabled: true
-                                            layer.effect: OpacityMask {
-                                            maskSource: mask
-                                            }
-                                        }
-
-
-                                        Text {
-                                            id: storeName
-                                            anchors.left: storeIcon.right
-                                            anchors.leftMargin: 20
-                                            anchors.verticalCenter: storeIcon.verticalCenter
-                                            anchors.verticalCenterOffset: -10
-                                            text: model.store
-                                        }
-
-                                        Text {
-                                            anchors.top: storeName.bottom
-                                            anchors.topMargin: 0
-                                            anchors.left: storeName.left
-                                            text: model.date
-                                        }
-
-                                        Text {
-                                            anchors.right: parent.right
-                                            text: model.price
-                                            anchors.rightMargin: 20
-                                        }
-                                    }
-                                }
-                            }
-
-                            Button {
-                                Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
-
-                                background: Text {
-                                    text: qsTr("Show all")
-                                    color: "#667DFF"
-                                }
-                            }
-                        }
-
-                    }
-
-
-
-                    Rectangle
-                    {
-                        id: rectangle_3
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.rightMargin: 30
-                        Layout.leftMargin: 30
-                        Layout.topMargin: 30
-                        Layout.fillWidth: true
-                        Layout.preferredHeight:300
-                        radius: 20
-                        Text {
-                            id: widgetsText
-                            text: qsTr("Widgets")
-                            anchors.top: parent.top
-                            anchors.topMargin: -25
-                            anchors.left: parent.left
-                            anchors.leftMargin: 15
-                            font.pixelSize: 20
-                            color: "black"
-                        }
-
-
-                        ColumnLayout
-                        {
-                            anchors.fill: parent
-                            ListModel {
-                                    id: itemModel
-                                    ListElement { imageSource: "qrc:/resources/cash.svg"; text: "Cash"; text2: "Bulgarian Lev"; color: "#667DFF" }
-                                    ListElement { imageSource: "qrc:/resources/safe.svg"; text: "Savings & Funds"; text2: "Earn interest";color: "#FF7A41" }
-                                    ListElement { imageSource: "qrc:/resources/invest.svg"; text: "Invest"; text2: "Invest for as little as 1 лв";color: "#2AB2FE" }
-                                    ListElement { imageSource: "qrc:/resources/crypto.svg"; text: "Crypto" ; text2: "Invest for as little as 1 лв";color: "#BF5BF3"}
-                                }
-
-
-                            ListView {
-                                id: listView
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
-                                Layout.leftMargin: 20
-                                Layout.topMargin: 20
-                                spacing: 70
-                                clip: true
-
-                                model: itemModel
-                                interactive: false
-                                delegate: Item {
-                                    width: listView.width
-                                    Layout.preferredHeight: 60
-
-                                    Row {
-                                        spacing: 10
-                                        height: parent.height // Ensures proper alignment without anchors
-                                        anchors.fill: parent // Removed to prevent conflicts
-
-                                        Rectangle {
-                                            id: circle
-                                            implicitWidth: 40
-                                            implicitHeight: 40
-                                            color: model.color // Pre-applied transparency
-                                            radius: 25
-
-                                            Image
-                                            {
-                                                anchors.centerIn: parent
-                                                width:18
-                                                height:18
-                                                source: model.imageSource
-                                            }
-                                        }
-
-
-                                        Text {
-                                            id:text1
-                                            text: model.text
-                                            font.pixelSize: 16
-                                            Layout.alignment: Qt.AlignLeft
-                                            Layout.leftMargin: 50
-                                        }
-
-                                        Text
-                                        {
-                                            anchors.top: text1.bottom
-                                            text: model.text2
-                                            font.pixelSize: 16
-                                            Layout.alignment: Qt.AlignLeft
-                                            Layout.leftMargin: 50
-                                        }
-                                    }
-                                }
-                            }
-
-                        }
-                    }
-
-                    Rectangle
-                    {
-                        Layout.alignment: Qt.AlignBottom
-                        Layout.rightMargin: 30
-                        Layout.fillWidth: true
-                        Layout.leftMargin: 30
-                        implicitHeight:300
-                        radius: 20
-                    }
-
-                   Item
-                   {
-                       implicitHeight: 300
-                   }
                 }
+        }
+        ColumnLayout
+        {
+            Layout.preferredHeight: 100
+            Layout.preferredWidth: parent.width
+        Text {
+            Layout.topMargin: 40
+            Layout.leftMargin: 40
+            font.pixelSize: 20
+            color: "#C6C6C6"
+            font.bold: true
+            text: "Wallet Balance"
+        }
+        RowLayout{
+            Text{
+                text: "$17,298.20"
+                font.pixelSize: 40
+                Layout.leftMargin: 40
+
+                font.letterSpacing: 2
+            }
+            Image{
+                source:"qrc:/resources/eye.svg"
+                Layout.leftMargin: 5
+                Layout.topMargin: 2
+            }
+        }
+        }
+        RowLayout {
+            Layout.leftMargin: 20
+            Layout.topMargin: 40
+            spacing: 20
+
+            // "Cards" Text
+            Text {
+                text: "Cards"
+                font.pixelSize: 15
+                font.bold: true
+                color: "#144618"
             }
                 Rectangle {
-                            visible: rootdashboard.isPhone
-                            id: footer
-                            height: 60
-                            anchors.left: parent.left
-                            anchors.right: parent.right
-                            anchors.bottom: parent.bottom
+                    Layout.preferredWidth: 50
+                    Layout.preferredHeight: 50
+                    radius: 25
+                    color: "lightgreen"
+                    Rectangle {
+                        width: 25
+                        height: 25
+                        radius: 12.5
+                        color: "darkgreen"
+                        anchors.centerIn: parent
+                        Text {
+
+                            text: "+"
+                            font.pixelSize: 20
                             color: "white"
-
-
-                            RowLayout {
-                                anchors.fill: parent
-                                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                                spacing: 10
-
-                                Button {
-                                    text: qsTr("Home")
-                                    icon.source: "qrc:/resources/home.svg"
-                                    icon.color: "black"
-                                    background: Rectangle
-                                    {
-                                        color: "transparent"
-                                    }
-
-                                    onClicked: console.log("Home clicked")
-                                }
-
-                                Button {
-                                    background: Rectangle
-                                    {
-                                        color: "transparent"
-                                    }
-                                    text: qsTr("Invest")
-                                    icon.source: "qrc:/resources/invest.svg"
-                                    icon.color: "black"
-                                    onClicked: console.log("Settings clicked")
-                                }
-
-                                Button {
-                                    text: qsTr("Payments")
-                                    background: Rectangle
-                                    {
-                                        color: "transparent"
-                                    }
-                                    icon.source: "qrc:/resources/transfers.svg"
-                                    icon.color: "black"
-                                    onClicked: {
-                                        var component = Qt.createComponent("Transactions.qml");
-
-                                        if (component.status === Component.Loading) {
-                                            console.log("Component is still loading. Please wait...");
-                                            return; // Prevent creation until loading is complete
-                                        }
-
-                                        if (component.status === Component.Ready) {
-                                            var window = component.createObject(null, {
-                                                "username": rootdashboard.usernameRef,
-                                                "fullName": rootdashboard.fullName
-                                            });
-                                            if (window) {
-                                                window.visible = true;
-                                                rootdashboard.close();
-                                            } else {
-                                                console.log("Failed to create the component instance.");
-                                            }
-                                        } else {
-                                            console.log("Error loading Transactions.qml: " + component.errorString());
-                                        }
-                                    }
-                                }
-                                Button {
-                                    background: Rectangle
-                                    {
-                                        color: "transparent"
-                                    }
-                                    text: qsTr("Bitcoin")
-                                    icon.source: "qrc:/resources/bitcoin.svg"
-                                    icon.color: "black"
-                                    onClicked: console.log("Profile clicked")
-                                }
-                            }
+                            font.bold: true
+                            anchors.centerIn: parent
+                            anchors.verticalCenterOffset: -1.8
+                            anchors.horizontalCenterOffset: -0.2
                         }
+                    }
+                }
+
+
+            // Credit Cards
+
+            RowLayout {
+                spacing: 20 // Space between credit cards
+                Image {
+                    Layout.preferredWidth: 230
+                    Layout.preferredHeight: rootdashboard.isPhone ? 120 : 150
+                    source: "qrc:/resources/minimalistbg1.png"
+
+
+                    clip: true
+                    Text {
+                        id: cardNumbers
+
+                        text: "**** 2515"
+                        font.pixelSize: rootdashboard.isPhone ? 15 : 20
+                        font.bold: true
+                        color: "white" // White text for contrast
+                        anchors.left: parent.left
+                        anchors.bottom: parent.bottom
+                        anchors.leftMargin: 10
+                        anchors.bottomMargin: 30
+                    }
+
+                    Image
+                    {
+                        anchors.right: parent.right
+                        anchors.rightMargin: -10
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: 13
+
+                        source: "qrc:/resources/visa.png"
+                        width: 80
+                        height: 50
+                    }
+                    Image
+                    {
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        anchors.topMargin: 10
+                        anchors.rightMargin: 10
+                        source: "qrc:/resources/bulgariaflag.png"
+                        width: 25
+                        height: 25
+                        smooth: true
+                    }
+                    Text
+                    {
+
+                        anchors.left: parent.left
+                        anchors.top: cardNumbers.bottom
+                        anchors.topMargin: 2
+                        anchors.leftMargin: 12
+                        text: "BOYAN KYOVTOROV"
+                        font.bold: true
+                        color: "white"
+                        font.pixelSize: rootdashboard.isPhone ? 10 : 15
+                        font.letterSpacing: 2
+                    }
+                    }
+
+                Image {
+                    visible: !rootdashboard.isPhone
+                    Layout.preferredWidth: rootdashboard.isPhone ? 200 : (rootdashboard.isTablet ? 230 : 230)
+                    Layout.preferredHeight: rootdashboard.isPhone ? 100 : 150
+                    source: "qrc:/resources/minimalistbg2.png"
+
+
+                    clip: true
+                    Text {
+                        id: cardNumbers2
+                        text: "**** 3411"
+                        font.pixelSize: 15
+                        font.bold: true
+                        color: "white" // White text for contrast
+                        anchors.left: parent.left
+                        anchors.bottom: parent.bottom
+                        anchors.leftMargin: 10
+                        anchors.bottomMargin: 30
+                    }
+
+                    Image
+                    {
+                        anchors.right: parent.right
+                        anchors.bottom: parent.bottom
+                            anchors.bottomMargin: 20
+                        source: "qrc:/resources/mastercard_logo.png"
+                        width: 80
+                        height: 50
+                    }
+                    Image
+                    {
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        anchors.topMargin: 10
+                        anchors.rightMargin: 10
+                        source: "qrc:/resources/usaflag.png"
+                        width: 25
+                        height: 25
+                        smooth: true
+                    }
+                    Text
+                    {
+                        anchors.left: parent.left
+                        anchors.top: cardNumbers2.bottom
+                        anchors.topMargin: 0
+                        anchors.leftMargin: 10
+                        text: "VICHO VICHEV"
+                        font.bold: true
+                        color: "white"
+                        font.pixelSize: 10
+                        font.letterSpacing: 2
+                    }
+                    }
+            }
+
+
         }
 
-    }
+        RowLayout
+        {
+            Layout.topMargin: 40
+            Layout.alignment: Qt.AlignHCenter
+            Rectangle
+            {
+                Layout.preferredHeight: rootdashboard.isPhone ? 60 : 70
+                Layout.preferredWidth: rootdashboard.isPhone ? 120 : 180
+                Layout.leftMargin: width > 650 ? 40 : 8
+                color: "#144618"
+                radius: 30
+
+                Image
+                {
+                    id:receive
+                    width: 35
+                    height: 35
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: rootdashboard.isPhone ? 10 :30
+                    source: "qrc:/resources/receive.svg"
+                }
+                Text
+                {
+                    anchors.left: receive.right
+                    anchors.leftMargin: rootdashboard.isPhone ? 15 : 25
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: "Send"
+                    font.pixelSize: rootdashboard.isPhone ? 18 : 25
+                    color: "#AEE780"
+                }
+            }
+
+
+            Rectangle
+            {
+                Layout.preferredHeight: rootdashboard.isPhone ? 60 : 70
+                Layout.preferredWidth: rootdashboard.isPhone ? 130 : 180
+                color: "#AEE780"
+                radius: 30
+
+                Image
+                {
+                    id:send
+                    width: 35
+                    height: 35
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: rootdashboard.isPhone ? 10 :30
+                    source: "qrc:/resources/send.svg"
+                }
+                Text
+                {
+                    anchors.left: send.right
+                    anchors.leftMargin: 10
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: "Receive"
+                    font.pixelSize: rootdashboard.isPhone ? 18 : 25
+                    color: "#144618"
+                }
+            }
+
+            Rectangle
+            {
+                Layout.preferredHeight: rootdashboard.isPhone ? 60 : 70
+                Layout.preferredWidth: rootdashboard.isPhone ? 130 : 180
+                color: "transparent"
+                border.width: 2
+                border.color: "#144618"
+                radius: 30
+
+                Text
+                {
+                    text: "+"
+                    id: add
+                    font.pixelSize: 30
+                    anchors.left: parent.left
+                    anchors.leftMargin: rootdashboard.isPhone ? 10 : 20
+                    color: "#144618"
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.verticalCenterOffset: -2
+                }
+
+                Text
+                {
+
+                    anchors.left: add.right
+                    anchors.leftMargin: 5
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.verticalCenterOffset: 0
+                    text: "Add money"
+                    color: "#144618"
+                    font.pixelSize: rootdashboard.isPhone ? 15 : 25
+
+                }
+            }
+        }
+        Rectangle
+        {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            color: "white"
+            Layout.margins: 10
+            radius: 10
+            ColumnLayout
+            {
+                anchors.fill: parent
+                RowLayout
+                {
+                    Layout.preferredWidth: parent.width - 20
+                    Layout.preferredHeight: 10
+                    Layout.topMargin: 20
+                    Layout.leftMargin: 20
+
+                    Text
+                    {
+                        text: "Recent Activity"
+                        font.pixelSize: 20
+                    }
+
+                    Text
+                    {
+                        text: "See Details"
+                        font.pixelSize: 20
+                        Layout.alignment: Qt.AlignRight
+                    }
+
+                }
+                Item
+                {
+                    Layout.fillHeight: true
+                }
+            }
+        }
+        }
 }

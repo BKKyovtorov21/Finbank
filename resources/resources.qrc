@@ -91,12 +91,30 @@
         <file>bgif.mp4</file>
         <file>calendar.svg</file>
         <file>tickCB.svg</file>
-        <file>bars.svg</file>
-        <file>bitcoin.svg</file>
-        <file>contact.svg</file>
-        <file>filter.svg</file>
-        <file>invest.png</file>
-        <file>invest2.svg</file>
         <file>more2.svg</file>
+        <file>invest2.svg</file>
+        <file>invest.png</file>
+        <file>filter.svg</file>
+        <file>contact.svg</file>
+        <file>bitcoin.svg</file>
+        <file>bars.svg</file>
+        <file>walletBlack.svg</file>
+        <file>visa.png</file>
+        <file>usaflag.png</file>
+        <file>send.svg</file>
+        <file>receive.svg</file>
+        <file>minimalistbg2.png</file>
+        <file>minimalistbg1.png</file>
+        <file>mingcute--notification-line.svg</file>
+        <file>mastercard_logo.png</file>
+        <file>logo.png</file>
+        <file>incomeArrow.svg</file>
+        <file>incomeArrow.png</file>
+        <file>eye.svg</file>
+        <file>ExpenseArrow.svg</file>
+        <file>expenseArrow.png</file>
+        <file>bulgariaflag.png</file>
+        <file>adidas2.svg</file>
+        <file>adidas.svg</file>
     </qresource>
 </RCC>
