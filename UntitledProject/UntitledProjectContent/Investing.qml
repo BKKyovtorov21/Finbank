@@ -1104,42 +1104,66 @@ Window {
         }
 
     }
-    ColumnLayout
-    {
+    ColumnLayout{
         visible: root.isTablet
         anchors.fill: parent
-        RowLayout{
+
+        RowLayout {
             anchors.top: parent.top
+            anchors.left: parent.left
+            Layout.preferredWidth: parent.width
             Image {
-                Layout.leftMargin: 50
-                Layout.topMargin: 50
+                Layout.topMargin: 30
+                Layout.leftMargin: 30
                 Layout.preferredWidth: 80
                 Layout.preferredHeight: 80
                 source: "resources/pfp.jpg"
             }
-            Text{
-            text: "Hey, Vicho"
-            Layout.topMargin: 50
-            Layout.leftMargin: 15
-            font.pixelSize: 17
-            font.bold: true
+            Text {
+                Layout.topMargin: 30
+                Layout.leftMargin: 10
+                text: "Hey, Vicho"
+                font.pixelSize: 17
+                font.bold: true
             }
-            Image{
+
+            Item {
+                Layout.fillWidth: true
+            }
+            Image {
+                Layout.topMargin: 30
                 source: "resources/search.svg"
-                Layout.topMargin: 55
-                Layout.leftMargin: parent.width * 0.65
                 Layout.preferredWidth: 20
                 Layout.preferredHeight: 20
-
             }
-            Image{
-                source: "resources/more2.svg"
-                Layout.topMargin: 65
-                Layout.leftMargin: 10
-                Layout.preferredWidth: 30
-                Layout.preferredHeight: 10
 
+            Image {
+                Layout.topMargin: 35
+                Layout.rightMargin: 30
+                source: "resources/more2.svg"
+                Layout.leftMargin: 10
+                Layout.preferredWidth: 20
+                Layout.preferredHeight: 10
             }
         }
-    }
+
+        RowLayout {
+                Layout.alignment: Qt.AlignHCenter
+
+                Text {
+                    text: "$"
+                    font.pixelSize: 20
+                }
+                Text {
+                    text: "1914"
+                    font.pixelSize: 40
+                    font.bold: true
+                }
+                Text {
+                    text: "72"
+                    font.pixelSize: 20
+                }
+            }
+        }
 }
+
