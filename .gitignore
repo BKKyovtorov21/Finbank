@@ -9,7 +9,7 @@
 *.so.*
 *.dll
 *.dylib
-
+*.user
 /Qt_6_7_1_for_macOS-Release
 /Qt_6_7_1_for_macOS-Debug
 /Qt_6_7_1_for_macOS-Profile
@@ -19,7 +19,7 @@
 /Qt_6_7_1_for_iOS_Simulator-Debug
 /Qt_6_7_1_for_iOS_Simulator-Release
 /Qt_6_7_1_for_iOS_Simulator-Profile
-
+/Generated
 *.qtds
 *.qtds.*
 *.user

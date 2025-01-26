@@ -1122,7 +1122,7 @@ Window {
             Text {
                 Layout.topMargin: 30
                 Layout.leftMargin: 10
-                text: "Hey, Vicho"
+                text: "Hey, Boyan"
                 font.pixelSize: 17
                 font.bold: true
             }
@@ -1163,6 +1163,10 @@ Window {
                     text: "72"
                     font.pixelSize: 20
                 }
+            }
+            Item
+            {
+                Layout.fillHeight: true
             }
         }
 }
