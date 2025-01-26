@@ -332,6 +332,17 @@ Window {
                     text: "Already have an account?"
                     color: "#6E6E6E"
                 }
+                onClicked:
+                {
+                    var component = Qt.createComponent("SignIn.qml");
+                    if (component.status === Component.Ready) {
+                        var signInWindow = component.createObject(null, {}); // Pass the variable here
+                        signInWindow.visible = true;
+                        root.close();
+                    } else {
+                        console.log("Error loading SignIn.qml: " + component.errorString());
+                    }
+                }
             }
             Item
             {

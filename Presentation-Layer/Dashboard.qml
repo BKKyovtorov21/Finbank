@@ -1,10 +1,10 @@
 import QtQuick
 import QtQuick.Controls
-import QtCharts 2.8
 import QtQuick.Layouts
 import QtQuick.Timeline
 import Qt5Compat.GraphicalEffects
 import QtCharts
+import QtQuick.Effects
 Window {
     id: rootdashboard
     width: Screen.width
@@ -12,7 +12,7 @@ Window {
     minimumWidth: 400
     visible: true
     property bool isTablet: width <= 900
-    property bool isPhone: width <= 500
+    property bool isPhone: width <= 620
 
         property string usernameRef
        property real balance: 3000
@@ -29,6 +29,12 @@ Window {
         expenseAnimation.running = true
         pie1Animation.running = true
         pie2Animation.running = true
+    }
+
+
+    FontLoader {
+        id: phoneFont
+        source: "fonts/GolosText-VariableFont_wght.ttf"
     }
 
     Component.onCompleted: {
@@ -562,15 +568,13 @@ Window {
 
                     Text {
                         id: monthly_Income
-                        width: 138
+                        width: parent.width
                         height: 23
                         color: "#000000"
                         text: qsTr("Monthly Income")
-                        anchors.left: parent.left
                         anchors.top: parent.top
-                        anchors.leftMargin: 16
                         anchors.topMargin: 63
-                        font.pixelSize: 20
+                        font.pixelSize: 17
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignTop
                         wrapMode: Text.NoWrap
@@ -579,13 +583,10 @@ Window {
                     Text {
                         property real incomeValue: dashboardwindowDesktop.incomeValue
                         id: income
-                        width: 174
-                        height: 40
+                        width: parent.width
                         color: "#000000"
                         text: "$" + incomeValue.toFixed(2)
-                        anchors.left: parent.left
                         anchors.top: parent.top
-                        anchors.leftMargin: 14
                         anchors.topMargin: 92
                         font.pixelSize: width > 1000 ? 32 : 25
                         horizontalAlignment: Text.AlignHCenter
@@ -740,15 +741,15 @@ Window {
 
                     Text {
                         id: monthly_Expenses
-                        width: 153
+                        width: parent.width
                         height: 23
                         color: "#000000"
+
                         text: qsTr("Monthly Expenses")
                         anchors.left: parent.left
                         anchors.top: parent.top
-                        anchors.leftMargin: 15
                         anchors.topMargin: 63
-                        font.pixelSize: 18
+                        font.pixelSize: 17
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignTop
                         wrapMode: Text.NoWrap
@@ -758,8 +759,8 @@ Window {
                     Text {
                         property real expensesValue: dashboardwindowDesktop.expensesValue
                         id: expenses
-                        width: 174
-                        height: 40
+                        width: parent.width
+
                         color: "#000000"
                         text: "$" + expensesValue.toFixed(2)
                         anchors.left: parent.left
@@ -789,9 +790,8 @@ Window {
                     Layout.row: 1
                     Layout.column: 0
                     Layout.columnSpan: 3
-                    Layout.fillWidth: true
                     Layout.fillHeight: true
-                    Layout.preferredHeight: 200
+                    Layout.fillWidth: true
                     border.width: 1
                     border.color: "#727272"
                     radius: 10
@@ -973,7 +973,6 @@ Window {
             }
     }
 
-
     Rectangle
     {
         visible: rootdashboard.isTablet
@@ -985,7 +984,6 @@ Window {
     {
         visible: rootdashboard.isTablet
         anchors.fill: parent
-
         RowLayout{
             Layout.topMargin: 30
             Layout.preferredWidth: parent.width
@@ -1011,12 +1009,13 @@ Window {
                 source: "qrc:/resources/mingcute--notification-line.svg"
             }
             Rectangle {
-                Layout.preferredWidth: 16
-                Layout.preferredHeight: 16
+                width: 16
+                height: 16
                 radius: width / 2
                 color: "red"
                 Layout.leftMargin: -20
                 Layout.topMargin: -20
+                anchors.margins: 15
                 Text {
                     text: "6"
                     color: "white"
@@ -1065,8 +1064,8 @@ Window {
                 color: "#144618"
             }
                 Rectangle {
-                    Layout.preferredWidth: 50
-                    Layout.preferredHeight: 50
+                    width: 50
+                    height: 50
                     radius: 25
                     color: "lightgreen"
                     Rectangle {
@@ -1343,4 +1342,4 @@ Window {
             }
         }
         }
-}
+    }

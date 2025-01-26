@@ -218,11 +218,11 @@ Window {
 
                 ColumnLayout {
                     visible: !root.isTablet
-                    spacing: 16
-                    Layout.preferredWidth: 150
+                    spacing: 25
+                    Layout.preferredWidth: 200
                     Layout.fillHeight: true
                     Layout.alignment: Qt.AlignTop
-                    Layout.topMargin: 100
+                    Layout.topMargin: 280
 
                     // Sidebar tabs
                     RowLayout
@@ -232,9 +232,40 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
+                            source: "qrc:/resources/tick.svg"
+                        }
+                        Text { text: "Select Recipient"
+                        font.pixelSize: 20
+                        }
+
+                    }
+                    RowLayout
+                    {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.leftMargin: 10
+                        Image
+                        {
+                            source: "qrc:/resources/tick.svg"
+                        }
+                        Text { text: "Amount"
+                        font.pixelSize: 20
+                        }
+
+                    }
+                    RowLayout
+                    {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.leftMargin: 10
+                        Image
+                        {
                             source: "qrc:/resources/selectiveLine.svg"
                         }
-                        Text { text: "Select Recipient" }
+                        Text { text: "Details Recipent"
+                        font.pixelSize: 20
+                        font.bold: true
+                        }
 
                     }
                     RowLayout
@@ -246,7 +277,9 @@ Window {
                         {
                             source: "qrc:/resources/notSelectiveLine.svg"
                         }
-                        Text { text: "Amount" }
+                        Text { text: "Transfer Type"
+                        font.pixelSize: 20
+                        }
 
                     }
                     RowLayout
@@ -258,31 +291,9 @@ Window {
                         {
                             source: "qrc:/resources/notSelectiveLine.svg"
                         }
-                        Text { text: "Details Recipent" }
-
-                    }
-                    RowLayout
-                    {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        Layout.leftMargin: 10
-                        Image
-                        {
-                            source: "qrc:/resources/notSelectiveLine.svg"
+                        Text { text: "Overview"
+                        font.pixelSize: 20
                         }
-                        Text { text: "Transfer Type" }
-
-                    }
-                    RowLayout
-                    {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        Layout.leftMargin: 10
-                        Image
-                        {
-                            source: "qrc:/resources/notSelectiveLine.svg"
-                        }
-                        Text { text: "Overview" }
 
                     }
 
@@ -315,7 +326,7 @@ Window {
                             Text
                             {
                                 Layout.fillWidth: true
-                                text: "2|5 Enter amount"
+                                text: "3|5 Recipent Details"
                                 horizontalAlignment: Text.AlignHCenter
                                 font.pixelSize: 15
                                 font.bold: true
@@ -327,7 +338,7 @@ Window {
                                 color: "lightgrey"
                                 Rectangle
                                 {
-                                    width: parent.width / 5 * 2
+                                    width: parent.width / 5 * 3
                                     height: 3
                                     color: "#016DFC"
                                 }
@@ -384,6 +395,7 @@ Window {
                         }
                         Rectangle
                         {
+                            id: rectangle
 
                             Layout.preferredWidth: root.isPhone ? 380 : (root.isTablet ? 530 : 650)
                             Layout.preferredHeight: root.isPhone ? 65 : (root.isTablet ? 75 : 85)
@@ -397,20 +409,38 @@ Window {
                             border.width: 1
                             border.color: "#F2F2F2"
 
+                            MouseArea
+                            {
+                                anchors.fill: parent
+                                onClicked: animation1.start()
+                            }
+                            SequentialAnimation {
+                                        id: animation1
+                                        loops: 1
+                                        running: false // Start this manually
+                                        PropertyAnimation {
+                                            target: rectangle
+                                            property: "border.color"
+                                            from: "#F2F2F2"
+                                            to: "#2ea46d"
+                                            duration: 1000
+                                        }
+                                    }
                             RowLayout
                             {
+                                anchors.fill: parent
 
-                            anchors.fill: parent
 
                             Rectangle
                             {
-                                Layout.preferredWidth: 40
-                                Layout.preferredHeight: 40
+                                Layout.preferredWidth:  40
+                                Layout.preferredHeight:  40
 
                                 radius: 40
                                 color: "#F7F8FC"
-                                Layout.alignment: Qt.AlignVCenter
-                                Layout.leftMargin:15
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.left: parent.left
+                                anchors.leftMargin: 15
 
                                 Image
                                 {
@@ -445,7 +475,7 @@ Window {
                         }
                         Rectangle
                         {
-
+                            id: rectangle2
                             Layout.preferredWidth: root.isPhone ? 380 : (root.isTablet ? 530 : 650)
                             Layout.preferredHeight: root.isPhone ? 65 : (root.isTablet ? 75 : 85)
                             radius: 20
@@ -456,7 +486,24 @@ Window {
                             Layout.alignment: root.isPhone ? Qt.AlignLeft : Qt.AlignHCenter
                             Layout.leftMargin: root.isPhone ? 10 : 0
 
+                            MouseArea
+                            {
+                                anchors.fill: parent
+                                onClicked: animation2.start()
+                            }
 
+                            SequentialAnimation {
+                                        id: animation2
+                                        loops: 1
+                                        running: false // Start this manually
+                                        PropertyAnimation {
+                                            target: rectangle2
+                                            property: "border.color"
+                                            from: "#F2F2F2"
+                                            to: "#2ea46d"
+                                            duration: 1000
+                                        }
+                                    }
                             RowLayout
                             {
 
@@ -465,13 +512,14 @@ Window {
 
                             Rectangle
                             {
-                                Layout.preferredWidth: 40
                                 Layout.preferredHeight: 40
+                                Layout.preferredWidth: 40
 
                                 radius: 40
                                 color: "#F7F8FC"
-                                Layout.alignment: Qt.AlignVCenter
-                                Layout.leftMargin:15
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.left: parent.left
+                                anchors.leftMargin: 15
 
                                 Image
                                 {
@@ -506,7 +554,7 @@ Window {
                         }
                         Rectangle
                         {
-
+                            id: rectangle3
                             Layout.preferredWidth: root.isPhone ? 380 : (root.isTablet ? 530 : 650)
                             Layout.preferredHeight: root.isPhone ? 65 : (root.isTablet ? 75 : 85)
                             radius: 20
@@ -517,6 +565,25 @@ Window {
                             Layout.alignment: root.isPhone ? Qt.AlignLeft : Qt.AlignHCenter
                             Layout.leftMargin: root.isPhone ? 10 : 0
 
+                            SequentialAnimation {
+                                        id: animation3
+                                        loops: 1
+                                        running: false // Start this manually
+                                        PropertyAnimation {
+                                            target: rectangle3
+                                            property: "border.color"
+                                            from: "#F2F2F2"
+                                            to: "#2ea46d"
+                                            duration: 1000
+                                        }
+                                    }
+
+                            MouseArea
+                            {
+                                anchors.fill: parent
+                                onClicked: animation3.start()
+                            }
+
 
                             RowLayout
                             {
@@ -526,13 +593,14 @@ Window {
 
                             Rectangle
                             {
-                                Layout.preferredWidth: 40
                                 Layout.preferredHeight: 40
+                                Layout.preferredWidth: 40
 
                                 radius: 40
                                 color: "#F7F8FC"
-                                Layout.alignment: Qt.AlignVCenter
-                                Layout.leftMargin:15
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.left: parent.left
+                                anchors.leftMargin: 15
 
                                 Image
                                 {

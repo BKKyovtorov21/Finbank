@@ -48,7 +48,7 @@ Window {
             spacing: 8 // Adjust spacing between icon and TextField
             Image {
                 id: name
-                source: !root.isTablet ? "qrc:/resources/logo1.png" : "qrc:/resources/pfp.jpg"
+                source: !root.isTablet ? "resources/logo1.png" : "resources/pfp.jpg"
             }
             Rectangle
             {
@@ -76,7 +76,7 @@ Window {
 
                 Layout.preferredHeight: 20
                 Layout.preferredWidth: 20
-                source: "qrc:/resources/RightArrows.svg"
+                source: "resources/RightArrows.svg"
                 antialiasing: true
             }
             Rectangle
@@ -117,7 +117,7 @@ Window {
                             fillMode: Image.PreserveAspectFit
 
 
-                            source: "qrc:/resources/search.svg"
+                            source: "resources/search.svg"
                             anchors.top: parent.top
                             anchors.topMargin: 5
                             anchors.left: parent.left
@@ -151,7 +151,7 @@ Window {
                     anchors.top: parent.top
                     anchors.left: parent.left
                     anchors.topMargin: 15
-                    source: "qrc:/resources/chat.svg"
+                    source: "resources/chat.svg"
                     anchors.leftMargin: 5
                 }
                 Text {
@@ -175,7 +175,7 @@ Window {
                 Image {
                     id: userpfp
                     x: 14
-                    source: "qrc:/resources/pfp.jpg"
+                    source: "resources/pfp.jpg"
                     width:70
                     height:70
                     anchors.top: parent.top
@@ -226,7 +226,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "qrc:/resources/tick.svg"
+                            source: "resources/tick.svg"
                         }
                         Text { text: "Select Recipient"
                         font.pixelSize: 20
@@ -240,7 +240,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "qrc:/resources/SelectiveLine.svg"
+                            source: "resources/SelectiveLine.svg"
                         }
                         Text { text: "Amount"
                         font.pixelSize: 20
@@ -255,7 +255,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "qrc:/resources/notSelectiveLine.svg"
+                            source: "resources/notSelectiveLine.svg"
                         }
                         Text { text: "Details Recipent"
                         font.pixelSize: 20
@@ -269,7 +269,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "qrc:/resources/notSelectiveLine.svg"
+                            source: "resources/notSelectiveLine.svg"
                         }
                         Text { text: "Transfer Type"
                         font.pixelSize: 20
@@ -283,7 +283,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "qrc:/resources/notSelectiveLine.svg"
+                            source: "resources/notSelectiveLine.svg"
                         }
                         Text { text: "Overview"
                         font.pixelSize: 20
@@ -534,11 +534,11 @@ to send") : "How much do you want to send"
 
                                         ListModel {
                                                 id: currencyModel
-                                                ListElement { image: "qrc:/resources/usd.png"; text: "USD" }
-                                                ListElement { image: "qrc:/resources/cad.png"; text: "CAD" }
-                                                ListElement { image: "qrc:/resources/jpy.png"; text: "JPY" }
-                                                ListElement { image: "qrc:/resources/usd.png"; text: "More" }
-                                                ListElement { image: "qrc:/resources/usd.png"; text: "More" }
+                                                ListElement { image: "resources/usd.png"; text: "USD" }
+                                                ListElement { image: "resources/cad.png"; text: "CAD" }
+                                                ListElement { image: "resources/jpy.png"; text: "JPY" }
+                                                ListElement { image: "resources/usd.png"; text: "More" }
+                                                ListElement { image: "resources/usd.png"; text: "More" }
                                             }
 
                                             // Filtered data model
@@ -581,7 +581,7 @@ to send") : "How much do you want to send"
                                 {
                                     id: currencyImage
                                     Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-                                    source: "qrc:/resources/usd.png"
+                                    source: "resources/usd.png"
                                     Layout.preferredWidth: 30
                                     Layout.preferredHeight: 30
                                 }
@@ -644,7 +644,7 @@ to send") : "How much do you want to send"
                                 {
                                     id: currencyImage2
                                     Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-                                    source: "qrc:/resources/usd.png"
+                                    source: "resources/usd.png"
                                     Layout.preferredWidth: 30
                                     Layout.preferredHeight: 30
                                 }

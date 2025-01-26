@@ -222,11 +222,11 @@ Window {
 
                 ColumnLayout {
                     visible: !root.isTablet
-                    spacing: 16
-                    Layout.preferredWidth: 150
+                    spacing: 25
+                    Layout.preferredWidth: 200
                     Layout.fillHeight: true
                     Layout.alignment: Qt.AlignTop
-                    Layout.topMargin: 100
+                    Layout.topMargin: 280
 
                     // Sidebar tabs
                     RowLayout
@@ -236,9 +236,40 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "qrc:/resources/selectiveLine.svg"
+                            source: "qrc:/resources//tick.svg"
                         }
-                        Text { text: "Select Recipient" }
+                        Text { text: "Select Recipient"
+                        font.pixelSize: 20
+                        }
+
+                    }
+                    RowLayout
+                    {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.leftMargin: 10
+                        Image
+                        {
+                            source: "qrc:/resources//SelectiveLine.svg"
+                        }
+                        Text { text: "Amount"
+                        font.pixelSize: 20
+                        font.bold: true
+                        }
+
+                    }
+                    RowLayout
+                    {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.leftMargin: 10
+                        Image
+                        {
+                            source: "qrc:/resources//notSelectiveLine.svg"
+                        }
+                        Text { text: "Details Recipent"
+                        font.pixelSize: 20
+                        }
 
                     }
                     RowLayout
@@ -250,7 +281,9 @@ Window {
                         {
                             source: "qrc:/resources/notSelectiveLine.svg"
                         }
-                        Text { text: "Amount" }
+                        Text { text: "Transfer Type"
+                        font.pixelSize: 20
+                        }
 
                     }
                     RowLayout
@@ -262,31 +295,9 @@ Window {
                         {
                             source: "qrc:/resources/notSelectiveLine.svg"
                         }
-                        Text { text: "Details Recipent" }
-
-                    }
-                    RowLayout
-                    {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        Layout.leftMargin: 10
-                        Image
-                        {
-                            source: "qrc:/resources/notSelectiveLine.svg"
+                        Text { text: "Overview"
+                        font.pixelSize: 20
                         }
-                        Text { text: "Transfer Type" }
-
-                    }
-                    RowLayout
-                    {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        Layout.leftMargin: 10
-                        Image
-                        {
-                            source: "qrc:/resources/notSelectiveLine.svg"
-                        }
-                        Text { text: "Overview" }
 
                     }
 
@@ -383,7 +394,7 @@ Window {
 
                                         anchors.centerIn: parent
                                         text: "International"
-                                        font.pixelSize: root.isTablet ? 20 : 30
+                                        font.pixelSize: root.isTablet ? 20 : 25
                                     }
 
                                 }
@@ -391,8 +402,8 @@ Window {
                                 {
                                     anchors.left: internationalButton.right
                                     anchors.verticalCenter: parent.verticalCenter
-                                    anchors.leftMargin: parent.width / 16
-                                    font.pixelSize: root.isTablet ? 20 : 30
+                                    anchors.leftMargin: parent.width / 9
+                                    font.pixelSize: root.isTablet ? 20 : 25
                                     text: "Same currency"
                                 }
 
@@ -709,7 +720,7 @@ Window {
                                     Text
                                     {
                                         Layout.alignment: Qt.AlignRight
-                                        text: "$ 2 USD"
+                                        text: "$ 5USD"
                                         color: "black"
                                         font.pixelSize: root.isPhone ? 15 : 20
                                         font.bold: true
@@ -737,7 +748,7 @@ Window {
                                     Text
                                     {
                                         Layout.alignment: Qt.AlignRight
-                                        text: "$ " + currency.text + " " + root.sendingCurrency
+                                        text: (Number(currency.text) + 5) + " " + root.sendingCurrency
                                         color: "black"
                                         font.pixelSize: root.isPhone ? 15 : 20
                                         font.bold: true
@@ -763,7 +774,7 @@ Window {
                                     Text
                                     {
                                         Layout.alignment: Qt.AlignRight
-                                        text: "$ " + currency.text + " " + root.sendingCurrency
+                                        text: (currency.text + 5) + " " + root.sendingCurrency
                                         color: "black"
                                         font.pixelSize: root.isPhone ? 15 : 20
                                         font.bold: true

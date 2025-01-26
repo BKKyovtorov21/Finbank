@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Timeline 1.0
 Window {
     id: root
     visible: true
@@ -308,7 +309,6 @@ Window {
                     Layout.bottomMargin: 20
                     color: "transparent"
 
-
                     ColumnLayout {
                         spacing: 16
                         anchors.fill: parent
@@ -396,6 +396,7 @@ destination") : qsTr("Select recipent bank destination")
                         }
                         Rectangle
                         {
+                            id: rectangle
 
                             Layout.preferredWidth: root.isPhone ? 380 : (root.isTablet ? 530 : 650)
                             Layout.preferredHeight: root.isPhone ? 65 : (root.isTablet ? 75 : 85)
@@ -409,13 +410,32 @@ destination") : qsTr("Select recipent bank destination")
                             border.width: 1
                             border.color: "#F2F2F2"
 
+                            MouseArea
+                            {
+                                anchors.fill: parent
+                                onClicked: animation1.start()
+                            }
+                            SequentialAnimation {
+                                        id: animation1
+                                        loops: 1
+                                        running: false // Start this manually
+                                        PropertyAnimation {
+                                            target: rectangle
+                                            property: "border.color"
+                                            from: "#F2F2F2"
+                                            to: "#2ea46d"
+                                            duration: 1000
+                                        }
+
+                                    }
                             RowLayout
                             {
+                                anchors.fill: parent
 
-                            anchors.fill: parent
 
                             Rectangle
                             {
+                                id: circle1
                                 Layout.preferredWidth:  40
                                 Layout.preferredHeight:  40
 
@@ -458,7 +478,7 @@ destination") : qsTr("Select recipent bank destination")
                         }
                         Rectangle
                         {
-
+                            id: rectangle2
                             Layout.preferredWidth: root.isPhone ? 380 : (root.isTablet ? 530 : 650)
                             Layout.preferredHeight: root.isPhone ? 65 : (root.isTablet ? 75 : 85)
                             radius: 20
@@ -469,7 +489,24 @@ destination") : qsTr("Select recipent bank destination")
                             Layout.alignment: root.isPhone ? Qt.AlignLeft : Qt.AlignHCenter
                             Layout.leftMargin: root.isPhone ? 10 : 0
 
+                            MouseArea
+                            {
+                                anchors.fill: parent
+                                onClicked: animation2.start()
+                            }
 
+                            SequentialAnimation {
+                                        id: animation2
+                                        loops: 1
+                                        running: false // Start this manually
+                                        PropertyAnimation {
+                                            target: rectangle2
+                                            property: "border.color"
+                                            from: "#F2F2F2"
+                                            to: "#2ea46d"
+                                            duration: 1000
+                                        }
+                                    }
                             RowLayout
                             {
 
@@ -520,7 +557,7 @@ destination") : qsTr("Select recipent bank destination")
                         }
                         Rectangle
                         {
-
+                            id: rectangle3
                             Layout.preferredWidth: root.isPhone ? 380 : (root.isTablet ? 530 : 650)
                             Layout.preferredHeight: root.isPhone ? 65 : (root.isTablet ? 75 : 85)
                             radius: 20
@@ -530,6 +567,25 @@ destination") : qsTr("Select recipent bank destination")
                             border.color: "#F2F2F2"
                             Layout.alignment: root.isPhone ? Qt.AlignLeft : Qt.AlignHCenter
                             Layout.leftMargin: root.isPhone ? 10 : 0
+
+                            SequentialAnimation {
+                                        id: animation3
+                                        loops: 1
+                                        running: false // Start this manually
+                                        PropertyAnimation {
+                                            target: rectangle3
+                                            property: "border.color"
+                                            from: "#F2F2F2"
+                                            to: "#2ea46d"
+                                            duration: 1000
+                                        }
+                                    }
+
+                            MouseArea
+                            {
+                                anchors.fill: parent
+                                onClicked: animation3.start()
+                            }
 
 
                             RowLayout
@@ -641,11 +697,13 @@ destination") : qsTr("Select recipent bank destination")
                     onClicked: {
 
 
-                                }
+                    }
                 }
 
 
             }
 
     }
+
+
 }

@@ -338,6 +338,7 @@ Window {
             Layout.leftMargin: 70
         RowLayout
         {
+            Layout.rightMargin: 30
             Text
             {
                 text: qsTr("Total balances")
@@ -437,7 +438,7 @@ Window {
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenterOffset: 1
                     anchors.horizontalCenterOffset: 0
-                    text: qsTr("Send")
+                    text: qsTr("Convert")
                     color: "white"
                     font.pixelSize: 18
                 }
@@ -453,8 +454,8 @@ Window {
             }
             Button
             {
-                Layout.preferredWidth: 40
-                Layout.preferredHeight: 44
+                Layout.preferredWidth: 45
+                Layout.preferredHeight: 45
                 background: Rectangle
                 {
                     color: "#1C1F31"

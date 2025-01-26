@@ -395,12 +395,36 @@ Window {
 
                         Rectangle
                         {
+                            id: rectangle1
                             Layout.preferredWidth: root.isTablet ? parent.width : parent.width - 200
 
                             Layout.alignment: !root.isTablet ? Qt.AlignHCenter : Qt.AlignLeft
 
                             Layout.preferredHeight: 100
+                            radius: 20
 
+                            border.width: 1
+                            border.color: "white"
+
+                            MouseArea
+                            {
+                                anchors.fill: parent
+                                onClicked: animation1.start();
+                            }
+
+                            SequentialAnimation {
+                                        id: animation1
+                                        loops: 1
+                                        running: false // Start this manually
+                                        PropertyAnimation {
+                                            target: rectangle1
+                                            property: "border.color"
+                                            from: "white"
+                                            to: "#2ea46d"
+                                            duration: 1000
+                                        }
+
+                                    }
                             ColumnLayout
                             {
                                 anchors.fill: parent
@@ -487,12 +511,36 @@ Window {
 
                         Rectangle
                         {
+                            id: rectangle2
                             Layout.preferredWidth: root.isTablet ? parent.width : parent.width - 200
 
                             Layout.alignment: !root.isTablet ? Qt.AlignHCenter : Qt.AlignLeft
 
                             Layout.preferredHeight: 100
 
+                            border.width: 1
+                            border.color: "white"
+                            radius: 20
+
+                            MouseArea
+                            {
+                                anchors.fill: parent
+                                onClicked: animation2.start();
+                            }
+
+                            SequentialAnimation {
+                                        id: animation2
+                                        loops: 1
+                                        running: false // Start this manually
+                                        PropertyAnimation {
+                                            target: rectangle2
+                                            property: "border.color"
+                                            from: "white"
+                                            to: "#2ea46d"
+                                            duration: 1000
+                                        }
+
+                                    }
                             ColumnLayout
                             {
                                 anchors.fill: parent
@@ -582,11 +630,36 @@ Window {
 
                         Rectangle
                         {
+                            id: rectangle3
                             Layout.preferredWidth: root.isTablet ? parent.width : parent.width - 200
 
                             Layout.alignment: !root.isTablet ? Qt.AlignHCenter : Qt.AlignLeft
 
                             Layout.preferredHeight: 100
+
+                            border.width: 1
+                            border.color: "white"
+                            radius: 20
+
+                            MouseArea
+                            {
+                                anchors.fill: parent
+                                onClicked: animation3.start();
+                            }
+
+                            SequentialAnimation {
+                                        id: animation3
+                                        loops: 1
+                                        running: false // Start this manually
+                                        PropertyAnimation {
+                                            target: rectangle3
+                                            property: "border.color"
+                                            from: "white"
+                                            to: "#2ea46d"
+                                            duration: 1000
+                                        }
+
+                                    }
 
                             ColumnLayout
                             {

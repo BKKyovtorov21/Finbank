@@ -232,7 +232,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "resources/tick.svg"
+                            source: "qrc:/resources//tick.svg"
                         }
                         Text { text: "Select Recipient"
                         font.pixelSize: 20
@@ -246,7 +246,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "resources/tick.svg"
+                            source: "qrc:/resources//tick.svg"
                         }
                         Text { text: "Amount"
                         font.pixelSize: 20
@@ -260,7 +260,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "resources/tick.svg"
+                            source: "qrc:/resources//tick.svg"
                         }
                         Text { text: "Details Recipent"
                         font.pixelSize: 20
@@ -274,7 +274,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "resources/tick.svg"
+                            source: "qrc:/resources//tick.svg"
                         }
                         Text { text: "Transfer Type"
                         font.pixelSize: 20
@@ -288,7 +288,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "resources/selectiveLine.svg"
+                            source: "qrc:/resources//selectiveLine.svg"
                         }
                         Text { text: "Overview"
                         font.pixelSize: 20
@@ -326,7 +326,7 @@ Window {
                             Text
                             {
                                 Layout.fillWidth: true
-                                text: "2|5 Enter amount"
+                                text: "5|5 Overview"
                                 horizontalAlignment: Text.AlignHCenter
                                 font.pixelSize: 15
                                 font.bold: true
@@ -339,7 +339,7 @@ Window {
                                 color: "lightgrey"
                                 Rectangle
                                 {
-                                    width: parent.width / 5 * 2
+                                    width: parent.width / 5 * 5
                                     height: 3
                                     color: "#016DFC"
                                 }

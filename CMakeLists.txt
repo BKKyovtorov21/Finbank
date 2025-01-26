@@ -17,6 +17,7 @@ find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Multimedia NetworkAuth Sql Charts
 qt_standard_project_setup(REQUIRES 6.5)
 
 
+
 qt_add_executable(appFinbank
         DDL/main.cpp
         DDL/register.hpp DDL/register.cpp
@@ -72,6 +73,10 @@ qt_add_qml_module(appFinbank
 
 qt_add_ios_ffmpeg_libraries(appFinbank)
 
+target_include_directories(appFinbank PRIVATE
+    DAL
+    DDL
+)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
