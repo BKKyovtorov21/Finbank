@@ -1104,7 +1104,7 @@ Window {
         }
 
     }
-    ColumnLayout{
+    ColumnLayout {
         visible: root.isTablet
         anchors.fill: parent
 
@@ -1148,26 +1148,154 @@ Window {
         }
 
         RowLayout {
-                Layout.alignment: Qt.AlignHCenter
-
-                Text {
-                    text: "$"
-                    font.pixelSize: 20
-                }
-                Text {
-                    text: "1914"
-                    font.pixelSize: 40
-                    font.bold: true
-                }
-                Text {
-                    text: "72"
-                    font.pixelSize: 20
-                }
+            Layout.alignment: Qt.AlignHCenter
+            Layout.topMargin: 50
+            Text {
+                text: "$"
+                font.pixelSize: root.isTablet ? 30 : (root.isPhone ? 20 : 30)
             }
-            Item
-            {
-                Layout.fillHeight: true
+            Text {
+                text: "1914"
+                font.pixelSize: root.isTablet ? 55 :(root.isPhone ? 30 : 50)
+                font.bold: true
+            }
+            Text {
+                text: "71"
+                font.pixelSize: root.isTablet ? 30 : (root.isPhone ? 20 : 30)
             }
         }
+
+        Item {
+            Layout.preferredHeight: 5
+        }
+
+        RowLayout {
+            Layout.alignment: Qt.AlignHCenter
+            spacing: 10
+            Text {
+                text: "USD"
+                font.bold: true
+                font.pixelSize: 25
+            }
+            Text {
+                text: "EUR"
+                font.pixelSize: 25
+            }
+            Text {
+                text: "BTC"
+                font.pixelSize: 25
+            }
+            Text {
+                text: "ETH"
+                font.pixelSize: 25
+            }
+            Image {
+                Layout.topMargin: 10
+                source: "resources/more2.svg"
+                Layout.preferredWidth: 20
+                Layout.preferredHeight: 10
+            }
+        }
+
+        Item {
+            Layout.preferredHeight: 40
+        }
+
+        GridLayout {
+            columns: root.width > 860 ? 4 : 2
+            columnSpacing: 5
+            rowSpacing: 5
+            anchors.horizontalCenter: parent.horizontalCenter
+            Rectangle {
+                Layout.preferredHeight: 100
+                Layout.preferredWidth: 200
+                color: "#292D2E"
+                radius: 15
+                Text {
+                    text: "Add money"
+                    color: "white"
+                    font.pixelSize: 17
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 13
+                }
+                Image {
+                    source: "resources/plus.png"
+                    Layout.preferredWidth: 20
+                    Layout.preferredHeight: 20
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+            }
+            Rectangle {
+                Layout.preferredHeight: 100
+                Layout.preferredWidth: root.isTablet ? 200 : 150
+                color: "#292D2E"
+                radius: 15
+                Text {
+                    text: "Exchange"
+                    color: "white"
+                    font.pixelSize: 17
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 13
+                }
+                Image {
+                    source: "resources/exchange.png"
+                    Layout.preferredWidth: 20
+                    Layout.preferredHeight: 20
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+            }
+            Rectangle {
+                Layout.preferredHeight: 100
+                Layout.preferredWidth: root.isTablet ? 200 : 150
+                color: "#292D2E"
+                radius: 15
+                Text {
+                    text: "Details"
+                    color: "white"
+                    font.pixelSize: 17
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 13
+                }
+                Image {
+                    source: "resources/details.png"
+                    Layout.preferredWidth: 20
+                    Layout.preferredHeight: 30
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+            }
+            Rectangle {
+                Layout.preferredHeight: 100
+                Layout.preferredWidth: root.isTablet ? 200 : 150
+                color: "#292D2E"
+                radius: 15
+                Text {
+                    text: "More"
+                    color: "white"
+                    font.pixelSize: 17
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 13
+                }
+                Image {
+                    source: "resources/more.png"
+                    Layout.preferredWidth: 20
+                    Layout.preferredHeight: 25
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+            }
+        }
+
+        Item {
+            Layout.fillHeight: true
+        }
+    }
+
 }
 
