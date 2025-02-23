@@ -2,55 +2,47 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Timeline
-import Qt5Compat.GraphicalEffects
 import QtCharts
-import QtQuick.Effects
-Window {
+Item {
     id: rootdashboard
+    property var stackViewRef
     width: Screen.width
     height: Screen.height
-    minimumWidth: 400
     visible: true
+
     property bool isTablet: width <= 900
     property bool isPhone: width <= 620
 
-        property string usernameRef
-       property real balance: 3000
-       property real income: 3000
-       property real expenses: 3000
-       property string cardInfo: ""
-       property string fullName
-       property string pfp: ""
+        property var usernameRef
+       property var balance
+       property var income
+       property var expenses
+       property var cardInfo
+       property var fullName
+       property var pfp
 
-    onVisibleChanged:
-    {
+
+
+
+
+    Component.onCompleted: {
+
         balanceAnimation.running = true
         incomeAnimation.running = true
         expenseAnimation.running = true
         pie1Animation.running = true
         pie2Animation.running = true
-    }
 
-
-    FontLoader {
-        id: phoneFont
-        source: "fonts/GolosText-VariableFont_wght.ttf"
-    }
-
-    Component.onCompleted: {
-
-            if (rootdashboard.usernameRef !== "") {
                 balance = dashboard.getDbVariable(rootdashboard.usernameRef, "balance");
                 income = dashboard.getDbVariable(rootdashboard.usernameRef, "income");
                 expenses = dashboard.getDbVariable(rootdashboard.usernameRef, "expenses");
-                cardInfo = dashboard.getDbVariable(rootdashboard.usernameRef, "cardNumber");
-                firstName = dashboard.getDbVariable(rootdashboard.usernameRef, "first_name");
-                lastName = dashboard.getDbVariable(rootdashboard.usernameRef, "last_name");
-                pfp = dashboard.getDbVariable(rootdashboard.usernameRef, "pfp");
-                console.log("")
-            } else {
-                console.log("Username is empty");
-            }
+                rootdashboard.cardInfo = dashboard.getDbVariable(rootdashboard.usernameRef, "cardNumber");
+                rootdashboard.firstName = dashboard.getDbVariable(rootdashboard.usernameRef, "first_name");
+                rootdashboard.lastName = dashboard.getDbVariable(rootdashboard.usernameRef, "last_name");
+                rootdashboard.pfp = dashboard.getDbVariable(rootdashboard.usernameRef, "pfp");
+
+
+
         }
     ColumnLayout
     {
@@ -181,6 +173,15 @@ Window {
                 Layout.preferredWidth: 80
                 Layout.preferredHeight: 50
                 color: "#fafafa"
+
+                MouseArea
+                {
+                    anchors.fill: parent
+                    onClicked:
+                    {
+                        chatDrawer.open()
+                    }
+                }
             }
 
             Rectangle
@@ -244,86 +245,95 @@ Window {
                 Layout.fillWidth: true
             }
 
-            Button
+            Text
             {
-                background:Text {
+
                     id: overviewPage
                     text: qsTr("Overview")
                     color: "#367C21"
                     font.pixelSize: 15
+                    font.bold: true
 
-                }
+
             }
 
-            Button
+            Text
             {
 
-                background:Text {
+
                     id: walletPage
                     text: qsTr("Wallet")
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
 
-                }
+
             }
-            Button
+            Text
             {
 
-                background:Text {
+
                     id: transactions
                     text: qsTr("Transactions")
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
 
-                }
-                onClicked:
+
+                MouseArea
                 {
-                    var component = Qt.createComponent("Transactions.qml");
-                            if (component.status === Component.Ready) {
-                                var window = component.createObject(null, { "username": rootdashboard.usernameRef, "fullName": rootdashboard.fullName}); // Pass the variable here
-                                window.visible = true;
-                                rootdashboard.close();
-                            } else {
-                                console.log("Error loading SignIn.qml: " + component.errorString());
-                            }
+                    anchors.fill: parent
+                    onClicked:{
+                        if (rootdashboard.stackViewRef) {
+                                    rootdashboard.stackViewRef.push(Qt.resolvedUrl("Transactions.qml"), {
+                                        username: rootdashboard.usernameRef,
+                                        fullName: rootdashboard.fullName,
+                                        stackViewRef: rootdashboard.stackViewRef
+                                    });
+                                }
+                        else {
+                            console.error("stackViewRef is undefined in SignIn.qml");
+                        }
+                    }
                 }
             }
-            Button
+            Text
             {
 
-                background:Text {
+
                     id: tradingPageButton
                     text: qsTr("Trading")
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
 
-                }
-                onClicked:
+
+                MouseArea
                 {
-                    var component = Qt.createComponent("TradingDashboard.qml");
-                            if (component.status === Component.Ready) {
-                                var window = component.createObject(null, { "username": rootdashboard.usernameRef, "fullName": rootdashboard.fullName}); // Pass the variable here
-                                window.visible = true;
-                                rootdashboard.close();
-                            } else {
-                                console.log("Error loading SignIn.qml: " + component.errorString());
-                            }
+                    anchors.fill: parent
+                    onClicked:{
+                        if (rootdashboard.stackViewRef) {
+                                    rootdashboard.stackViewRef.push(Qt.resolvedUrl("TradingDashboard.qml"), {
+                                        username: rootdashboard.usernameRef,
+                                        fullName: rootdashboard.fullName,
+                                        stackViewRef: rootdashboard.stackViewRef
+                                    });
+                                }
+                        else {
+                            console.error("stackViewRef is undefined in SignIn.qml");
+                        }
+                    }
                 }
             }
-            Button
+            Text
             {
-
-                background:Text {
                     id: settingsPage
                     text: qsTr("Settings")
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
 
-                }
+
             }
         }
         RowLayout
@@ -1335,11 +1345,254 @@ Window {
                     }
 
                 }
+
+                Rectangle
+                {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 80
+                    Layout.margins: 5
+
+                    RowLayout
+                    {
+                        anchors.fill: parent
+
+                        Image
+                        {
+                            Layout.leftMargin: 5
+                            source: "qrc:/resources/billa.png"
+                            Layout.preferredHeight: 50
+                            Layout.preferredWidth: 50
+                        }
+
+                        ColumnLayout
+                        {
+                            Text
+                            {
+                               text: "Billa 526 04"
+                               font.pixelSize: 16
+                               font.bold: true
+                            }
+                            Text
+                            {
+                                text: "4 February, 20:47"
+                                color: "lightgrey"
+                            }
+                        }
+                        Item
+                        {
+                            Layout.fillWidth: true
+                        }
+                        Text
+                        {
+                            text: "26.04 BGN"
+                            font.pixelSize: 16
+                            font.bold: true
+                            Layout.rightMargin: 10
+                        }
+                    }
+                }
+                Rectangle
+                {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 80
+                    Layout.margins: 5
+
+                    RowLayout
+                    {
+                        anchors.fill: parent
+
+                        Image
+                        {
+                            Layout.leftMargin: 5
+                            source: "qrc:/resources/booking.webp"
+                            Layout.preferredHeight: 50
+                            Layout.preferredWidth: 50
+                        }
+
+                        ColumnLayout
+                        {
+                            Text
+                            {
+                               text: "Hotel at Booking.com"
+                               font.pixelSize: 16
+                               font.bold: true
+                            }
+                            Text
+                            {
+                                text: "3 February, 21:22"
+                                color: "lightgrey"
+                            }
+                        }
+                        Item
+                        {
+                            Layout.fillWidth: true
+                        }
+                        Text
+                        {
+                            text: "26.04 BGN"
+                            font.pixelSize: 16
+                            font.bold: true
+                            Layout.rightMargin: 10
+                        }
+                    }
+                }
+                Rectangle
+                {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 80
+                    Layout.margins: 5
+
+                    RowLayout
+                    {
+                        anchors.fill: parent
+
+                        Image
+                        {
+                            Layout.leftMargin: 5
+                            source: "qrc:/resources/spotify.png"
+                            Layout.preferredHeight: 50
+                            Layout.preferredWidth: 50
+                        }
+
+                        ColumnLayout
+                        {
+                            Text
+                            {
+                               text: "Spotify subscription"
+                               font.pixelSize: 16
+                               font.bold: true
+                            }
+                            Text
+                            {
+                                text: "1 February, 12:23"
+                                color: "lightgrey"
+                            }
+                        }
+                        Item
+                        {
+                            Layout.fillWidth: true
+                        }
+                        Text
+                        {
+                            text: "26.04 BGN"
+                            font.pixelSize: 16
+                            font.bold: true
+                            Layout.rightMargin: 10
+                        }
+                    }
+                }
+
                 Item
                 {
                     Layout.fillHeight: true
                 }
             }
         }
+
+
+        Drawer
+        {
+            id: chatDrawer
+            implicitWidth:350
+            implicitHeight: parent.height
+            interactive: !rootdashboard.isTablet
+            edge: Qt.RightEdge
+
+
+            background: Rectangle
+            {
+                color: "#eee"
+
+
+            }
+            contentItem: LayoutItemProxy
+            {
+                target: expandedSidebar
+            }
+        }
+
+
+
+        Item {
+            id: spacer
+            Layout.preferredHeight: 50
+
         }
     }
+    Rectangle {
+        id: expandedSidebar
+        color: "#ddd"
+        clip: true
+
+        ColumnLayout {
+            anchors.fill: parent
+
+            Text
+            {
+                Layout.preferredWidth: parent.width
+                text: "Chat"
+                font.pixelSize: 20
+                font.bold: true
+                horizontalCenter: Qt.AlignHCenter
+            }
+
+            Repeater {
+                width: parent.width
+                model: ListModel {
+                    ListElement { menuText: "Personal" }
+                    ListElement { menuText: "Business" }
+                    ListElement { menuText: "Company" }
+                    ListElement { menuText: "Help" }
+                }
+
+                delegate: Item {
+                    width: parent.width
+                    height: menurow.height
+
+                    Row {
+                        id: menurow
+                        spacing: 0
+
+                        Item {
+                            width: 70
+                            height: 50
+
+                            Rectangle {
+                                width: 10
+                                height: parent.height
+                                radius: width / 2
+                                anchors.left: parent.left
+                                anchors.leftMargin: -radius
+                                color: "orange"
+                            }
+
+                            Rectangle {
+                                width: 40
+                                height: 40
+                                radius: 8
+                                anchors.centerIn: parent
+                            }
+                        }
+
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: model.menuText // Use the menuText from the ListModel
+                            font.pixelSize: 14
+                            color: "#444"
+                        }
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: selectedMenuIndex = index
+                    }
+                }
+            }
+            Item
+            {
+                Layout.fillHeight: true
+            }
+        }
+    }
+}
+

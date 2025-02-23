@@ -16,7 +16,7 @@ QVariant Dashboard::getDbVariable(const QString &username, const QString &dbVari
 
     if (qry.exec() && qry.next())
     {
-        return qry.value(dbVariable);  // Return QVariant, which can be converted later
+        return qry.value(dbVariable).toString();  // Return QVariant, which can be converted later
     }
     else
     {

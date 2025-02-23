@@ -1,23 +1,21 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import Qt5Compat.GraphicalEffects
 import QtQuick.Timeline
-Window {
+Item {
     id: root
     visible: true
     width: Screen.width
     height: Screen.height
 
-    minimumWidth: 400
-    minimumHeight: 800
+    property var stackViewRef
+
     property bool isTablet: width <= 900
     property bool isPhone: width <= 500
 
     property string fullName
     property string username
     property int dynamicWidth: 1600
-
     Loader
     {
         id: loader
@@ -253,81 +251,112 @@ Window {
 
         RowLayout
         {
-            Layout.leftMargin: 30
-            Button
-            {
-                Layout.preferredHeight: 30
-                Layout.preferredWidth: 30
-            background:Rectangle
-            {
-                radius: 25
-                border.width: 1
-                border.color: "#D4D4D4"
+            spacing: 10
+            Layout.topMargin: 40
 
-                Image
-                {
-                    anchors.centerIn: parent
-                    source: "qrc:/resources/left.svg"
-                }
-                Text
-                {
-                    anchors.left: parent.right
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: qsTr("Back")
-                }
+            Text {
+                text: qsTr("Good afternoon, Boyan")
+                font.pixelSize: !root.isTablet ? 35 : 20
+                font.bold: true
+                Layout.alignment: Qt.AlignLeft | Qt.AlignTop // Combine alignment flags
+                Layout.leftMargin: 15
             }
-            onClicked:
-            {
-                loader.source = "Dashboard.qml"
-                loader.item.usernameRef = root.username
-                loader.item.fullName = root.fullName
-                root.visible = false
-            }
-            }
+
+
             Item
             {
+
                 Layout.fillWidth: true
             }
-            Button
+
+            Text
             {
-                background: Text
-                {
-                    text: qsTr("Overview");
-                }
-            }
-            Button
-            {
-                background: Text
-                {
-                    text: qsTr("Wallet");
-                }
-            }
-            Button
-            {
-                background: Text
-                {
-                    text: qsTr("Transactions");
-                }
-            }
-            Button
-            {
-                background: Text
-                {
-                    text: qsTr("Trading");
-                }
-            }
-            Button
-            {
-                background: Text
-                {
-                    text: qsTr("Settings");
-                }
-            }
-            Item
-            {
-                Layout.preferredWidth: 5
+
+                    id: overviewPage
+                    text: qsTr("Overview")
+                    color: "#2F2F2F"
+                    font.pixelSize: 15
+
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        onClicked:
+                        {
+                            if (root.stackViewRef) {
+                                        root.stackViewRef.replace(Qt.resolvedUrl("Dashboard.qml"), {
+                                            usernameRef: root.username,
+                                            fullName: root.fullName,
+                                            stackViewRef: root.stackViewRef
+                                        });
+                                    }
+                            else {
+                                console.error("stackViewRef is undefined in SignIn.qml");
+                            }
+                        }
+                    }
             }
 
+            Text
+            {
+
+
+                    id: walletPage
+                    text: qsTr("Wallet")
+                    color: "#2F2F2F"
+                    font.pixelSize: 15
+                    opacity: 0.5
+
+
+            }
+            Text
+            {
+
+
+                    id: transactions
+                    text: qsTr("Transactions")
+                    color: "#367C21"
+                    font.pixelSize: 15
+
+                    font.bold: true
+            }
+            Text
+            {
+
+
+                    id: tradingPageButton
+                    text: qsTr("Trading")
+                    color: "#2F2F2F"
+                    font.pixelSize: 15
+                    opacity: 0.5
+
+
+                MouseArea
+                {
+                    anchors.fill: parent
+                    onClicked:{
+                        if (root.stackViewRef) {
+                                    root.stackViewRef.push(Qt.resolvedUrl("TradingDashboard.qml"), {
+                                        username: root.usernameRef,
+                                        fullName: root.fullName,
+                                        stackViewRef: root.stackViewRef
+                                    });
+                                }
+                        else {
+                            console.error("stackViewRef is undefined in SignIn.qml");
+                        }
+                    }
+                }
+            }
+            Text
+            {
+                    id: settingsPage
+                    text: qsTr("Settings")
+                    color: "#2F2F2F"
+                    font.pixelSize: 15
+                    opacity: 0.5
+
+
+            }
         }
         Item
         {
@@ -378,12 +407,17 @@ Window {
                     height: 15
                     rotation: -90
                 }
-                onClicked:
-                {
-                    loader.source = "SelectRecipent.qml"
-                    loader.item.username = root.username
-                    loader.item.fullName = root.fullName
-                    root.visible = false;
+                onClicked:{
+                    if (root.stackViewRef) {
+                                root.stackViewRef.push(Qt.resolvedUrl("SelectRecipent.qml"), {
+                                    username: root.username,
+                                    fullName: root.fullName,
+                                    stackViewRef: root.stackViewRef
+                                });
+                            }
+                    else {
+                        console.error("stackViewRef is undefined in SignIn.qml");
+                    }
                 }
             }
             Button
@@ -1066,12 +1100,17 @@ the money?")
 
                                                         }
 
-                                                        onClicked:
-                                                        {
-                                                            loader.source = "SelectRecipent.qml"
-                                                            loader.item.username = root.username
-                                                            loader.item.fullName = root.fullName
-                                                            root.visible = false;
+                                                        onClicked:{
+                                                            if (root.stackViewRef) {
+                                                                        root.stackViewRef.push(Qt.resolvedUrl("SelectRecipent.qml"), {
+                                                                            username: root.username,
+                                                                            fullName: root.fullName,
+                                                                            stackViewRef: root.stackViewRef
+                                                                        });
+                                                                    }
+                                                            else {
+                                                                console.error("stackViewRef is undefined in SignIn.qml");
+                                                            }
                                                         }
                                                     }
 

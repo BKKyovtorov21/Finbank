@@ -1,15 +1,13 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-Window {
+Item {
     id: root
     visible: true
     width: Screen.width
     height: Screen.height
     property bool isTablet: width <= 900
     property bool isPhone: width <= 500
-    minimumWidth: 400
-    minimumHeight: 800
 
     property string username
     property string fullName
@@ -17,6 +15,7 @@ Window {
     property string recipentUsername
     property string recipentPfp
     property string recipentEmail
+    property var stackViewRef
     property alias searchBar: searchBar
     property var foundUsers: []  // Holds created user instances
 
@@ -52,15 +51,17 @@ Window {
                     root.foundUsers.push(userInstance);
 
                     userInstance.onClicked.connect(function() {
-                        var component = Qt.createComponent("SendMoney.qml");
-                                if (component.status === Component.Ready) {
-                                    var window = component.createObject(null, { "username": root.username, "fullName": root.fullName}); // Pass the variable here
-                                    window.visible = true;
-                                    root.close();
-                                } else {
-                                    console.log("Error loading SignIn.qml: " + component.errorString());
+                        if (root.stackViewRef) {
+                                    root.stackViewRef.push(Qt.resolvedUrl("SendMoney.qml"), {
+                                        username: root.username,
+                                        fullName: root.fullName,
+                                        stackViewRef: root.stackViewRef
+                                    });
                                 }
+                            else {
+                                console.error("stackViewRef is undefined in SignIn.qml");
                             }
+                        }
                     );
                 } else {
                     console.error("Error: User instance creation failed.");
@@ -78,10 +79,17 @@ Window {
 
     // Update handleUserClick to receive the specific user's data
     function handleUserClick(userData) {
-        root.visible = false;
         root.clearFoundUsers();
-        loader.source = "SendMoney.qml";
-
+        if (root.stackViewRef) {
+                    root.stackViewRef.push(Qt.resolvedUrl("SendMoney.qml"), {
+                        username: root.username,
+                        fullName: root.fullName,
+                        stackViewRef: root.stackViewRef
+                    });
+                }
+        else {
+            console.error("stackViewRef is undefined in SignIn.qml");
+        }
         // Now set the references based on the clicked user's data
         root.recipentFullname = userData.fullName;
         root.recipentEmail = userData.email;
@@ -493,10 +501,12 @@ Window {
                     }
                     onClicked:
                     {
-                        loader.source = "Dashboard.qml"
-                        loader.item.usernameRef = root.username
-                        loader.item.fullName = root.fullName
-                        root.visible = false;
+                        if (root.stackViewRef) {
+                                    root.stackViewRef.pop();
+                                }
+                        else {
+                            console.error("stackViewRef is undefined in SignIn.qml");
+                        }
                     }
                 }
                 Button {
@@ -518,14 +528,16 @@ Window {
                     }
                     onClicked:
                     {
-                        var component = Qt.createComponent("SendMoney.qml");
-                                if (component.status === Component.Ready) {
-                                    var window = component.createObject(null, { "username": root.username, "fullName": root.fullName}); // Pass the variable here
-                                    window.visible = true;
-                                    root.close();
-                                } else {
-                                    console.log("Error loading SignIn.qml: " + component.errorString());
+                        if (root.stackViewRef) {
+                                    root.stackViewRef.push(Qt.resolvedUrl("SendMoney.qml"), {
+                                        username: root.username,
+                                        fullName: root.fullName,
+                                        stackViewRef: root.stackViewRef
+                                    });
                                 }
+                        else {
+                            console.error("stackViewRef is undefined in SignIn.qml");
+                        }
                     }
                 }
 

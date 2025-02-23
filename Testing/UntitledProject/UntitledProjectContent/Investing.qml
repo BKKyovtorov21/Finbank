@@ -30,7 +30,7 @@ Window {
             Layout.topMargin: 10
             Image {
                 id: logo
-                source: "resources/logo1.png"
+                source: "qrc:/resources/logo1.png"
             }
 
             Text
@@ -57,7 +57,7 @@ Window {
                     fillMode: Image.PreserveAspectFit
 
 
-                    source: "resources/search.svg"
+                    source: "qrc:/resources/search.svg"
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.leftMargin: 5
@@ -91,7 +91,7 @@ Window {
                         anchors.left: parent.left
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.verticalCenterOffset: -5
-                        source: "resources/pfp.jpg"
+                        source: "qrc:/resources/pfp.jpg"
                         Layout.preferredWidth: 80
                         Layout.preferredHeight: 80
                     }
@@ -144,7 +144,7 @@ Window {
 
                     Image
                     {
-                        source: "resources/dashboardactive.svg"
+                        source: "qrc:/resources/dashboardactive.svg"
 
                     }
                     Text
@@ -160,7 +160,7 @@ Window {
 
                     Image
                     {
-                        source: "resources/portfolio.svg"
+                        source: "qrc:/resources/portfolio.svg"
                         Layout.preferredWidth: 30
                         Layout.preferredHeight: 30
                     }
@@ -177,7 +177,7 @@ Window {
 
                     Image
                     {
-                        source: "resources/stock.svg"
+                        source: "qrc:/resources/stock.svg"
 
                     }
                     Text
@@ -193,7 +193,7 @@ Window {
 
                     Image
                     {
-                        source: "resources/deposit.svg"
+                        source: "qrc:/resources/deposit.svg"
 
                     }
                     Text
@@ -209,7 +209,7 @@ Window {
 
                     Image
                     {
-                        source: "resources/insight.svg"
+                        source: "qrc:/resources/insight.svg"
 
                     }
                     Text
@@ -227,13 +227,15 @@ Window {
                     color: "#000000"
                     opacity: 0.3
                 }
-                RowLayout
+                Button
                 {
+                    background: RowLayout
+                    {
                     Layout.leftMargin: 10
 
                     Image
                     {
-                        source: "resources/marketStock.svg"
+                        source: "qrc:/resources/marketStock.svg"
 
                     }
                     Text
@@ -242,6 +244,7 @@ Window {
                         Layout.leftMargin: 10
                         font.pixelSize: 20
                     }
+                    }
                 }
                 RowLayout
                 {
@@ -249,7 +252,7 @@ Window {
 
                     Image
                     {
-                        source: "resources/news.svg"
+                        source: "qrc:/resources/news.svg"
 
                     }
                     Text
@@ -273,7 +276,7 @@ Window {
 
                     Image
                     {
-                        source: "resources/help.svg"
+                        source: "qrc:/resources/help.svg"
 
                     }
                     Text
@@ -289,7 +292,7 @@ Window {
 
                     Image
                     {
-                        source: "resources/settings.svg"
+                        source: "qrc:/resources/settings.svg"
 
                     }
                     Text
@@ -297,6 +300,21 @@ Window {
                         text: "Settings"
                         Layout.leftMargin: 10
                         font.pixelSize: 20
+                    }
+                }
+                Item
+                {
+                    Layout.fillHeight: true
+                }
+
+                Button
+                {
+                    Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
+                    background: Text
+                    {
+                        text: "Back To Finbank"
+                        font.bold: true
+                        font.pixelSize: 15
                     }
                 }
 
@@ -454,7 +472,7 @@ Window {
                                                         Image
                                                         {
                                                             anchors.centerIn: parent
-                                                            source: "resources/appleIcon.svg"
+                                                            source: "qrc:/resources/appleIcon.svg"
                                                             width: 20
                                                             height: 20
                                                         }
@@ -650,7 +668,7 @@ Window {
                                             Image
                                             {
                                                 anchors.centerIn: parent
-                                                source: "resources/appleIcon.svg"
+                                                source: "qrc:/resources/appleIcon.svg"
                                             }
                                         }
                                         ColumnLayout
@@ -684,7 +702,7 @@ Window {
                                             {
                                                 Image
                                                 {
-                                                    source: "resources/incomeArrow.svg"
+                                                    source: "qrc:/resources/incomeArrow.svg"
                                                 }
                                                 Text
                                                 {
@@ -709,7 +727,7 @@ Window {
                                             Image
                                             {
                                                 anchors.centerIn: parent
-                                                source: "resources/twitter.svg"
+                                                source: "qrc:/resources/twitter.svg"
                                             }
                                         }
                                         ColumnLayout
@@ -743,7 +761,7 @@ Window {
                                             {
                                                 Image
                                                 {
-                                                    source: "resources/expenseArrow.svg"
+                                                    source: "qrc:/resources/expenseArrow.svg"
                                                 }
                                                 Text
                                                 {
@@ -768,7 +786,7 @@ Window {
                                             Image
                                             {
                                                 anchors.centerIn: parent
-                                                source: "resources/bmw.svg"
+                                                source: "qrc:/resources/bmw.svg"
                                             }
                                         }
                                         ColumnLayout
@@ -801,7 +819,7 @@ Window {
                                             {
                                                 Image
                                                 {
-                                                    source: "resources/incomeArrow.svg"
+                                                    source: "qrc:/resources/incomeArrow.svg"
                                                 }
                                                 Text
                                                 {
@@ -826,7 +844,7 @@ Window {
                                             {
                                                 anchors.centerIn: parent
 
-                                                source: "resources/adidas2.svg"
+                                                source: "qrc:/resources/adidas2.svg"
                                             }
                                         }
                                         ColumnLayout
@@ -859,7 +877,7 @@ Window {
                                             {
                                                 Image
                                                 {
-                                                    source: "resources/incomeArrow.svg"
+                                                    source: "qrc:/resources/incomeArrow.svg"
                                                 }
                                                 Text
                                                 {
@@ -883,7 +901,7 @@ Window {
                                             {
                                                 anchors.centerIn: parent
 
-                                                source: "resources/tesla.svg"
+                                                source: "qrc:/resources/tesla.svg"
                                             }
                                         }
                                         ColumnLayout
@@ -916,7 +934,7 @@ Window {
                                             {
                                                 Image
                                                 {
-                                                    source: "resources/incomeArrow.svg"
+                                                    source: "qrc:/resources/incomeArrow.svg"
                                                 }
                                                 Text
                                                 {
@@ -1032,7 +1050,7 @@ Window {
                                         spacing: 10
 
                                         // Data Rows
-                                        TableRow {
+                                        TableRow{
                                             name: "Apple Inc"
                                             stockSymbol: "AAPL"
                                             investDate: "January 23, 2024"
@@ -1040,7 +1058,7 @@ Window {
                                             change: "+1.3%"
                                             pricePerStock: "$145.67"
                                             numberOfLots: "420"
-                                            iconSource: "resources/appleIcon.svg"
+                                            iconSource: "qrc:/resources/appleIcon.svg"
                                         }
 
                                         TableRow {
@@ -1051,7 +1069,7 @@ Window {
                                             change: "-0.8%"
                                             pricePerStock: "$198.23"
                                             numberOfLots: "350"
-                                            iconSource: "resources/tesla.svg"
+                                            iconSource: "qrc:/resources/tesla.svg"
                                         }
 
                                         TableRow {
@@ -1062,7 +1080,7 @@ Window {
                                             change: "+2.9%"
                                             pricePerStock: "$89.45"
                                             numberOfLots: "250"
-                                            iconSource: "resources/adidas2.svg"
+                                            iconSource: "qrc:/resources/adidas2.svg"
                                         }
 
                                         TableRow {
@@ -1073,7 +1091,7 @@ Window {
                                             change: "+1.7%"
                                             pricePerStock: "$95.34"
                                             numberOfLots: "400"
-                                            iconSource: "resources/bmw.svg"
+                                            iconSource: "qrc:/resources/bmw.svg"
                                         }
 
                                         TableRow {
@@ -1084,7 +1102,7 @@ Window {
                                             change: "-2.1%"
                                             pricePerStock: "$57.12"
                                             numberOfLots: "300"
-                                            iconSource: "resources/twitter.svg"
+                                            iconSource: "qrc:/resources/twitter.svg"
                                         }
 
 
@@ -1117,7 +1135,7 @@ Window {
                 Layout.leftMargin: 30
                 Layout.preferredWidth: 80
                 Layout.preferredHeight: 80
-                source: "resources/pfp.jpg"
+                source: "qrc:/resources/pfp.jpg"
             }
             Text {
                 Layout.topMargin: 30
@@ -1132,7 +1150,7 @@ Window {
             }
             Image {
                 Layout.topMargin: 30
-                source: "resources/search.svg"
+                source: "qrc:/resources/search.svg"
                 Layout.preferredWidth: 20
                 Layout.preferredHeight: 20
             }
@@ -1140,7 +1158,7 @@ Window {
             Image {
                 Layout.topMargin: 35
                 Layout.rightMargin: 30
-                source: "resources/more2.svg"
+                source: "qrc:/resources/more2.svg"
                 Layout.leftMargin: 10
                 Layout.preferredWidth: 20
                 Layout.preferredHeight: 10
@@ -1191,7 +1209,7 @@ Window {
             }
             Image {
                 Layout.topMargin: 10
-                source: "resources/more2.svg"
+                source: "qrc:/resources/more2.svg"
                 Layout.preferredWidth: 20
                 Layout.preferredHeight: 10
             }
@@ -1220,7 +1238,7 @@ Window {
                     anchors.bottomMargin: 13
                 }
                 Image {
-                    source: "resources/plus.png"
+                    source: "qrc:/resources/plus.png"
                     Layout.preferredWidth: 20
                     Layout.preferredHeight: 20
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -1241,7 +1259,7 @@ Window {
                     anchors.bottomMargin: 13
                 }
                 Image {
-                    source: "resources/exchange.png"
+                    source: "qrc:/resources/exchange.png"
                     Layout.preferredWidth: 20
                     Layout.preferredHeight: 20
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -1262,7 +1280,7 @@ Window {
                     anchors.bottomMargin: 13
                 }
                 Image {
-                    source: "resources/details.png"
+                    source: "qrc:/resources/details.png"
                     Layout.preferredWidth: 20
                     Layout.preferredHeight: 30
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -1283,7 +1301,7 @@ Window {
                     anchors.bottomMargin: 13
                 }
                 Image {
-                    source: "resources/more.png"
+                    source: "qrc:/resources/more.png"
                     Layout.preferredWidth: 20
                     Layout.preferredHeight: 25
                     anchors.horizontalCenter: parent.horizontalCenter

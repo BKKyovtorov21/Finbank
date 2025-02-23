@@ -2,15 +2,13 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-Window {
+Item {
     id: root
     visible: true
     width: Screen.width
     height: Screen.height
     property bool isTablet: width <= 900
     property bool isPhone: width <= 500
-    minimumWidth: 400
-    minimumHeight: 800
 
     property string username
     property string fullName
@@ -22,6 +20,7 @@ Window {
     property string sendingCurrency
     property string recipentCurrency
     property bool sending: false
+    property var stackViewRef
 
     Loader
     {
@@ -54,7 +53,7 @@ Window {
             spacing: 8 // Adjust spacing between icon and TextField
             Image {
                 id: name
-                source: !root.isTablet ? "resources/logo1.png" : "qrc:/resources/pfp.jpg"
+                source: !root.isTablet ? "qrc:/resources/logo1.png" : "qrc:/qrc:/resources/pfp.jpg"
             }
             Rectangle
             {
@@ -82,7 +81,7 @@ Window {
 
                 Layout.preferredHeight: 20
                 Layout.preferredWidth: 20
-                source: "resources/RightArrows.svg"
+                source: "qrc:/resources/RightArrows.svg"
                 antialiasing: true
             }
             Rectangle
@@ -123,7 +122,7 @@ Window {
                             fillMode: Image.PreserveAspectFit
 
 
-                            source: "resources/search.svg"
+                            source: "qrc:/resources/search.svg"
                             anchors.top: parent.top
                             anchors.topMargin: 5
                             anchors.left: parent.left
@@ -157,7 +156,7 @@ Window {
                     anchors.top: parent.top
                     anchors.left: parent.left
                     anchors.topMargin: 15
-                    source: "resources/chat.svg"
+                    source: "qrc:/resources/chat.svg"
                     anchors.leftMargin: 5
                 }
                 Text {
@@ -181,7 +180,7 @@ Window {
                 Image {
                     id: userpfp
                     x: 14
-                    source: "resources/pfp.jpg"
+                    source: "qrc:/resources/pfp.jpg"
                     width:70
                     height:70
                     anchors.top: parent.top
@@ -232,7 +231,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "qrc:/resources//tick.svg"
+                            source: "qrc:/resources/tick.svg"
                         }
                         Text { text: "Select Recipient"
                         font.pixelSize: 20
@@ -246,7 +245,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "qrc:/resources//tick.svg"
+                            source: "qrc:/resources/tick.svg"
                         }
                         Text { text: "Amount"
                         font.pixelSize: 20
@@ -260,7 +259,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "qrc:/resources//tick.svg"
+                            source: "qrc:/resources/tick.svg"
                         }
                         Text { text: "Details Recipent"
                         font.pixelSize: 20
@@ -274,7 +273,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "qrc:/resources//tick.svg"
+                            source: "qrc:/resources/tick.svg"
                         }
                         Text { text: "Transfer Type"
                         font.pixelSize: 20
@@ -288,7 +287,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "qrc:/resources//selectiveLine.svg"
+                            source: "qrc:/resources/selectiveLine.svg"
                         }
                         Text { text: "Overview"
                         font.pixelSize: 20
@@ -802,11 +801,18 @@ Window {
                     }
                     onClicked:
                     {
-                        loader.source = "Dashboard.qml"
-                        loader.item.usernameRef = root.username
-                        loader.item.fullName = root.fullName
-                        root.visible = false;
+                        if (root.stackViewRef) {
+                                    root.stackViewRef.replace(Qt.resolvedUrl("Dashboard.qml"), {
+                                        usernameRef: root.username,
+                                        fullName: root.fullName,
+                                        stackViewRef: root.stackViewRef
+                                    });
+                                }
+                        else {
+                            console.error("stackViewRef is undefined in SignIn.qml");
+                        }
                     }
+
                 }
                 Button {
                     Layout.preferredHeight: 50
@@ -826,9 +832,10 @@ Window {
                         color: "white"
                     }
                     onClicked: {
-
-
+                        if (root.stackViewRef) {
+                                    root.stackViewRef
                                 }
+                            }
                 }
 
 

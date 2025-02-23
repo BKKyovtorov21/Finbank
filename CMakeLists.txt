@@ -12,7 +12,7 @@ set(CMAKE_AUTOMOC ON)
         #set(CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE YES)
        # set(CMAKE_OSX_DEPLOYMENT_TARGET "14.0") # Adjust the version based on your requirements
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Multimedia NetworkAuth Sql Charts)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Multimedia NetworkAuth Sql Charts QuickControls2)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
@@ -50,7 +50,7 @@ qt_add_qml_module(appFinbank
             Presentation-Layer/Currencies.qml
             Presentation-Layer/TradingMarket.qml
             Presentation-Layer/SelectRecipentWindow.ui.qml
-            Presentation-Layer/TradingMarketWindow.ui.qml
+
 
             Presentation-Layer/CurrenciesWindow.ui.qml
             Presentation-Layer/FoundUser.qml
@@ -61,12 +61,11 @@ qt_add_qml_module(appFinbank
             Presentation-Layer/SendMoney.qml
 
             Presentation-Layer/SelectedRecipent.qml
-            Presentation-Layer/TradingDashboardWindow.ui.qml
-
 
 
             Presentation-Layer/SignUp.qml
             Presentation-Layer/SignUp2.qml
+            Presentation-Layer/TableRow.qml
         RESOURCES resources/resources.qrc
         QML_FILES Presentation-Layer/Overview.qml
 )
@@ -90,7 +89,7 @@ set_target_properties(appFinbank PROPERTIES
 )
 
 target_link_libraries(appFinbank
-    PRIVATE Qt6::Quick Qt6::Multimedia Qt6::NetworkAuth Qt6::Sql Qt6::Charts
+    PRIVATE Qt6::Quick Qt6::Multimedia Qt6::NetworkAuth Qt6::Sql Qt6::Charts Qt6::QuickControls2
 )
 
 include(GNUInstallDirs)

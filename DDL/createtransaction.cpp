@@ -12,7 +12,6 @@ CreateTransaction::CreateTransaction(QObject *parent)
 
 void CreateTransaction::makeTransaction(const QString &senderIBAN, const QString &recipentIBAN, const QString &sendingInfo, const QString &receivingInfo)
 {
-    qDebug() << "sds";
     QSqlQuery qry;
     // Extract sending value and currency using a regex
     QRegularExpression sendingRegex(R"(\$\s*([\d,]+(?:\.\d{1,2})?)\s*(\w{3}))");
@@ -125,7 +124,6 @@ void CreateTransaction::makeTransaction(const QString &senderIBAN, const QString
 
 void CreateTransaction::showTransactions(const QString &userIBAN)
 {
-    qDebug() << "called";
     QString baseQuery = R"(
         SELECT sendingValue, sendingCurrency, receivingValue, receivingCurrency, senderIBAN, recipentIBAN
         FROM transactions

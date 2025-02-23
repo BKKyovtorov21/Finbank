@@ -1,15 +1,13 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-Window {
+Rectangle {
     id: root
     visible: true
     width: Screen.width
     height: Screen.height
     property bool isTablet: width <= 900
     property bool isPhone: width <= 500
-    minimumWidth: 400
-    minimumHeight: 800
 
     property string username
     property string fullName

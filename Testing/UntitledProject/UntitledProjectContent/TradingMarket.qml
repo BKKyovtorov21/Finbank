@@ -4,10 +4,11 @@ import QtQuick.Layouts
 import QtQuick.Timeline
 import Qt5Compat.GraphicalEffects
 import QtCharts
-Item {
+Window {
     id: root
     width: Screen.width
     height: Screen.height
+    minimumWidth: 400
     visible: true
     property bool isTablet: width <= 950
     property bool isPhone: width <= 600
@@ -15,36 +16,6 @@ Item {
     property bool screenCheckpoint1: width <= 1200
     property string fullName
     property string pfp: ""
-
-    property real openPrice
-    property var stackViewRef
-
-    Connections {
-            target: stockAPIClient
-            function onDataReceived(candles) {
-                candleSeries.clear();
-                for (var i = 0; i < candles.length; i++) {
-                    var candle = Qt.createQmlObject(
-                        'import QtCharts 2.15; CandlestickSet {}',
-                        candleSeries,
-                        "dynamicCandle"
-                    );
-                    candle.timestamp = i;
-                    candle.open = candles[i].open;
-                    candle.high = candles[i].high;
-                    candle.low = candles[i].low;
-                    candle.close = candles[i].close;
-                    candleSeries.append(candle);
-                }
-                xAxis.min = 0;
-                xAxis.max = candles.length;
-                var minPrice = Math.min(...candles.map(c => c.low));
-                var maxPrice = Math.max(...candles.map(c => c.high));
-                yAxis.min = minPrice - 1;
-                yAxis.max = maxPrice + 1;
-            }
-        }
-    Component.onCompleted: stockAPIClient.fetchCandlestickData("AAPL") // Change ticker here
 
     ColumnLayout
     {
@@ -59,7 +30,7 @@ Item {
             Layout.topMargin: 10
             Image {
                 id: logo
-                source: "qrc:/resources/logo1.png"
+                source: "resources/logo1.png"
             }
 
             Text
@@ -86,7 +57,7 @@ Item {
                     fillMode: Image.PreserveAspectFit
 
 
-                    source: "qrc:/resources/search.svg"
+                    source: "resources/search.svg"
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.leftMargin: 5
@@ -118,7 +89,10 @@ Item {
 
                     Image {
                         id: pfp
-                        source: "qrc:/resources/pfp.jpg"
+                        anchors.left: parent.left
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.verticalCenterOffset: -5
+                        source: "resources/pfp.jpg"
                         Layout.preferredWidth: 80
                         Layout.preferredHeight: 80
                     }
@@ -171,7 +145,7 @@ Item {
 
                     Image
                     {
-                        source: "qrc:/resources/dashboardInactive.svg"
+                        source: "resources/dashboardInactive.svg"
 
                     }
                     Text
@@ -179,24 +153,6 @@ Item {
                         text: "Dashboard"
                         Layout.leftMargin: 10
                         font.pixelSize: 20
-
-                        MouseArea
-                        {
-                            anchors.fill: parent
-                            onClicked:
-                            {
-                                if (root.stackViewRef) {
-                                            root.stackViewRef.replace(Qt.resolvedUrl("TradingDashboard.qml"), {
-                                                username: root.username,
-                                                fullName: root.fullName,
-                                                stackViewRef: root.stackViewRef
-                                            });
-                                        }
-                                else {
-                                    console.error("stackViewRef is undefined in SignIn.qml");
-                                }
-                            }
-                        }
                     }
                 }
                 RowLayout
@@ -205,7 +161,7 @@ Item {
 
                     Image
                     {
-                        source: "qrc:/resources/portfolio.svg"
+                        source: "resources/portfolio.svg"
                         Layout.preferredWidth: 30
                         Layout.preferredHeight: 30
                     }
@@ -222,7 +178,7 @@ Item {
 
                     Image
                     {
-                        source: "qrc:/resources/stock.svg"
+                        source: "resources/stock.svg"
 
                     }
                     Text
@@ -238,7 +194,7 @@ Item {
 
                     Image
                     {
-                        source: "qrc:/resources/deposit.svg"
+                        source: "resources/deposit.svg"
 
                     }
                     Text
@@ -254,7 +210,7 @@ Item {
 
                     Image
                     {
-                        source: "qrc:/resources/insight.svg"
+                        source: "resources/insight.svg"
 
                     }
                     Text
@@ -282,7 +238,7 @@ Item {
 
                     Image
                     {
-                        source: "qrc:/resources/marketStock.svg"
+                        source: "resources/marketStock.svg"
 
                     }
                     Text
@@ -301,7 +257,7 @@ Item {
 
                     Image
                     {
-                        source: "qrc:/resources/news.svg"
+                        source: "resources/news.svg"
 
                     }
                     Text
@@ -325,7 +281,7 @@ Item {
 
                     Image
                     {
-                        source: "qrc:/resources/help.svg"
+                        source: "resources/help.svg"
 
                     }
                     Text
@@ -341,7 +297,7 @@ Item {
 
                     Image
                     {
-                        source: "qrc:/resources/settings.svg"
+                        source: "resources/settings.svg"
 
                     }
                     Text
@@ -365,18 +321,6 @@ Item {
                         font.bold: true
                         font.pixelSize: 15
                     }
-
-                    onClicked: {
-                        if (root.stackViewRef) {
-                            root.stackViewRef.replace(Qt.resolvedUrl("Dashboard.qml"), {
-                                stackViewRef: root.stackViewRef,
-                                usernameRef: "kyovtorov",
-                                fullName: "Boyan Kiovtorov",
-                            });
-                        } else {
-                            console.error("stackViewRef is undefined in SignIn.qml");
-                        }
-                    }
                 }
 
             }
@@ -398,7 +342,7 @@ Item {
                             id: chart
                             anchors.fill: parent
                             antialiasing: true
-                            theme: ChartView.ChartThemeQt
+                            backgroundColor: "black"
                             ValuesAxis {
                                 id: xAxis
                                 min: 0
@@ -512,12 +456,12 @@ Item {
 
                                 Image
                                 {
-                                    source: "qrc:/resources/alarm.svg"
+                                    source: "resources/alarm.svg"
                                 }
                                 Image
                                 {
 
-                                    source: "qrc:/resources/like.svg"
+                                    source: "resources/like.svg"
                                 }
                                 Item
                                 {
@@ -582,15 +526,6 @@ Item {
                                         text: 'Buy Order'
                                         color: "white"
                                     }
-
-                                    MouseArea
-                                    {
-                                        anchors.fill: parent
-                                        onClicked:
-                                        {
-
-                                        }
-                                    }
                                 }
 
                                 Rectangle {
@@ -601,14 +536,6 @@ Item {
                                         anchors.centerIn: parent
                                         text: 'Sell Order'
                                         color: "white"
-                                    }
-                                    MouseArea
-                                    {
-                                        anchors.fill: parent
-                                        onClicked:
-                                        {
-
-                                        }
                                     }
                                 }
                             }

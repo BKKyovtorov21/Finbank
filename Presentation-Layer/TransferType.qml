@@ -1,18 +1,17 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-Window {
+Item {
     id: root
     visible: true
     width: Screen.width
     height: Screen.height
     property bool isTablet: width <= 900
     property bool isPhone: width <= 500
-    minimumWidth: 400
-    minimumHeight: 800
 
     property string username
     property string fullName
+    property var stackViewRef
 
     property string sendingCurrency
     property string recipentCurrency
@@ -741,10 +740,9 @@ Window {
                     }
                     onClicked:
                     {
-                        loader.source = "Dashboard.qml"
-                        loader.item.usernameRef = root.username
-                        loader.item.fullName = root.fullName
-                        root.visible = false;
+                        if (root.stackViewRef) {
+                                    root.stackViewRef.pop();
+                                }
                     }
                 }
                 Button {
@@ -765,13 +763,12 @@ Window {
                         color: "white"
                     }
                     onClicked: {
-                        var component = Qt.createComponent("Overview.qml");
-                                if (component.status === Component.Ready) {
-                                    var window = component.createObject(null, { "username": root.username, "fullName": root.fullName}); // Pass the variable here
-                                    window.visible = true;
-                                    root.close();
-                                } else {
-                                    console.log("Error loading SignIn.qml: " + component.errorString());
+                        if (root.stackViewRef) {
+                                    root.stackViewRef.push(Qt.resolvedUrl("Overview.qml"), {
+                                        username: root.username,
+                                        fullName: root.fullName,
+                                        stackViewRef: root.stackViewRef
+                                    });
                                 }
                     }
                 }

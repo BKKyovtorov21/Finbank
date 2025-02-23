@@ -1,18 +1,17 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-Window {
+Item {
     id: root
     visible: true
     width: Screen.width
     height: Screen.height
     property bool isTablet: width <= 900
     property bool isPhone: width <= 500
-    minimumWidth: 400
-    minimumHeight: 800
 
     property string username
     property string fullName
+    property var stackViewRef
 
     property string sendingCurrency: "USD"
     property string recipentCurrency: "CAD"
@@ -38,9 +37,8 @@ Window {
                             }
                 }
 
-                onErrorOccurred: {
-                    console.log("Error occurred:", errorMessage);
-                    // You can show an error message or perform other actions
+                onErrorOccurred: (message) => {
+                    console.log("Error occurred:", message);
                 }
 
                 onGetExchangeRate: {
@@ -250,7 +248,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "qrc:/resources//SelectiveLine.svg"
+                            source: "qrc:/resources//selectiveLine.svg"
                         }
                         Text { text: "Amount"
                         font.pixelSize: 20
@@ -774,7 +772,7 @@ Window {
                                     Text
                                     {
                                         Layout.alignment: Qt.AlignRight
-                                        text: (currency.text + 5) + " " + root.sendingCurrency
+                                        text: (Number(currency.text) + 5) + " " + root.sendingCurrency
                                         color: "black"
                                         font.pixelSize: root.isPhone ? 15 : 20
                                         font.bold: true
@@ -843,10 +841,12 @@ Window {
                     }
                     onClicked:
                     {
-                        loader.source = "Dashboard.qml"
-                        loader.item.usernameRef = root.username
-                        loader.item.fullName = root.fullName
-                        root.visible = false;
+                        if (root.stackViewRef) {
+                                    root.stackViewRef.pop();
+                                }
+                        else {
+                            console.error("stackViewRef is undefined in SignIn.qml");
+                        }
                     }
                 }
                 Button {
@@ -867,14 +867,16 @@ Window {
                         color: "white"
                     }
                     onClicked: {
-                        var component = Qt.createComponent("RecipentDescription.qml");
-                                if (component.status === Component.Ready) {
-                                    var window = component.createObject(null, { "username": root.username, "fullName": root.fullName}); // Pass the variable here
-                                    window.visible = true;
-                                    root.close();
-                                } else {
-                                    console.log("Error loading SignIn.qml: " + component.errorString());
+                        if (root.stackViewRef) {
+                                    root.stackViewRef.push(Qt.resolvedUrl("RecipentDescription.qml"), {
+                                        username: root.username,
+                                        fullName: root.fullName,
+                                        stackViewRef: root.stackViewRef
+                                    });
                                 }
+                        else {
+                            console.error("stackViewRef is undefined in SignIn.qml");
+                        }
                             }
                 }
 

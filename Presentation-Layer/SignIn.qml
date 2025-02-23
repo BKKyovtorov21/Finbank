@@ -2,19 +2,15 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-Window {
-    visible: true
+Rectangle {
     id: root
-    width: Screen.width
-    height: Screen.height
+    property var stackViewRef
+        property bool isTablet: width < 900
+        property bool isPhone: width < 500
+        property bool emailLogin
+        property bool validlogin
+        property int spaceCounter: 0
 
-    minimumWidth: 400
-    minimumHeight: 800
-    property bool isTablet: width < 900
-    property bool isPhone: width < 500
-    property bool emailLogin
-    property bool validlogin
-    property int spaceCounter: 0
 
 
     Flickable {
@@ -97,48 +93,49 @@ Window {
 
                     // Email TextField
                     TextField {
-                        focus: root.emailLogin
-                        id: emailTextField
-                        visible: root.emailLogin
-                        background: Rectangle {
-                            color: "transparent"
-                            radius: 5
-                        }
-                        anchors.fill: parent
-                        font.pixelSize: root.isTablet ? 15 : 20
-                        placeholderText: qsTr("Email")
-                        placeholderTextColor: "gray"
-                        color: "black"
-                        inputMethodHints: Qt.ImhNone
-                    }
+                                            focus: root.emailLogin
+                                            id: emailTextField
+                                            visible: root.emailLogin
+                                            background: Rectangle {
+                                                color: "transparent"
+                                                radius: 5
+                                            }
+                                            anchors.fill: parent
+                                            font.pixelSize: root.isTablet ? 15 : 20
+                                            placeholderText: qsTr("Email")
+                                            placeholderTextColor: "gray"
+                                            color: "black"
+                                            inputMethodHints: Qt.ImhNone
+                                        }
 
                     // Phone Number TextField
                     TextField {
-                        focus: !root.emailLogin
-                        id: phoneTextField
-                        visible: !root.emailLogin
-                        background: Rectangle {
-                            color: "transparent"
-                            radius: 5
-                        }
-                        anchors.fill: parent
-                        font.pixelSize: root.isTablet ? 15 : 20
-                        placeholderText: qsTr("Phone number")
-                        placeholderTextColor: "gray"
-                        color: "black"
-                        inputMethodHints: Qt.ImhFormattedNumbersOnly
-                        validator: IntValidator {
-                            bottom: 0
-                            top: 999999999
-                        }
-                        Keys.onPressed: function(event) {
-                            if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                                root.validlogin = true;
-                                console.log("Enter pressed, validlogin:", root.validlogin);
-                                event.accepted = true;  // Optionally stop further propagation of the event
-                            }
-                        }
-                    }
+                                            focus: !root.emailLogin
+                                            id: phoneTextField
+                                            visible: !root.emailLogin
+                                            background: Rectangle {
+                                                color: "transparent"
+                                                radius: 5
+                                            }
+                                            anchors.fill: parent
+                                            font.pixelSize: root.isTablet ? 15 : 20
+                                            placeholderText: qsTr("Phone number")
+                                            placeholderTextColor: "gray"
+                                            color: "black"
+                                            inputMethodHints: Qt.ImhFormattedNumbersOnly
+                                            validator: IntValidator {
+                                                bottom: 0
+                                                top: 999999999
+                                            }
+                                            Keys.onPressed: function(event) {
+                                                if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+                                                    root.validlogin = true;
+                                                    console.log("Enter pressed, validlogin:", root.validlogin);
+                                                    event.accepted = true;  // Optionally stop further propagation of the event
+                                                }
+                                            }
+                                        }
+
                 }
             }
 
@@ -157,30 +154,30 @@ Window {
 
                         // Email TextField
                         TextField {
-                            id: passwordTextField
-                            focus: root.validlogin
-                            echoMode: TextInput.Password
-                            background: Rectangle {
-                                color: "transparent"
-                                radius: 5
-                            }
-                            anchors.fill: parent
-                            font.pixelSize: root.isTablet ? 15 : 20
-                            placeholderText: qsTr("Password")
-                            placeholderTextColor: "gray"
-                            color: "black"
-                            Keys.onPressed: function(event) {
-                                if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                                    if (root.validlogin) {
-                                        if (root.emailLogin) {
-                                            login.logInUser(emailTextField.text, passwordTextField.text, false, true);
-                                        } else {
-                                            login.logInUser(phoneTextField.text, passwordTextField.text, false, false);
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                                                    id: passwordTextField
+                                                    focus: root.validlogin
+                                                    echoMode: TextInput.Password
+                                                    background: Rectangle {
+                                                        color: "transparent"
+                                                        radius: 5
+                                                    }
+                                                    anchors.fill: parent
+                                                    font.pixelSize: root.isTablet ? 15 : 20
+                                                    placeholderText: qsTr("Password")
+                                                    placeholderTextColor: "gray"
+                                                    color: "black"
+                                                    Keys.onPressed: function(event) {
+                                                        if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+                                                            if (root.validlogin) {
+                                                                if (root.emailLogin) {
+                                                                    login.logIfnUser(emailTextField.text, passwordTextField.text, false, true);
+                                                                } else {
+                                                                    login.logInUser(phoneTextField.text, passwordTextField.text, false, false);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
                     }
 
             }
@@ -225,21 +222,12 @@ Window {
 
                     }
             }
-            Connections {
-                target: login
 
-                // Define the signal handler as a function
-                function onLogInSuccessful(username, fullName) {
-                    var component = Qt.createComponent("Dashboard.qml");
-                    if (component.status === Component.Ready) {
-                        var signInWindow = component.createObject(null, { "usernameRef": username, "fullName": fullName }); // Pass the variable here
-                        signInWindow.visible = true;
-                        root.close();
-                    } else {
-                        console.log("Error loading Dashboard.qml: " + component.errorString());
-                    }
-                }
-            }
+
+
+
+
+
             ColumnLayout {
                 spacing: 20
                 Layout.fillWidth: true
@@ -355,30 +343,26 @@ Window {
                     }
                 }
 
-                Button {
+                Text {
                     Layout.alignment: Qt.AlignHCenter
 
-                    background: Text
-                    {
+
                         text: qsTr("Create account")
                         font.pixelSize: 20
                         color: "#4F55F1"
-                    }
-                    onClicked:
-                    {
-                        var component = Qt.createComponent("SignUp.qml");
-                        if (component.status === Component.Ready) {
-                            var signUpWindow = component.createObject(); // Pass the variable here
-                            signUpWindow.visible = true;
-                            root.close();
-                        } else {
-                            console.log("Error loading Dashboard.qml: " + component.errorString());
+
+                    MouseArea{
+
+                        onClicked:{
+                        loader.source = "SignUp.qml"
+                        root.visible = false  // Make it visible
                         }
                     }
                 }
             }
         }
     }
+
 
     Connections {
         target: googlegateway
@@ -388,4 +372,22 @@ Window {
             login.logInUser(email, "", true, false); // Call login function with Google flag as true
         }
     }
+
+    Connections {
+            target: login  // Assuming `login` is an external login manager
+
+            function onLogInSuccessful(username, fullName) {
+                if (root.stackViewRef) {
+                            root.stackViewRef.push(Qt.resolvedUrl("Dashboard.qml"), {
+                                usernameRef: username,
+                                fullName: fullName,
+                                stackViewRef: root.stackViewRef
+                            });
+                        }
+                else {
+                    console.error("stackViewRef is undefined in SignIn.qml");
+                }
+
+            }
+        }
 }
