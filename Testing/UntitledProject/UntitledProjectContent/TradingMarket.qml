@@ -659,9 +659,46 @@ Window {
                     }
 
                 }
+
             }
             }
 
+        }
+        ColumnLayout{
+        visible: root.isPhone
+        anchors.fill: parent
+        RowLayout{
+            Layout.preferredWidth: parent.width
+            Image {
+                source: "resources/logo.png"
+                Layout.preferredHeight: 60
+                Layout.preferredWidth: 60
+            }
+            ColumnLayout
+            {
+                Text{
+                text: "Hi, Boyan"
+                font.pixelSize: 30
+                }
+                Text{
+                    text:"Welcome back!"
+                    font.pixelSize: 20
+                    color: "#C6C6C6"
+                }
+            }
+
+            Item
+            {
+                Layout.fillWidth: true
+            }
+            Image{
+                Layout.alignment: Qt.AlignRight
+                id: notification
+                Layout.preferredHeight: 30
+                Layout.preferredWidth: 30
+                source: "resources/mingcute--notification-line.svg"
+            }
+        }
         }
 
     }
