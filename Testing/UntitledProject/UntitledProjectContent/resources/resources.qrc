@@ -91,5 +91,45 @@
         <file>bgif.mp4</file>
         <file>calendar.svg</file>
         <file>tickCB.svg</file>
+        <file>walletBlack.svg</file>
+        <file>visa.png</file>
+        <file>usaflag.png</file>
+        <file>tesla.svg</file>
+        <file>stock.svg</file>
+        <file>send.svg</file>
+        <file>receive.svg</file>
+        <file>plus.png</file>
+        <file>more2.svg</file>
+        <file>more.png</file>
+        <file>minimalistbg2.png</file>
+        <file>minimalistbg1.png</file>
+        <file>mingcute--notification-line.svg</file>
+        <file>mastercard_logo.png</file>
+        <file>logo.png</file>
+        <file>like.svg</file>
+        <file>invest2.svg</file>
+        <file>invest.png</file>
+        <file>incomeArrow.svg</file>
+        <file>incomeArrow.png</file>
+        <file>help.svg</file>
+        <file>filter.svg</file>
+        <file>eye.svg</file>
+        <file>ExpenseArrow.svg</file>
+        <file>expenseArrow.png</file>
+        <file>exchange.png</file>
+        <file>details.png</file>
+        <file>dashboardactive.svg</file>
+        <file>contact.svg</file>
+        <file>bulgariaflag.png</file>
+        <file>bitcoin.svg</file>
+        <file>bars.svg</file>
+        <file>alarm.svg</file>
+        <file>adidas2.svg</file>
+        <file>adidas.svg</file>
+        <file>booking.webp</file>
+        <file>spotify.png</file>
+        <file>config.json</file>
+        <file>command.svg</file>
+        <file>debit1.png</file>
     </qresource>
 </RCC>

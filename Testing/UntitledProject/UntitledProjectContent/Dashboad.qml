@@ -2,55 +2,56 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Timeline
-import Qt5Compat.GraphicalEffects
 import QtCharts
-import QtQuick.Effects
-Window {
+Item {
     id: rootdashboard
+    property var stackViewRef
     width: Screen.width
     height: Screen.height
-    minimumWidth: 400
     visible: true
-    property bool isTablet: width <= 900
+    property bool test: width <= 1300
+    property bool test2: width <= 1100
+    property bool isTablet: width <= 1000
     property bool isPhone: width <= 620
 
-        property string usernameRef
-       property real balance: 3000
-       property real income: 3000
-       property real expenses: 3000
-       property string cardInfo: ""
-       property string fullName
-       property string pfp: ""
+        property var usernameRef
+       property var balance
+       property var income
+       property var expenses
+       property var cardInfo
+       property var fullName
+       property var pfp
+    property bool textfieldActive
 
-    onVisibleChanged:
+
+    MouseArea
     {
+        anchors.fill: parent
+        onClicked:
+        {
+            textField.focus = false
+        }
+    }
+
+
+    Component.onCompleted: {
+
         balanceAnimation.running = true
         incomeAnimation.running = true
         expenseAnimation.running = true
         pie1Animation.running = true
         pie2Animation.running = true
-    }
 
-
-    FontLoader {
-        id: phoneFont
-        source: "fonts/GolosText-VariableFont_wght.ttf"
-    }
-
-    Component.onCompleted: {
-
-            if (rootdashboard.usernameRef !== "") {
                 balance = dashboard.getDbVariable(rootdashboard.usernameRef, "balance");
                 income = dashboard.getDbVariable(rootdashboard.usernameRef, "income");
                 expenses = dashboard.getDbVariable(rootdashboard.usernameRef, "expenses");
-                cardInfo = dashboard.getDbVariable(rootdashboard.usernameRef, "cardNumber");
-                firstName = dashboard.getDbVariable(rootdashboard.usernameRef, "first_name");
-                lastName = dashboard.getDbVariable(rootdashboard.usernameRef, "last_name");
-                pfp = dashboard.getDbVariable(rootdashboard.usernameRef, "pfp");
-                console.log("")
-            } else {
-                console.log("Username is empty");
-            }
+                rootdashboard.cardInfo = dashboard.getDbVariable(rootdashboard.usernameRef, "cardNumber");
+                rootdashboard.firstName = dashboard.getDbVariable(rootdashboard.usernameRef, "first_name");
+                rootdashboard.lastName = dashboard.getDbVariable(rootdashboard.usernameRef, "last_name");
+                rootdashboard.pfp = dashboard.getDbVariable(rootdashboard.usernameRef, "pfp");
+
+
+
         }
     ColumnLayout
     {
@@ -113,49 +114,95 @@ Window {
                 }
             }
 
-            Item {
+            Item
+            {
                 Layout.fillWidth: true
-                Layout.preferredHeight: 30
+            }
+            Rectangle {
+                id: searchRowRect
+Layout.preferredWidth: rootdashboard.test2 ? 250 : (rootdashboard.test ? 300 : 550)
+Layout.preferredHeight: 50
+                color: "#FDFDFD"
+                border.width: 1
+                border.color: "#F7F7F7"
+                radius: 5
 
                 RowLayout {
+                    id: searchRow
+                    anchors.fill: parent
+                    visible: textField.text.length === 0
 
-                    anchors.fill: parent // Ensures the layout fills the space
-                    anchors.verticalCenterOffset: 50
-
-
-                    TextField {
-                        background: Rectangle
-                        {
-                            color: "#4dececec"
-                        }
-
-                        Image {
-                            id: searchIcon
-                            fillMode: Image.PreserveAspectFit
-
-
-                            source: "resources/search.svg"
-                            anchors.top: parent.top
-                            anchors.topMargin: 5
-                            anchors.left: parent.left
-                            anchors.leftMargin: 5
-                        }
-                        id: searchField
-
+                    Image {
+                        source: "resources/search.svg"
+                        Layout.preferredWidth: 20
+                        Layout.preferredHeight: 20
                         Layout.alignment: Qt.AlignVCenter
-                        Layout.fillWidth: true // Make it expand to fill the remaining space
-
-                        placeholderText: qsTr("Search")
-                        placeholderTextColor: "grey"
-                        font.pixelSize: 18
-                        color: "black"
-
-                        leftPadding: 30 // Adds space around the text, adjusting the padding as needed
+                        Layout.leftMargin: 10
                     }
 
+                    Text {
+                        Layout.alignment: Qt.AlignVCenter
+                        text: "Search"
+                        color: "grey"
+                    }
 
+                    Item {
+                        Layout.fillWidth: true
+                    }
+
+                    Rectangle {
+                        Layout.alignment: Qt.AlignVCenter
+                        Layout.preferredHeight: 35
+                        Layout.preferredWidth: 35
+                        Layout.rightMargin: 10
+                        color: "#F3F3F3"
+                        radius: 5
+
+                        RowLayout {
+                            anchors.fill: parent
+
+                            Image {
+                                Layout.preferredHeight: 15
+                                Layout.preferredWidth: 15
+                                source: "resources/command.svg"
+                                Layout.leftMargin: 5
+                            }
+
+                            Text {
+                                text: "F"
+                                color: "#9D9D9D"
+                                Layout.rightMargin: 15
+                            }
+                        }
+                    }
+                }
+
+                TextField {
+                    id: textField
+                    anchors.fill: parent
+                    leftPadding: 50
+                    color: "black"  // Sets the text color to black
+
+                    background: Rectangle {
+                        color: "transparent"
+                    }
+
+                    onTextChanged: {
+                        searchRow.visible = text.length === 0 && !activeFocus;  // Hide when typing
+                    }
+
+                    onFocusChanged: {
+                        searchRow.visible = text.length === 0 && !activeFocus;  // Hide when focused, show when unfocused and empty
+                    }
                 }
             }
+
+           Item
+           {
+
+               Layout.fillWidth: true
+           }
+
 
 
             Rectangle
@@ -181,6 +228,15 @@ Window {
                 Layout.preferredWidth: 80
                 Layout.preferredHeight: 50
                 color: "#fafafa"
+
+                MouseArea
+                {
+                    anchors.fill: parent
+                    onClicked:
+                    {
+                        chatDrawer.open()
+                    }
+                }
             }
 
             Rectangle
@@ -244,86 +300,95 @@ Window {
                 Layout.fillWidth: true
             }
 
-            Button
+            Text
             {
-                background:Text {
+
                     id: overviewPage
                     text: qsTr("Overview")
                     color: "#367C21"
                     font.pixelSize: 15
+                    font.bold: true
 
-                }
+
             }
 
-            Button
+            Text
             {
 
-                background:Text {
+
                     id: walletPage
                     text: qsTr("Wallet")
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
 
-                }
+
             }
-            Button
+            Text
             {
 
-                background:Text {
+
                     id: transactions
                     text: qsTr("Transactions")
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
 
-                }
-                onClicked:
+
+                MouseArea
                 {
-                    var component = Qt.createComponent("Transactions.qml");
-                            if (component.status === Component.Ready) {
-                                var window = component.createObject(null, { "username": rootdashboard.usernameRef, "fullName": rootdashboard.fullName}); // Pass the variable here
-                                window.visible = true;
-                                rootdashboard.close();
-                            } else {
-                                console.log("Error loading SignIn.qml: " + component.errorString());
-                            }
+                    anchors.fill: parent
+                    onClicked:{
+                        if (rootdashboard.stackViewRef) {
+                                    rootdashboard.stackViewRef.push(Qt.resolvedUrl("Transactions.qml"), {
+                                        username: rootdashboard.usernameRef,
+                                        fullName: rootdashboard.fullName,
+                                        stackViewRef: rootdashboard.stackViewRef
+                                    });
+                                }
+                        else {
+                            console.error("stackViewRef is undefined in SignIn.qml");
+                        }
+                    }
                 }
             }
-            Button
+            Text
             {
 
-                background:Text {
+
                     id: tradingPageButton
                     text: qsTr("Trading")
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
 
-                }
-                onClicked:
+
+                MouseArea
                 {
-                    var component = Qt.createComponent("TradingDashboard.qml");
-                            if (component.status === Component.Ready) {
-                                var window = component.createObject(null, { "username": rootdashboard.usernameRef, "fullName": rootdashboard.fullName}); // Pass the variable here
-                                window.visible = true;
-                                rootdashboard.close();
-                            } else {
-                                console.log("Error loading SignIn.qml: " + component.errorString());
-                            }
+                    anchors.fill: parent
+                    onClicked:{
+                        if (rootdashboard.stackViewRef) {
+                                    rootdashboard.stackViewRef.push(Qt.resolvedUrl("TradingDashboard.qml"), {
+                                        username: rootdashboard.usernameRef,
+                                        fullName: rootdashboard.fullName,
+                                        stackViewRef: rootdashboard.stackViewRef
+                                    });
+                                }
+                        else {
+                            console.error("stackViewRef is undefined in SignIn.qml");
+                        }
+                    }
                 }
             }
-            Button
+            Text
             {
-
-                background:Text {
                     id: settingsPage
                     text: qsTr("Settings")
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
 
-                }
+
             }
         }
         RowLayout
@@ -355,6 +420,7 @@ Window {
                     border.color: "#727272"
                     Layout.preferredHeight: 186
                     Layout.preferredWidth: 420
+                    Layout.leftMargin: 10
 
                     radius: 10
 
@@ -792,41 +858,109 @@ Window {
                     Layout.columnSpan: 3
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    border.width: 1
-                    border.color: "#727272"
+
                     radius: 10
 
+
                     ChartView {
-                        id: bar
+
+
+                        id: chart
+                        title: "Money Flow"
                         anchors.fill: parent
-                        animationOptions: ChartView.SeriesAnimations
-                        BarSeries {
-                            id: mySeries
+                        legend.alignment: Qt.AlignTop
+                        backgroundColor: "transparent"
+                        antialiasing: true
 
-                            axisX: BarCategoryAxis {
-                                categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
-                                gridVisible: false
-                            }
 
-                            axisY: ValuesAxis {
-                                labelFormat: "$%.0f" // Format the labels to include '$' before each value
-                                min: 0
-                                max: 1200 // Adjust as needed for your data
-                            }
-
-                            // BarSet for "Earnings"
-                            BarSet {
-                                label: "Earnings"
-                                values: [800, 850, 900, 950, 1000, 1100] // Example values for each month
-                            }
-
-                            // BarSet for "Spendings"
-                            BarSet {
-                                label: "Spendings"
-                                values: [560, 600, 650, 700, 750, 800]
+                        // Custom Background Stripes
+                        Rectangle {
+                            anchors.fill: parent
+                            color: "transparent"
+                            opacity: 0.1
+                            Canvas {
+                                anchors.fill: parent
+                                onPaint: {
+                                    var ctx = getContext("2d");
+                                    ctx.strokeStyle = "white";
+                                    ctx.lineWidth = 1;
+                                    for (var i = -height; i < width; i += 20) {
+                                        ctx.beginPath();
+                                        ctx.moveTo(i, 0);
+                                        ctx.lineTo(i + height, height);
+                                        ctx.stroke();
+                                    }
+                                }
                             }
                         }
+
+                        StackedBarSeries {
+                            id: mySeries
+                            barWidth: 0.8  // Adjust width for rounded effect
+                            axisX: BarCategoryAxis {
+                                categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                            }
+                            axisY: ValuesAxis { min: 0; max: 20000 }
+
+                            // Income (Dark Green)
+                            BarSet {
+                                label: "Income"
+                                color: "#0D4428"  // Dark green
+                                values: [12000, 8000, 9500, 10200, 8700, 15600, 14000, 13200, 8900, 11000, 12500, 13800]
+                            }
+
+                            // Expense (Light Green)
+                            BarSet {
+                                label: "Expense"
+                                color: "#C3F281"  // Light green
+                                values: [4000, 3000, 4200, 3600, 3100, 5600, 4800, 5000, 3500, 3900, 4200, 4700]
+                            }
+                        }
+
+                        // Overlay to create rounded bars
+                        Repeater {
+                            model: 12  // For each month
+                            Rectangle {
+                                width: chart.width / 14
+                                height: (mySeries.barSets[0].values[index] + mySeries.barSets[1].values[index]) / 20000 * chart.height
+                                radius: width / 2
+                                color: "#0D4428"
+                                opacity: 0.9
+                                anchors.horizontalCenter: chart.left
+                                y: chart.height - height
+                            }
+                        }
+
+                        // Tooltip for Hover
+                        Rectangle {
+                            id: tooltip
+                            visible: false
+                            width: 120
+                            height: 50
+                            radius: 8
+                            color: "black"
+                            opacity: 0.85
+                            Text {
+                                id: tooltipText
+                                color: "white"
+                                anchors.centerIn: parent
+                            }
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            onPositionChanged: {
+                                var index = Math.floor(mouseX / (chart.width / 12)); // Find the hovered month
+                                tooltipText.text = "Income: $" + mySeries.barSets[0].values[index] + "\nExpense: $" + mySeries.barSets[1].values[index];
+                                tooltip.x = mouseX - tooltip.width / 2;
+                                tooltip.y = mouseY - 60;
+                                tooltip.visible = true;
+                            }
+                            onExited: tooltip.visible = false
+                        }
                     }
+
                 }
 
                 // Side rectangle
@@ -836,138 +970,371 @@ Window {
                     Layout.column: 3
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    border.width: 1
-                    border.color: "#727272"
-                    radius: 10
+
+ColumnLayout
+{
+    anchors.fill: parent
+
+                    Rectangle
+                    {
+                        Layout.preferredHeight: parent.height * 0.4
+                        Layout.preferredWidth: parent.width
+                        border.width: 1
+                        radius: 20
+                        border.color: "#E7E6E9"
 
                     ColumnLayout
                     {
                         anchors.fill: parent
 
-                        ChartView {
-                            id: pie
-                            Layout.fillWidth: true
+
+                        Text
+                        {
+                            text: "My Card"
+                            font.pixelSize: 20
+                            Layout.leftMargin: 10
+                            Layout.topMargin: 10
+                        }
+
+
+                        Image {
+                            Layout.preferredHeight: rootdashboard.test2 ? 95 : (rootdashboard.test ? 110 : 140)
+                            Layout.preferredWidth: rootdashboard.test2 ? 150 : (rootdashboard.test ? 190 : 250)
+                            Layout.margins: 20
+                            Layout.alignment: Qt.AlignHCenter
+                            source: "resources/minimalistbg1.png"
+
+                                ColumnLayout
+                                {
+                                    anchors.fill: parent
+
+
+                                    Item
+                                    {
+                                        Layout.fillHeight: true
+                                    }
+
+
+                                        Text
+                                        {
+                                            text: "5435 2735 0037 0015"
+                                            font.letterSpacing: 2
+                                            color: "white"
+                                            Layout.leftMargin: rootdashboard.test2 ? 5 : 10
+                                            font.pixelSize: rootdashboard.test2 ? 9 : 14
+                                            Layout.bottomMargin: 5
+                                        }
+
+                                        RowLayout
+                                        {
+                                            Layout.preferredWidth: parent.width
+                                            Text
+                                            {
+
+                                                text: "BOYAN KYOVTOROV"
+                                                color: "white"
+                                                Layout.leftMargin: 10
+                                                font.pixelSize: 14
+                                                Layout.bottomMargin: 5
+                                            }
+
+                                            Image
+                                            {
+                                                visible: !rootdashboard.test2
+                                                Layout.alignment: Qt.AlignRight
+                                                source : "resources/visa.svg"
+                                                Layout.rightMargin: 15
+                                                Layout.bottomMargin: 5
+
+                                            }
+                                        }
+                                }
+                            }
+
+                        Text
+                        {
+                            text: "Spending Limit"
+                            Layout.leftMargin: 15
+
+                            color: "#3F4149"
+                        }
+
+                        RowLayout
+                        {
+                            Text
+                            {
+                                text: "$4,654.00"
+                                Layout.leftMargin: 15
+                                font.pixelSize: rootdashboard.test2 ? 14 : 20
+                                font.bold: true
+                            }
+                            Text
+                            {
+                                text: "used from 12,645.00"
+                                font.pixelSize: 8
+                                color: "grey"
+                            }
+                        }
+
+                        RowLayout
+                        {
+                            Layout.preferredWidth: parent.width
+                            Layout.leftMargin: 15
+                            Rectangle
+                            {
+                                Layout.preferredWidth: parent.width * 0.3
+                                Layout.preferredHeight: 5
+                                color: "#0E754E"
+                                radius: 5
+                            }
+                            Rectangle
+                            {
+                                Layout.fillWidth: true
+                                Layout.preferredHeight: 5
+                                Layout.rightMargin: 15
+                                color: "#EDEFF1"
+                                radius: 5
+                            }
+                        }
+
+                        Item
+                        {
                             Layout.fillHeight: true
-                            PieSeries {
-                                name: "PieSeries"
+                        }
+                    }}
+                    Rectangle
+                    {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        border.width: 1
+                        radius: 20
+                        border.color: "#E7E6E9"
 
-                                PieSlice {
-                                    id: incomePie
-                                    value: 0 // Start at 0 to animate "filling"
-                                    label: "Income"
-                                }
+                    ColumnLayout
+                    {
+                        anchors.fill: parent
 
-                                PieSlice {
-                                    id: expensesPie
-                                    value: 0 // Start at 0 to animate "filling"
-                                    label: "Expenses"
-                                }
+
+                            Text
+                            {
+                                text: "All Expenses"
+                                font.pixelSize: 20
+                                font.bold: true
+                                Layout.leftMargin: 15
+                                Layout.topMargin: 15
+                            }
+
+                        Text
+                        {
+                            text: "Total"
+                            font.bold: true
+                            color: "#92949E"
+                            Layout.leftMargin: 15
+                            Layout.topMargin: 10
+                            font.pixelSize: 20
+                        }
+
+                        Text
+                        {
+                            text: "$24,645"
+                            font.bold: true
+                            font.pixelSize: 30
+                            font.letterSpacing: 1
+                            Layout.leftMargin: 20
+
+                        }
+
+                        RowLayout
+                        {
+                            Layout.leftMargin: 10
+                            Layout.preferredWidth: parent.width
+                            Text
+                            {
+                                text: "Daily"
+                            }
+                            Text
+                            {
+                                text: "Weekly"
+                            }
+                            Text
+                            {
+                                text: "Monthly"
+                            }
+                        }
+                        RowLayout
+                        {
+                            Layout.leftMargin: 10
+                            Layout.preferredWidth: parent.width
+                            Text
+                            {
+                                text: "$1,345"
+                            }
+                            Text
+                            {
+                                text: "$7,136"
+                            }
+                            Text
+                            {
+                                text: "$14,927"
+                            }
+                        }
+                        RowLayout
+                        {
+                            Layout.preferredWidth: parent.width - 20
+                            Layout.preferredHeight: 50
+                            Layout.leftMargin: 10
+                            Layout.rightMargin: 10
+
+                            spacing: 0
+                            Rectangle
+                            {
+                              Layout.preferredWidth: parent.width * 0.45
+                              Layout.preferredHeight: 50
+                              color: "#FD7115"
+                              radius: 5
+                            }
+                            Rectangle
+                            {
+                              Layout.preferredWidth: parent.width * 0.25
+                              Layout.preferredHeight: 50
+                              color: "#FBB525"
+                              radius: 5
+                            }
+                            Rectangle
+                            {
+                              Layout.preferredWidth: parent.width * 0.10
+                              Layout.preferredHeight: 50
+                              color: "#E7A622"
+                              radius: 5
+                            }
+                            Rectangle
+                            {
+                              Layout.preferredWidth: parent.width * 0.20
+                              Layout.preferredHeight: 50
+                              color: "#19C786"
+                              radius: 5
                             }
                         }
 
-                        // Sequential animation for "filling" effect
-                        SequentialAnimation {
-                            id: pie1Animation
-                            running: false // Start automatically
-                            loops: 1 // Run once
+                        Item
+                        {
+                            Layout.preferredHeight: 40
+                        }
 
-                            NumberAnimation {
-                                target: incomePie
-                                property: "value"
-                                from: 0
-                                to: 13.5 // Final value for "Income" slice
-                                duration: 1500 // Duration in milliseconds
-                                easing.type: Easing.InOutQuad
+                        RowLayout
+                        {
+                            Layout.preferredWidth: parent.width
+                            Layout.preferredHeight: 30
+                            Layout.leftMargin: 15
+
+                            Rectangle
+                            {
+                                Layout.preferredHeight: 15
+                                Layout.preferredWidth: 15
+                                color: '#FD7115'
+                                radius: 3
+                            }
+                            Text
+                            {
+                                text: "Food & Health"
+                                Layout.fillWidth: true
                             }
 
-                            NumberAnimation {
-                                target: expensesPie
-                                property: "value"
-                                from: 0
-                                to: 10.9 // Final value for "Expenses" slice
-                                duration: 1500 // Duration in milliseconds
-                                easing.type: Easing.InOutQuad
+                            Text
+                            {
+                                Layout.alignment: Qt.AlignRight
+                                text: "7,320"
+                                Layout.rightMargin: 10
                             }
                         }
 
-                        ChartView {
-                            id: pie1
-                            Layout.fillWidth: true
+                        RowLayout
+                        {
+                            Layout.preferredWidth: parent.width
+                            Layout.preferredHeight: 30
+                            Layout.leftMargin: 15
+
+                            Rectangle
+                            {
+                                Layout.preferredHeight: 15
+                                Layout.preferredWidth: 15
+                                color: '#FBB525'
+                                radius: 3
+                            }
+                            Text
+                            {
+                                text: "Entertainments"
+                                Layout.fillWidth: true
+                            }
+
+                            Text
+                            {
+                                Layout.alignment: Qt.AlignRight
+                                text: "4,875"
+                                Layout.rightMargin: 10
+                            }
+                        }
+                        RowLayout
+                        {
+                            Layout.preferredWidth: parent.width
+                            Layout.preferredHeight: 30
+                            Layout.leftMargin: 15
+
+                            Rectangle
+                            {
+                                Layout.preferredHeight: 15
+                                Layout.preferredWidth: 15
+                                color: '#E7A622'
+                                radius: 3
+                            }
+                            Text
+                            {
+                                text: "Shopping"
+                                Layout.fillWidth: true
+                            }
+
+                            Text
+                            {
+                                Layout.alignment: Qt.AlignRight
+                                text: "6,150"
+                                Layout.rightMargin: 10
+                            }
+                        }
+                        RowLayout
+                        {
+                            Layout.preferredWidth: parent.width
+                            Layout.preferredHeight: 30
+                            Layout.leftMargin: 15
+
+                            Rectangle
+                            {
+                                Layout.preferredHeight: 15
+                                Layout.preferredWidth: 15
+                                color: '#19C786'
+                                radius: 3
+                            }
+                            Text
+                            {
+                                text: "Investment"
+                                Layout.fillWidth: true
+                            }
+
+                            Text
+                            {
+                                Layout.alignment: Qt.AlignRight
+                                text: "6,300"
+                                Layout.rightMargin: 10
+                            }
+                        }
+
+
+                        Item
+                        {
                             Layout.fillHeight: true
-                            PieSeries {
-                                name: "PieSeries"
-
-                                PieSlice {
-                                    id: stocksPie
-                                    value: 0 // Start at 0 to animate "filling"
-                                    label: "Stocks"
-                                }
-
-                                PieSlice {
-                                    id: cryptoPie
-                                    value: 0 // Start at 0 to animate "filling"
-                                    label: "Crypto"
-                                }
-
-                                PieSlice {
-                                    id: transferPie
-                                    value: 0 // Start at 0 to animate "filling"
-                                    label: "Transfers"
-                                }
-                            }
                         }
+                    }
+                    }
 
-                        // Sequential animation for "filling" effect
-                        SequentialAnimation {
-                            id: pie2Animation
-
-                            running: false // Start automatically
-                            loops: 1 // Run once
-
-                            NumberAnimation {
-                                target: stocksPie
-                                property: "value"
-                                from: 0
-                                to: 13.5 // Final value for "Stocks" slice
-                                duration: 1500 // Duration in milliseconds
-                                easing.type: Easing.InOutQuad
-                            }
-
-                            NumberAnimation {
-                                target: cryptoPie
-                                property: "value"
-                                from: 0
-                                to: 10.9 // Final value for "Crypto" slice
-                                duration: 1500 // Duration in milliseconds
-                                easing.type: Easing.InOutQuad
-                            }
-
-                            NumberAnimation {
-                                target: transferPie
-                                property: "value"
-                                from: 0
-                                to: 8.6 // Final value for "Transfers" slice
-                                duration: 1500 // Duration in milliseconds
-                                easing.type: Easing.InOutQuad
-                            }
-                        }
-
-                        Timeline {
-                            id: timeline
-                            animations: [
-                                TimelineAnimation {
-                                    id: timelineAnimation
-                                    running: true
-                                    loops: 1
-                                    duration: 1000
-                                    to: 1000
-                                    from: 0
-                                }
-                            ]
-                            startFrame: 0
-                            endFrame: 1000
-                            enabled: true
-                        }
                     }
                 }
             }
@@ -1119,9 +1486,8 @@ Window {
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: 13
 
-                        source: "resources/visa.png"
-                        width: 80
-                        height: 50
+                        source: "resources/visa.svg"
+
                     }
                     Image
                     {
@@ -1335,11 +1701,253 @@ Window {
                     }
 
                 }
+
+                Rectangle
+                {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 80
+                    Layout.margins: 5
+
+                    RowLayout
+                    {
+                        anchors.fill: parent
+
+                        Image
+                        {
+                            Layout.leftMargin: 5
+                            source: "resources/billa.png"
+                            Layout.preferredHeight: 50
+                            Layout.preferredWidth: 50
+                        }
+
+                        ColumnLayout
+                        {
+                            Text
+                            {
+                               text: "Billa 526 04"
+                               font.pixelSize: 16
+                               font.bold: true
+                            }
+                            Text
+                            {
+                                text: "4 February, 20:47"
+                                color: "lightgrey"
+                            }
+                        }
+                        Item
+                        {
+                            Layout.fillWidth: true
+                        }
+                        Text
+                        {
+                            text: "26.04 BGN"
+                            font.pixelSize: 16
+                            font.bold: true
+                            Layout.rightMargin: 10
+                        }
+                    }
+                }
+                Rectangle
+                {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 80
+                    Layout.margins: 5
+
+                    RowLayout
+                    {
+                        anchors.fill: parent
+
+                        Image
+                        {
+                            Layout.leftMargin: 5
+                            source: "resources/booking.webp"
+                            Layout.preferredHeight: 50
+                            Layout.preferredWidth: 50
+                        }
+
+                        ColumnLayout
+                        {
+                            Text
+                            {
+                               text: "Hotel at Booking.com"
+                               font.pixelSize: 16
+                               font.bold: true
+                            }
+                            Text
+                            {
+                                text: "3 February, 21:22"
+                                color: "lightgrey"
+                            }
+                        }
+                        Item
+                        {
+                            Layout.fillWidth: true
+                        }
+                        Text
+                        {
+                            text: "26.04 BGN"
+                            font.pixelSize: 16
+                            font.bold: true
+                            Layout.rightMargin: 10
+                        }
+                    }
+                }
+                Rectangle
+                {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 80
+                    Layout.margins: 5
+
+                    RowLayout
+                    {
+                        anchors.fill: parent
+
+                        Image
+                        {
+                            Layout.leftMargin: 5
+                            source: "resources/spotify.png"
+                            Layout.preferredHeight: 50
+                            Layout.preferredWidth: 50
+                        }
+
+                        ColumnLayout
+                        {
+                            Text
+                            {
+                               text: "Spotify subscription"
+                               font.pixelSize: 16
+                               font.bold: true
+                            }
+                            Text
+                            {
+                                text: "1 February, 12:23"
+                                color: "lightgrey"
+                            }
+                        }
+                        Item
+                        {
+                            Layout.fillWidth: true
+                        }
+                        Text
+                        {
+                            text: "26.04 BGN"
+                            font.pixelSize: 16
+                            font.bold: true
+                            Layout.rightMargin: 10
+                        }
+                    }
+                }
+
                 Item
                 {
                     Layout.fillHeight: true
                 }
             }
         }
+
+
+        Drawer
+        {
+            id: chatDrawer
+            implicitWidth:350
+            implicitHeight: parent.height
+            interactive: !rootdashboard.isTablet
+            edge: Qt.RightEdge
+
+
+            background: Rectangle
+            {
+                color: "#eee"
+
+
+            }
+            contentItem: LayoutItemProxy
+            {
+                target: expandedSidebar
+            }
+        }
+
+
+
+        Item {
+            id: spacer
+            Layout.preferredHeight: 50
+
         }
     }
+    Rectangle {
+        id: expandedSidebar
+        color: "#ddd"
+        clip: true
+
+        ColumnLayout {
+            anchors.fill: parent
+
+            Text
+            {
+                Layout.preferredWidth: parent.width
+                text: "Chat"
+                font.pixelSize: 20
+                font.bold: true
+            }
+
+            Repeater {
+                width: parent.width
+                model: ListModel {
+                    ListElement { menuText: "Personal" }
+                    ListElement { menuText: "Business" }
+                    ListElement { menuText: "Company" }
+                    ListElement { menuText: "Help" }
+                }
+
+                delegate: Item {
+                    width: parent.width
+                    height: menurow.height
+
+                    Row {
+                        id: menurow
+                        spacing: 0
+
+                        Item {
+                            width: 70
+                            height: 50
+
+                            Rectangle {
+                                width: 10
+                                height: parent.height
+                                radius: width / 2
+                                anchors.left: parent.left
+                                anchors.leftMargin: -radius
+                                color: "orange"
+                            }
+
+                            Rectangle {
+                                width: 40
+                                height: 40
+                                radius: 8
+                                anchors.centerIn: parent
+                            }
+                        }
+
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: model.menuText // Use the menuText from the ListModel
+                            font.pixelSize: 14
+                            color: "#444"
+                        }
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: selectedMenuIndex = index
+                    }
+                }
+            }
+            Item
+            {
+                Layout.fillHeight: true
+            }
+        }
+    }
+}
+

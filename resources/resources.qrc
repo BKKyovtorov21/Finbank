@@ -129,5 +129,7 @@
         <file>booking.webp</file>
         <file>spotify.png</file>
         <file>config.json</file>
+        <file>command.svg</file>
+        <file>debit1.png</file>
     </qresource>
 </RCC>
