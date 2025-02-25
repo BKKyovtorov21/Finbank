@@ -662,18 +662,17 @@ Item {
                                             }
                                             RowLayout {
                                                 Layout.preferredWidth: 150
-                                                Text { text: "52 Wk Lw"; font.pixelSize: 14; Layout.alignment: Qt.AlignLeft }
+                                                Text { text: "52 Wk Low"; font.pixelSize: 14; Layout.alignment: Qt.AlignLeft }
                                                 Text { text: "138.80"; font.pixelSize: 14; Layout.alignment: Qt.AlignRight }
                                             }
                                         }
 
                                         // Center divider
                                         Rectangle {
-                                            width: 1
+                                            Layout.preferredWidth: 1
                                             color: "lightgrey" // Light gray to represent the middle line
-                                            Layout.preferredHeight: parent.height + 10
-                                            anchors.bottom: parent.bottom
-                                            anchors.bottomMargin: -5
+                                            Layout.preferredHeight: parent.height
+
                                         }
 
                                         // Right column

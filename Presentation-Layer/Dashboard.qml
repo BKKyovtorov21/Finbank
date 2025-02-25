@@ -1533,7 +1533,6 @@ Item {
                 text: "Chat"
                 font.pixelSize: 20
                 font.bold: true
-                horizontalCenter: Qt.AlignHCenter
             }
 
             Repeater {

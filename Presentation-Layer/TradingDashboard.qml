@@ -346,14 +346,61 @@ Item {
                 {
                     anchors.fill: parent
 
-                    Text
+                    RowLayout
                     {
-                        text: "Dashboard"
-                        font.pixelSize: 20
-                        font.bold: true
-                        Layout.alignment: Qt.AlignTop
-                        Layout.leftMargin: 20
-                        Layout.topMargin: 20
+                        Layout.preferredWidth: parent.width
+                        Layout.topMargin: 15
+                        Text
+                        {
+                            text: "Dashboard"
+                            font.pixelSize: 20
+                            font.bold: true
+                            Layout.alignment: Qt.AlignTop
+                            Layout.leftMargin: 20
+                            Layout.topMargin: 20
+                        }
+                        Item
+                        {
+                            Layout.fillWidth: true
+                        }
+
+                        Rectangle
+                        {
+                            Layout.preferredWidth: 150
+                            Layout.preferredHeight:40
+                            color: "transparent"
+                            border.width: 1
+                            border.color: '#D2D2D2'
+                            radius: 10
+
+                            Text
+                            {
+                                anchors.centerIn: parent
+                                text: "Deposit"
+                                font.pixelSize: 17
+                            }
+                        }
+                        Item
+                        {
+                            Layout.preferredWidth: 10
+                        }
+
+                        Rectangle
+                        {
+                            Layout.preferredWidth: 150
+                            Layout.preferredHeight:40
+                            color: "#181818"
+                            radius: 10
+                            Text
+                            {
+                                anchors.centerIn: parent
+                                text: "Withdraw"
+                                font.pixelSize: 17
+                                color: "white"
+                            }
+
+                        }
+
                     }
                     Text
                     {
