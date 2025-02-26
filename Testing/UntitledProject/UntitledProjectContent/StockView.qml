@@ -370,4 +370,11 @@ Window {
             }
         }
     }
+    ColumnLayout{
+        visible: root.isPhone
+        anchors.fill: parent
+        RowLayout{
+
+        }
+    }
 }
