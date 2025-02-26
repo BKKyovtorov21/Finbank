@@ -783,8 +783,9 @@ Item {
 
            Rectangle
            {
+               visible: !root.isPhone
                Layout.fillHeight: true
-               Layout.preferredWidth: 120
+               Layout.preferredWidth: 80
                color: "white"
 
                ColumnLayout
@@ -798,7 +799,8 @@ Item {
                        source: "resources/pfp.jpg"
                        Layout.preferredHeight: 70
                        Layout.preferredWidth: 70
-                       Layout.leftMargin: 20
+                       Layout.leftMargin: 5
+                       Layout.topMargin: 15
 
                     }
 
@@ -806,8 +808,8 @@ Item {
                    Layout.fillHeight: true
                    RowLayout
                    {
-                       Layout.topMargin: 50
-                        Layout.leftMargin: 30
+                       Layout.topMargin: 30
+                        Layout.leftMargin: 20
 
                        Image
                        {
@@ -817,19 +819,19 @@ Item {
                    }
                    RowLayout
                    {
-                        Layout.leftMargin: 30
+                        Layout.leftMargin: 20
                        Image
                        {
                            source: "resources/portfolio.svg"
                            Layout.preferredWidth: 30
                            Layout.preferredHeight: 30
 
-                           
+
                        }
                    }
                    RowLayout
                    {
-                       Layout.leftMargin: 10
+                       Layout.leftMargin: 20
 
                        Image
                        {
@@ -839,7 +841,7 @@ Item {
                    }
                    RowLayout
                    {
-                       Layout.leftMargin: 10
+                       Layout.leftMargin: 20
 
                        Image
                        {
@@ -849,7 +851,7 @@ Item {
                    }
                    RowLayout
                    {
-                       Layout.leftMargin: 10
+                       Layout.leftMargin: 20
 
                        Image
                        {
@@ -859,17 +861,14 @@ Item {
                    }
                    Rectangle
                    {
-                       Layout.preferredWidth: 150
+                       Layout.preferredWidth: 80
                        Layout.preferredHeight: 1
-                       Layout.leftMargin: 10
                        color: "#000000"
                        opacity: 0.3
                    }
-                   Button
-                   {
-                       background: RowLayout
+                       RowLayout
                        {
-                       Layout.leftMargin: 10
+                       Layout.leftMargin: 20
 
                        Image
                        {
@@ -877,10 +876,10 @@ Item {
 
                        }
                        }
-                   }
+
                    RowLayout
                    {
-                       Layout.leftMargin: 10
+                       Layout.leftMargin: 20
 
                        Image
                        {
@@ -890,15 +889,14 @@ Item {
                    }
                    Rectangle
                    {
-                       Layout.preferredWidth: 150
+                       Layout.preferredWidth: 80
                        Layout.preferredHeight: 1
-                       Layout.leftMargin: 10
                        color: "#000000"
                        opacity: 0.3
                    }
                    RowLayout
                    {
-                       Layout.leftMargin: 10
+                       Layout.leftMargin: 20
 
                        Image
                        {
@@ -908,7 +906,7 @@ Item {
                    }
                    RowLayout
                    {
-                       Layout.leftMargin: 10
+                       Layout.leftMargin: 20
 
                        Image
                        {
@@ -927,8 +925,7 @@ Item {
                        background: Text
                        {
                            text: "Back To Finbank"
-                           font.bold: true
-                           font.pixelSize: 15
+                           font.pixelSize: 10
                        }
                    }
 
@@ -941,24 +938,83 @@ Item {
                spacing: 0
                Rectangle
                {
+                   visible: !root.isPhone
                    Layout.fillWidth: true
                    Layout.preferredHeight: 100
                    color: "white"
                    RowLayout{
+
                        anchors.fill: parent
                    Text{
                     text: "Hey, Bobur"
                     anchors.verticalCenter: parent.verticalCenter
                     font.bold: true
                     font.pixelSize: 17
+                    Layout.leftMargin: 5
+                   }
+                   Rectangle {
+                       id: searchRowRect
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 50
+                        Layout.leftMargin: 20
+                        Layout.rightMargin: 20
+                       color: "#FDFDFD"
+                       border.width: 1
+                       border.color: "#F7F7F7"
+                       radius: 5
+
+                       RowLayout {
+                           id: searchRow
+                           anchors.fill: parent
+                           visible: textField.text.length === 0
+
+                           Image {
+                               source: "resources/search.svg"
+                               Layout.preferredWidth: 20
+                               Layout.preferredHeight: 20
+                               Layout.alignment: Qt.AlignVCenter
+                               Layout.leftMargin: 10
+                           }
+
+                           Text {
+                               Layout.alignment: Qt.AlignVCenter
+                               text: "Search"
+                               color: "grey"
+                           }
+
+                           Item {
+                               Layout.fillWidth: true
+                           }
+
+                           Rectangle {
+                               Layout.alignment: Qt.AlignVCenter
+                               Layout.preferredHeight: 35
+                               Layout.preferredWidth: 35
+                               Layout.rightMargin: 10
+                               color: "#F3F3F3"
+                               radius: 5
+
+                               RowLayout {
+                                   anchors.fill: parent
+
+                                   Image {
+                                       Layout.preferredHeight: 15
+                                       Layout.preferredWidth: 15
+                                       source: "resources/command.svg"
+                                       Layout.leftMargin: 5
+                                   }
+
+                                   Text {
+                                       text: "F"
+                                       color: "#9D9D9D"
+                                       Layout.rightMargin: 15
+                                   }
+                               }
+                           }
+                       }
                    }
                    Item{
                    Layout.fillWidth: true
-                   }
-                   Image{
-                    source: "resources/search2.svg"
-
-                    Layout.rightMargin: 7
                    }
                    Image{
                     source: "resources/menu.svg"
@@ -973,12 +1029,303 @@ Item {
                    color: "#F9F9F9"
                    Layout.fillHeight: true
                    Layout.fillWidth: true
-               }
-           }
+                   ColumnLayout{
+                   anchors.fill: parent
+                   RowLayout{
+                       Layout.fillWidth: true
+                       Layout.preferredHeight: 50
+                    Text{
+                    Layout.leftMargin: 80
+                    Layout.topMargin: 20
+                    text:"Tesla INC"
+                    font.pixelSize: 18
+                    }
+                    Item{
+                    Layout.fillWidth: true
+                    }
+                    Image{
+                        Layout.topMargin: 20
+                        source: "resources/alarm.svg"
+                    }
+                    Image{
+                        Layout.topMargin: 20
+                        Layout.rightMargin: 80
+                        source: "resources/like.svg"
+                    }
+                   }
+                   Text{
+                   text: "TSLA"
+                   Layout.leftMargin: 80
+                   font.pixelSize: 16
+                   Layout.topMargin: -7
+                   }
+                   Text{
+                    Layout.preferredWidth: 100
+                    text:"417.20"
+                    font.pixelSize: 33
+                    color: "darkred"
+                    Layout.alignment: Qt.AlignHCenter
+                   }
+                   RowLayout{
+                   Layout.fillWidth: true
+                   Layout.alignment: Qt.AlignHCenter
+                       Text{
+                   text:"-6.40"
+                   color: "red"
+                   }
+                   Text{
+                   text: "-1.92%"
+                   color: "red"
+                   }
+                   }
 
+                   Text{
+                       Layout.alignment: Qt.AlignHCenter
+                   text: "REALTIME PRICE: NON CONSOLIDATED"
+                   color: "gray"
+                   font.pixelSize: 10
+                   }
+                   RowLayout {
+                       Layout.fillWidth: true
+                       Layout.preferredHeight: 50
+                       Layout.alignment: Qt.AlignHCenter
+                       spacing: 20
+                       Layout.margins: 5  // You can change this to 10 for more space on the sides
+
+                       Rectangle {
+                           Layout.preferredWidth: 200  // Makes the button take up available width
+                           Layout.preferredHeight: 40
+                           color: "#1256BF"
+                           Text {
+                               anchors.centerIn: parent
+                               text: 'Buy Order'
+                               color: "white"
+                           }
+
+                           MouseArea
+                           {
+                               anchors.fill: parent
+                               onClicked:
+                               {
+
+                               }
+                           }
+                       }
+
+                       Rectangle {
+                           Layout.preferredWidth: 200  // Makes the button take up available width
+                           Layout.preferredHeight: 40
+                           color: "#C4313D"
+                           Text {
+                               anchors.centerIn: parent
+                               text: 'Sell Order'
+                               color: "white"
+                           }
+                           MouseArea
+                           {
+                               anchors.fill: parent
+                               onClicked:
+                               {
+
+                               }
+                           }
+                       }
+                   }
+                   Rectangle
+                   {
+                       Layout.fillWidth: true
+                       Layout.preferredHeight: 150
+                       color: "transparent"
+
+                       RowLayout {
+                               anchors.fill: parent
+                               spacing: 10
+                               Item
+                               {
+                                   Layout.fillWidth: true
+                               }
+
+                               // Left column
+                               ColumnLayout {
+                                   Layout.preferredWidth: 180
+
+
+
+                                   RowLayout {
+                                       Layout.preferredWidth: 150
+                                       Text { text: "Open"; font.pixelSize: 14; Layout.alignment: Qt.AlignLeft }
+                                       Text { text: "1.09M"; font.pixelSize: 14; Layout.alignment: Qt.AlignRight }
+                                   }
+                                   RowLayout {
+                                       Layout.preferredWidth: 150
+                                       Text { text: "Prior Close"; font.pixelSize: 14; Layout.alignment: Qt.AlignLeft }
+                                       Text { text: "328.50"; font.pixelSize: 14; Layout.alignment: Qt.AlignRight }
+                                   }
+                                   RowLayout {
+                                       Layout.preferredWidth: 150
+                                       Text { text: "High"; font.pixelSize: 14; Layout.alignment: Qt.AlignLeft }
+                                       Text { text: "327.31"; font.pixelSize: 14; Layout.alignment: Qt.AlignRight }
+                                   }
+                                   RowLayout {
+                                       Layout.preferredWidth: 150
+                                       Text { text: "Low"; font.pixelSize: 14; Layout.alignment: Qt.AlignLeft }
+                                       Text { text: "320.07"; font.pixelSize: 14; Layout.alignment: Qt.AlignRight }
+                                   }
+                                   RowLayout {
+                                       Layout.preferredWidth: 150
+                                       Text { text: "52 Wk High"; font.pixelSize: 14; Layout.alignment: Qt.AlignLeft }
+                                       Text { text: "488.54"; font.pixelSize: 14; Layout.alignment: Qt.AlignRight }
+                                   }
+                                   RowLayout {
+                                       Layout.preferredWidth: 150
+                                       Text { text: "52 Wk Low"; font.pixelSize: 14; Layout.alignment: Qt.AlignLeft }
+                                       Text { text: "138.80"; font.pixelSize: 14; Layout.alignment: Qt.AlignRight }
+                                   }
+                               }
+
+                               // Center divider
+                               Rectangle {
+                                   Layout.preferredWidth: 1
+                                   color: "lightgrey" // Light gray to represent the middle line
+                                   Layout.preferredHeight: parent.height
+
+                               }
+
+                               // Right column
+                               ColumnLayout {
+                                   Layout.fillWidth: true
+                                   Layout.preferredWidth: 180
+
+                                   RowLayout {
+                                                   Layout.preferredWidth: 200
+                                                   Text { text: "Volume"; font.pixelSize: 14; Layout.alignment: Qt.AlignLeft }
+                                                   Text { text: "1.09M"; font.pixelSize: 14; Layout.alignment: Qt.AlignRight }
+                                               }
+                                               RowLayout {
+                                                   Layout.preferredWidth: 200
+                                                   Text { text: "Average Volume"; font.pixelSize: 14; Layout.alignment: Qt.AlignLeft }
+                                                   Text { text: "82.8M"; font.pixelSize: 14; Layout.alignment: Qt.AlignRight }
+                                               }
+                                               RowLayout {
+
+                                                   Layout.preferredWidth: 200
+                                                   Text { text: "Hist Vol Cls"; font.pixelSize: 14; Layout.alignment: Qt.AlignLeft }
+                                                   Text { text: "59.593%"; font.pixelSize: 14; Layout.alignment: Qt.AlignRight }
+                                               }
+                                               RowLayout {
+                                                   Layout.preferredWidth: 200
+                                                   Text { text: "Opt. IV%"; font.pixelSize: 14; Layout.alignment: Qt.AlignLeft }
+                                                   Text { text: "55.9%"; font.pixelSize: 14; Layout.alignment: Qt.AlignRight }
+                                               }
+                                               RowLayout {
+                                                   Layout.preferredWidth: 200
+                                                   Text { text: "Open Int"; font.pixelSize: 14; Layout.alignment: Qt.AlignLeft }
+                                                   Text { text: "6.72M"; font.pixelSize: 14; Layout.alignment: Qt.AlignRight }
+                                               }
+                                               RowLayout {
+                                                   Layout.preferredWidth: 200
+                                                   Text { text: "Put/Call Vol"; font.pixelSize: 14; Layout.alignment: Qt.AlignLeft }
+                                                   Text { text: "0.77"; font.pixelSize: 14; Layout.alignment: Qt.AlignRight }
+                                               }
+                               }
+                               Item
+                               {
+                                   Layout.fillWidth: true
+                               }
+                           }
+
+                   }
+                   Rectangle
+                   {
+                       Layout.fillWidth: true
+                       Layout.fillHeight: true
+
+                       ChartView {
+                           id: chart2
+                           anchors.fill: parent
+                           antialiasing: true
+                           theme: ChartView.ChartThemeQt
+                           ValuesAxis {
+                               id: xAxis2
+                               min: 0
+                               max: 100
+                               titleText: "Time"
+                           }
+
+                           ValuesAxis {
+                               id: yAxis2
+                               min: 187
+                               max: 200
+                               titleText: "Price"
+                           }
+
+                           CandlestickSeries {
+                               id: candleSeries2
+                               name: "AAPL Candlesticks"
+                               increasingColor: "green"
+                               decreasingColor: "red"
+                               axisX: xAxis2
+                               axisY: yAxis2
+                           }
+
+                           MouseArea {
+                               id: dragArea2
+                               anchors.fill: parent
+                               acceptedButtons: Qt.LeftButton | Qt.RightButton
+                               property bool isDragging: false
+                               property real initialX: 0
+                               property real initialY: 0
+                               property real initialMinX: 0
+                               property real initialMaxX: 100
+                               property real initialMinY: 187
+                               property real initialMaxY: 200
+
+                               onPressed: function(event) {
+                                   isDragging = true;
+                                   initialX = event.x;
+                                   initialY = event.y;
+                                   initialMinX = xAxis2.min;
+                                   initialMaxX = xAxis2.max;
+                                   initialMinY = yAxis2.min;
+                                   initialMaxY = yAxis2.max;
+                               }
+
+                               onReleased: function() {
+                                   isDragging = false;
+                               }
+
+                               onPositionChanged: function(event) {
+                                   if (isDragging) {
+                                       let deltaX = event.x - initialX;
+                                       let deltaY = event.y - initialY;
+                                       let rangeX = initialMaxX - initialMinX;
+                                       let rangeY = initialMaxY - initialMinY;
+                                       xAxis2.min = initialMinX - (deltaX / chart.width) * rangeX;
+                                       xAxis2.max = initialMaxX - (deltaX / chart.width) * rangeX;
+                                       yAxis2.min = initialMinY + (deltaY / chart.height) * rangeY; // Inverted direction
+                                       yAxis2.max = initialMaxY + (deltaY / chart.height) * rangeY; // Inverted direction
+                                   }
+                               }
+
+                               onWheel: function(event) {
+                                   let zoomFactor = event.angleDelta.y > 0 ? 0.9 : 1.1;
+                                   let midX = (xAxis2.min + xAxis2.max) / 2;
+                                   let midY = (yAxis2.min + yAxis2.max) / 2;
+                                   let rangeX = (xAxis2.max - xAxis2.min) * zoomFactor;
+                                   let rangeY = (yAxis2.max - yAxis2.min) * zoomFactor;
+                                   xAxis2.min = midX - rangeX / 2;
+                                   xAxis2.max = midX + rangeX / 2;
+                                   yAxis2.min = midY - rangeY / 2;
+                                   yAxis2.max = midY + rangeY / 2;
+                               }
+                           }
+                       }
+                   }
+                }
+
+            }
 
         }
-
+    }
 
 }
-
