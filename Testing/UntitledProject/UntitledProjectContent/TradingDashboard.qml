@@ -1189,39 +1189,204 @@ Item {
 
     }
     RowLayout {
-        visible: root.isTablet
-        anchors.fill: parent
-        spacing: 0
+            visible: root.isTablet
+            anchors.fill: parent
+            spacing: 0
 
-       Rectangle
-       {
-           Layout.fillHeight: true
-           Layout.preferredWidth: 100
-           color: "green"
-       }
-       ColumnLayout
-       {
-           Layout.fillHeight: true
-           Layout.fillWidth: true
-           spacing: 0
            Rectangle
            {
-               Layout.fillWidth: true
-               Layout.preferredHeight: 80
-               color: "black"
+               Layout.fillHeight: true
+               Layout.preferredWidth: 120
+               color: "white"
+
+               ColumnLayout
+               {
+                   anchors.fill: parent
+                   Layout.alignment: Qt.AlignHCenter
+
+                   Image{
+
+
+                       source: "resources/pfp.jpg"
+                       Layout.preferredHeight: 70
+                       Layout.preferredWidth: 70
+                       Layout.leftMargin: 20
+
+                    }
+
+
+                   Layout.fillHeight: true
+                   RowLayout
+                   {
+                       Layout.topMargin: 50
+                        Layout.leftMargin: 30
+
+                       Image
+                       {
+                           source: "resources/dashboardactive.svg"
+
+                       }
+                   }
+                   RowLayout
+                   {
+                        Layout.leftMargin: 30
+                       Image
+                       {
+                           source: "resources/portfolio.svg"
+                           Layout.preferredWidth: 30
+                           Layout.preferredHeight: 30
+
+
+                       }
+                   }
+                   RowLayout
+                   {
+                       Layout.leftMargin: 30
+
+                       Image
+                       {
+                           source: "resources/stock.svg"
+
+                       }
+                   }
+                   RowLayout
+                   {
+                       Layout.leftMargin: 30
+
+                       Image
+                       {
+                           source: "resources/deposit.svg"
+
+                       }
+                   }
+                   RowLayout
+                   {
+                       Layout.leftMargin: 30
+
+                       Image
+                       {
+                           source: "resources/insight.svg"
+
+                       }
+                   }
+                   Rectangle
+                   {
+                       Layout.preferredWidth: 150
+                       Layout.preferredHeight: 1
+                       Layout.leftMargin: 10
+                       color: "#000000"
+                       opacity: 0.3
+                   }
+                   RowLayout
+                   {
+                       Layout.leftMargin: 30
+
+                       Image
+                       {
+                           source: "resources/marketStock.svg"
+
+                       }
+                   }
+                   RowLayout
+                   {
+                       Layout.leftMargin: 30
+
+                       Image
+                       {
+                           source: "resources/news.svg"
+
+                       }
+                   }
+                   Rectangle
+                   {
+                       Layout.preferredWidth: 150
+                       Layout.preferredHeight: 1
+                       Layout.leftMargin: 10
+                       color: "#000000"
+                       opacity: 0.3
+                   }
+                   RowLayout
+                   {
+                       Layout.leftMargin: 30
+
+                       Image
+                       {
+                           source: "resources/help.svg"
+
+                       }
+                   }
+                   RowLayout
+                   {
+                       Layout.leftMargin: 30
+
+                       Image
+                       {
+                           source: "resources/settings.svg"
+
+                       }
+                   }
+                   Item
+                   {
+                       Layout.fillHeight: true
+                   }
+
+                   Button
+                   {
+                       Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
+                       background: Text
+                       {
+                           text: "Back To Finbank"
+                           font.bold: true
+                           font.pixelSize: 15
+                       }
+                   }
+
+               }
            }
-
-
-           Rectangle
+           ColumnLayout
            {
-               color: "red"
                Layout.fillHeight: true
                Layout.fillWidth: true
+               spacing: 0
+               Rectangle
+               {
+                   Layout.fillWidth: true
+                   Layout.preferredHeight: 100
+                   color: "white"
+                   RowLayout{
+                       anchors.fill: parent
+                   Text{
+                    text: "Hey, Bobur"
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.bold: true
+                    font.pixelSize: 17
+                   }
+                   Item{
+                   Layout.fillWidth: true
+                   }
+                   Image{
+                    source: "resources/search2.svg"
+
+                    Layout.rightMargin: 7
+                   }
+                   Image{
+                    source: "resources/menu.svg"
+                    Layout.rightMargin: 30
+                   }
+                   }
+               }
+
+
+               Rectangle
+               {
+                   color: "#F9F9F9"
+                   Layout.fillHeight: true
+                   Layout.fillWidth: true
+               }
            }
-       }
 
 
-    }
+        }
 
 }
 

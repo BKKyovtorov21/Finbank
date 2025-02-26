@@ -121,8 +121,8 @@ Item {
             }
             Rectangle {
                 id: searchRowRect
-Layout.preferredWidth: rootdashboard.test2 ? 250 : (rootdashboard.test ? 300 : 550)
-Layout.preferredHeight: 50
+                Layout.preferredWidth: rootdashboard.test2 ? 250 : (rootdashboard.test ? 300 : 550)
+                Layout.preferredHeight: 50
                 color: "#FDFDFD"
                 border.width: 1
                 border.color: "#F7F7F7"

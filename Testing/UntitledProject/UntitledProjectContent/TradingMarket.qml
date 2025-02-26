@@ -4,11 +4,10 @@ import QtQuick.Layouts
 import QtQuick.Timeline
 import Qt5Compat.GraphicalEffects
 import QtCharts
-Window {
+Item {
     id: root
     width: Screen.width
     height: Screen.height
-    minimumWidth: 400
     visible: true
     property bool isTablet: width <= 950
     property bool isPhone: width <= 600
@@ -16,6 +15,36 @@ Window {
     property bool screenCheckpoint1: width <= 1200
     property string fullName
     property string pfp: ""
+
+    property real openPrice
+    property var stackViewRef
+
+    Connections {
+            target: stockAPIClient
+            function onDataReceived(candles) {
+                candleSeries.clear();
+                for (var i = 0; i < candles.length; i++) {
+                    var candle = Qt.createQmlObject(
+                        'import QtCharts 2.15; CandlestickSet {}',
+                        candleSeries,
+                        "dynamicCandle"
+                    );
+                    candle.timestamp = i;
+                    candle.open = candles[i].open;
+                    candle.high = candles[i].high;
+                    candle.low = candles[i].low;
+                    candle.close = candles[i].close;
+                    candleSeries.append(candle);
+                }
+                xAxis.min = 0;
+                xAxis.max = candles.length;
+                var minPrice = Math.min(...candles.map(c => c.low));
+                var maxPrice = Math.max(...candles.map(c => c.high));
+                yAxis.min = minPrice - 1;
+                yAxis.max = maxPrice + 1;
+            }
+        }
+    Component.onCompleted: stockAPIClient.fetchCandlestickData("AAPL") // Change ticker here
 
     ColumnLayout
     {
@@ -89,9 +118,6 @@ Window {
 
                     Image {
                         id: pfp
-                        anchors.left: parent.left
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.verticalCenterOffset: -5
                         source: "resources/pfp.jpg"
                         Layout.preferredWidth: 80
                         Layout.preferredHeight: 80
@@ -100,9 +126,10 @@ Window {
                     ColumnLayout {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        Layout.alignment: Qt.AlignVCenter // Ensure vertical centering in RowLayout
+                        Layout.alignment: Qt.AlignVCenter
                         Layout.rightMargin: 60
                         Layout.bottomMargin: 15
+
                         Text {
                             text: "Boyan Kiovtorov"
                             Layout.alignment: Qt.AlignLeft
@@ -153,6 +180,24 @@ Window {
                         text: "Dashboard"
                         Layout.leftMargin: 10
                         font.pixelSize: 20
+
+                        MouseArea
+                        {
+                            anchors.fill: parent
+                            onClicked:
+                            {
+                                if (root.stackViewRef) {
+                                            root.stackViewRef.replace(Qt.resolvedUrl("TradingDashboard.qml"), {
+                                                username: root.username,
+                                                fullName: root.fullName,
+                                                stackViewRef: root.stackViewRef
+                                            });
+                                        }
+                                else {
+                                    console.error("stackViewRef is undefined in SignIn.qml");
+                                }
+                            }
+                        }
                     }
                 }
                 RowLayout
@@ -321,6 +366,18 @@ Window {
                         font.bold: true
                         font.pixelSize: 15
                     }
+
+                    onClicked: {
+                        if (root.stackViewRef) {
+                            root.stackViewRef.replace(Qt.resolvedUrl("Dashboard.qml"), {
+                                stackViewRef: root.stackViewRef,
+                                usernameRef: "kyovtorov",
+                                fullName: "Boyan Kiovtorov",
+                            });
+                        } else {
+                            console.error("stackViewRef is undefined in SignIn.qml");
+                        }
+                    }
                 }
 
             }
@@ -342,7 +399,7 @@ Window {
                             id: chart
                             anchors.fill: parent
                             antialiasing: true
-                            backgroundColor: "black"
+                            theme: ChartView.ChartThemeQt
                             ValuesAxis {
                                 id: xAxis
                                 min: 0
@@ -526,6 +583,15 @@ Window {
                                         text: 'Buy Order'
                                         color: "white"
                                     }
+
+                                    MouseArea
+                                    {
+                                        anchors.fill: parent
+                                        onClicked:
+                                        {
+
+                                        }
+                                    }
                                 }
 
                                 Rectangle {
@@ -536,6 +602,14 @@ Window {
                                         anchors.centerIn: parent
                                         text: 'Sell Order'
                                         color: "white"
+                                    }
+                                    MouseArea
+                                    {
+                                        anchors.fill: parent
+                                        onClicked:
+                                        {
+
+                                        }
                                     }
                                 }
                             }
@@ -589,18 +663,17 @@ Window {
                                             }
                                             RowLayout {
                                                 Layout.preferredWidth: 150
-                                                Text { text: "52 Wk Lw"; font.pixelSize: 14; Layout.alignment: Qt.AlignLeft }
+                                                Text { text: "52 Wk Low"; font.pixelSize: 14; Layout.alignment: Qt.AlignLeft }
                                                 Text { text: "138.80"; font.pixelSize: 14; Layout.alignment: Qt.AlignRight }
                                             }
                                         }
 
                                         // Center divider
                                         Rectangle {
-                                            width: 1
+                                            Layout.preferredWidth: 1
                                             color: "lightgrey" // Light gray to represent the middle line
-                                            Layout.preferredHeight: parent.height + 10
-                                            anchors.bottom: parent.bottom
-                                            anchors.bottomMargin: -5
+                                            Layout.preferredHeight: parent.height
+
                                         }
 
                                         // Right column
@@ -665,6 +738,209 @@ Window {
         }
 
     }
+
+    RowLayout {
+            visible: root.isTablet
+            anchors.fill: parent
+            spacing: 0
+
+           Rectangle
+           {
+               Layout.fillHeight: true
+               Layout.preferredWidth: 120
+               color: "white"
+
+               ColumnLayout
+               {
+                   anchors.fill: parent
+                   Layout.alignment: Qt.AlignHCenter
+
+                   Image{
+
+
+                       source: "resources/pfp.jpg"
+                       Layout.preferredHeight: 70
+                       Layout.preferredWidth: 70
+                       Layout.leftMargin: 20
+
+                    }
+
+
+                   Layout.fillHeight: true
+                   RowLayout
+                   {
+                       Layout.topMargin: 50
+                        Layout.leftMargin: 30
+
+                       Image
+                       {
+                           source: "resources/dashboardactive.svg"
+
+                       }
+                   }
+                   RowLayout
+                   {
+                        Layout.leftMargin: 30
+                       Image
+                       {
+                           source: "resources/portfolio.svg"
+                           Layout.preferredWidth: 30
+                           Layout.preferredHeight: 30
+
+                           
+                       }
+                   }
+                   RowLayout
+                   {
+                       Layout.leftMargin: 10
+
+                       Image
+                       {
+                           source: "resources/stock.svg"
+
+                       }
+                   }
+                   RowLayout
+                   {
+                       Layout.leftMargin: 10
+
+                       Image
+                       {
+                           source: "resources/deposit.svg"
+
+                       }
+                   }
+                   RowLayout
+                   {
+                       Layout.leftMargin: 10
+
+                       Image
+                       {
+                           source: "resources/insight.svg"
+
+                       }
+                   }
+                   Rectangle
+                   {
+                       Layout.preferredWidth: 150
+                       Layout.preferredHeight: 1
+                       Layout.leftMargin: 10
+                       color: "#000000"
+                       opacity: 0.3
+                   }
+                   Button
+                   {
+                       background: RowLayout
+                       {
+                       Layout.leftMargin: 10
+
+                       Image
+                       {
+                           source: "resources/marketStock.svg"
+
+                       }
+                       }
+                   }
+                   RowLayout
+                   {
+                       Layout.leftMargin: 10
+
+                       Image
+                       {
+                           source: "resources/news.svg"
+
+                       }
+                   }
+                   Rectangle
+                   {
+                       Layout.preferredWidth: 150
+                       Layout.preferredHeight: 1
+                       Layout.leftMargin: 10
+                       color: "#000000"
+                       opacity: 0.3
+                   }
+                   RowLayout
+                   {
+                       Layout.leftMargin: 10
+
+                       Image
+                       {
+                           source: "resources/help.svg"
+
+                       }
+                   }
+                   RowLayout
+                   {
+                       Layout.leftMargin: 10
+
+                       Image
+                       {
+                           source: "resources/settings.svg"
+
+                       }
+                   }
+                   Item
+                   {
+                       Layout.fillHeight: true
+                   }
+
+                   Button
+                   {
+                       Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
+                       background: Text
+                       {
+                           text: "Back To Finbank"
+                           font.bold: true
+                           font.pixelSize: 15
+                       }
+                   }
+
+               }
+           }
+           ColumnLayout
+           {
+               Layout.fillHeight: true
+               Layout.fillWidth: true
+               spacing: 0
+               Rectangle
+               {
+                   Layout.fillWidth: true
+                   Layout.preferredHeight: 100
+                   color: "white"
+                   RowLayout{
+                       anchors.fill: parent
+                   Text{
+                    text: "Hey, Bobur"
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.bold: true
+                    font.pixelSize: 17
+                   }
+                   Item{
+                   Layout.fillWidth: true
+                   }
+                   Image{
+                    source: "resources/search2.svg"
+
+                    Layout.rightMargin: 7
+                   }
+                   Image{
+                    source: "resources/menu.svg"
+                    Layout.rightMargin: 30
+                   }
+                   }
+               }
+
+
+               Rectangle
+               {
+                   color: "#F9F9F9"
+                   Layout.fillHeight: true
+                   Layout.fillWidth: true
+               }
+           }
+
+
+        }
 
 
 }
