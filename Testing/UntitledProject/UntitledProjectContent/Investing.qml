@@ -309,8 +309,27 @@ Window {
 
                 Button
                 {
+                    MouseArea
+                                    {
+                                        anchors.fill: parent
+                                        onClicked:{
+                                            if (rootdashboard.stackViewRef) {
+                                                        rootdashboard.stackViewRef.push(Qt.resolvedUrl("Transactions.qml"), {
+                                                            username: rootdashboard.usernameRef,
+                                                            fullName: rootdashboard.fullName,
+                                                            stackViewRef: rootdashboard.stackViewRef
+                                                        });
+                                                    }
+                                            else {
+                                                console.error("stackViewRef is undefined in SignIn.qml");
+                                            }
+                                        }
+                                    }
+
+
                     Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
                     background: Text
+
                     {
                         text: "Back To Finbank"
                         font.bold: true

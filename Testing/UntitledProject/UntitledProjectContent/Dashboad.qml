@@ -316,18 +316,6 @@ Layout.preferredHeight: 50
             {
 
 
-                    id: walletPage
-                    text: qsTr("Wallet")
-                    color: "#2F2F2F"
-                    font.pixelSize: 15
-                    opacity: 0.5
-
-
-            }
-            Text
-            {
-
-
                     id: transactions
                     text: qsTr("Transactions")
                     color: "#2F2F2F"
@@ -361,6 +349,7 @@ Layout.preferredHeight: 50
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
+                    Layout.rightMargin: 20
 
 
                 MouseArea
@@ -379,16 +368,6 @@ Layout.preferredHeight: 50
                         }
                     }
                 }
-            }
-            Text
-            {
-                    id: settingsPage
-                    text: qsTr("Settings")
-                    color: "#2F2F2F"
-                    font.pixelSize: 15
-                    opacity: 0.5
-
-
             }
         }
         RowLayout
@@ -517,7 +496,22 @@ Layout.preferredHeight: 50
                                 anchors.left: parent.left
                                 anchors.top: parent.top
                             }
-
+                            MouseArea
+                            {
+                                anchors.fill: parent
+                                onClicked:{
+                                    if (rootdashboard.stackViewRef) {
+                                                rootdashboard.stackViewRef.push(Qt.resolvedUrl("Transactions.qml"), {
+                                                    username: rootdashboard.usernameRef,
+                                                    fullName: rootdashboard.fullName,
+                                                    stackViewRef: rootdashboard.stackViewRef
+                                                });
+                                            }
+                                    else {
+                                        console.error("stackViewRef is undefined in SignIn.qml");
+                                    }
+                                }
+                            }
                             Text {
                                 id: send_money
 
@@ -1423,7 +1417,7 @@ ColumnLayout
             Layout.topMargin: 40
             spacing: 20
 
-            // "Cards" Text
+
             Text {
                 text: "Cards"
                 font.pixelSize: 15
@@ -1431,6 +1425,7 @@ ColumnLayout
                 color: "#144618"
             }
                 Rectangle {
+                    // TO DO aj naprawi go neshtatnik
                     width: 50
                     height: 50
                     radius: 25
@@ -1576,7 +1571,7 @@ ColumnLayout
         RowLayout
         {
             Layout.topMargin: 40
-            Layout.alignment: Qt.AlignHCenter
+            Layout.alignment: Qt.AlignHCenter     
             Rectangle
             {
                 Layout.preferredHeight: rootdashboard.isPhone ? 60 : 70
@@ -1584,7 +1579,22 @@ ColumnLayout
                 Layout.leftMargin: width > 650 ? 40 : 8
                 color: "#144618"
                 radius: 30
-
+                MouseArea
+                {
+                    anchors.fill: parent
+                    onClicked:{
+                        if (rootdashboard.stackViewRef) {
+                                    rootdashboard.stackViewRef.push(Qt.resolvedUrl("Transactions.qml"), {
+                                        username: rootdashboard.usernameRef,
+                                        fullName: rootdashboard.fullName,
+                                        stackViewRef: rootdashboard.stackViewRef
+                                    });
+                                }
+                        else {
+                            console.error("stackViewRef is undefined in SignIn.qml");
+                        }
+                    }
+                }
                 Image
                 {
                     id:receive
@@ -1613,7 +1623,8 @@ ColumnLayout
                 Layout.preferredWidth: rootdashboard.isPhone ? 130 : 180
                 color: "#AEE780"
                 radius: 30
-
+               // TO DO:
+                 //   aj naprawi go neshtastnik
                 Image
                 {
                     id:send
@@ -1643,7 +1654,7 @@ ColumnLayout
                 border.width: 2
                 border.color: "#144618"
                 radius: 30
-
+                // TO DO aj naprawi go neshtatnik
                 Text
                 {
                     text: "+"
