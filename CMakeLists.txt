@@ -68,6 +68,8 @@ qt_add_qml_module(appFinbank
             Presentation-Layer/TableRow.qml
         RESOURCES resources/resources.qrc
         QML_FILES Presentation-Layer/Overview.qml
+        QML_FILES Presentation-Layer/PortfolioValue.qml
+        QML_FILES Presentation-Layer/NavbarMobile.qml
 )
 
 qt_add_ios_ffmpeg_libraries(appFinbank)

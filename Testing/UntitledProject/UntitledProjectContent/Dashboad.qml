@@ -263,7 +263,7 @@ Layout.preferredHeight: 50
                     anchors.leftMargin: -96
                     anchors.top: parent.top
                     anchors.topMargin: 17
-                    text: rootdashboard.fullName
+                    text: "Boyan Kyovtorov"
                 }
 
                 Text {
@@ -274,7 +274,7 @@ Layout.preferredHeight: 50
                     anchors.top: fullname.bottom
                     anchors.topMargin: 10
                     anchors.left: fullname.left
-                    text: "@" + rootdashboard.usernameRef
+                    text: "@kyovtorov"
                 }
             }
 
@@ -1949,5 +1949,15 @@ ColumnLayout
             }
         }
     }
+
+    NavbarMobile
+    {
+        isPhone: rootdashboard.isPhone
+        stackViewRef: rootdashboard.stackViewRef
+        usernameRef: rootdashboard.usernameRef
+        fullName: rootdashboard.fullName
+    }
+
+
 }
 

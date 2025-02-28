@@ -1124,4 +1124,13 @@ the money?")
         }
 
     }
+    NavbarMobile
+    {
+        isPhone: root.isPhone
+        stackViewRef: root.stackViewRef
+        usernameRef: root.username
+        fullName: root.fullName
+        transactionImage.source: "qrc:/resources/transactionActive.svg"
+        homeImage.source: "qrc:/resources/homeNavbarInactive.svg"
+    }
 }

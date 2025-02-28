@@ -9,6 +9,7 @@ Item {
     height: Screen.height
     property bool isTablet: width <= 950
     property bool isPhone: width <= 600
+    property bool isSmallPhone: width <= 500
     property string username
     property bool screenCheckpoint1: width <= 1200
     property string fullName
@@ -42,34 +43,84 @@ Item {
                 font.pixelSize: 25
             }
 
-            TextField {
-                Layout.leftMargin: 50
-                background: Rectangle
-                {
-                    color: "#4dececec"
+            Rectangle {
+                id: searchRowRect
+                 Layout.fillWidth: true
+                 Layout.preferredHeight: 50
+                 Layout.leftMargin: 20
+                 Layout.rightMargin: 20
+                color: "#FDFDFD"
+                border.width: 1
+                border.color: "#F7F7F7"
+                radius: 5
+
+                TextField {
+                    id: textField
+                    anchors.fill: parent
+                    leftPadding: 50
+                    color: "black"  // Sets the text color to black
+
+                    background: Rectangle {
+                        color: "transparent"
+                    }
+
+                    onTextChanged: {
+                        searchRow.visible = text.length === 0 && !activeFocus;  // Hide when typing
+                    }
+
+                    onFocusChanged: {
+                        searchRow.visible = text.length === 0 && !activeFocus;  // Hide when focused, show when unfocused and empty
+                    }
                 }
 
-                Image {
-                    id: searchIcon
-                    fillMode: Image.PreserveAspectFit
+                RowLayout {
+                    id: searchRow
+                    anchors.fill: parent
+                    visible: textField.text.length === 0
+                    Image {
+                        source: "qrc:/resources/search.svg"
+                        Layout.preferredWidth: 20
+                        Layout.preferredHeight: 20
+                        Layout.alignment: Qt.AlignVCenter
+                        Layout.leftMargin: 10
+                    }
 
+                    Text {
+                        Layout.alignment: Qt.AlignVCenter
+                        text: "Search"
+                        color: "grey"
+                    }
 
-                    source: "qrc:/resources/search.svg"
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    anchors.leftMargin: 5
+                    Item {
+                        Layout.fillWidth: true
+                    }
+
+                    Rectangle {
+                        Layout.alignment: Qt.AlignVCenter
+                        Layout.preferredHeight: 35
+                        Layout.preferredWidth: 35
+                        Layout.rightMargin: 10
+                        color: "#F3F3F3"
+                        radius: 5
+
+                        RowLayout {
+                            anchors.fill: parent
+
+                            Image {
+                                Layout.preferredHeight: 15
+                                Layout.preferredWidth: 15
+                                source: "qrc:/resources/command.svg"
+                                Layout.leftMargin: 5
+                            }
+
+                            Text {
+                                text: "F"
+                                color: "#9D9D9D"
+                                Layout.rightMargin: 15
+                            }
+                        }
+                    }
                 }
-                id: searchField
-
-                Layout.alignment: Qt.AlignVCenter
-                Layout.fillWidth: true
-
-                placeholderText: qsTr("Search")
-                placeholderTextColor: "grey"
-                font.pixelSize: 18
-                color: "black"
-
-                leftPadding: 30 // Adds space around the text, adjusting the padding as needed
             }
             Item
             {
@@ -98,14 +149,14 @@ Item {
                         Layout.rightMargin: 60
                         Layout.bottomMargin: 15
                         Text {
-                            text: root.fullName
+                            text: "Boyan Kyovtorov"
                             Layout.alignment: Qt.AlignLeft
                             font.pixelSize: 15
                         }
 
                         Text {
                             Layout.topMargin: 5
-                            text: "@" + root.username
+                            text: "@kyovtorov" + root.username
                             Layout.alignment: Qt.AlignLeft
                             color: "gray"
                             font.pixelSize: 15
@@ -422,270 +473,19 @@ Item {
                         {
                             anchors.fill: parent
 
-                            Rectangle
+                            PortfolioValue
                             {
-
-                                Layout.fillWidth: true
                                 Layout.fillHeight: true
+                                Layout.fillWidth: true
 
-                                Layout.rightMargin: 50
-                                Layout.leftMargin: 20
-                                color: "transparent"
-                                radius: 20
-                                border.width: 2
-                                border.color: "#F2F2F2"
+                                isPhoneRef: root.isPhone
+                                screenCheckpoint1Ref: root.screenCheckpoint1
 
-                                ColumnLayout
-                                {
-                                    anchors.fill: parent
-
-                                    Rectangle
-                                    {
-                                        Layout.fillWidth: true
-                                        Layout.preferredHeight: 150
-                                        color: "transparent"
-                                        RowLayout
-                                        {
-                                            anchors.fill: parent
-                                            ColumnLayout
-                                            {
-                                                Layout.leftMargin: 20
-                                                Text
-                                                {
-                                                   text: "Portfolio Value"
-                                                   color: "#727272"
-                                                   font.pixelSize: 20
-                                                }
-                                                Text
-                                                {
-                                                    text: "$475.432,98"
-                                                    color: "black"
-                                                    font.pixelSize: 25
-                                                    font.bold: true
-                                                }
-                                                RowLayout
-                                                {
-                                                    Text
-                                                    {
-                                                       text: "Your profit is"
-                                                       color: "#727272"
-                                                       font.pixelSize: 20
-                                                    }
-                                                    Text
-                                                    {
-                                                        Layout.leftMargin: 10
-                                                       text: "$81.234,72"
-                                                       color: "#145FF9"
-                                                       font.pixelSize: 20
-                                                    }
-                                                }
-                                            }
-
-                                            ColumnLayout
-                                            {
-                                                Layout.leftMargin: 20
-                                                Text
-                                                {
-                                                   text: "Avg. Monthly Grow"
-                                                   color: "#727272"
-                                                   font.pixelSize: 18
-                                                }
-                                                Text
-                                                {
-                                                    text: "~1.34%"
-                                                    color: "black"
-                                                    font.pixelSize: 25
-                                                    font.bold: true
-                                                }
-                                                Text
-                                                {
-                                                    text: "~120$"
-                                                    color: "#727272"
-                                                    font.pixelSize: 20
-                                                    font.bold: true
-                                                    Layout.preferredWidth: parent.width
-
-                                                }
-                                            }
-                                            Rectangle
-                                            {
-                                                visible: !root.screenCheckpoint1
-                                                Layout.preferredHeight: parent.height / 2
-                                                Layout.preferredWidth: 3
-                                                color: "grey"
-                                            }
-                                            ColumnLayout
-                                            {
-                                                visible: !root.screenCheckpoint1
-                                                Layout.leftMargin: 20
-                                                Text
-                                                {
-                                                   text: "Best Profit Stock"
-                                                   color: "#727272"
-                                                   font.pixelSize: 20
-
-                                                }
-                                                RowLayout
-                                                {
-                                                    Rectangle
-                                                    {
-                                                        Layout.preferredHeight: 50
-                                                        Layout.preferredWidth: 50
-                                                        color: "#D9D9D9"
-                                                        radius: 80
-                                                        Image
-                                                        {
-                                                            anchors.centerIn: parent
-                                                            source: "qrc:/resources/appleIcon.svg"
-                                                            width: 20
-                                                            height: 20
-                                                        }
-                                                    }
-                                                    ColumnLayout
-                                                    {
-                                                        Layout.leftMargin: 30
-                                                        Text
-                                                        {
-                                                            font.pixelSize: 20
-                                                            font.bold: true
-                                                            text: "Apple"
-                                                        }
-                                                        Text
-                                                        {
-                                                            font.pixelSize: 20
-                                                            color: "grey"
-                                                            text: "AAPL"
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                    Rectangle {
-                                                Layout.fillHeight: true
-                                                Layout.fillWidth: true
-                                                color: "transparent"
-                                                ChartView {
-                                                    id: chartView
-                                                    anchors.fill: parent
-                                                    backgroundColor: "transparent"
-                                                    legend.visible: false
-
-                                                    LineSeries {
-                                                        id: lineSeries
-                                                        name: "Monthly Data"
-
-                                                        Component.onCompleted: {
-                                                            append(0, 100000)
-                                                            append(1, 200000)
-                                                            append(2, 150000)
-                                                            append(3, 250000)
-                                                            append(4, 180000)
-                                                            append(5, 220000)
-                                                            append(6, 300000)
-                                                            append(7, 280000)
-                                                            append(8, 120000)
-                                                            append(9, 260000)
-                                                            append(10, 170000)
-                                                            append(11, 310000)
-                                                        }
-
-                                                        axisX: categoryAxisX
-                                                        axisY: valueAxisY
-                                                    }
-
-                                                    CategoryAxis {
-                                                        id: categoryAxisX
-                                                        min: 0
-                                                        max: 11
-                                                        gridVisible: false
-                                                        Component.onCompleted: {
-                                                            for (var i = 0; i < root.monthLabels.length; i++) {
-                                                                categoryAxisX.append(root.monthLabels[i], i)
-                                                            }
-                                                        }
-                                                    }
-
-                                                    ValuesAxis {
-                                                        id: valueAxisY
-                                                        min: 0
-                                                        max: 500000
-                                                        labelFormat: "$%dK"
-                                                    }
-
-                                                    Rectangle {
-                                                        id: popup
-                                                        visible: false
-                                                        color: "black"
-                                                        radius: 8
-                                                        width: 120
-                                                        height: 50
-                                                        opacity: 0.85
-                                                        border.color: "gray"
-                                                        border.width: 1
-                                                        z: 2
-
-                                                        Column {
-                                                            anchors.centerIn: parent
-                                                            spacing: 2
-
-                                                            Text {
-                                                                id: popupText
-                                                                color: "white"
-                                                                font.bold: true
-                                                                font.pixelSize: 14
-                                                                text: "$0.00"
-                                                            }
-
-                                                            Text {
-                                                                id: popupSubtext
-                                                                color: "lightgray"
-                                                                font.pixelSize: 12
-                                                                text: "Value | Month, Year"
-                                                            }
-                                                        }
-                                                    }
-
-                                                    MouseArea {
-                                                        id: mouseArea
-                                                        anchors.fill: parent
-
-                                                        onPositionChanged: (position) => {
-                                                            root.mouseX = position.x
-                                                            root.mouseY = position.y
-
-                                                            // Map the x-position within the MouseArea to data points in the line series
-                                                            let chartX = (root.mouseX / chartView.width) * (lineSeries.count - 1)
-                                                            let index1 = Math.floor(chartX)
-                                                            let index2 = Math.min(index1 + 1, lineSeries.count - 1)
-
-                                                            let dataPoint1 = lineSeries.at(index1)
-                                                            let dataPoint2 = lineSeries.at(index2)
-
-                                                            // Interpolating the y-value
-                                                            let interpolatedY = dataPoint1.y + (dataPoint2.y - dataPoint1.y) * (chartX - index1)
-
-                                                            // Update popup position and content
-                                                            popup.x = root.mouseX - popup.width / 2
-                                                            popup.y = root.mouseY - popup.height - 10
-                                                            popupText.text = "$" + interpolatedY.toLocaleString(Qt.locale("en_US"), 'f', 2)
-                                                            popupSubtext.text = "Value | " + root.monthLabels[Math.round(chartX)] + ", 23"
-                                                            popup.visible = true
-                                                        }
-
-                                                        onExited: {
-                                                            popup.visible = false
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                }
                             }
 
-
                             Rectangle
                             {
-                                Layout.preferredWidth: 350
+                                Layout.preferredWidth: 300
                                 Layout.fillHeight: true
                                 color: "white"
                                 border.width: 2
@@ -1188,108 +988,885 @@ Item {
         }
 
     }
-    ColumnLayout {
-        visible: root.isTablet
-        anchors.fill: parent
+    RowLayout {
+            visible: root.isTablet
+            anchors.fill: parent
+            spacing: 0
 
-        RowLayout {
+           Rectangle
+           {
+               Layout.fillHeight: true
+               Layout.preferredWidth: 120
+               color: "white"
+               visible: !root.isPhone
 
-            Layout.fillWidth: true
-            Image {
-                Layout.topMargin: 30
-                Layout.leftMargin: 30
-                Layout.preferredWidth: 80
-                Layout.preferredHeight: 80
-                source: "qrc:/resources/pfp.jpg"
-            }
-            Text {
-                Layout.topMargin: 30
-                Layout.leftMargin: 10
-                text: "Hey, Boyan"
-                font.pixelSize: 17
-                font.bold: true
-            }
+               ColumnLayout
+               {
+                   anchors.fill: parent
+                   Layout.alignment: Qt.AlignHCenter
 
-            Item {
-                Layout.fillWidth: true
-            }
-            Image {
-                Layout.topMargin: 30
-                source: "qrc:/resources/search.svg"
-                Layout.preferredWidth: 20
-                Layout.preferredHeight: 20
-            }
+                   Image{
 
-            Image {
-                Layout.topMargin: 35
-                Layout.rightMargin: 30
-                source: "qrc:/resources/more2.svg"
-                Layout.leftMargin: 10
-                Layout.preferredWidth: 20
-                Layout.preferredHeight: 10
-            }
+
+                       source: "qrc:/resources/pfp.jpg"
+                       Layout.preferredHeight: 70
+                       Layout.preferredWidth: 70
+                       Layout.leftMargin: 20
+
+                    }
+
+
+                   Layout.fillHeight: true
+                   RowLayout
+                   {
+                       Layout.topMargin: 50
+                        Layout.leftMargin: 30
+
+                       Image
+                       {
+                           source: "qrc:/resources/dashboardactive.svg"
+
+                       }
+                   }
+                   RowLayout
+                   {
+                        Layout.leftMargin: 30
+                       Image
+                       {
+                           source: "qrc:/resources/portfolio.svg"
+                           Layout.preferredWidth: 30
+                           Layout.preferredHeight: 30
+
+
+                       }
+                   }
+                   RowLayout
+                   {
+                       Layout.leftMargin: 30
+
+                       Image
+                       {
+                           source: "qrc:/resources/stock.svg"
+
+                       }
+                   }
+                   RowLayout
+                   {
+                       Layout.leftMargin: 30
+
+                       Image
+                       {
+                           source: "qrc:/resources/deposit.svg"
+
+                       }
+                   }
+                   RowLayout
+                   {
+                       Layout.leftMargin: 30
+
+                       Image
+                       {
+                           source: "qrc:/resources/insight.svg"
+
+                       }
+                   }
+                   Rectangle
+                   {
+                       Layout.preferredWidth: 150
+                       Layout.preferredHeight: 1
+                       Layout.leftMargin: 10
+                       color: "#000000"
+                       opacity: 0.3
+                   }
+                   RowLayout
+                   {
+                       Layout.leftMargin: 30
+
+                       Image
+                       {
+                           source: "qrc:/resources/marketStock.svg"
+
+                       }
+                   }
+                   RowLayout
+                   {
+                       Layout.leftMargin: 30
+
+                       Image
+                       {
+                           source: "qrc:/resources/news.svg"
+
+                       }
+                   }
+                   Rectangle
+                   {
+                       Layout.preferredWidth: 150
+                       Layout.preferredHeight: 1
+                       Layout.leftMargin: 10
+                       color: "#000000"
+                       opacity: 0.3
+                   }
+                   RowLayout
+                   {
+                       Layout.leftMargin: 30
+
+                       Image
+                       {
+                           source: "qrc:/resources/help.svg"
+
+                       }
+                   }
+                   RowLayout
+                   {
+                       Layout.leftMargin: 30
+
+                       Image
+                       {
+                           source: "qrc:/resources/settings.svg"
+
+                       }
+                   }
+                   Item
+                   {
+                       Layout.fillHeight: true
+                   }
+
+                   Button
+                   {
+                       Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
+                       background: Text
+                       {
+                           text: "Back To Finbank"
+                           font.bold: true
+                           font.pixelSize: 15
+                       }
+                   }
+
+               }
+           }
+           ColumnLayout
+           {
+               Layout.fillHeight: true
+               Layout.fillWidth: true
+               spacing: 0
+
+               Rectangle
+               {
+                   Layout.preferredHeight: 70
+                   Layout.fillWidth: true
+                   visible: root.isPhone
+
+                   RowLayout
+                   {
+                       anchors.fill: parent
+
+                       Image
+                       {
+                           visible: root.isPhone
+                           Layout.leftMargin: 20
+                           Layout.topMargin: 10
+                           source: "qrc:/resources/pfp.jpg"
+                           Layout.preferredWidth: 60
+                           Layout.preferredHeight: 60
+                       }
+                       Item
+                       {
+                           Layout.fillWidth: true
+                       }
+
+
+                       Image{
+                           Layout.alignment: Qt.AlignRight
+                           id: notification
+                           Layout.preferredHeight: 30
+                           Layout.preferredWidth: 30
+                           Layout.rightMargin: 20
+                           source: "qrc:/resources/mingcute--notification-line.svg"
+                           Rectangle {
+
+                               width: 16
+                               height: 16
+                               radius: width / 2
+                               color: "red"
+                               anchors.right: parent.right
+                               Text {
+                                   text: "6"
+                                   color: "white"
+                                   font.pixelSize: 12
+                                   anchors.centerIn: parent
+                                   }
+                               }
+                       }
+
+                   }
+               }
+
+               Rectangle
+               {
+                   Layout.fillWidth: true
+                   Layout.preferredHeight: 100
+                   color: "white"
+                   RowLayout{
+                       anchors.fill: parent
+                    Text{
+                       visible: !root.isPhone
+                        text: "Hey, Bobur"
+                        Layout.alignment: Qt.AlignVCenter
+                        font.bold: true
+                        font.pixelSize: 17
+                   }
+
+                   Rectangle {
+                       id: searchRowRect2
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 50
+                        Layout.leftMargin: 20
+                        Layout.rightMargin: 20
+                       color: "#FDFDFD"
+                       border.width: 1
+                       border.color: "#F7F7F7"
+                       radius: 5
+
+                       TextField {
+                           id: textField2
+                           anchors.fill: parent
+                           leftPadding: 50
+                           color: "black"  // Sets the text color to black
+
+                           background: Rectangle {
+                               color: "transparent"
+                           }
+
+                           onTextChanged: {
+                               searchRow2.visible = text.length === 0 && !activeFocus;  // Hide when typing
+                           }
+
+                           onFocusChanged: {
+                               searchRow2.visible = text.length === 0 && !activeFocus;  // Hide when focused, show when unfocused and empty
+                           }
+                       }
+
+                       RowLayout {
+                           id: searchRow2
+                           anchors.fill: parent
+                           visible: textField.text.length === 0
+                           Image {
+                               source: "qrc:/resources/search.svg"
+                               Layout.preferredWidth: 20
+                               Layout.preferredHeight: 20
+                               Layout.alignment: Qt.AlignVCenter
+                               Layout.leftMargin: 10
+                           }
+
+                           Text {
+                               Layout.alignment: Qt.AlignVCenter
+                               text: "Search"
+                               color: "grey"
+                           }
+
+                           Item {
+                               Layout.fillWidth: true
+                           }
+
+                           Rectangle {
+                               Layout.alignment: Qt.AlignVCenter
+                               Layout.preferredHeight: 35
+                               Layout.preferredWidth: 35
+                               Layout.rightMargin: 10
+                               color: "#F3F3F3"
+                               radius: 5
+
+                               RowLayout {
+                                   anchors.fill: parent
+
+                                   Image {
+                                       Layout.preferredHeight: 15
+                                       Layout.preferredWidth: 15
+                                       source: "qrc:/resources/command.svg"
+                                       Layout.leftMargin: 5
+                                   }
+
+                                   Text {
+                                       text: "F"
+                                       color: "#9D9D9D"
+                                       Layout.rightMargin: 15
+                                   }
+                               }
+                           }
+                       }
+                   }
+                   Item{
+                   Layout.fillWidth: true
+                   }
+
+                   Image{
+                    source: "qrc:/resources/menu3.svg"
+                    Layout.rightMargin: 30
+                    visible: !root.isPhone
+                   }
+                   }
+               }
+
+
+               Rectangle
+               {
+                   color: "#F9F9F9"
+                   Layout.fillHeight: true
+                   Layout.fillWidth: true
+
+                   ColumnLayout
+                   {
+                       anchors.fill: parent
+                       anchors.leftMargin: 30
+
+
+                       Rectangle
+                       {
+                           Layout.fillWidth: true
+                           Layout.preferredHeight: root.isPhone ? 150 : 300
+
+                           color: "transparent"
+
+                           PortfolioValue
+                           {
+                               anchors.fill: parent
+                               isPhoneRef: root.isPhone
+                               screenCheckpoint1Ref: root.screenCheckpoint1
+                           }
+                       }
+
+                       Text
+                       {
+                           text: "Trade"
+                           font.pixelSize: 25
+                           font.bold: true
+                           Layout.topMargin: 15
+                       }
+
+                       Text
+                       {
+                           text: "RECENTLY VIEWED"
+                           color: "grey"
+                           font.bold: true
+                       }
+
+
+                       Flickable {
+                           Layout.preferredWidth: parent.width
+                           Layout.preferredHeight: 200
+                           contentWidth: rowLayout.implicitWidth
+                           contentHeight: 200
+                           clip: true
+
+                           RowLayout {
+                               id: rowLayout
+                               anchors.fill: parent
+                               spacing: 20
+
+                               Rectangle {
+                                   Layout.preferredHeight: parent.height
+                                   Layout.preferredWidth: 130
+                                   border.width: 1
+                                   border.color: "lightgrey"
+                                   radius: 10
+
+                                   ColumnLayout {
+                                       anchors.fill: parent
+
+                                       Image {
+                                           Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+                                           Layout.topMargin: 30
+                                           source: "qrc:/resources/teslaIcon2.webp"
+                                           Layout.preferredWidth: 50
+                                           Layout.preferredHeight: 50
+                                           Layout.bottomMargin: 20
+                                       }
+
+                                       Text {
+                                           Layout.alignment: Qt.AlignHCenter
+                                           text: "TSLA"
+                                           color: "black"
+                                           font.bold: true
+                                           font.pixelSize: 15
+                                       }
+
+                                       Text {
+                                           Layout.alignment: Qt.AlignHCenter
+                                           text: "302.41"
+                                           color: "black"
+                                           font.pixelSize: 13
+                                       }
+
+                                       Item {
+                                           Layout.fillHeight: true
+                                       }
+
+                                       Rectangle {
+                                           Layout.preferredWidth: parent.width * 0.7
+                                           Layout.preferredHeight: 30
+                                           Layout.bottomMargin: 15
+                                           Layout.alignment: Qt.AlignHCenter
+                                           radius: 20
+                                           color: "#F8D0D4"
+
+                                           Text {
+                                               anchors.centerIn: parent
+                                               text: "-8.51%"
+                                               color: "#D80E1F"
+                                           }
+                                       }
+                                   }
+                               }
+                               Rectangle
+                                                          {
+                                                              Layout.preferredHeight: parent.height
+                                                              Layout.preferredWidth: 130
+                                                              border.width: 1
+                                                              border.color: "lightgrey"
+                                                              radius: 10
+                                                              ColumnLayout
+                                                              {
+                                                                  anchors.fill: parent
+                                                                  Image
+                                                                  {
+                                                                      Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+                                                                      Layout.topMargin: 30
+
+                                                                      source: "qrc:/resources/apple.png"
+                                                                      Layout.preferredWidth: 50
+                                                                      Layout.preferredHeight: 50
+                                                                      Layout.bottomMargin: 20
+                                                                  }
+
+                                                                  Text
+                                                                  {
+                                                                      Layout.alignment: Qt.AlignHCenter
+                                                                      text: "AAPL"
+                                                                      color: "black"
+                                                                      font.bold: true
+                                                                      font.pixelSize: 15
+
+                                                                  }
+                                                                  Text
+                                                                  {
+                                                                      Layout.alignment: Qt.AlignHCenter
+                                                                      text: "248.19"
+                                                                      color: "black"
+
+                                                                      font.pixelSize: 13
+
+                                                                  }
+                                                                  Item
+                                                                  {
+                                                                      Layout.fillHeight: true
+                                                                  }
+                                                                  Rectangle
+                                                                  {
+                                                                      Layout.preferredWidth: parent.width * 0.7
+                                                                      Layout.preferredHeight: 30
+                                                                      Layout.bottomMargin: 15
+                                                                      Layout.alignment: Qt.AlignHCenter
+                                                                      radius: 20
+                                                                      color: "#CEE9D9"
+
+                                                                      Text
+                                                                      {
+                                                                          anchors.centerIn: parent
+                                                                          text: "-8.51%"
+                                                                          color: "#018740"
+                                                                      }
+                                                                  }
+
+
+                                                              }
+
+
+                                                          }
+                                                          Rectangle
+                                                          {
+                                                              Layout.preferredHeight: parent.height
+                                                              Layout.preferredWidth: 130
+                                                              border.width: 1
+                                                              border.color: "lightgrey"
+                                                              radius: 10
+                                                              ColumnLayout
+                                                              {
+                                                                  anchors.fill: parent
+                                                                  Image
+                                                                  {
+                                                                      Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+                                                                      Layout.topMargin: 30
+
+                                                                      source: "qrc:/resources/nvidia.png"
+                                                                      Layout.preferredWidth: 50
+                                                                      Layout.preferredHeight: 50
+                                                                      Layout.bottomMargin: 20
+                                                                  }
+
+                                                                  Text
+                                                                  {
+                                                                      Layout.alignment: Qt.AlignHCenter
+                                                                      text: "NVDA"
+                                                                      color: "black"
+                                                                      font.bold: true
+                                                                      font.pixelSize: 15
+
+                                                                  }
+                                                                  Text
+                                                                  {
+                                                                      Layout.alignment: Qt.AlignHCenter
+                                                                      text: "128.22"
+                                                                      color: "black"
+
+                                                                      font.pixelSize: 13
+
+                                                                  }
+                                                                  Item
+                                                                  {
+                                                                      Layout.fillHeight: true
+                                                                  }
+                                                                  Rectangle
+                                                                  {
+                                                                      Layout.preferredWidth: parent.width * 0.7
+                                                                      Layout.preferredHeight: 30
+                                                                      Layout.bottomMargin: 15
+                                                                      Layout.alignment: Qt.AlignHCenter
+                                                                      radius: 20
+                                                                      color: "#F8D0D4"
+
+                                                                      Text
+                                                                      {
+                                                                          anchors.centerIn: parent
+                                                                          text: "-1.58%"
+                                                                          color: "#D80E1F"
+                                                                      }
+                                                                  }
+
+
+                                                              }
+
+
+                                                          }
+                                                          Rectangle
+                                                          {
+                                                              Layout.preferredHeight: parent.height
+                                                              Layout.preferredWidth: 130
+                                                              border.width: 1
+                                                              border.color: "lightgrey"
+                                                              radius: 10
+                                                              ColumnLayout
+                                                              {
+                                                                  anchors.fill: parent
+                                                                  Image
+                                                                  {
+                                                                      Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+                                                                      Layout.topMargin: 30
+
+                                                                      source: "qrc:/resources/apple.png"
+                                                                      Layout.preferredWidth: 50
+                                                                      Layout.preferredHeight: 50
+                                                                      Layout.bottomMargin: 20
+                                                                  }
+
+                                                                  Text
+                                                                  {
+                                                                      Layout.alignment: Qt.AlignHCenter
+                                                                      text: "AAPL"
+                                                                      color: "black"
+                                                                      font.bold: true
+                                                                      font.pixelSize: 15
+
+                                                                  }
+                                                                  Text
+                                                                  {
+                                                                      Layout.alignment: Qt.AlignHCenter
+                                                                      text: "302.41"
+                                                                      color: "black"
+
+                                                                      font.pixelSize: 13
+
+                                                                  }
+                                                                  Item
+                                                                  {
+                                                                      Layout.fillHeight: true
+                                                                  }
+                                                                  Rectangle
+                                                                  {
+                                                                      Layout.preferredWidth: parent.width * 0.7
+                                                                      Layout.preferredHeight: 30
+                                                                      Layout.bottomMargin: 15
+                                                                      Layout.alignment: Qt.AlignHCenter
+                                                                      radius: 20
+                                                                      color: "#F8D0D4"
+
+                                                                      Text
+                                                                      {
+                                                                          anchors.centerIn: parent
+                                                                          text: "-8.51%"
+                                                                          color: "#D80E1F"
+                                                                      }
+                                                                  }
+
+
+                                                              }
+
+
+                                                          }
+
+                                                          Rectangle
+                                                          {
+                                                              Layout.preferredHeight: parent.height
+                                                              Layout.preferredWidth: 130
+                                                              border.width: 1
+                                                              border.color: "lightgrey"
+                                                              radius: 10
+                                                              ColumnLayout
+                                                              {
+                                                                  anchors.fill: parent
+                                                                  Image
+                                                                  {
+                                                                      Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+                                                                      Layout.topMargin: 30
+
+                                                                      source: "qrc:/resources/apple.png"
+                                                                      Layout.preferredWidth: 50
+                                                                      Layout.preferredHeight: 50
+                                                                      Layout.bottomMargin: 20
+                                                                  }
+
+                                                                  Text
+                                                                  {
+                                                                      Layout.alignment: Qt.AlignHCenter
+                                                                      text: "AAPL"
+                                                                      color: "black"
+                                                                      font.bold: true
+                                                                      font.pixelSize: 15
+
+                                                                  }
+                                                                  Text
+                                                                  {
+                                                                      Layout.alignment: Qt.AlignHCenter
+                                                                      text: "302.41"
+                                                                      color: "black"
+
+                                                                      font.pixelSize: 13
+
+                                                                  }
+                                                                  Item
+                                                                  {
+                                                                      Layout.fillHeight: true
+                                                                  }
+                                                                  Rectangle
+                                                                  {
+                                                                      Layout.preferredWidth: parent.width * 0.7
+                                                                      Layout.preferredHeight: 30
+                                                                      Layout.bottomMargin: 15
+                                                                      Layout.alignment: Qt.AlignHCenter
+                                                                      radius: 20
+                                                                      color: "#F8D0D4"
+
+                                                                      Text
+                                                                      {
+                                                                          anchors.centerIn: parent
+                                                                          text: "-8.51%"
+                                                                          color: "#D80E1F"
+                                                                      }
+                                                                  }
+
+
+                                                              }
+
+
+                                                          }
+                                                          Rectangle
+                                                          {
+                                                              Layout.preferredHeight: parent.height
+                                                              Layout.preferredWidth: 130
+                                                              border.width: 1
+                                                              border.color: "lightgrey"
+                                                              radius: 10
+                                                              ColumnLayout
+                                                              {
+                                                                  anchors.fill: parent
+                                                                  Image
+                                                                  {
+                                                                      Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+                                                                      Layout.topMargin: 30
+
+                                                                      source: "qrc:/resources/apple.png"
+                                                                      Layout.preferredWidth: 50
+                                                                      Layout.preferredHeight: 50
+                                                                      Layout.bottomMargin: 20
+                                                                  }
+
+                                                                  Text
+                                                                  {
+                                                                      Layout.alignment: Qt.AlignHCenter
+                                                                      text: "AAPL"
+                                                                      color: "black"
+                                                                      font.bold: true
+                                                                      font.pixelSize: 15
+
+                                                                  }
+                                                                  Text
+                                                                  {
+                                                                      Layout.alignment: Qt.AlignHCenter
+                                                                      text: "302.41"
+                                                                      color: "black"
+
+                                                                      font.pixelSize: 13
+
+                                                                  }
+                                                                  Item
+                                                                  {
+                                                                      Layout.fillHeight: true
+                                                                  }
+                                                                  Rectangle
+                                                                  {
+                                                                      Layout.preferredWidth: parent.width * 0.7
+                                                                      Layout.preferredHeight: 30
+                                                                      Layout.bottomMargin: 15
+                                                                      Layout.alignment: Qt.AlignHCenter
+                                                                      radius: 20
+                                                                      color: "#F8D0D4"
+
+                                                                      Text
+                                                                      {
+                                                                          anchors.centerIn: parent
+                                                                          text: "-8.51%"
+                                                                          color: "#D80E1F"
+                                                                      }
+                                                                  }
+
+
+                                                              }
+
+
+                                                          }
+
+
+
+                               // Repeat for other stock cards...
+
+                           }
+                       }
+
+
+                           Text {
+                               font.pixelSize: 20
+                               font.bold: true
+                               Layout.topMargin: 30
+                               text: qsTr("Favorites")
+                           }
+
+                           Flickable {
+                               Layout.fillWidth:true
+                               Layout.preferredHeight: 130
+                               contentWidth: rowLayout2.width // Ensure content width is set
+                               clip: true // Clips overflowing content
+
+                               Row {
+                                   id: rowLayout2
+                                   spacing: 10
+                                   height: parent.height
+
+                                   Rectangle {
+                                       width: 170
+                                       height: parent.height
+                                       radius: 20
+                                       gradient: Gradient {
+                                           GradientStop { position: 0.0; color: "#FCEBEB" }
+                                           GradientStop { position: 1.0; color: "#FEF7F8" }
+                                       }
+                                       Column {
+                                           anchors.fill: parent
+                                           anchors.margins: 20
+
+                                           Text { text: "SPX"; font.pixelSize: 23; font.bold: true }
+                                           Text { text: "-8.51%"; color: "#D80E1F"; font.bold: true }
+                                           Text { text: "5967.00" }
+                                       }
+                                   }
+
+                                   Rectangle {
+                                       width: 170
+                                       height: parent.height
+                                       radius: 20
+                                       gradient: Gradient {
+                                           GradientStop { position: 0.0; color: "#EBF6F0" }
+                                           GradientStop { position: 1.0; color: "#F6FBF9" }
+                                       }
+                                       Column {
+                                           anchors.fill: parent
+                                           anchors.margins: 20
+
+                                           Text { text: "AAPL"; font.pixelSize: 23; font.bold: true }
+                                           Text { text: "+0.44%"; color: "#018740"; font.bold: true }
+                                           Text { text: "248.19" }
+                                       }
+                                   }
+
+                                   Rectangle {
+                                       width: 170
+                                       height: parent.height
+                                       radius: 20
+                                       gradient: Gradient {
+                                           GradientStop { position: 0.0; color: "#FCEBEB" }
+                                           GradientStop { position: 1.0; color: "#FEF7F8" }
+                                       }
+                                       Column {
+                                           anchors.fill: parent
+                                           anchors.margins: 20
+
+                                           Text { text: "AMZN"; font.pixelSize: 23; font.bold: true }
+                                           Text { text: "-0.95%"; color: "#D80E1F"; font.bold: true }
+                                           Text { text: "210.68" }
+                                       }
+                                   }
+
+                                   Rectangle {
+                                       width: 170
+                                       height: parent.height
+                                       radius: 20
+                                       gradient: Gradient {
+                                           GradientStop { position: 0.0; color: "#FCEBEB" }
+                                           GradientStop { position: 1.0; color: "#FEF7F8" }
+                                       }
+                                       Column {
+                                           anchors.fill: parent
+                                           anchors.margins: 20
+
+                                           Text { text: "GOOGL"; font.pixelSize: 23; font.bold: true }
+                                           Text { text: "-1.09%"; color: "#D80E1F"; font.bold: true }
+                                           Text { text: "177.30" }
+                                       }
+                                   }
+                               }
+
+                               // Optional Scrollbar
+                               ScrollBar.horizontal: ScrollBar {
+                                   policy: ScrollBar.AsNeeded
+                               }
+                           }
+                           Item
+                           {
+                               Layout.fillHeight: true
+                           }
+
+
+                   }
+               }
+           }
+
+
         }
 
-        RowLayout {
-            Layout.alignment: Qt.AlignHCenter
-            Layout.topMargin: 50
-            Text {
-                text: "$"
-                font.pixelSize: root.isTablet ? 30 : (root.isPhone ? 20 : 30)
-            }
-            Text {
-                text: "1914"
-                font.pixelSize: root.isTablet ? 55 :(root.isPhone ? 30 : 50)
-                font.bold: true
-            }
-            Text {
-                text: "71"
-                font.pixelSize: root.isTablet ? 30 : (root.isPhone ? 20 : 30)
-            }
-        }
-
-        Item {
-            Layout.preferredHeight: 5
-        }
-
-        RowLayout {
-            Layout.alignment: Qt.AlignHCenter
-            spacing: 10
-            Text {
-                text: "USD"
-                font.bold: true
-                font.pixelSize: 25
-            }
-            Text {
-                text: "EUR"
-                font.pixelSize: 25
-            }
-            Text {
-                text: "BTC"
-                font.pixelSize: 25
-            }
-            Text {
-                text: "ETH"
-                font.pixelSize: 25
-            }
-            Image {
-                Layout.topMargin: 10
-                source: "qrc:/resources/more2.svg"
-                Layout.preferredWidth: 20
-                Layout.preferredHeight: 10
-            }
-        }
-
-        Item {
-            Layout.preferredHeight: 40
-        }
-
-
-
-        Item {
-            Layout.fillHeight: true
-        }
+    NavbarMobile
+    {
+        isPhone: root.isPhone
+        stackViewRef: root.stackViewRef
+        usernameRef: root.username
+        fullName: root.fullName
     }
-
 }
 

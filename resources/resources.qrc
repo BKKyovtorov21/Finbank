@@ -131,5 +131,23 @@
         <file>config.json</file>
         <file>command.svg</file>
         <file>debit1.png</file>
+        <file>mastercard.svg</file>
+        <file>sim.svg</file>
+        <file>teslaIcon.jpg</file>
+        <file>menu2.svg</file>
+        <file>notify2.svg</file>
+        <file>teslaIcon2.webp</file>
+        <file>visa2.svg</file>
+        <file>nvidia.png</file>
+        <file>homeNavbarInactive.svg</file>
+        <file>homeNavbar.svg</file>
+        <file>walletInactive.svg</file>
+        <file>walletActive.svg</file>
+        <file>transactionActive.svg</file>
+        <file>transactionInactive.svg</file>
+        <file>trading.svg</file>
+        <file>visa3.svg</file>
+        <file>more4.svg</file>
+        <file>stocks.json</file>
     </qresource>
 </RCC>

@@ -1,7 +1,13 @@
 #include "searchrecipent.hpp"
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QDebug>
 SearchRecipent::SearchRecipent(QObject *parent)
     : QObject{parent}
 {
+    loadStockData();
 }
 
 void SearchRecipent::SearchUser(const QString& partialInput)
@@ -38,3 +44,45 @@ void SearchRecipent::SearchUser(const QString& partialInput)
     }
 }
 
+void SearchRecipent::loadStockData() {
+    QFile file(":/resources/stocks.json");  // Ensure the path is correct!
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug() << "Failed to open JSON file:" << file.errorString();
+        return;
+    }
+
+    QByteArray jsonData = file.readAll();
+    file.close();
+
+    QJsonDocument document = QJsonDocument::fromJson(jsonData);
+    if (!document.isArray()) {
+        qDebug() << "Invalid JSON format!";
+        return;
+    }
+
+    QJsonArray jsonArray = document.array();
+    for (const QJsonValue &value : jsonArray) {
+        if (value.isObject()) {
+            QJsonObject obj = value.toObject();
+
+            qDebug() << obj["name"].toString() << " " << obj["name"].toString();
+            stockList.append({
+                {"name", obj["name"].toString()},
+                {"image", obj["image"].toString()}
+
+
+            });
+        }
+    }
+}
+void SearchRecipent::searchStock(const QString &partialInput) {
+    QString input = partialInput.toLower();
+    for (const QVariantMap &stock : stockList) {
+        QString name = stock["name"].toString();
+        QString image = stock["image"].toString();
+
+        if (name.toLower().startsWith(input)) {  // Changed from contains() to startsWith()
+            emit stockFound(name, image);
+        }
+    }
+}

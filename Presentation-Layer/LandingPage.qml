@@ -26,6 +26,12 @@ Window {
         replaceEnter: null
         replaceExit: null
 
+        onCurrentItemChanged: {
+                if (currentItem) {
+                    currentItem.forceActiveFocus();
+                }
+            }
+
     }
         ColumnLayout {
             property var stackViewRef: stackView

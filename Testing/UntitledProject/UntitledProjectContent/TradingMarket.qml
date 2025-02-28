@@ -75,24 +75,7 @@ Item {
             }
 
             TextField {
-                Layout.leftMargin: 50
-                background: Rectangle
-                {
-                    color: "#4dececec"
-                }
-
-                Image {
-                    id: searchIcon
-                    fillMode: Image.PreserveAspectFit
-
-
-                    source: "resources/search.svg"
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    anchors.leftMargin: 5
-                }
                 id: searchField
-
                 Layout.alignment: Qt.AlignVCenter
                 Layout.preferredWidth: 500
                 Layout.preferredHeight: 50
@@ -102,7 +85,65 @@ Item {
                 font.pixelSize: 18
                 color: "black"
 
-                leftPadding: 30 // Adds space around the text, adjusting the padding as needed
+                leftPadding: 30
+
+                background: Rectangle {
+                    color: "#4dececec"
+                }
+
+                Image {
+                    id: searchIcon
+                    fillMode: Image.PreserveAspectFit
+                    source: "resources/search.svg"
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: 5
+                }
+
+                // Popup for search results
+                Popup {
+                    id: searchResults
+                    width: parent.width
+                    x: searchField.x  - searchField.width + 100// Position horizontally aligned with searchField
+                    y: searchField.y + searchField.height
+                    height: 200
+
+                    modal: false
+                    focus: true
+
+                    background: Rectangle {
+                        color: "white"
+                        border.color: "grey"
+                        border.width: 1
+                    }
+
+                    ColumnLayout {
+                        anchors.fill: parent
+                        Repeater {
+                            model: ["AAPL", "GOOG", "MSFT", "TSLA"] // Replace with real search results
+                            delegate: Text {
+                                text: modelData
+                                font.pixelSize: 16
+                                padding: 10
+                                width: parent.width
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onClicked: {
+                                        searchField.text = modelData
+                                        searchResults.close()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                onTextChanged: {
+                    if (text.length > 0)
+                        searchResults.open()
+                    else
+                        searchResults.close()
+                }
             }
             Item
             {
@@ -390,6 +431,33 @@ Item {
                 RowLayout
                 {
                     anchors.fill: parent
+                    spacing: 0
+                    Rectangle
+                    {
+                        Layout.fillHeight: true
+                        Layout.preferredWidth: 200
+                        border.width: 1
+                        border.color: "lightgrey"
+
+                        ColumnLayout
+                        {
+                            anchors.fill: parent
+
+                            ComboBox {
+                                    id: dropdown
+                                    Layout.fillWidth: true
+                                    Layout.preferredHeight: 50
+                                    model: ["Portfolio", "", "Option 3"]
+
+                                    onActivated: console.log("Selected:", currentText)
+                                }
+                            Item
+                            {
+                                Layout.fillHeight: true
+                            }
+                        }
+                    }
+
                     Rectangle
                     {
                         Layout.fillWidth: true
@@ -963,11 +1031,29 @@ Item {
                        border.color: "#F7F7F7"
                        radius: 5
 
+                       TextField {
+                           id: textField
+                           anchors.fill: parent
+                           leftPadding: 50
+                           color: "black"  // Sets the text color to black
+
+                           background: Rectangle {
+                               color: "transparent"
+                           }
+
+                           onTextChanged: {
+                               searchRow.visible = text.length === 0 && !activeFocus;  // Hide when typing
+                           }
+
+                           onFocusChanged: {
+                               searchRow.visible = text.length === 0 && !activeFocus;  // Hide when focused, show when unfocused and empty
+                           }
+                       }
+
                        RowLayout {
                            id: searchRow
                            anchors.fill: parent
                            visible: textField.text.length === 0
-
                            Image {
                                source: "resources/search.svg"
                                Layout.preferredWidth: 20

@@ -1,9 +1,10 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import QtQuick.Timeline
 import QtCharts
+
 pragma ComponentBehavior: Bound
+
 Item {
     id: rootdashboard
     property var stackViewRef
@@ -121,8 +122,8 @@ Item {
             }
             Rectangle {
                 id: searchRowRect
-                Layout.preferredWidth: rootdashboard.test2 ? 250 : (rootdashboard.test ? 300 : 550)
-                Layout.preferredHeight: 50
+Layout.preferredWidth: rootdashboard.test2 ? 250 : (rootdashboard.test ? 300 : 550)
+Layout.preferredHeight: 50
                 color: "#FDFDFD"
                 border.width: 1
                 border.color: "#F7F7F7"
@@ -264,7 +265,7 @@ Item {
                     anchors.leftMargin: -96
                     anchors.top: parent.top
                     anchors.topMargin: 17
-                    text: rootdashboard.fullName
+                    text: "Boyan Kyovtorov"
                 }
 
                 Text {
@@ -275,7 +276,7 @@ Item {
                     anchors.top: fullname.bottom
                     anchors.topMargin: 10
                     anchors.left: fullname.left
-                    text: "@" + rootdashboard.usernameRef
+                    text: "@kyovtorov"
                 }
             }
 
@@ -421,6 +422,7 @@ Item {
                     border.color: "#727272"
                     Layout.preferredHeight: 186
                     Layout.preferredWidth: 420
+                    Layout.leftMargin: 10
 
                     radius: 10
 
@@ -863,12 +865,15 @@ Item {
 
 
                     ChartView {
+
+
                         id: chart
                         title: "Money Flow"
                         anchors.fill: parent
                         legend.alignment: Qt.AlignTop
                         backgroundColor: "transparent"
                         antialiasing: true
+
 
                         // Custom Background Stripes
                         Rectangle {
@@ -914,48 +919,8 @@ Item {
                             }
                         }
 
-                        // Overlay to create rounded bars
-                        Repeater {
-                            model: 12  // For each month
-                            Rectangle {
-                                width: chart.width / 14
-                                height: (mySeries.barSets[0].values[index] + mySeries.barSets[1].values[index]) / 20000 * chart.height
-                                radius: width / 2
-                                color: "#0D4428"
-                                opacity: 0.9
-                                anchors.horizontalCenter: chart.left
-                                y: chart.height - height
-                            }
-                        }
-
                         // Tooltip for Hover
-                        Rectangle {
-                            id: tooltip
-                            visible: false
-                            width: 120
-                            height: 50
-                            radius: 8
-                            color: "black"
-                            opacity: 0.85
-                            Text {
-                                id: tooltipText
-                                color: "white"
-                                anchors.centerIn: parent
-                            }
-                        }
 
-                        MouseArea {
-                            anchors.fill: parent
-                            hoverEnabled: true
-                            onPositionChanged: {
-                                var index = Math.floor(mouseX / (chart.width / 12)); // Find the hovered month
-                                tooltipText.text = "Income: $" + mySeries.barSets[0].values[index] + "\nExpense: $" + mySeries.barSets[1].values[index];
-                                tooltip.x = mouseX - tooltip.width / 2;
-                                tooltip.y = mouseY - 60;
-                                tooltip.visible = true;
-                            }
-                            onExited: tooltip.visible = false
-                        }
                     }
 
                 }
@@ -996,7 +961,7 @@ ColumnLayout
 
                         Image {
                             Layout.preferredHeight: rootdashboard.test2 ? 95 : (rootdashboard.test ? 110 : 140)
-                            Layout.fillWidth: true
+                            Layout.preferredWidth: rootdashboard.test2 ? 150 : (rootdashboard.test ? 190 : 250)
                             Layout.margins: 20
                             Layout.alignment: Qt.AlignHCenter
                             source: "qrc:/resources/minimalistbg1.png"
@@ -1017,8 +982,8 @@ ColumnLayout
                                             text: "5435 2735 0037 0015"
                                             font.letterSpacing: 2
                                             color: "white"
-                                            Layout.leftMargin: 10
-                                            font.pixelSize: rootdashboard.test2 ? 11 : 14
+                                            Layout.leftMargin: rootdashboard.test2 ? 5 : 10
+                                            font.pixelSize: rootdashboard.test2 ? 9 : 14
                                             Layout.bottomMargin: 5
                                         }
 
@@ -1039,7 +1004,7 @@ ColumnLayout
                                             {
                                                 visible: !rootdashboard.test2
                                                 Layout.alignment: Qt.AlignRight
-                                                source : "qrc:/resources/visa.svg"
+                                                source : "qrc:/resources/visa3.svg"
                                                 Layout.rightMargin: 15
                                                 Layout.bottomMargin: 5
 
@@ -1062,7 +1027,7 @@ ColumnLayout
                             {
                                 text: "$4,654.00"
                                 Layout.leftMargin: 15
-                                font.pixelSize: 20
+                                font.pixelSize: rootdashboard.test2 ? 14 : 20
                                 font.bold: true
                             }
                             Text
@@ -1373,13 +1338,13 @@ ColumnLayout
                 source: "qrc:/resources/mingcute--notification-line.svg"
             }
             Rectangle {
-                Layout.preferredWidth: 16
-                Layout.preferredHeight: 16
+                width: 16
+                height: 16
                 radius: width / 2
                 color: "red"
                 Layout.leftMargin: -20
                 Layout.topMargin: -20
-                Layout.margins: 15
+                anchors.margins: 15
                 Text {
                     text: "6"
                     color: "white"
@@ -1428,8 +1393,8 @@ ColumnLayout
                 color: "#144618"
             }
                 Rectangle {
-                    Layout.preferredWidth: 50
-                    Layout.preferredHeight: 50
+                    width: 50
+                    height: 50
                     radius: 25
                     color: "lightgreen"
                     Rectangle {
@@ -1483,7 +1448,7 @@ ColumnLayout
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: 13
 
-                        source: "qrc:/resources/visa.svg"
+                        source: "qrc:/resources/visa3.svg"
 
                     }
                     Image
@@ -1945,6 +1910,14 @@ ColumnLayout
                 Layout.fillHeight: true
             }
         }
+    }
+
+    NavbarMobile
+    {
+        isPhone: rootdashboard.isPhone
+        stackViewRef: rootdashboard.stackViewRef
+        usernameRef: rootdashboard.usernameRef
+        fullName: rootdashboard.fullName
     }
 }
 
