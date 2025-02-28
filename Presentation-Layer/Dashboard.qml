@@ -7,7 +7,6 @@ pragma ComponentBehavior: Bound
 
 Item {
     id: rootdashboard
-    property var stackViewRef
     width: Screen.width
     height: Screen.height
     visible: true
@@ -41,9 +40,6 @@ Item {
         balanceAnimation.running = true
         incomeAnimation.running = true
         expenseAnimation.running = true
-        pie1Animation.running = true
-        pie2Animation.running = true
-
                 balance = dashboard.getDbVariable(rootdashboard.usernameRef, "balance");
                 income = dashboard.getDbVariable(rootdashboard.usernameRef, "income");
                 expenses = dashboard.getDbVariable(rootdashboard.usernameRef, "expenses");
@@ -341,16 +337,10 @@ Layout.preferredHeight: 50
                 {
                     anchors.fill: parent
                     onClicked:{
-                        if (rootdashboard.stackViewRef) {
-                                    rootdashboard.stackViewRef.push(Qt.resolvedUrl("Transactions.qml"), {
-                                        username: rootdashboard.usernameRef,
-                                        fullName: rootdashboard.fullName,
-                                        stackViewRef: rootdashboard.stackViewRef
-                                    });
-                                }
-                        else {
-                            console.error("stackViewRef is undefined in SignIn.qml");
-                        }
+                        contentLoader.setSource("Transactions.qml", {
+                                            username: rootdashboard.usernameRef,
+                                            fullName: rootdashboard .fullName
+                                        })
                     }
                 }
             }
@@ -369,16 +359,10 @@ Layout.preferredHeight: 50
                 {
                     anchors.fill: parent
                     onClicked:{
-                        if (rootdashboard.stackViewRef) {
-                                    rootdashboard.stackViewRef.push(Qt.resolvedUrl("TradingDashboard.qml"), {
-                                        username: rootdashboard.usernameRef,
-                                        fullName: rootdashboard.fullName,
-                                        stackViewRef: rootdashboard.stackViewRef
-                                    });
-                                }
-                        else {
-                            console.error("stackViewRef is undefined in SignIn.qml");
-                        }
+                        contentLoader.setSource("TradingDashboard.qml", {
+                                            username: rootdashboard.usernameRef,
+                                            fullName: rootdashboard .fullName
+                                        })
                     }
                 }
             }
@@ -1915,7 +1899,6 @@ ColumnLayout
     NavbarMobile
     {
         isPhone: rootdashboard.isPhone
-        stackViewRef: rootdashboard.stackViewRef
         usernameRef: rootdashboard.usernameRef
         fullName: rootdashboard.fullName
     }

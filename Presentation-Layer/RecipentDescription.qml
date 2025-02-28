@@ -667,12 +667,10 @@ Item {
                     }
                     onClicked:
                     {
-                        if (root.stackViewRef) {
-                                    root.stackViewRef.pop();
-                                }
-                        else {
-                            console.error("stackViewRef is undefined in SignIn.qml");
-                        }
+                        contentLoader.setSource("SendMoney.qml", {
+                                            username: root.username,
+                                            fullName: root.fullName
+                                        })
                     }
                 }
                 Button {
@@ -693,16 +691,10 @@ Item {
                         color: "white"
                     }
                     onClicked: {
-                        if (root.stackViewRef) {
-                                    root.stackViewRef.push(Qt.resolvedUrl("TransferType.qml"), {
-                                        username: root.username,
-                                        fullName: root.fullName,
-                                        stackViewRef: root.stackViewRef
-                                    });
-                                }
-                        else {
-                            console.error("stackViewRef is undefined in SignIn.qml");
-                        }
+                        contentLoader.setSource("TransferType.qml", {
+                                            username: root.username,
+                                            fullName: root.fullName
+                                        })
 
                             }
                 }

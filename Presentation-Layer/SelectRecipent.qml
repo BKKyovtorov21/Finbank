@@ -43,7 +43,6 @@ Item {
                     "fullName": firstname + " " + lastname,
                     "email": email,
                     "pfp": pfp,
-                    // Dynamic checking for phone screen
                     "isPhone": Qt.binding(function() { return root.isPhone; })
                 });
                 if (userInstance) {
@@ -51,18 +50,25 @@ Item {
                     root.foundUsers.push(userInstance);
 
                     userInstance.onClicked.connect(function() {
-                        if (root.stackViewRef) {
-                                    root.stackViewRef.push(Qt.resolvedUrl("SendMoney.qml"), {
-                                        username: root.username,
-                                        fullName: root.fullName,
-                                        stackViewRef: root.stackViewRef
-                                    });
-                                }
-                            else {
-                                console.error("stackViewRef is undefined in SignIn.qml");
-                            }
-                        }
-                    );
+                        // Set the recipient's data when the user is clicked
+
+
+                        // Load the SendMoney.qml and pass the data
+                        contentLoader.setSource("SendMoney.qml");
+                        contentLoader.item.username = root.username;
+                        contentLoader.item.fullName = root.fullName;
+                        contentLoader.item.recipentFullName = root.recipentFullname;
+                        contentLoader.item.recipentEmail = root.recipentEmail;
+                        contentLoader.item.recipentPfp = root.recipentPfp;
+
+                        root.recipentFullname = userInstance.fullName;
+                        root.recipentEmail = userInstance.email;
+                        root.recipentUsername = userInstance.username;
+                        root.recipentPfp = userInstance.pfp;
+
+                        console.log("User clicked:", userInstance);
+                        console.log("Recipient Data:", root.recipentFullname, root.recipentEmail, root.recipentPfp);
+                    });
                 } else {
                     console.error("Error: User instance creation failed.");
                 }
@@ -71,31 +77,26 @@ Item {
             }
         }
     }
-    Loader
-    {
-        id: loader
-        source: ""
-    }
 
     // Update handleUserClick to receive the specific user's data
     function handleUserClick(userData) {
         root.clearFoundUsers();
-        if (root.stackViewRef) {
-                    root.stackViewRef.push(Qt.resolvedUrl("SendMoney.qml"), {
-                        username: root.username,
-                        fullName: root.fullName,
-                        stackViewRef: root.stackViewRef
-                    });
-                }
-        else {
-            console.error("stackViewRef is undefined in SignIn.qml");
-        }
+
         // Now set the references based on the clicked user's data
         root.recipentFullname = userData.fullName;
         root.recipentEmail = userData.email;
-        root.recipentUsername = userData.username;  // Set username reference
+        root.recipentUsername = userData.username;
         root.recipentPfp = userData.pfp;
+
         console.log("User clicked:", userData);
+
+        // Use the 'setProperty' method to pass dynamic data after setting the properties
+        contentLoader.setSource("SendMoney.qml");
+        contentLoader.item.username = root.username;
+        contentLoader.item.fullName = root.fullName;
+        contentLoader.item.recipentFullname = root.recipentFullname;
+        contentLoader.item.recipentEmail = root.recipentEmail;
+        contentLoader.item.recipentPfp = root.recipentPfp;
     }
     searchBar.onTextChanged: root.findUser()
 
@@ -501,45 +502,13 @@ Item {
                     }
                     onClicked:
                     {
-                        if (root.stackViewRef) {
-                                    root.stackViewRef.pop();
-                                }
-                        else {
-                            console.error("stackViewRef is undefined in SignIn.qml");
-                        }
+                        contentLoader.setSource("Transactions.qml", {
+                                            username: root.username,
+                                            fullName: root.fullName
+                                        })
                     }
                 }
-                Button {
-                    Layout.preferredHeight: 50
-                    Layout.preferredWidth: 140
-                    Layout.alignment: Qt.AlignLeft
 
-                    background:
-                        Rectangle
-                        {
-                            color: "#1C1F31"
-                            radius: 20
-                        }
-                    Text
-                    {
-                        anchors.centerIn: parent
-                        text: "Continue"
-                        color: "white"
-                    }
-                    onClicked:
-                    {
-                        if (root.stackViewRef) {
-                                    root.stackViewRef.push(Qt.resolvedUrl("SendMoney.qml"), {
-                                        username: root.username,
-                                        fullName: root.fullName,
-                                        stackViewRef: root.stackViewRef
-                                    });
-                                }
-                        else {
-                            console.error("stackViewRef is undefined in SignIn.qml");
-                        }
-                    }
-                }
 
             }
             Item

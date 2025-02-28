@@ -20,24 +20,12 @@ Window {
     property alias lastNameTextField: lastNameTextField
     property alias dateOfBirthTextField: dateTextField
     property alias phoneNumberTextField: phoneNumberTextField
-    Loader
-    {
-        id: loader
-        source: ""
-    }
-    Dashboard
-    {
-        id: dasboard
-        visible: false
-    }
-
     Connections
     {
         target: register
         onRegisterSuccessful:
         {
-            dasboard.visible = true
-            root.visible = false
+            contentLoader.source = "SignIn.qml"
         }
     }
 
@@ -334,14 +322,7 @@ Window {
                 }
                 onClicked:
                 {
-                    var component = Qt.createComponent("SignIn.qml");
-                    if (component.status === Component.Ready) {
-                        var signInWindow = component.createObject(null, {}); // Pass the variable here
-                        signInWindow.visible = true;
-                        root.close();
-                    } else {
-                        console.log("Error loading SignIn.qml: " + component.errorString());
-                    }
+                    contentLoader.source = "SignIn.qml"
                 }
             }
             Item

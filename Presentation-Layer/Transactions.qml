@@ -280,18 +280,11 @@ Item {
                     MouseArea
                     {
                         anchors.fill: parent
-                        onClicked:
-                        {
-                            if (root.stackViewRef) {
-                                        root.stackViewRef.replace(Qt.resolvedUrl("Dashboard.qml"), {
-                                            usernameRef: root.username,
-                                            fullName: root.fullName,
-                                            stackViewRef: root.stackViewRef
-                                        });
-                                    }
-                            else {
-                                console.error("stackViewRef is undefined in SignIn.qml");
-                            }
+                        onClicked: {
+                            contentLoader.setSource("Dashboard.qml", {
+                                                usernameRef: root.usernameRef,
+                                                fullName: root .fullName
+                                            })
                         }
                     }
             }
@@ -333,17 +326,11 @@ Item {
                 MouseArea
                 {
                     anchors.fill: parent
-                    onClicked:{
-                        if (root.stackViewRef) {
-                                    root.stackViewRef.push(Qt.resolvedUrl("TradingDashboard.qml"), {
-                                        username: root.usernameRef,
-                                        fullName: root.fullName,
-                                        stackViewRef: root.stackViewRef
-                                    });
-                                }
-                        else {
-                            console.error("stackViewRef is undefined in SignIn.qml");
-                        }
+                    onClicked: {
+                        contentLoader.setSource("TradingDashboard.qml", {
+                                            username: root.username,
+                                            fullName: root .fullName
+                                        })
                     }
                 }
             }
@@ -407,17 +394,11 @@ Item {
                     height: 15
                     rotation: -90
                 }
-                onClicked:{
-                    if (root.stackViewRef) {
-                                root.stackViewRef.push(Qt.resolvedUrl("SelectRecipent.qml"), {
-                                    username: root.username,
-                                    fullName: root.fullName,
-                                    stackViewRef: root.stackViewRef
-                                });
-                            }
-                    else {
-                        console.error("stackViewRef is undefined in SignIn.qml");
-                    }
+                onClicked: {
+                    contentLoader.setSource("SelectRecipent.qml", {
+                                        username: root.username,
+                                        fullName: root .fullName
+                                    })
                 }
             }
             Button
@@ -1100,17 +1081,11 @@ the money?")
 
                                                         }
 
-                                                        onClicked:{
-                                                            if (root.stackViewRef) {
-                                                                        root.stackViewRef.push(Qt.resolvedUrl("SelectRecipent.qml"), {
-                                                                            username: root.username,
-                                                                            fullName: root.fullName,
-                                                                            stackViewRef: root.stackViewRef
-                                                                        });
-                                                                    }
-                                                            else {
-                                                                console.error("stackViewRef is undefined in SignIn.qml");
-                                                            }
+                                                        onClicked: {
+                                                            contentLoader.setSource("SelectRecipent.qml", {
+                                                                                username: root.username,
+                                                                                fullName: root .fullName
+                                                                            })
                                                         }
                                                     }
 
@@ -1127,10 +1102,10 @@ the money?")
     NavbarMobile
     {
         isPhone: root.isPhone
-        stackViewRef: root.stackViewRef
         usernameRef: root.username
         fullName: root.fullName
         transactionImage.source: "qrc:/resources/transactionActive.svg"
         homeImage.source: "qrc:/resources/homeNavbarInactive.svg"
+        tradingImage.source: ""
     }
 }

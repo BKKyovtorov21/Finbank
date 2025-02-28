@@ -11,7 +11,10 @@ Item {
 
     property string username
     property string fullName
-    property var stackViewRef
+
+    property string recipentFullName
+    property string recipentPfp
+    property string recipentEmail
 
     property string sendingCurrency: "USD"
     property string recipentCurrency: "CAD"
@@ -19,12 +22,11 @@ Item {
     property real exchangeRate
     property bool sending: false
 
-    Loader
+    Component.onCompleted:
     {
-        id: loader
-        source: ""
+        console.log(root.recipentFullName)
+        console.log(root.recipentPfp)
     }
-
 
     Connections {
                 target: stockAPIClient
@@ -841,12 +843,10 @@ Item {
                     }
                     onClicked:
                     {
-                        if (root.stackViewRef) {
-                                    root.stackViewRef.pop();
-                                }
-                        else {
-                            console.error("stackViewRef is undefined in SignIn.qml");
-                        }
+                        contentLoader.setSource("SelectRecipent.qml", {
+                                            username: root.username,
+                                            fullName: root.fullName
+                                        })
                     }
                 }
                 Button {
@@ -867,16 +867,10 @@ Item {
                         color: "white"
                     }
                     onClicked: {
-                        if (root.stackViewRef) {
-                                    root.stackViewRef.push(Qt.resolvedUrl("RecipentDescription.qml"), {
-                                        username: root.username,
-                                        fullName: root.fullName,
-                                        stackViewRef: root.stackViewRef
-                                    });
-                                }
-                        else {
-                            console.error("stackViewRef is undefined in SignIn.qml");
-                        }
+                        contentLoader.setSource("RecipentDescription.qml", {
+                                            username: root.username,
+                                            fullName: root.fullName
+                                        })
                             }
                 }
 

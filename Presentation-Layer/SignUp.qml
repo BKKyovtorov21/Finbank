@@ -12,32 +12,22 @@ Window {
     minimumHeight: 800
     property bool isTablet: width < 900
     property bool isPhone: width < 500
+
+    property string username
+    property string email
     property alias usernameTextField: usernameTextField
     property alias emailTextField: emailTextField
     property alias passwordTextField: passwordTextField
-
-
-    Loader
-    {
-        id: loader
-        source: ""
-    }
-
-    SignUp2
-    {
-        id: signup2
-        visible: false
-    }
 
     Connections
     {
         target: googlegateway
         onGoogleLoginSuccessful:
         {
-            signup2.visible = true
-            root.visible = false
-            signup2.username = userName
-            signup2.email = userEmail
+            contentLoader.setSource("SignUp2.qml", {
+                                username: userName,
+                                email: userEmail
+                            })
         }
     }
 
@@ -246,12 +236,11 @@ Window {
                 }
                 onClicked:
                 {
-                    signup2.visible = true
-                    root.visible = false
-                    signup2.username = root.usernameTextField.text
-                    signup2.email = root.emailTextField.text
-                    signup2.password = root.passwordTextField.text
-
+                    contentLoader.setSource("SignUp2.qml", {
+                                        username: root.usernameTextField.text,
+                                        email: root.emailTextField.text,
+                                        password: root.passwordTextField.text
+                                    })
                 }
             }
             Item
@@ -269,14 +258,7 @@ Window {
                 }
                 onClicked:
                 {
-                    var component = Qt.createComponent("SignIn.qml");
-                    if (component.status === Component.Ready) {
-                        var signInWindow = component.createObject(null, {}); // Pass the variable here
-                        signInWindow.visible = true;
-                        root.close();
-                    } else {
-                        console.log("Error loading SignIn.qml: " + component.errorString());
-                    }
+                    contentLoader.source = "SignIn.qml"
                 }
             }
             Item

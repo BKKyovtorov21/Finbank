@@ -763,13 +763,10 @@ Item {
                         color: "white"
                     }
                     onClicked: {
-                        if (root.stackViewRef) {
-                                    root.stackViewRef.push(Qt.resolvedUrl("Overview.qml"), {
-                                        username: root.username,
-                                        fullName: root.fullName,
-                                        stackViewRef: root.stackViewRef
-                                    });
-                                }
+                        contentLoader.setSource("Overview.qml", {
+                                            username: root.username,
+                                            fullName: root.fullName
+                                        })
                     }
                 }
 

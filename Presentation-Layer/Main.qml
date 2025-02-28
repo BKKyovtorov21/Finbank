@@ -1,15 +1,20 @@
-import QtQuick
+import QtQuick 2.15
+import QtQuick.Controls 2.15
 
 Window {
-    width: 640
-    height: 480
+    id: mainWindow
+    width: Screen.width
+    height: Screen.height
+    minimumWidth: 400
+    minimumHeight: 400
     visible: true
-    title: qsTr("Hello World")
 
-    Image {
-        anchors.centerIn: parent
-        source: "qrc:/resources/apple.png"
-        width: 50
-        height: 50
+    // Property to track the current page
+    property string currentPage: "SignIn.qml"
+
+    Loader {
+        id: contentLoader
+        anchors.fill: parent
+        source: mainWindow.currentPage
     }
 }

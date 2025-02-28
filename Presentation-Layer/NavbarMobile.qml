@@ -3,22 +3,22 @@ import QtQuick.Controls
 import QtQuick.Layouts
 Rectangle {
 
-    id: rootdashboard
+    id: root
 
     property bool isPhone: true
-    property var stackViewRef
     property var usernameRef
     property var fullName
     property alias transactionImage: transactionsRef
     property alias homeImage: home
     property alias walletImage: wallet
     property alias settingsImage: settings
+    property alias tradingImage: trading
 
     anchors.bottom: parent.bottom
     width: parent.width
     height: 50
     color: "white"
-    visible: rootdashboard.isPhone
+    visible: root.isPhone
 
     RowLayout {
         anchors.fill: parent
@@ -42,6 +42,16 @@ Rectangle {
                     text: "Home"
                 }
             }
+            MouseArea
+            {
+                anchors.fill: parent
+                onClicked:{
+                    contentLoader.setSource("Dashboard.qml", {
+                                        username: root.username,
+                                        fullName: root.fullName
+                                    })
+                }
+            }
         }
 
         Rectangle {
@@ -51,16 +61,10 @@ Rectangle {
             {
                 anchors.fill: parent
                 onClicked:{
-                    if (rootdashboard.stackViewRef) {
-                                rootdashboard.stackViewRef.push(Qt.resolvedUrl("Settings.qml"), {
-                                    username: rootdashboard.usernameRef,
-                                    fullName: rootdashboard.fullName,
-                                    stackViewRef: rootdashboard.stackViewRef
-                                });
-                            }
-                    else {
-                        console.error("stackViewRef is undefined in SignIn.qml");
-                    }
+                    contentLoader.setSource("Transactions.qml", {
+                                        username: root.username,
+                                        fullName: root.fullName
+                                    })
                 }
             }
             ColumnLayout {
@@ -83,16 +87,10 @@ Rectangle {
             {
                 anchors.fill: parent
                 onClicked:{
-                    if (rootdashboard.stackViewRef) {
-                                rootdashboard.stackViewRef.push(Qt.resolvedUrl("Transactions.qml"), {
-                                    username: rootdashboard.usernameRef,
-                                    fullName: rootdashboard.fullName,
-                                    stackViewRef: rootdashboard.stackViewRef
-                                });
-                            }
-                    else {
-                        console.error("stackViewRef is undefined in SignIn.qml");
-                    }
+                    contentLoader.setSource("Transactions.qml", {
+                                        username: root.username,
+                                        fullName: root.fullName
+                                    })
                 }
             }
             ColumnLayout {
@@ -117,16 +115,10 @@ Rectangle {
             {
                 anchors.fill: parent
                 onClicked:{
-                    if (rootdashboard.stackViewRef) {
-                                rootdashboard.stackViewRef.push(Qt.resolvedUrl("TradingDashboard.qml"), {
-                                    username: rootdashboard.usernameRef,
-                                    fullName: rootdashboard.fullName,
-                                    stackViewRef: rootdashboard.stackViewRef
-                                });
-                            }
-                    else {
-                        console.error("stackViewRef is undefined in SignIn.qml");
-                    }
+                    contentLoader.setSource("TradingDashboard.qml", {
+                                        username: root.username,
+                                        fullName: root.fullName
+                                    })
                 }
             }
             ColumnLayout {

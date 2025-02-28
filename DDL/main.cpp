@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("stockAPIClient", &stockAPIClient);  // ✅ Now available in QML
 
     // Load QML AFTER setting context properties
-    engine.loadFromModule("Finbank", "LandingPage");
+    engine.loadFromModule("Finbank", "SignIn");
 
     // Start event loop
     return app.exec();

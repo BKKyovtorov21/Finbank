@@ -801,16 +801,7 @@ Item {
                     }
                     onClicked:
                     {
-                        if (root.stackViewRef) {
-                                    root.stackViewRef.replace(Qt.resolvedUrl("Dashboard.qml"), {
-                                        usernameRef: root.username,
-                                        fullName: root.fullName,
-                                        stackViewRef: root.stackViewRef
-                                    });
-                                }
-                        else {
-                            console.error("stackViewRef is undefined in SignIn.qml");
-                        }
+                        contentLoader.source = "TransferType.qml"
                     }
 
                 }
@@ -832,10 +823,8 @@ Item {
                         color: "white"
                     }
                     onClicked: {
-                        if (root.stackViewRef) {
-                                    root.stackViewRef
-                                }
-                            }
+                        contentLoader.source = "Dashboard.qml"
+                    }
                 }
 
 

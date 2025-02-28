@@ -2,22 +2,33 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-Rectangle {
+Window {
     id: root
-    property var stackViewRef
+    visible: true
+    width: Screen.width
+    height: Screen.height
+    minimumWidth: 400
+    minimumHeight: 400
         property bool isTablet: width < 900
         property bool isPhone: width < 500
         property bool emailLogin
         property bool validlogin
         property int spaceCounter: 0
+    // onClosing: {
+    //         Qt.quit(); // Explicitly quit the application
+    //     }
 
-
+    Loader {
+            id: contentLoader
+            anchors.fill: parent
+        }
 
     Flickable {
         anchors.fill: parent
         contentWidth: root.width
-        contentHeight: root.height + 100
+        contentHeight: root.height + 300
         clip: true
+        visible: contentLoader.status === Loader.Null
 
         ColumnLayout {
             spacing: 20
@@ -354,8 +365,7 @@ Rectangle {
                     MouseArea{
 
                         onClicked:{
-                        loader.source = "SignUp.qml"
-                        root.visible = false  // Make it visible
+                        contentLoader.source = "SignUp.qml"
                         }
                     }
                 }
@@ -377,16 +387,11 @@ Rectangle {
             target: login  // Assuming `login` is an external login manager
 
             function onLogInSuccessful(username, fullName) {
-                if (root.stackViewRef) {
-                            root.stackViewRef.push(Qt.resolvedUrl("Dashboard.qml"), {
-                                usernameRef: username,
-                                fullName: fullName,
-                                stackViewRef: root.stackViewRef
-                            });
-                        }
-                else {
-                    console.error("stackViewRef is undefined in SignIn.qml");
-                }
+                contentLoader.setSource("Dashboard.qml", {
+                                    usernameRef: username,
+                                    fullName: fullName
+                                })
+
 
             }
         }

@@ -15,6 +15,7 @@ Item {
     property bool screenCheckpoint1: width <= 1200
     property string fullName
     property string pfp: ""
+    property string username
 
     property real openPrice
     property var stackViewRef
@@ -456,15 +457,10 @@ Item {
                     }
 
                     onClicked: {
-                        if (root.stackViewRef) {
-                            root.stackViewRef.replace(Qt.resolvedUrl("Dashboard.qml"), {
-                                stackViewRef: root.stackViewRef,
-                                usernameRef: "kyovtorov",
-                                fullName: "Boyan Kiovtorov",
-                            });
-                        } else {
-                            console.error("stackViewRef is undefined in SignIn.qml");
-                        }
+                        contentLoader.setSource("Dashboard.qml", {
+                                            usernameRef: root.username,
+                                            fullName: root .fullName
+                                        })
                     }
                 }
 
@@ -1459,6 +1455,13 @@ Item {
             }
 
         }
+    }
+
+    NavbarMobile
+    {
+        isPhone: root.isPhone
+        usernameRef: root.username
+        fullName: root.fullName
     }
 
 }

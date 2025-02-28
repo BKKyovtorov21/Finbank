@@ -11,9 +11,7 @@ Window {
     height: Screen.height
     minimumWidth: 400
     minimumHeight: 400
-    onClosing: {
-            Qt.quit();  // Ensure the application quits when the window is closed
-        }
+
 
     StackView {
         id: stackView

@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-
 import QtCharts
 Item {
     id: root
@@ -293,13 +292,10 @@ Item {
                     }
 
                     onClicked: {
-                        if (root.stackViewRef) {
-                            root.stackViewRef.push(Qt.resolvedUrl("TradingMarket.qml"), {
-                                stackViewRef: root.stackViewRef
-                            });
-                        } else {
-                            console.error("stackViewRef is undefined in SignIn.qml");
-                        }
+                        contentLoader.setSource("TradingMarket.qml", {
+                                            username: root.usernameRef,
+                                            fullName: root .fullName
+                                        })
                     }
                 }
                 RowLayout
@@ -372,17 +368,11 @@ Item {
                         font.bold: true
                         font.pixelSize: 20
                     }
-
                     onClicked: {
-                        if (root.stackViewRef) {
-                            root.stackViewRef.replace(Qt.resolvedUrl("Dashboard.qml"), {
-                                stackViewRef: root.stackViewRef,
-                                usernameRef: "kyovtorov",
-                                fullName: "Boyan Kiovtorov"
-                            });
-                        } else {
-                            console.error("stackViewRef is undefined in SignIn.qml");
-                        }
+                        contentLoader.setSource("Dashboard.qml", {
+                                            username: root.usernameRef,
+                                            fullName: root .fullName
+                                        })
                     }
                 }
 
@@ -1000,9 +990,11 @@ Item {
                color: "white"
                visible: !root.isPhone
 
+
                ColumnLayout
                {
-                   anchors.fill: parent
+                   id: columnLayout
+                   width: parent.width
                    Layout.alignment: Qt.AlignHCenter
 
                    Image{
@@ -1300,7 +1292,7 @@ Item {
                    }
 
                    Image{
-                    source: "qrc:/resources/menu3.svg"
+                    source: "qrc:/resources/menu2.svg"
                     Layout.rightMargin: 30
                     visible: !root.isPhone
                    }
@@ -1313,11 +1305,16 @@ Item {
                    color: "#F9F9F9"
                    Layout.fillHeight: true
                    Layout.fillWidth: true
-
+                   Flickable {
+                               anchors.fill: parent
+                               contentHeight: columnLayout2.implicitHeight + 300
+                               clip: true
                    ColumnLayout
                    {
+                       id: columnLayout2
                        anchors.fill: parent
                        anchors.leftMargin: 30
+
 
 
                        Rectangle
@@ -1746,7 +1743,6 @@ Item {
 
 
 
-                               // Repeat for other stock cards...
 
                            }
                        }
@@ -1852,8 +1848,7 @@ Item {
                            {
                                Layout.fillHeight: true
                            }
-
-
+                       }
                    }
                }
            }
@@ -1864,7 +1859,6 @@ Item {
     NavbarMobile
     {
         isPhone: root.isPhone
-        stackViewRef: root.stackViewRef
         usernameRef: root.username
         fullName: root.fullName
     }

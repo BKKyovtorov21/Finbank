@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls
 import QtCharts
 import QtQuick.Layouts
 
@@ -107,7 +108,7 @@ ColumnLayout
                     Image
                     {
                         anchors.centerIn: parent
-                        source: "resources/appleIcon.svg"
+                        source: "qrc:/resources/appleIcon.svg"
                         width: 20
                         height: 20
                     }
@@ -169,7 +170,11 @@ ColumnLayout
             min: 0
             max: 11
             gridVisible: false
-
+            Component.onCompleted: {
+                for (var i = 0; i < root.monthLabels.length; i++) {
+                    categoryAxisX.append(root.monthLabels[i], i)
+                }
+            }
         }
 
         ValuesAxis {
