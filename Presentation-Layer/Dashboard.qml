@@ -1,12 +1,11 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Timeline
 import QtCharts
-
-pragma ComponentBehavior: Bound
-
 Item {
     id: rootdashboard
+    property var stackViewRef
     width: Screen.width
     height: Screen.height
     visible: true
@@ -40,6 +39,9 @@ Item {
         balanceAnimation.running = true
         incomeAnimation.running = true
         expenseAnimation.running = true
+        pie1Animation.running = true
+        pie2Animation.running = true
+
                 balance = dashboard.getDbVariable(rootdashboard.usernameRef, "balance");
                 income = dashboard.getDbVariable(rootdashboard.usernameRef, "income");
                 expenses = dashboard.getDbVariable(rootdashboard.usernameRef, "expenses");
@@ -314,18 +316,6 @@ Layout.preferredHeight: 50
             {
 
 
-                    id: walletPage
-                    text: qsTr("Wallet")
-                    color: "#2F2F2F"
-                    font.pixelSize: 15
-                    opacity: 0.5
-
-
-            }
-            Text
-            {
-
-
                     id: transactions
                     text: qsTr("Transactions")
                     color: "#2F2F2F"
@@ -337,10 +327,16 @@ Layout.preferredHeight: 50
                 {
                     anchors.fill: parent
                     onClicked:{
-                        contentLoader.setSource("Transactions.qml", {
-                                            username: rootdashboard.usernameRef,
-                                            fullName: rootdashboard .fullName
-                                        })
+                        if (rootdashboard.stackViewRef) {
+                                    rootdashboard.stackViewRef.push(Qt.resolvedUrl("Transactions.qml"), {
+                                        username: rootdashboard.usernameRef,
+                                        fullName: rootdashboard.fullName,
+                                        stackViewRef: rootdashboard.stackViewRef
+                                    });
+                                }
+                        else {
+                            console.error("stackViewRef is undefined in SignIn.qml");
+                        }
                     }
                 }
             }
@@ -353,28 +349,25 @@ Layout.preferredHeight: 50
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
+                    Layout.rightMargin: 20
 
 
                 MouseArea
                 {
                     anchors.fill: parent
                     onClicked:{
-                        contentLoader.setSource("TradingDashboard.qml", {
-                                            username: rootdashboard.usernameRef,
-                                            fullName: rootdashboard .fullName
-                                        })
+                        if (rootdashboard.stackViewRef) {
+                                    rootdashboard.stackViewRef.push(Qt.resolvedUrl("TradingDashboard.qml"), {
+                                        username: rootdashboard.usernameRef,
+                                        fullName: rootdashboard.fullName,
+                                        stackViewRef: rootdashboard.stackViewRef
+                                    });
+                                }
+                        else {
+                            console.error("stackViewRef is undefined in SignIn.qml");
+                        }
                     }
                 }
-            }
-            Text
-            {
-                    id: settingsPage
-                    text: qsTr("Settings")
-                    color: "#2F2F2F"
-                    font.pixelSize: 15
-                    opacity: 0.5
-
-
             }
         }
         RowLayout
@@ -503,7 +496,22 @@ Layout.preferredHeight: 50
                                 anchors.left: parent.left
                                 anchors.top: parent.top
                             }
-
+                            MouseArea
+                            {
+                                anchors.fill: parent
+                                onClicked:{
+                                    if (rootdashboard.stackViewRef) {
+                                                rootdashboard.stackViewRef.push(Qt.resolvedUrl("Transactions.qml"), {
+                                                    username: rootdashboard.usernameRef,
+                                                    fullName: rootdashboard.fullName,
+                                                    stackViewRef: rootdashboard.stackViewRef
+                                                });
+                                            }
+                                    else {
+                                        console.error("stackViewRef is undefined in SignIn.qml");
+                                    }
+                                }
+                            }
                             Text {
                                 id: send_money
 
@@ -903,8 +911,48 @@ Layout.preferredHeight: 50
                             }
                         }
 
-                        // Tooltip for Hover
+                        // Overlay to create rounded bars
+                        Repeater {
+                            model: 12  // For each month
+                            Rectangle {
+                                width: chart.width / 14
+                                height: (mySeries.barSets[0].values[index] + mySeries.barSets[1].values[index]) / 20000 * chart.height
+                                radius: width / 2
+                                color: "#0D4428"
+                                opacity: 0.9
+                                anchors.horizontalCenter: chart.left
+                                y: chart.height - height
+                            }
+                        }
 
+                        // Tooltip for Hover
+                        Rectangle {
+                            id: tooltip
+                            visible: false
+                            width: 120
+                            height: 50
+                            radius: 8
+                            color: "black"
+                            opacity: 0.85
+                            Text {
+                                id: tooltipText
+                                color: "white"
+                                anchors.centerIn: parent
+                            }
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            onPositionChanged: {
+                                var index = Math.floor(mouseX / (chart.width / 12)); // Find the hovered month
+                                tooltipText.text = "Income: $" + mySeries.barSets[0].values[index] + "\nExpense: $" + mySeries.barSets[1].values[index];
+                                tooltip.x = mouseX - tooltip.width / 2;
+                                tooltip.y = mouseY - 60;
+                                tooltip.visible = true;
+                            }
+                            onExited: tooltip.visible = false
+                        }
                     }
 
                 }
@@ -921,133 +969,172 @@ ColumnLayout
 {
     anchors.fill: parent
 
-                    Rectangle
-                    {
-                        Layout.preferredHeight: parent.height * 0.4
-                        Layout.preferredWidth: parent.width
-                        border.width: 1
-                        radius: 20
-                        border.color: "#E7E6E9"
+    Rectangle {
+        Layout.preferredHeight: parent.height * 0.4
+        Layout.preferredWidth: parent.width
+        border.width: 1
+        radius: 20
+        border.color: "#E7E6E9"
 
-                    ColumnLayout
-                    {
-                        anchors.fill: parent
+        ColumnLayout {
+            anchors.fill: parent
 
+            Text {
+                text: "My Card"
+                font.pixelSize: 20
+                Layout.leftMargin: 10
+                Layout.topMargin: 10
+            }
 
-                        Text
-                        {
-                            text: "My Card"
-                            font.pixelSize: 20
-                            Layout.leftMargin: 10
-                            Layout.topMargin: 10
-                        }
+            Flickable {
+                id: flickable
+                Layout.preferredHeight: rootdashboard.test2 ? 95 : (rootdashboard.test ? 110 : 140)
+                Layout.preferredWidth: parent.width
+                contentWidth: (cardRepeater.count + 1) * (cardWidth + spacing) + spacing // +1 for the "Add Card" button
+                flickableDirection: Flickable.HorizontalFlick
+                clip: true
+                Layout.leftMargin: 30
 
+                property int cardWidth: rootdashboard.test2 ? 150 : (rootdashboard.test ? 190 : 250)
+                property int cardHeight: rootdashboard.test2 ? 95 : (rootdashboard.test ? 110 : 140)
+                property int spacing: 10
 
-                        Image {
-                            Layout.preferredHeight: rootdashboard.test2 ? 95 : (rootdashboard.test ? 110 : 140)
-                            Layout.preferredWidth: rootdashboard.test2 ? 150 : (rootdashboard.test ? 190 : 250)
-                            Layout.margins: 20
-                            Layout.alignment: Qt.AlignHCenter
-                            source: "qrc:/resources/minimalistbg1.png"
+                ListModel {
+                    id: cardModel
+                    ListElement { cardImage: "qrc:/resources/minimalistbg1.png"; cardNumber: "5435 2735 0037 0015"; cardHolder: "BOYAN KYOVTOROV"; logo: "qrc:/resources/visa.svg" }
+                    ListElement { cardImage: "qrc:/resources/minimalistbg2.png"; cardNumber: "1234 5678 9101 1121"; cardHolder: "ALEXANDER PETROV"; logo: "qrc:/resources/mastercard.svg" }
+                }
 
-                                ColumnLayout
-                                {
+                Row {
+                    spacing: flickable.spacing
+
+                    Repeater {
+                        id: cardRepeater
+                        model: cardModel
+                        delegate: Item {
+                            width: flickable.cardWidth
+                            height: flickable.cardHeight
+
+                            Image {
+                                width: parent.width
+                                height: parent.height
+                                source: model.cardImage
+                                fillMode: Image.Stretch
+
+                                ColumnLayout {
                                     anchors.fill: parent
 
+                                    Item { Layout.fillHeight: true }
 
-                                    Item
-                                    {
-                                        Layout.fillHeight: true
+                                    Text {
+                                        text: model.cardNumber
+                                        font.letterSpacing: 2
+                                        color: "white"
+                                        Layout.leftMargin: rootdashboard.test2 ? 5 : 10
+                                        font.pixelSize: rootdashboard.test2 ? 9 : 14
+                                        Layout.bottomMargin: 5
                                     }
 
-
-                                        Text
-                                        {
-                                            text: "5435 2735 0037 0015"
-                                            font.letterSpacing: 2
+                                    RowLayout {
+                                        Layout.preferredWidth: parent.width
+                                        Text {
+                                            text: model.cardHolder
                                             color: "white"
-                                            Layout.leftMargin: rootdashboard.test2 ? 5 : 10
-                                            font.pixelSize: rootdashboard.test2 ? 9 : 14
+                                            Layout.leftMargin: 10
+                                            font.pixelSize: 14
                                             Layout.bottomMargin: 5
                                         }
 
-                                        RowLayout
-                                        {
-                                            Layout.preferredWidth: parent.width
-                                            Text
-                                            {
-
-                                                text: "BOYAN KYOVTOROV"
-                                                color: "white"
-                                                Layout.leftMargin: 10
-                                                font.pixelSize: 14
-                                                Layout.bottomMargin: 5
-                                            }
-
-                                            Image
-                                            {
-                                                visible: !rootdashboard.test2
-                                                Layout.alignment: Qt.AlignRight
-                                                source : "qrc:/resources/visa3.svg"
-                                                Layout.rightMargin: 15
-                                                Layout.bottomMargin: 5
-
-                                            }
+                                        Image {
+                                            visible: !rootdashboard.test2
+                                            Layout.alignment: Qt.AlignRight
+                                            source: model.logo
+                                            Layout.rightMargin: 15
+                                            Layout.bottomMargin: 5
                                         }
+                                    }
+                                }
+
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onClicked: {
+                                        flickable.contentX = x - (flickable.width - flickable.cardWidth) / 2
+                                    }
                                 }
                             }
+                        }
+                    }
 
-                        Text
-                        {
-                            text: "Spending Limit"
-                            Layout.leftMargin: 15
+                    // "Add Card" Button
+                    Rectangle {
+                        width: flickable.cardWidth
+                        height: flickable.cardHeight
+                        color: "#EDEFF1"
+                        radius: 10
+                        border.color: "#CCCCCC"
 
-                            color: "#3F4149"
+                        Text {
+                            text: "+"
+                            font.pixelSize: 40
+                            font.bold: true
+                            color: "#888888"
+                            anchors.centerIn: parent
                         }
 
-                        RowLayout
-                        {
-                            Text
-                            {
-                                text: "$4,654.00"
-                                Layout.leftMargin: 15
-                                font.pixelSize: rootdashboard.test2 ? 14 : 20
-                                font.bold: true
-                            }
-                            Text
-                            {
-                                text: "used from 12,645.00"
-                                font.pixelSize: 8
-                                color: "grey"
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                console.log("Add New Card Clicked!")
+                                // You can add functionality here to open a form or add a new card dynamically
                             }
                         }
+                    }
+                }
+            }
 
-                        RowLayout
-                        {
-                            Layout.preferredWidth: parent.width
-                            Layout.leftMargin: 15
-                            Rectangle
-                            {
-                                Layout.preferredWidth: parent.width * 0.3
-                                Layout.preferredHeight: 5
-                                color: "#0E754E"
-                                radius: 5
-                            }
-                            Rectangle
-                            {
-                                Layout.fillWidth: true
-                                Layout.preferredHeight: 5
-                                Layout.rightMargin: 15
-                                color: "#EDEFF1"
-                                radius: 5
-                            }
-                        }
+            Text {
+                text: "Spending Limit"
+                Layout.leftMargin: 15
+                color: "#3F4149"
+            }
 
-                        Item
-                        {
-                            Layout.fillHeight: true
-                        }
-                    }}
+            RowLayout {
+                Text {
+                    text: "$4,654.00"
+                    Layout.leftMargin: 15
+                    font.pixelSize: rootdashboard.test2 ? 14 : 20
+                    font.bold: true
+                }
+                Text {
+                    text: "used from 12,645.00"
+                    font.pixelSize: 8
+                    color: "grey"
+                }
+            }
+
+            RowLayout {
+                Layout.preferredWidth: parent.width
+                Layout.leftMargin: 15
+                Rectangle {
+                    Layout.preferredWidth: parent.width * 0.3
+                    Layout.preferredHeight: 5
+                    color: "#0E754E"
+                    radius: 5
+                }
+                Rectangle {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 5
+                    Layout.rightMargin: 15
+                    color: "#EDEFF1"
+                    radius: 5
+                }
+            }
+
+            Item {
+                Layout.fillHeight: true
+            }
+        }
+    }
                     Rectangle
                     {
                         Layout.fillWidth: true
@@ -1369,7 +1456,7 @@ ColumnLayout
             Layout.topMargin: 40
             spacing: 20
 
-            // "Cards" Text
+
             Text {
                 text: "Cards"
                 font.pixelSize: 15
@@ -1377,6 +1464,7 @@ ColumnLayout
                 color: "#144618"
             }
                 Rectangle {
+                    // TO DO aj naprawi go neshtatnik
                     width: 50
                     height: 50
                     radius: 25
@@ -1432,7 +1520,7 @@ ColumnLayout
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: 13
 
-                        source: "qrc:/resources/visa3.svg"
+                        source: "qrc:/resources/visa.svg"
 
                     }
                     Image
@@ -1530,7 +1618,22 @@ ColumnLayout
                 Layout.leftMargin: width > 650 ? 40 : 8
                 color: "#144618"
                 radius: 30
-
+                MouseArea
+                {
+                    anchors.fill: parent
+                    onClicked:{
+                        if (rootdashboard.stackViewRef) {
+                                    rootdashboard.stackViewRef.push(Qt.resolvedUrl("Transactions.qml"), {
+                                        username: rootdashboard.usernameRef,
+                                        fullName: rootdashboard.fullName,
+                                        stackViewRef: rootdashboard.stackViewRef
+                                    });
+                                }
+                        else {
+                            console.error("stackViewRef is undefined in SignIn.qml");
+                        }
+                    }
+                }
                 Image
                 {
                     id:receive
@@ -1559,7 +1662,8 @@ ColumnLayout
                 Layout.preferredWidth: rootdashboard.isPhone ? 130 : 180
                 color: "#AEE780"
                 radius: 30
-
+               // TO DO:
+                 //   aj naprawi go neshtastnik
                 Image
                 {
                     id:send
@@ -1589,7 +1693,7 @@ ColumnLayout
                 border.width: 2
                 border.color: "#144618"
                 radius: 30
-
+                // TO DO aj naprawi go neshtatnik
                 Text
                 {
                     text: "+"
@@ -1902,5 +2006,7 @@ ColumnLayout
         usernameRef: rootdashboard.usernameRef
         fullName: rootdashboard.fullName
     }
+
+
 }
 

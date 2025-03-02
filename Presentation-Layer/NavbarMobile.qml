@@ -142,11 +142,11 @@ Rectangle {
             {
                 anchors.fill: parent
                 onClicked:{
-                    if (rootdashboard.stackViewRef) {
-                                rootdashboard.stackViewRef.push(Qt.resolvedUrl("Settings.qml"), {
-                                    username: rootdashboard.usernameRef,
-                                    fullName: rootdashboard.fullName,
-                                    stackViewRef: rootdashboard.stackViewRef
+                    if (root.stackViewRef) {
+                                root.stackViewRef.push(Qt.resolvedUrl("Settings.qml"), {
+                                    username: root.usernameRef,
+                                    fullName: root.fullName,
+                                    stackViewRef: root.stackViewRef
                                 });
                             }
                     else {

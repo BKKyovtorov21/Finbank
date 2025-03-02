@@ -969,133 +969,172 @@ ColumnLayout
 {
     anchors.fill: parent
 
-                    Rectangle
-                    {
-                        Layout.preferredHeight: parent.height * 0.4
-                        Layout.preferredWidth: parent.width
-                        border.width: 1
-                        radius: 20
-                        border.color: "#E7E6E9"
+    Rectangle {
+        Layout.preferredHeight: parent.height * 0.4
+        Layout.preferredWidth: parent.width
+        border.width: 1
+        radius: 20
+        border.color: "#E7E6E9"
 
-                    ColumnLayout
-                    {
-                        anchors.fill: parent
+        ColumnLayout {
+            anchors.fill: parent
 
+            Text {
+                text: "My Card"
+                font.pixelSize: 20
+                Layout.leftMargin: 10
+                Layout.topMargin: 10
+            }
 
-                        Text
-                        {
-                            text: "My Card"
-                            font.pixelSize: 20
-                            Layout.leftMargin: 10
-                            Layout.topMargin: 10
-                        }
+            Flickable {
+                id: flickable
+                Layout.preferredHeight: rootdashboard.test2 ? 95 : (rootdashboard.test ? 110 : 140)
+                Layout.preferredWidth: parent.width
+                contentWidth: (cardRepeater.count + 1) * (cardWidth + spacing) + spacing // +1 for the "Add Card" button
+                flickableDirection: Flickable.HorizontalFlick
+                clip: true
+                Layout.leftMargin: 30
 
+                property int cardWidth: rootdashboard.test2 ? 150 : (rootdashboard.test ? 190 : 250)
+                property int cardHeight: rootdashboard.test2 ? 95 : (rootdashboard.test ? 110 : 140)
+                property int spacing: 10
 
-                        Image {
-                            Layout.preferredHeight: rootdashboard.test2 ? 95 : (rootdashboard.test ? 110 : 140)
-                            Layout.preferredWidth: rootdashboard.test2 ? 150 : (rootdashboard.test ? 190 : 250)
-                            Layout.margins: 20
-                            Layout.alignment: Qt.AlignHCenter
-                            source: "resources/minimalistbg1.png"
+                ListModel {
+                    id: cardModel
+                    ListElement { cardImage: "resources/minimalistbg1.png"; cardNumber: "5435 2735 0037 0015"; cardHolder: "BOYAN KYOVTOROV"; logo: "resources/visa.svg" }
+                    ListElement { cardImage: "resources/minimalistbg2.png"; cardNumber: "1234 5678 9101 1121"; cardHolder: "ALEXANDER PETROV"; logo: "resources/mastercard.svg" }
+                }
 
-                                ColumnLayout
-                                {
+                Row {
+                    spacing: flickable.spacing
+
+                    Repeater {
+                        id: cardRepeater
+                        model: cardModel
+                        delegate: Item {
+                            width: flickable.cardWidth
+                            height: flickable.cardHeight
+
+                            Image {
+                                width: parent.width
+                                height: parent.height
+                                source: model.cardImage
+                                fillMode: Image.Stretch
+
+                                ColumnLayout {
                                     anchors.fill: parent
 
+                                    Item { Layout.fillHeight: true }
 
-                                    Item
-                                    {
-                                        Layout.fillHeight: true
+                                    Text {
+                                        text: model.cardNumber
+                                        font.letterSpacing: 2
+                                        color: "white"
+                                        Layout.leftMargin: rootdashboard.test2 ? 5 : 10
+                                        font.pixelSize: rootdashboard.test2 ? 9 : 14
+                                        Layout.bottomMargin: 5
                                     }
 
-
-                                        Text
-                                        {
-                                            text: "5435 2735 0037 0015"
-                                            font.letterSpacing: 2
+                                    RowLayout {
+                                        Layout.preferredWidth: parent.width
+                                        Text {
+                                            text: model.cardHolder
                                             color: "white"
-                                            Layout.leftMargin: rootdashboard.test2 ? 5 : 10
-                                            font.pixelSize: rootdashboard.test2 ? 9 : 14
+                                            Layout.leftMargin: 10
+                                            font.pixelSize: 14
                                             Layout.bottomMargin: 5
                                         }
 
-                                        RowLayout
-                                        {
-                                            Layout.preferredWidth: parent.width
-                                            Text
-                                            {
-
-                                                text: "BOYAN KYOVTOROV"
-                                                color: "white"
-                                                Layout.leftMargin: 10
-                                                font.pixelSize: 14
-                                                Layout.bottomMargin: 5
-                                            }
-
-                                            Image
-                                            {
-                                                visible: !rootdashboard.test2
-                                                Layout.alignment: Qt.AlignRight
-                                                source : "resources/visa.svg"
-                                                Layout.rightMargin: 15
-                                                Layout.bottomMargin: 5
-
-                                            }
+                                        Image {
+                                            visible: !rootdashboard.test2
+                                            Layout.alignment: Qt.AlignRight
+                                            source: model.logo
+                                            Layout.rightMargin: 15
+                                            Layout.bottomMargin: 5
                                         }
+                                    }
+                                }
+
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onClicked: {
+                                        flickable.contentX = x - (flickable.width - flickable.cardWidth) / 2
+                                    }
                                 }
                             }
+                        }
+                    }
 
-                        Text
-                        {
-                            text: "Spending Limit"
-                            Layout.leftMargin: 15
+                    // "Add Card" Button
+                    Rectangle {
+                        width: flickable.cardWidth
+                        height: flickable.cardHeight
+                        color: "#EDEFF1"
+                        radius: 10
+                        border.color: "#CCCCCC"
 
-                            color: "#3F4149"
+                        Text {
+                            text: "+"
+                            font.pixelSize: 40
+                            font.bold: true
+                            color: "#888888"
+                            anchors.centerIn: parent
                         }
 
-                        RowLayout
-                        {
-                            Text
-                            {
-                                text: "$4,654.00"
-                                Layout.leftMargin: 15
-                                font.pixelSize: rootdashboard.test2 ? 14 : 20
-                                font.bold: true
-                            }
-                            Text
-                            {
-                                text: "used from 12,645.00"
-                                font.pixelSize: 8
-                                color: "grey"
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                console.log("Add New Card Clicked!")
+                                // You can add functionality here to open a form or add a new card dynamically
                             }
                         }
+                    }
+                }
+            }
 
-                        RowLayout
-                        {
-                            Layout.preferredWidth: parent.width
-                            Layout.leftMargin: 15
-                            Rectangle
-                            {
-                                Layout.preferredWidth: parent.width * 0.3
-                                Layout.preferredHeight: 5
-                                color: "#0E754E"
-                                radius: 5
-                            }
-                            Rectangle
-                            {
-                                Layout.fillWidth: true
-                                Layout.preferredHeight: 5
-                                Layout.rightMargin: 15
-                                color: "#EDEFF1"
-                                radius: 5
-                            }
-                        }
+            Text {
+                text: "Spending Limit"
+                Layout.leftMargin: 15
+                color: "#3F4149"
+            }
 
-                        Item
-                        {
-                            Layout.fillHeight: true
-                        }
-                    }}
+            RowLayout {
+                Text {
+                    text: "$4,654.00"
+                    Layout.leftMargin: 15
+                    font.pixelSize: rootdashboard.test2 ? 14 : 20
+                    font.bold: true
+                }
+                Text {
+                    text: "used from 12,645.00"
+                    font.pixelSize: 8
+                    color: "grey"
+                }
+            }
+
+            RowLayout {
+                Layout.preferredWidth: parent.width
+                Layout.leftMargin: 15
+                Rectangle {
+                    Layout.preferredWidth: parent.width * 0.3
+                    Layout.preferredHeight: 5
+                    color: "#0E754E"
+                    radius: 5
+                }
+                Rectangle {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 5
+                    Layout.rightMargin: 15
+                    color: "#EDEFF1"
+                    radius: 5
+                }
+            }
+
+            Item {
+                Layout.fillHeight: true
+            }
+        }
+    }
                     Rectangle
                     {
                         Layout.fillWidth: true
@@ -1571,7 +1610,7 @@ ColumnLayout
         RowLayout
         {
             Layout.topMargin: 40
-            Layout.alignment: Qt.AlignHCenter     
+            Layout.alignment: Qt.AlignHCenter
             Rectangle
             {
                 Layout.preferredHeight: rootdashboard.isPhone ? 60 : 70
@@ -1964,7 +2003,6 @@ ColumnLayout
     NavbarMobile
     {
         isPhone: rootdashboard.isPhone
-        stackViewRef: rootdashboard.stackViewRef
         usernameRef: rootdashboard.usernameRef
         fullName: rootdashboard.fullName
     }

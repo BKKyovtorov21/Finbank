@@ -14,9 +14,9 @@ Window {
         property bool emailLogin
         property bool validlogin
         property int spaceCounter: 0
-    // onClosing: {
-    //         Qt.quit(); // Explicitly quit the application
-    //     }
+     onClosing: {
+             Qt.quit(); // Explicitly quit the application
+         }
 
     Loader {
             id: contentLoader
