@@ -47,7 +47,7 @@ Item {
             spacing: 8 // Adjust spacing between icon and TextField
             Image {
                 id: name
-                source: !root.isTablet ? "qrc:/resources/logo1.png" : "qrc:/qrc:/resources/pfp.jpg"
+                source: !root.isTablet ? "qrc:/resources/logo1.png" : "qrc:/resources/pfp.jpg"
             }
             Rectangle
             {
@@ -365,6 +365,8 @@ Item {
                             Text
                             {
                                 text: "Finbank+ transfer type"
+                                font.pixelSize: 17
+
                             }
                             Item
                             {
@@ -375,6 +377,8 @@ Item {
                             {
                                 text: "Total fee: $0 USD"
                                 color: "#666666"
+                                font.pixelSize: 17
+
                             }
                             Item
                             {
@@ -440,24 +444,29 @@ Item {
                                      Layout.rightMargin: root.isTablet ? 10 : (root.isPhone ? 0 : 12)
                                      Layout.preferredWidth: 40
                                      Layout.preferredHeight: 40
+                                     Layout.alignment: Qt.AlignVCenter
                                      radius: 40
-                                     color: "lightgrey"
+                                     color: "#EDEFEC"
                                      Image
                                      {
                                          anchors.centerIn: parent
-                                         source: "qrc:/resources//wallet.svg"
+                                         source: "qrc:/resources/wallet.svg"
                                      }
                                     }
                                     ColumnLayout{
                                         Layout.topMargin: 30
+                                        Layout.preferredHeight: parent.height
                                     Text {
 
                                         text: qsTr("Finbank+ transfer types")
+                                        color: "black"
+                                        font.pixelSize: 17
 
                                     }
                                     Text
                                     {
-                                        Layout.preferredHeight: 50
+                                        Layout.fillHeight:true
+                                        font.pixelSize:17
                                         wrapMode: Text.WordWrap
                                         Layout.fillWidth: true
                                         text: qsTr("Use money in your Finbank+ account to pay for your transfer instantly. Should arrive in seconds.")
@@ -481,6 +490,8 @@ Item {
                             Text
                             {
                                 text: "Fast and easy transfer"
+                                font.pixelSize: 17
+
                             }
                             Item
                             {
@@ -489,8 +500,10 @@ Item {
 
                             Text
                             {
-                                text: "Total fee: $0 USD"
+                                text: "Total fee: $5 USD"
                                 color: "#666666"
+                                font.pixelSize: 17
+
                             }
                             Item
                             {
@@ -557,11 +570,11 @@ Item {
                                      Layout.preferredWidth: 40
                                      Layout.preferredHeight: 40
                                      radius: 40
-                                     color: "lightgrey"
+                                     color: "#EDEFEC"
                                      Image
                                      {
                                          anchors.centerIn: parent
-                                         source: "qrc:/resources//debitCard.svg"
+                                         source: "qrc:/resources/card.svg"
                                      }
                                     }
                                     ColumnLayout{
@@ -569,6 +582,7 @@ Item {
                                     Text {
 
                                         text: qsTr("Debit card")
+                                        font.pixelSize: 17
 
                                     }
                                     Text
@@ -577,6 +591,7 @@ Item {
                                         wrapMode: Text.WordWrap
                                         Layout.fillWidth: true
                                         text: qsTr("Send from your Visa or Mastercad. Should arrive in seconds.")
+                                        font.pixelSize: 17
 
                                     }
                                     }
@@ -600,6 +615,8 @@ Item {
                             Text
                             {
                                 text: "Low cost transfer"
+                                font.pixelSize: 17
+
                             }
                             Item
                             {
@@ -608,8 +625,9 @@ Item {
 
                             Text
                             {
-                                text: "Total fee: $0 USD"
+                                text: "Total fee: $5 USD"
                                 color: "#666666"
+                                font.pixelSize: 17
                             }
                             Item
                             {
@@ -677,11 +695,13 @@ Item {
                                      Layout.preferredWidth: 40
                                      Layout.preferredHeight: 40
                                      radius: 40
-                                     color: "lightgrey"
+                                     color: "#EDEFEC"
                                      Image
                                      {
                                          anchors.centerIn: parent
-                                         source: "qrc:/resources//bank2.svg"
+                                         source: "qrc:/resources/bank.svg"
+                                         anchors.verticalCenterOffset: -1
+
                                      }
                                     }
                                     ColumnLayout{
@@ -689,6 +709,7 @@ Item {
                                     Text {
 
                                         text: qsTr("Transfer your money from your bank account")
+                                        font.pixelSize: 17
 
                                     }
                                     Text
@@ -697,6 +718,7 @@ Item {
                                         wrapMode: Text.WordWrap
                                         Layout.fillWidth: true
                                         text: qsTr("Transfer the money using you bank account balance. Should arrive in seconds.")
+                                        font.pixelSize: 17
 
                                     }
                                     }
@@ -738,11 +760,11 @@ Item {
                         border.width: 1
                         radius: 20
                     }
-                    onClicked:
-                    {
-                        if (root.stackViewRef) {
-                                    root.stackViewRef.pop();
-                                }
+                    onClicked: {
+                        contentLoader.setSource("RecipentDescription.qml", {
+                                            username: root.username,
+                                            fullName: root.fullName
+                                        })
                     }
                 }
                 Button {

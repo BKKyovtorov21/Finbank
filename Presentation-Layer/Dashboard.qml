@@ -5,7 +5,6 @@ import QtQuick.Timeline
 import QtCharts
 Item {
     id: rootdashboard
-    property var stackViewRef
     width: Screen.width
     height: Screen.height
     visible: true
@@ -22,6 +21,7 @@ Item {
        property var fullName
        property var pfp
     property bool textfieldActive
+    property string language: "EN"
 
 
     MouseArea
@@ -39,8 +39,6 @@ Item {
         balanceAnimation.running = true
         incomeAnimation.running = true
         expenseAnimation.running = true
-        pie1Animation.running = true
-        pie2Animation.running = true
 
                 balance = dashboard.getDbVariable(rootdashboard.usernameRef, "balance");
                 income = dashboard.getDbVariable(rootdashboard.usernameRef, "income");
@@ -202,12 +200,41 @@ Layout.preferredHeight: 50
 
                Layout.fillWidth: true
            }
+           Rectangle
+           {
+               Layout.preferredWidth: 80
+               Layout.preferredHeight: 50
+               radius: 5
+               color: "#fafafa"
+
+               RowLayout
+               {
+                   anchors.fill: parent
+
+                   Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                Image {
+                    source: "qrc:/resources/language.svg"
+                }
+                Text {
+                    text: rootdashboard.language
+                    font.pixelSize: 15
+                    Layout.alignment: Qt.AlignVCenter
+                }
+               }
 
 
-
+               MouseArea
+               {
+                   anchors.fill: parent
+                   onClicked:
+                   {
+                       rootdashboard.language = (rootdashboard.language === "EN") ? "BG" : "EN";
+                   }
+               }
+           }
             Rectangle
             {
-
+                radius: 5
                 Image {
                     id: element5
                     fillMode: Image.PreserveAspectFit
@@ -327,16 +354,10 @@ Layout.preferredHeight: 50
                 {
                     anchors.fill: parent
                     onClicked:{
-                        if (rootdashboard.stackViewRef) {
-                                    rootdashboard.stackViewRef.push(Qt.resolvedUrl("Transactions.qml"), {
-                                        username: rootdashboard.usernameRef,
-                                        fullName: rootdashboard.fullName,
-                                        stackViewRef: rootdashboard.stackViewRef
-                                    });
-                                }
-                        else {
-                            console.error("stackViewRef is undefined in SignIn.qml");
-                        }
+                        contentLoader.setSource("Transactions.qml", {
+                                            username: rootdashboard.usernameRef,
+                                            fullName: rootdashboard .fullName
+                                        })
                     }
                 }
             }
@@ -344,30 +365,60 @@ Layout.preferredHeight: 50
             {
 
 
-                    id: tradingPageButton
-                    text: qsTr("Trading")
+                    id: walletPage
+                    text: qsTr("Wallet")
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
-                    Layout.rightMargin: 20
+
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        onClicked:{
+                            contentLoader.setSource("Wallet.qml", {
+                                                username: rootdashboard.usernameRef,
+                                                fullName: rootdashboard .fullName
+                                            })
+                        }
+                    }
+
+
+            }
+
+            Text
+            {
+
+
+                    id: tradingPageButton
+                    text: qsTr("Invest")
+                    color: "#2F2F2F"
+                    font.pixelSize: 15
+                    opacity: 0.5
 
 
                 MouseArea
                 {
                     anchors.fill: parent
                     onClicked:{
-                        if (rootdashboard.stackViewRef) {
-                                    rootdashboard.stackViewRef.push(Qt.resolvedUrl("TradingDashboard.qml"), {
-                                        username: rootdashboard.usernameRef,
-                                        fullName: rootdashboard.fullName,
-                                        stackViewRef: rootdashboard.stackViewRef
-                                    });
-                                }
-                        else {
-                            console.error("stackViewRef is undefined in SignIn.qml");
-                        }
+                        contentLoader.setSource("TradingDashboard.qml", {
+                                            username: rootdashboard.usernameRef,
+                                            fullName: rootdashboard .fullName
+                                        })
                     }
                 }
+            }
+            Text
+            {
+
+
+                    text: qsTr("Settings")
+                    color: "#2F2F2F"
+                    font.pixelSize: 15
+                    opacity: 0.5
+                    Layout.rightMargin: 20
+
+
+
             }
         }
         RowLayout
@@ -500,16 +551,10 @@ Layout.preferredHeight: 50
                             {
                                 anchors.fill: parent
                                 onClicked:{
-                                    if (rootdashboard.stackViewRef) {
-                                                rootdashboard.stackViewRef.push(Qt.resolvedUrl("Transactions.qml"), {
-                                                    username: rootdashboard.usernameRef,
-                                                    fullName: rootdashboard.fullName,
-                                                    stackViewRef: rootdashboard.stackViewRef
-                                                });
-                                            }
-                                    else {
-                                        console.error("stackViewRef is undefined in SignIn.qml");
-                                    }
+                                    contentLoader.setSource("Transactions.qml", {
+                                                        username: rootdashboard.usernameRef,
+                                                        fullName: rootdashboard .fullName
+                                                    })
                                 }
                             }
                             Text {
@@ -923,35 +968,6 @@ Layout.preferredHeight: 50
                                 anchors.horizontalCenter: chart.left
                                 y: chart.height - height
                             }
-                        }
-
-                        // Tooltip for Hover
-                        Rectangle {
-                            id: tooltip
-                            visible: false
-                            width: 120
-                            height: 50
-                            radius: 8
-                            color: "black"
-                            opacity: 0.85
-                            Text {
-                                id: tooltipText
-                                color: "white"
-                                anchors.centerIn: parent
-                            }
-                        }
-
-                        MouseArea {
-                            anchors.fill: parent
-                            hoverEnabled: true
-                            onPositionChanged: {
-                                var index = Math.floor(mouseX / (chart.width / 12)); // Find the hovered month
-                                tooltipText.text = "Income: $" + mySeries.barSets[0].values[index] + "\nExpense: $" + mySeries.barSets[1].values[index];
-                                tooltip.x = mouseX - tooltip.width / 2;
-                                tooltip.y = mouseY - 60;
-                                tooltip.visible = true;
-                            }
-                            onExited: tooltip.visible = false
                         }
                     }
 
@@ -1437,6 +1453,7 @@ ColumnLayout
             text: "Wallet Balance"
         }
         RowLayout{
+            Layout.preferredWidth: parent.width
             Text{
                 text: "$17,298.20"
                 font.pixelSize: 40
@@ -1448,6 +1465,110 @@ ColumnLayout
                 source:"qrc:/resources/eye.svg"
                 Layout.leftMargin: 5
                 Layout.topMargin: 2
+            }
+            Item
+            {
+                Layout.fillWidth:true
+            }
+
+
+
+            Item
+            {
+
+                Layout.fillWidth: true
+            }
+            Text
+            {
+                visible: !rootdashboard.isPhone
+                    text: qsTr("Overview")
+                    color: "#367C21"
+                    font.pixelSize: 15
+                    font.bold: true
+
+
+            }
+
+            Text
+            {
+                visible: !rootdashboard.isPhone
+
+                    text: qsTr("Transactions")
+                    color: "#2F2F2F"
+                    font.pixelSize: 15
+                    opacity: 0.5
+
+
+                MouseArea
+                {
+                    anchors.fill: parent
+                    onClicked:{
+                        contentLoader.setSource("Transactions.qml", {
+                                            username: rootdashboard.usernameRef,
+                                            fullName: rootdashboard .fullName
+                                        })
+                    }
+                }
+            }
+            Text
+            {
+
+                visible: !rootdashboard.isPhone
+
+                    text: qsTr("Wallet")
+                    color: "#2F2F2F"
+                    font.pixelSize: 15
+                    opacity: 0.5
+
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        onClicked:{
+                            console.log("wallet clicked")
+                            contentLoader.setSource("Wallet.qml", {
+                                                username: rootdashboard.usernameRef,
+                                                fullName: rootdashboard .fullName
+                                            })
+                        }
+                    }
+
+            }
+
+            Text
+            {
+
+                visible: !rootdashboard.isPhone
+
+                    text: qsTr("Trading")
+                    color: "#2F2F2F"
+                    font.pixelSize: 15
+                    opacity: 0.5
+
+
+                MouseArea
+                {
+                    anchors.fill: parent
+                    onClicked:{
+                        contentLoader.setSource("TradingDashboard.qml", {
+                                            username: rootdashboard.usernameRef,
+                                            fullName: rootdashboard .fullName
+                                        })
+                    }
+                }
+            }
+            Text
+            {
+
+                visible: !rootdashboard.isPhone
+
+                    text: qsTr("Settings")
+                    color: "#2F2F2F"
+                    font.pixelSize: 15
+                    opacity: 0.5
+                    Layout.rightMargin: 20
+
+
+
             }
         }
         }
@@ -1491,118 +1612,139 @@ ColumnLayout
 
             // Credit Cards
 
-            RowLayout {
-                spacing: 20 // Space between credit cards
-                Image {
-                    Layout.preferredWidth: 230
-                    Layout.preferredHeight: rootdashboard.isPhone ? 120 : 150
-                    source: "qrc:/resources/minimalistbg1.png"
+                RowLayout {
+                    spacing: 20 // Space between credit cards
+                    Image {
+                        Layout.preferredWidth: 230
+                        Layout.preferredHeight: rootdashboard.isPhone ? 120 : 150
+                        source: "resources/minimalistbg1.png"
 
 
-                    clip: true
-                    Text {
-                        id: cardNumbers
+                        clip: true
 
-                        text: "**** 2515"
-                        font.pixelSize: rootdashboard.isPhone ? 15 : 20
-                        font.bold: true
-                        color: "white" // White text for contrast
-                        anchors.left: parent.left
-                        anchors.bottom: parent.bottom
-                        anchors.leftMargin: 10
-                        anchors.bottomMargin: 30
-                    }
+                        ColumnLayout
+                        {
+                            anchors.fill: parent
+                            spacing: -100
+                            Image
+                            {
+                                Layout.alignment: Qt.AlignRight | Qt.AlignTop
 
-                    Image
-                    {
-                        anchors.right: parent.right
-                        anchors.rightMargin: -10
-                        anchors.bottom: parent.bottom
-                        anchors.bottomMargin: 13
+                                source: "resources/bgn.png"
+                                Layout.preferredWidth: 30
+                                Layout.preferredHeight: 30
+                                Layout.rightMargin: 10
+                                Layout.topMargin: 10
 
-                        source: "qrc:/resources/visa.svg"
+                            }
 
-                    }
-                    Image
-                    {
-                        anchors.right: parent.right
-                        anchors.top: parent.top
-                        anchors.topMargin: 10
-                        anchors.rightMargin: 10
-                        source: "qrc:/resources/bulgariaflag.png"
-                        width: 25
-                        height: 25
-                        smooth: true
-                    }
-                    Text
-                    {
+                            Text {
+                                id: cardNumbers
 
-                        anchors.left: parent.left
-                        anchors.top: cardNumbers.bottom
-                        anchors.topMargin: 2
-                        anchors.leftMargin: 12
-                        text: "BOYAN KYOVTOROV"
-                        font.bold: true
-                        color: "white"
-                        font.pixelSize: rootdashboard.isPhone ? 10 : 15
-                        font.letterSpacing: 2
-                    }
-                    }
+                                text: "**** 2515"
+                                font.pixelSize: rootdashboard.isPhone ? 15 : 20
+                                font.bold: true
+                                color: "white" // White text for contrast
+                                Layout.leftMargin: 10
 
-                Image {
-                    visible: !rootdashboard.isPhone
-                    Layout.preferredWidth: rootdashboard.isPhone ? 200 : (rootdashboard.isTablet ? 230 : 230)
-                    Layout.preferredHeight: rootdashboard.isPhone ? 100 : 150
-                    source: "qrc:/resources/minimalistbg2.png"
+                            }
+                            RowLayout
+                            {
+                                Layout.preferredWidth: parent.width
+                                Layout.alignment: Qt.AlignBottom
+                                Layout.bottomMargin: 10
+                                Text
+                                {
+
+                                    text: "BOYAN KYOVTOROV"
+                                    font.bold: true
+                                    color: "white"
+                                    font.pixelSize: 10
+                                    font.letterSpacing: 2
+                                    Layout.leftMargin: 10
+                                }
+
+                                Image
+                                {
+                                    Layout.alignment: Qt.AlignRight | Qt.AlignBottom
+
+                                    source: "resources/visa.svg"
+
+                                    Layout.rightMargin: 10
 
 
-                    clip: true
-                    Text {
-                        id: cardNumbers2
-                        text: "**** 3411"
-                        font.pixelSize: 15
-                        font.bold: true
-                        color: "white" // White text for contrast
-                        anchors.left: parent.left
-                        anchors.bottom: parent.bottom
-                        anchors.leftMargin: 10
-                        anchors.bottomMargin: 30
-                    }
+                                }
+                            }
 
-                    Image
-                    {
-                        anchors.right: parent.right
-                        anchors.bottom: parent.bottom
-                            anchors.bottomMargin: 20
-                        source: "qrc:/resources/mastercard_logo.png"
-                        width: 80
-                        height: 50
-                    }
-                    Image
-                    {
-                        anchors.right: parent.right
-                        anchors.top: parent.top
-                        anchors.topMargin: 10
-                        anchors.rightMargin: 10
-                        source: "qrc:/resources/usaflag.png"
-                        width: 25
-                        height: 25
-                        smooth: true
-                    }
-                    Text
-                    {
-                        anchors.left: parent.left
-                        anchors.top: cardNumbers2.bottom
-                        anchors.topMargin: 0
-                        anchors.leftMargin: 10
-                        text: "VICHO VICHEV"
-                        font.bold: true
-                        color: "white"
-                        font.pixelSize: 10
-                        font.letterSpacing: 2
-                    }
-                    }
-            }
+                        }
+
+
+                        }
+
+                    Image {
+                        visible: !rootdashboard.isPhone
+                        Layout.preferredWidth: 230
+                        Layout.preferredHeight: rootdashboard.isPhone ? 120 : 150
+                        source: "resources/minimalistbg2.png"
+
+
+                        clip: true
+                        ColumnLayout
+                        {
+                            anchors.fill: parent
+                            spacing: -100
+                            Image
+                            {
+                                Layout.alignment: Qt.AlignRight | Qt.AlignTop
+
+                                source: "resources/usd.png"
+                                Layout.preferredWidth: 30
+                                Layout.preferredHeight: 30
+                                Layout.rightMargin: 10
+                                Layout.topMargin: 10
+
+                            }
+
+                            Text {
+
+                                text: "**** 2515"
+                                font.pixelSize: rootdashboard.isPhone ? 15 : 20
+                                font.bold: true
+                                color: "white" // White text for contrast
+                                Layout.leftMargin: 10
+
+                            }
+                            RowLayout
+                            {
+                                Layout.preferredWidth: parent.width
+                                Layout.alignment: Qt.AlignBottom
+                                Layout.bottomMargin: 10
+                                Text
+                                {
+
+                                    text: "VICHO VICHEV"
+                                    font.bold: true
+                                    color: "white"
+                                    font.pixelSize: 10
+                                    font.letterSpacing: 2
+                                    Layout.leftMargin: 10
+                                }
+
+                                Image
+                                {
+                                    Layout.alignment: Qt.AlignRight | Qt.AlignBottom
+
+                                    source: "resources/mastercard.svg"
+
+                                    Layout.rightMargin: 10
+
+
+                                }
+                            }
+
+                        }
+                        }
+                }
 
 
         }
@@ -1622,16 +1764,10 @@ ColumnLayout
                 {
                     anchors.fill: parent
                     onClicked:{
-                        if (rootdashboard.stackViewRef) {
-                                    rootdashboard.stackViewRef.push(Qt.resolvedUrl("Transactions.qml"), {
-                                        username: rootdashboard.usernameRef,
-                                        fullName: rootdashboard.fullName,
-                                        stackViewRef: rootdashboard.stackViewRef
-                                    });
-                                }
-                        else {
-                            console.error("stackViewRef is undefined in SignIn.qml");
-                        }
+                        contentLoader.setSource("Transactions.qml", {
+                                            username: rootdashboard.usernameRef,
+                                            fullName: rootdashboard .fullName
+                                        })
                     }
                 }
                 Image

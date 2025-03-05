@@ -78,10 +78,40 @@ void StockAPIClient::fetchExchangeRates(const QString &baseCurrency) {
     QUrl url("https://v6.exchangerate-api.com/v6/" + converterApi + "/latest/" + baseCurrency);
     QNetworkRequest request(url);
 
+    // Set headers
+    request.setHeader(QNetworkRequest::UserAgentHeader, "MyQtApp/1.0");
+    request.setRawHeader("Accept", "*/*");
+    // Disable compression if needed
+    request.setRawHeader("Accept-Encoding", "identity");
+    // Configure SSL
+    QSslConfiguration sslConfig = QSslConfiguration::defaultConfiguration();
+    sslConfig.setProtocol(QSsl::TlsV1_2OrLater);
+    request.setSslConfiguration(sslConfig);
+    // Force HTTP/1.1
+    request.setAttribute(QNetworkRequest::Http2AllowedAttribute, false);
+
     auto reply = networkManager->get(request);
+    connect(reply, &QNetworkReply::sslErrors, this, [reply]() {
+        reply->ignoreSslErrors(); // For testing only
+    });
+
     connect(reply, &QNetworkReply::finished, this, [this, reply]() {
-        if (reply->error() == QNetworkReply::NoError) {
-            QJsonDocument jsonDoc = QJsonDocument::fromJson(reply->readAll());
+        if (reply->error() != QNetworkReply::NoError) {
+            emit errorOccurred(reply->errorString());
+            reply->deleteLater();
+            return;
+        }
+
+            QByteArray responseData = reply->readAll();
+
+            // Debugging: Print the raw API response
+            qDebug() << "Raw API Response:" << responseData;
+
+            QJsonDocument jsonDoc = QJsonDocument::fromJson(responseData);
+
+            // Debugging: Pretty print the JSON response
+            qDebug() << "Parsed JSON Response:" << jsonDoc.toJson(QJsonDocument::Indented);
+
             QJsonObject jsonObject = jsonDoc.object();
             if (jsonObject.contains("conversion_rates")) {
                 QJsonObject rates = jsonObject["conversion_rates"].toObject();
@@ -90,19 +120,20 @@ void StockAPIClient::fetchExchangeRates(const QString &baseCurrency) {
                     exchangeRates[key] = rates[key].toDouble();
                 }
                 emit exchangeRatesUpdated(exchangeRates);
+            } else if (jsonObject.contains("error")) {
+                emit errorOccurred("API Error: " + jsonObject["error"].toString());
             } else {
                 emit errorOccurred("Unexpected API response format.");
             }
-        } else {
-            emit errorOccurred(reply->errorString());
-        }
+
+
         reply->deleteLater();
     });
 }
 
 double StockAPIClient::convertCurrency(const QString &base, const QString &target, double amount) {
 
-    qDebug() << base << " " << target << " " << amount;
+    qDebug() <<"converting " << base << " " << target << " " << amount;
     if (!exchangeRates.contains(base) || !exchangeRates.contains(target)) {
         return -1;
     }

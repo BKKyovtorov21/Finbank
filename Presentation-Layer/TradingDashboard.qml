@@ -8,12 +8,15 @@ Item {
     height: Screen.height
     property bool isTablet: width <= 950
     property bool isPhone: width <= 600
+    property bool test: width <= 1300
+    property bool test2: width <= 1100
     property bool isSmallPhone: width <= 500
     property string username
     property bool screenCheckpoint1: width <= 1200
     property string fullName
     property string pfp: ""
     property var stackViewRef
+    property string language: "EN"
     ColumnLayout
     {
         visible: !root.isTablet
@@ -41,41 +44,25 @@ Item {
                 text: "Trade"
                 font.pixelSize: 25
             }
+            Item
+            {
+                Layout.fillWidth: true
+            }
 
             Rectangle {
                 id: searchRowRect
-                 Layout.fillWidth: true
-                 Layout.preferredHeight: 50
-                 Layout.leftMargin: 20
-                 Layout.rightMargin: 20
+Layout.preferredWidth: root.test2 ? 250 : (root.test ? 300 : 550)
+Layout.preferredHeight: 50
                 color: "#FDFDFD"
                 border.width: 1
                 border.color: "#F7F7F7"
                 radius: 5
 
-                TextField {
-                    id: textField
-                    anchors.fill: parent
-                    leftPadding: 50
-                    color: "black"  // Sets the text color to black
-
-                    background: Rectangle {
-                        color: "transparent"
-                    }
-
-                    onTextChanged: {
-                        searchRow.visible = text.length === 0 && !activeFocus;  // Hide when typing
-                    }
-
-                    onFocusChanged: {
-                        searchRow.visible = text.length === 0 && !activeFocus;  // Hide when focused, show when unfocused and empty
-                    }
-                }
-
                 RowLayout {
                     id: searchRow
                     anchors.fill: parent
                     visible: textField.text.length === 0
+
                     Image {
                         source: "qrc:/resources/search.svg"
                         Layout.preferredWidth: 20
@@ -120,12 +107,62 @@ Item {
                         }
                     }
                 }
+
+                TextField {
+                    id: textField
+                    anchors.fill: parent
+                    leftPadding: 50
+                    color: "black"  // Sets the text color to black
+
+                    background: Rectangle {
+                        color: "transparent"
+                    }
+
+                    onTextChanged: {
+                        searchRow.visible = text.length === 0 && !activeFocus;  // Hide when typing
+                    }
+
+                    onFocusChanged: {
+                        searchRow.visible = text.length === 0 && !activeFocus;  // Hide when focused, show when unfocused and empty
+                    }
+                }
             }
             Item
             {
                 Layout.fillWidth: true
             }
+            Rectangle
+            {
+                Layout.preferredWidth: 80
+                Layout.preferredHeight: 50
+                radius: 5
+                color: "#fafafa"
 
+                RowLayout
+                {
+                    anchors.fill: parent
+
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                 Image {
+                     source: "qrc:/resources/language.svg"
+                 }
+                 Text {
+                     text: root.language
+                     font.pixelSize: 15
+                     Layout.alignment: Qt.AlignVCenter
+                 }
+                }
+
+
+                MouseArea
+                {
+                    anchors.fill: parent
+                    onClicked:
+                    {
+                        root.language = (root.language === "EN") ? "BG" : "EN";
+                    }
+                }
+            }
             Rectangle {
                 Layout.preferredWidth: 300
                 Layout.preferredHeight: 100

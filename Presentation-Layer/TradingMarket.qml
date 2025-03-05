@@ -4,6 +4,9 @@ import QtQuick.Layouts
 import QtQuick.Timeline
 import Qt5Compat.GraphicalEffects
 import QtCharts
+
+pragma ComponentBehavior: Bound
+
 Item {
     id: root
     width: Screen.width
@@ -45,6 +48,35 @@ Item {
                 yAxis.max = maxPrice + 1;
             }
         }
+
+    function getStockData(category) {
+        console.log("called")
+        var data = [];
+        if (category === "Recent Searches") {
+            data = [
+                {symbol: "AAPL", company: "Apple Inc", price: "237.36", change: "+1.43"},
+                {symbol: "TSLA", company: "Tesla Inc", price: "279.05", change: "+7.01"},
+                {symbol: "NVDA", company: "Nvidia Corp", price: "118.50", change: "+2.51"}
+            ];
+
+            console.log("searches")
+        } else if (category === "Portfolio") {
+            data = [
+                {symbol: "SPX INDEX", company: "S&P 500", price: "5777.44", change: "-0.71"},
+                {symbol: "BTC", company: "Grayscale Bitcoin", price: "38.76", change: "+0.26"}
+            ];
+            console.log("portfoli")
+        } else if (category === "Favourites") {
+            data = [
+                {symbol: "XOM", company: "Exxon Mobil", price: "107.83", change: "+1.10"},
+                {symbol: "AMZ", company: "Amazon.com Inc", price: "192.90", change: "+2.78"}
+            ];
+        }
+        stockModel.clear();
+        for (var i = 0; i < data.length; i++) {
+            stockModel.append(data[i]);
+        }
+    }
     Component.onCompleted: stockAPIClient.fetchCandlestickData("AAPL") // Change ticker here
 
     ColumnLayout
@@ -475,30 +507,79 @@ Item {
                 {
                     anchors.fill: parent
                     spacing: 0
-                    Rectangle
-                    {
+                    Rectangle {
                         Layout.fillHeight: true
                         Layout.preferredWidth: 200
                         border.width: 1
                         border.color: "lightgrey"
 
-                        ColumnLayout
-                        {
-                            anchors.fill: parent
+                        ColumnLayout {
+                                anchors.fill: parent
 
-                            ComboBox {
-                                    id: dropdown
+                                // Dropdown menu for Recent Searches
+                                ComboBox {
+                                    id: searchFilter
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: 50
-                                    model: ["Portfolio", "", "Option 3"]
-
-                                    onActivated: console.log("Selected:", currentText)
+                                    model: ["Recent Searches", "Portfolio", "Favorites", "Screener: All US Stocks"]
                                 }
-                            Item
-                            {
-                                Layout.fillHeight: true
+
+                                // List of stock searches
+                                ListView {
+                                    id: stockList
+                                    Layout.fillWidth: true
+                                    Layout.fillHeight: true
+                                    model: ListModel {
+                                        ListElement { symbol: "AAPL"; company: "APPLE INC"; price: "234.60"; change: "-1.33"; changeColor: "red" }
+                                        ListElement { symbol: "SPX INDEX"; company: "S&P 500 Stock Index"; price: "5805.24"; change: "+27.09"; changeColor: "green" }
+                                        ListElement { symbol: "MFG"; company: "MIZUHO FINANCIAL"; price: "5.73"; change: "+0.07"; changeColor: "green" }
+                                        ListElement { symbol: "7974"; company: "NINTENDO CO LTD"; price: "11115.0"; change: "-60.0"; changeColor: "red" }
+                                        ListElement { symbol: "NIN"; company: "NINTENDO CO LTD"; price: "C330"; change: ""; changeColor: "black" }
+                                        ListElement { symbol: "TSLA"; company: "TESLA INC"; price: "275.08"; change: "+3.04"; changeColor: "green" }
+                                        ListElement { symbol: "LNKD"; company: "LINKEDIN CORP - A"; price: "C195.96"; change: ""; changeColor: "black" }
+                                        ListElement { symbol: "BTC"; company: "GRAYSCALE BITCN M"; price: "39.82"; change: "+1.32"; changeColor: "green" }
+                                        ListElement { symbol: "AMZ"; company: "AMAZON.COM INC"; price: "192.24"; change: "+2.12"; changeColor: "green" }
+                                        ListElement { symbol: "XOM"; company: "EXXON MOBIL CORP"; price: "104.46"; change: "-3.08"; changeColor: "red" }
+                                        ListElement { symbol: "SPY5"; company: "SPDR S&P 500 UCITS"; price: "538.58"; change: "-8.36"; changeColor: "red" }
+                                        ListElement { symbol: "NVDA"; company: "NVIDIA CORP"; price: "117.63"; change: "+1.64"; changeColor: "green" }
+                                    }
+                                    delegate: Rectangle {
+                                        width: stockList.width
+                                        height: 50
+                                        color: "white"
+                                        border.width: 1
+                                        border.color: "lightgrey"
+
+                                        Column {
+                                            anchors.fill: parent
+                                            anchors.margins: 5
+                                            spacing: 2
+
+                                            Text {
+                                                text: symbol
+                                                font.bold: true
+                                            }
+                                            Text {
+                                                text: company
+                                                font.pixelSize: 12
+                                                color: "grey"
+                                            }
+                                            Row {
+                                                spacing: 5
+                                                Text {
+                                                    text: price
+                                                }
+                                                Text {
+                                                    text: change
+                                                    color: changeColor
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
-                        }
+
+
                     }
 
                     Rectangle
