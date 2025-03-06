@@ -13,7 +13,7 @@ Item {
     property string firstName
     property string lastName
     property var pfp
-    property string language: "EN"
+    property string language: "BG"
 
     property string recipentFullName
     property string recipentPfp
@@ -24,7 +24,6 @@ Item {
     property real convertedAmount
     property real exchangeRate
     property bool sending: false
-    property string language
 
     Component.onCompleted:
     {
@@ -155,6 +154,7 @@ Item {
         anchors.fill: parent
         RowLayout
         {
+            visible: !root.isTablet
             spacing: 8 // Adjust spacing between icon and TextField
             Image {
                 id: name
@@ -481,8 +481,7 @@ Layout.preferredHeight: 50
                         {
                             source: "qrc:/resources/notSelectiveLine.svg"
                         }
-                        Text { text: root.language == "EN" ? qsTr("Dashboard") : qsTr("Начална страница")
-                        font.pixelSize: 20
+                        Text { text: "Обобщителна страница";                        font.pixelSize: 20
                         }
 
                     }

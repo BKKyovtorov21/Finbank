@@ -15,7 +15,7 @@ Item {
     property string firstName
     property string lastName
     property string username
-    property string language: "EN"
+    property string language: "BG"
     property var pfp
     property int dynamicWidth: 1600
     Loader

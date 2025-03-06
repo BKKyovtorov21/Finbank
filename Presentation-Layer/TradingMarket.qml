@@ -19,6 +19,7 @@ Item {
     property string fullName
     property string pfp: ""
     property string username
+    property string language: "BG"
 
     property real openPrice
     property var stackViewRef
@@ -1659,7 +1660,7 @@ Item {
     NavbarMobile
     {
         isPhone: root.isPhone
-        usernameRef: root.username
+        username: root.username
         fullName: root.fullName
     }
 

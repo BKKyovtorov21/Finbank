@@ -14,12 +14,11 @@ Item {
     property string lastName
     property var pfp
     property var stackViewRef
-    property string language: "EN"
+    property string language: "BG"
 
     property string sendingCurrency
     property string recipentCurrency
     property bool sending: false
-    property string language
 
     Loader
     {
@@ -47,6 +46,7 @@ Item {
         anchors.fill: parent
         RowLayout
         {
+            visible: !root.isTablet
             spacing: 8 // Adjust spacing between icon and TextField
             Image {
                 id: name
@@ -121,14 +121,7 @@ Layout.preferredHeight: 50
                         Layout.preferredWidth: 20
                         Layout.preferredHeight: 20
                         Layout.alignment: Qt.AlignVCenter
-                        Layout.fillWidth: true // Make it expand to fill the remaining space
 
-                        placeholderText: root.language == "EN" ? qsTr("Search") : qsTr("Tърсене")
-                        placeholderTextColor: "grey"
-                        font.pixelSize: 18
-                        color: "black"
-
-                        leftPadding: 30 // Adds space around the text, adjusting the padding as needed
                     }
 
                     Text {
@@ -380,8 +373,7 @@ Layout.preferredHeight: 50
                         {
                             source: "qrc:/resources/notSelectiveLine.svg"
                         }
-                        Text { text: root.language == "EN" ? qsTr("Dashboard") : qsTr("Начална страница")
-                        font.pixelSize: 20
+                        Text { text: "Обобщителна страница";                        font.pixelSize: 20
                         }
 
                     }
@@ -715,7 +707,7 @@ Layout.preferredHeight: 50
 
                             Text
                             {
-                                text: rootdashboard.language == "EN" ? qsTr("Тотаl fee: $5 USD") : qsTr("Такса: $5 USD")
+                                text: root.language == "EN" ? qsTr("Тотаl fee: $5 USD") : qsTr("Такса: $5 USD")
                                 color: "#666666"
                                 font.pixelSize: 17
                             }
@@ -794,7 +786,7 @@ Layout.preferredHeight: 50
                                         Layout.topMargin: root.isPhone ? 10 : 30
                                     Text {
 
-                                        text: rootdashboard.language == "EN" ? qsTr("Transfer your money from your bank account") : qsTr("Преведи пари от Вашия банков акаунт")
+                                        text: root.language == "EN" ? qsTr("Transfer your money from your bank account") : qsTr("Преведи пари от Вашия банков акаунт")
                                         font.pixelSize: 17
 
                                     }
@@ -803,7 +795,7 @@ Layout.preferredHeight: 50
                                         Layout.preferredHeight: 50
                                         wrapMode: Text.WordWrap
                                         Layout.fillWidth: true
-                                        text: rootdashboard.language == "EN" ? qsTr("Transfer the money using you bank account balance. Should arrive in seconds.") : qsTr("Преведете парите, като използвате баланса на банковата си сметка. Пристига до секунди")
+                                        text: root.language == "EN" ? qsTr("Transfer the money using you bank account balance. Should arrive in seconds.") : qsTr("Преведете парите, като използвате баланса на банковата си сметка. Пристига до секунди")
                                         font.pixelSize: 17
 
                                     }

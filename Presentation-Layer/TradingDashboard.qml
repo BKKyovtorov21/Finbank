@@ -17,7 +17,7 @@ Item {
     property string lastName
     property var pfp
     property var stackViewRef
-    property string language: "EN"
+    property string language: "BG"
     ColumnLayout
     {
         visible: !root.isTablet
@@ -186,7 +186,7 @@ Layout.preferredHeight: 50
                         Layout.rightMargin: 60
                         Layout.bottomMargin: 15
                         Text {
-
+                            text: root.firstName + " " + root.lastName
                             Layout.alignment: Qt.AlignLeft
                             font.pixelSize: 15
                         }
@@ -329,10 +329,13 @@ Layout.preferredHeight: 50
                     }
                     }
 
-                    onClicked: {
+                    onClicked:{
                         contentLoader.setSource("TradingMarket.qml", {
                                             username: root.username,
-                                            fullName: root .fullName
+                                            language: root.language,
+                                            firstName: root.firstName,
+                                            lastName: root.lastName,
+                                            pfp: root.pfp
                                         })
                     }
                 }
@@ -406,10 +409,13 @@ Layout.preferredHeight: 50
                         font.bold: true
                         font.pixelSize: 20
                     }
-                    onClicked: {
+                    onClicked:{
                         contentLoader.setSource("Dashboard.qml", {
                                             username: root.username,
-                                            fullName: root .fullName
+                                            language: root.language,
+                                            firstName: root.firstName,
+                                            lastName: root.lastName,
+                                            pfp: root.pfp
                                         })
                     }
                 }

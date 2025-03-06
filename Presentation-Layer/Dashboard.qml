@@ -23,7 +23,7 @@ Item {
     property var firstName: ""
     property var lastName: ""
     property bool textfieldActive
-    property string language: "EN"
+    property string language: "BG"
 
 
     MouseArea
@@ -357,7 +357,6 @@ Layout.preferredHeight: 50
                     onClicked:{
                         contentLoader.setSource("Transactions.qml", {
                                             username: root.username,
-                                            fullName: root .fullName,
                                             language: root.language,
                                             firstName: root.firstName,
                                             lastName: root.lastName,
@@ -382,7 +381,6 @@ Layout.preferredHeight: 50
                         onClicked:{
                             contentLoader.setSource("Wallet.qml", {
                                                 username: root.username,
-                                                fullName: root .fullName,
                                                 language: root.language,
                                                 firstName: root.firstName,
                                                 lastName: root.lastName,
@@ -411,7 +409,6 @@ Layout.preferredHeight: 50
                     onClicked:{
                         contentLoader.setSource("TradingDashboard.qml", {
                                             username: root.username,
-                                            fullName: root .fullName,
                                             language: root.language,
                                             firstName: root.firstName,
                                             lastName: root.lastName,

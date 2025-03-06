@@ -18,7 +18,6 @@ Item {
     property string recipentPfp
     property string recipentEmail
     property var stackViewRef
-    property string language
     property alias searchBar: searchBar
     property var foundUsers: []  // Holds created user instances
     property string language
@@ -111,6 +110,7 @@ Item {
         RowLayout
         {
             spacing: 8 // Adjust spacing between icon and TextField
+            visible: !root.isTablet
             Image {
                 id: name
                 source: !root.isTablet ? "qrc:/resources/logo1.png" : "qrc:/resources/pfp.jpg"
@@ -435,8 +435,7 @@ Layout.preferredHeight: 50
                         {
                             source: "qrc:/resources/notSelectiveLine.svg"
                         }
-                        Text { text: root.language == "EN" ? qsTr("Dashboard") : qsTr("Начална страница")
-                        font.pixelSize: 20
+                        Text { text: "Обобщителна страница";                        font.pixelSize: 20
                         }
 
                     }

@@ -727,7 +727,6 @@ Layout.preferredHeight: 50
                     onClicked:{
                         contentLoader.setSource("TradingDashboard.qml", {
                                             username: root.username,
-                                            fullName: root .fullName,
                                             language: root.language,
                                             firstName: root.firstName,
                                             lastName: root.lastName,

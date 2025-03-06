@@ -17,7 +17,7 @@ Item {
     property string recipentFullname: "Boyan Kiovtorov"
     property string recipentEmail: "boyankiovtorov@gmail.com"
     property string recipentPfp: "https://lh3.googleusercontent.com/a/ACg8ocIa1jbyu-TgykKd00j16jb4N8H-tzeI4GCBsMI8BJ5OSbssUA=s96-c"
-    property string language: "EN"
+    property string language: "BG"
 
     property string sendingCurrency: "USD"
     property string recipentCurrency: "CAD"
@@ -25,7 +25,6 @@ Item {
     property real convertedAmount
     property real exchangeRate
     property bool sending: false
-    property string language
 
     Loader
     {
@@ -52,6 +51,7 @@ Item {
         anchors.fill: parent
         RowLayout
         {
+            visible: !root.isTablet
             spacing: 8 // Adjust spacing between icon and TextField
             Image {
                 id: name
@@ -378,8 +378,7 @@ Layout.preferredHeight: 50
                         {
                             source: "qrc:/resources/notSelectiveLine.svg"
                         }
-                        Text { text: root.language == "EN" ? qsTr("Dashboard") : qsTr("Начална страница")
-                        font.pixelSize: 20
+                        Text { text: "Обобщителна страница";                        font.pixelSize: 20
                         }
 
                     }
