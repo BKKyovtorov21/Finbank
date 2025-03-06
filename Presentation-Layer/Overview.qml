@@ -94,7 +94,7 @@ Item {
                 border.color: "#727272"
                 border.width: 0.1
                 Text {
-                    text: qsTr("Dashboard")
+                    text: root.language == "EN" ? qsTr("Dashboard") : qsTr("Начална страница")
                     anchors.centerIn: parent
                     color: "#196e1a"
                     font.pixelSize: 18
@@ -133,7 +133,7 @@ Item {
                         Layout.alignment: Qt.AlignVCenter
                         Layout.fillWidth: true // Make it expand to fill the remaining space
 
-                        placeholderText: qsTr("Search")
+                        placeholderText: root.language == "EN" ? qsTr("Seach") : qsTr("Търсене")
                         placeholderTextColor: "grey"
                         font.pixelSize: 18
                         color: "black"
@@ -161,7 +161,7 @@ Item {
                 }
                 Text {
                     id: chatText
-                    text: qsTr("Chat")
+                    text: root.language == "EN" ? qsTr("Chat") : qsTr("Чат")
                     font.pixelSize: 15
                     anchors.centerIn: parent
                     anchors.horizontalCenterOffset: 10 // Adjust to move text to the right
@@ -233,7 +233,7 @@ Item {
                         {
                             source: "qrc:/resources/tick.svg"
                         }
-                        Text { text: "Select Recipient"
+                        Text { text: root.language == "EN" ? qsTr("Select recipient") : qsTr("Избери получател")
                         font.pixelSize: 20
                         }
 
@@ -247,7 +247,7 @@ Item {
                         {
                             source: "qrc:/resources/tick.svg"
                         }
-                        Text { text: "Amount"
+                        Text { text: root.language == "EN" ? qsTr("Аmоunt") : qsTr("Стойност")
                         font.pixelSize: 20
                         }
 
@@ -261,7 +261,7 @@ Item {
                         {
                             source: "qrc:/resources/tick.svg"
                         }
-                        Text { text: "Details Recipent"
+                        Text { text: root.language == "EN" ? qsTr("Details recipient") : qsTr("Данни на получателя")
                         font.pixelSize: 20
                         }
 
@@ -275,7 +275,7 @@ Item {
                         {
                             source: "qrc:/resources/tick.svg"
                         }
-                        Text { text: "Transfer Type"
+                        Text { text: root.language == "EN" ? qsTr("Transfer type") : qsTr("Тип превод")
                         font.pixelSize: 20
                         }
 
@@ -289,7 +289,7 @@ Item {
                         {
                             source: "qrc:/resources/selectiveLine.svg"
                         }
-                        Text { text: "Overview"
+                        Text { text: root.language == "EN" ? qsTr("Dashboard") : qsTr("Начална страница")
                         font.pixelSize: 20
                         font.bold: true
                         }
@@ -317,7 +317,7 @@ Item {
                             Text
                             {
                                 Layout.fillWidth: true
-                                text: "Send money"
+                                text: root.language == "EN" ? qsTr("Send money") : qsTr("Изпрати пари")
                                 color: "grey"
                                 font.pixelSize: 15
                                 horizontalAlignment: Text.AlignHCenter
@@ -325,7 +325,7 @@ Item {
                             Text
                             {
                                 Layout.fillWidth: true
-                                text: "5|5 Overview"
+                                text: root.language == "EN" ? qsTr("5|5 Dashboard") : qsTr("5|5 Начална страница")
                                 horizontalAlignment: Text.AlignHCenter
                                 font.pixelSize: 15
                                 font.bold: true
@@ -357,7 +357,7 @@ Item {
                             font.bold: true
                             Layout.topMargin: root.isTablet ? 0 : (root.isPhone ? 0 : 30)
                             Layout.bottomMargin: root.isTablet ? 0 : (root.isPhone ? 0 : 50)
-                            text: "Review details of your transfer"
+                            text: root.language == "EN" ? qsTr("Review details of your transfer") : qsTr("Преглед на данните за превода")
                         }
 
                         Rectangle
@@ -392,7 +392,7 @@ Item {
                             Text
                             {
 
-                                text: "Transfer details"
+                                text: root.language == "EN" ? qsTr("Trasnfer details") : qsTr("Детайли за превод")
                                 font.bold: true
                                 font.pixelSize: 20
                             }
@@ -405,7 +405,7 @@ Item {
                             Text
                             {
 
-                                text: "Edit"
+                                text: root.language == "EN" ? qsTr("Edit") : qsTr("Редактирай")
                                 color: "#6D9CDF"
                                 font.pixelSize: 17
                             }
@@ -442,7 +442,7 @@ Item {
                             {
 
                                 font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
-                                text: "You send"
+                                text: root.language == "EN" ? qsTr("You send") : qsTr("Ти прати")
                             }
                             Item
                             {
@@ -473,7 +473,7 @@ Item {
                             Text
                             {
                                 font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
-                                text: "Finbank fees"
+                                text: root.language == "EN" ? qsTr("Finbank fees") : qsTr("Finbank такси")
                             }
                             Item
                             {
@@ -503,7 +503,7 @@ Item {
                             Text
                             {
                                 font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
-                                text: "Payment method fees"
+                                text: root.language == "EN" ? qsTr("Payment method fees") : qsTr("Такси за плащане")
                             }
                             Item
                             {
@@ -534,7 +534,7 @@ Item {
                             Text
                             {
                                 font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
-                                text: "You will pay"
+                                text: root.language == "EN" ? qsTr("You will pay") : qsTr("Ти ще платиш")
                             }
                             Item
                             {
@@ -569,12 +569,12 @@ Item {
                                 }
                                 Text {
                                     Layout.leftMargin: 15
-                                    text: "Vicho will get"
+                                    text: root.language == "EN" ? qsTr("Boyan will get") : qsTr("Боян ще получи")
                                     font.pixelSize: 17
                                 }
                                 Text {
                                     Layout.leftMargin: 15
-                                    text: "Conversion rate 1CAD = 11.205,44IDR"
+                                    text: root.language == "EN" ? qsTr("Conversion rate 1CAD = 11.205,44IDR") : qsTr("1CAD = 11.205,44IDR")
                                     color: "lightgray"
                                 }
                                 Item {
@@ -604,7 +604,7 @@ Item {
                             Text
                             {
 
-                                text: "Recipient details"
+                                text: root.language == "EN" ? qsTr("Recipient details") : qsTr("Детайли на получателя")
                                 font.bold: true
                                 font.pixelSize: 20
                             }
@@ -617,7 +617,7 @@ Item {
                             Text
                             {
 
-                                text: "Edit"
+                                text: root.language == "EN" ? qsTr("Edit") : qsTr("Редактирай")
                                 color: "#6D9CDF"
                                 font.pixelSize: 17
                             }
@@ -685,7 +685,7 @@ Item {
                             Text
                             {
                                 font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
-                                text: "Account Holder"
+                                text: root.language == "EN" ? qsTr("Account Holder") : qsTr("Притежател на акаунта")
                             }
                             Item
                             {
@@ -747,7 +747,7 @@ Item {
                             Text
                             {
                                 font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
-                                text: "Bank name"
+                                text: root.language == "EN" ? qsTr("Bank name") : qsTr("Име на банката")
                             }
                             Item
                             {
@@ -788,7 +788,7 @@ Item {
                     Text
                     {
                         anchors.centerIn: parent
-                        text: "Back"
+                        text: root.language == "EN" ? qsTr("Back") : qsTr("Връщане")
                         color: "black"
                     }
 
@@ -819,7 +819,7 @@ Item {
                     Text
                     {
                         anchors.centerIn: parent
-                        text: "Continue"
+                        text: root.language == "EN" ? qsTr("Continue") : qsTr("Продължи")
                         color: "white"
                     }
                     onClicked: {

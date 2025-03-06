@@ -18,7 +18,7 @@ Item {
     property var stackViewRef
     property alias searchBar: searchBar
     property var foundUsers: []  // Holds created user instances
-
+    property string language
     function findUser() {
         if (root.searchBar.text === "") {
             root.clearFoundUsers();
@@ -127,7 +127,7 @@ Item {
                     anchors.centerIn: parent
                     color: "#2f2f2f"
                     font.pixelSize: 18
-                    text: qsTr("Personal account")
+                    text: root.language == "EN" ? qsTr("Personal Account") : qsTr("Личен акаунт")
 
                 }
             }
@@ -150,7 +150,7 @@ Item {
                 border.color: "#727272"
                 border.width: 0.1
                 Text {
-                    text: qsTr("Transactions")
+                    text: root.language == "EN" ? qsTr("Тransactions") : qsTr("Преводи")
                     anchors.centerIn: parent
                     color: "#196e1a"
                     font.pixelSize: 18
@@ -185,7 +185,7 @@ Layout.preferredHeight: 50
 
                     Text {
                         Layout.alignment: Qt.AlignVCenter
-                        text: "Search"
+                        text: root.language == "EN" ? qsTr("Search") : qsTr("Търсене")
                         color: "grey"
                     }
 
@@ -263,7 +263,7 @@ Layout.preferredHeight: 50
                 }
                 Text {
                     id: chatText
-                    text: qsTr("Chat")
+                    text:root.language == "EN" ? qsTr("Chat") : qsTr("Чат")
                     font.pixelSize: 15
                     anchors.centerIn: parent
                     anchors.horizontalCenterOffset: 10 // Adjust to move text to the right
@@ -344,7 +344,7 @@ Layout.preferredHeight: 50
                         {
                             source: "qrc:/resources/selectiveLine.svg"
                         }
-                        Text { text: "Select Recipient"
+                        Text { text: root.language == "EN" ? qsTr("Select Recipient") : qsTr("Избери получател")
                         font.pixelSize: 20
                         font.bold: true
                         }
@@ -359,7 +359,7 @@ Layout.preferredHeight: 50
                         {
                             source: "qrc:/resources/notSelectiveLine.svg"
                         }
-                        Text { text: "Amount"
+                        Text { text: root.language == "EN" ? qsTr("Аmount") : qsTr("Сума")
                         font.pixelSize: 20
                         }
 
@@ -373,7 +373,7 @@ Layout.preferredHeight: 50
                         {
                             source: "qrc:/resources/notSelectiveLine.svg"
                         }
-                        Text { text: "Details Recipent"
+                        Text { text: root.language == "EN" ? qsTr("Details Recipient") : qsTr("Детайли на получателя")
                         font.pixelSize: 20
                         }
 
@@ -387,7 +387,7 @@ Layout.preferredHeight: 50
                         {
                             source: "qrc:/resources/notSelectiveLine.svg"
                         }
-                        Text { text: "Transfer Type"
+                        Text { text: root.language == "EN" ? qsTr("Transfer Type") : qsTr("Тип превод")
                         font.pixelSize: 20
                         }
 
@@ -401,7 +401,7 @@ Layout.preferredHeight: 50
                         {
                             source: "qrc:/resources/notSelectiveLine.svg"
                         }
-                        Text { text: "Overview"
+                        Text { text: root.language == "EN" ? qsTr("Dashboard") : qsTr("Начална страница")
                         font.pixelSize: 20
                         }
 
@@ -428,7 +428,7 @@ Layout.preferredHeight: 50
                             Text
                             {
                                 Layout.fillWidth: true
-                                text: "Send money"
+                                text: root.language == "EN" ? qsTr("Send money") : qsTr("Изпрати пари")
                                 color: "grey"
                                 font.pixelSize: 15
                                 horizontalAlignment: Text.AlignHCenter
@@ -436,7 +436,7 @@ Layout.preferredHeight: 50
                             Text
                             {
                                 Layout.fillWidth: true
-                                text: "1|5 Select money"
+                                text: root.language == "EN" ? qsTr("1|5 Select Recipent") : qsTr("1|5 Избери получател")
                                 horizontalAlignment: Text.AlignHCenter
                                 font.pixelSize: 15
                                 font.bold: true
@@ -459,7 +459,7 @@ Layout.preferredHeight: 50
                         Text
                         {
 
-                            text: qsTr("Who do you want to send money to?")
+                            text: root.language == "EN" ? qsTr("Who do you want to send money to?") : qsTr("На кого искаш да изпратиш пари?")
                             font.pixelSize: root.isTablet ? 30 : 30
                             Layout.fillWidth: true
                             Layout.topMargin: 20
@@ -481,7 +481,7 @@ Layout.preferredHeight: 50
                                 anchors.leftMargin: 20
                             }
 
-                            placeholderText: "Recipient's name or username"
+                            placeholderText: root.language == "EN" ? qsTr("Recipient's name or username") : qsTr("Име на получателя")
                             Layout.rightMargin: 30
                             Layout.leftMargin: 30
                             Layout.fillWidth: true
@@ -546,7 +546,7 @@ Layout.preferredHeight: 50
                     Text
                     {
                         anchors.centerIn: parent
-                        text: "Back"
+                        text: root.language == "EN" ? qsTr("Back") : qsTr("Връщане")
                         color: "black"
                     }
 

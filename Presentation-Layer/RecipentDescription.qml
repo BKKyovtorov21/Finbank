@@ -23,6 +23,7 @@ Item {
     property real convertedAmount
     property real exchangeRate
     property bool sending: false
+    property string language
 
     Loader
     {
@@ -71,7 +72,7 @@ Item {
                     anchors.centerIn: parent
                     color: "#2f2f2f"
                     font.pixelSize: 18
-                    text: qsTr("Personal account")
+                    text: root.language == "EN" ? qsTr("Personal account") : qsTr("Личен акаунт")
 
                 }
             }
@@ -94,7 +95,7 @@ Item {
                 border.color: "#727272"
                 border.width: 0.1
                 Text {
-                    text: qsTr("Dashboard")
+                    text: root.language == "EN" ? qsTr("Dashboard") : qsTr("Начална страница")
                     anchors.centerIn: parent
                     color: "#196e1a"
                     font.pixelSize: 18
@@ -133,7 +134,7 @@ Item {
                         Layout.alignment: Qt.AlignVCenter
                         Layout.fillWidth: true // Make it expand to fill the remaining space
 
-                        placeholderText: qsTr("Search")
+                        placeholderText: root.language == "EN" ? qsTr("Search") : qsTr("Търсене")
                         placeholderTextColor: "grey"
                         font.pixelSize: 18
                         color: "black"
@@ -161,7 +162,7 @@ Item {
                 }
                 Text {
                     id: chatText
-                    text: qsTr("Chat")
+                    text: root.language == "EN" ? qsTr("Chat") : qsTr("Чат")
                     font.pixelSize: 15
                     anchors.centerIn: parent
                     anchors.horizontalCenterOffset: 10 // Adjust to move text to the right
@@ -233,7 +234,7 @@ Item {
                         {
                             source: "qrc:/resources/tick.svg"
                         }
-                        Text { text: "Select Recipient"
+                        Text { text: root.language == "EN" ? qsTr("Select recipient") : qsTr("Избери получател")
                         font.pixelSize: 20
                         }
 
@@ -247,7 +248,7 @@ Item {
                         {
                             source: "qrc:/resources/tick.svg"
                         }
-                        Text { text: "Amount"
+                        Text { text: root.language == "EN" ? qsTr("Amount") : qsTr("Сума")
                         font.pixelSize: 20
                         }
 
@@ -261,7 +262,7 @@ Item {
                         {
                             source: "qrc:/resources/selectiveLine.svg"
                         }
-                        Text { text: "Details Recipent"
+                        Text { text: root.language == "EN" ? qsTr("Details Recipient") : qsTr("Детайли на получателя")
                         font.pixelSize: 20
                         font.bold: true
                         }
@@ -276,7 +277,7 @@ Item {
                         {
                             source: "qrc:/resources/notSelectiveLine.svg"
                         }
-                        Text { text: "Transfer Type"
+                        Text { text: root.language == "EN" ? qsTr("Тransfer type") : qsTr("Тип превод")
                         font.pixelSize: 20
                         }
 
@@ -290,7 +291,7 @@ Item {
                         {
                             source: "qrc:/resources/notSelectiveLine.svg"
                         }
-                        Text { text: "Overview"
+                        Text { text: root.language == "EN" ? qsTr("Dashboard") : qsTr("Начална страница")
                         font.pixelSize: 20
                         }
 
@@ -317,7 +318,7 @@ Item {
                             Text
                             {
                                 Layout.preferredWidth: parent.width
-                                text: "Send money"
+                                text: root.language == "EN" ? qsTr("Send Money") : qsTr("Изпрати пари")
                                 color: "grey"
                                 font.pixelSize: 15
                                 horizontalAlignment: Text.AlignHCenter
@@ -325,7 +326,7 @@ Item {
                             Text
                             {
                                 Layout.preferredWidth: parent.width
-                                text: "3|5 Recipent Details"
+                                text: root.language == "EN" ? qsTr("3|5 Recipent Details") : qsTr("3|5 Детайли на получателя")
                                 horizontalAlignment: Text.AlignHCenter
                                 font.pixelSize: 15
                                 font.bold: true
@@ -354,7 +355,7 @@ Item {
                             Layout.preferredWidth: parent.width
                             font.pixelSize: root.isTablet ? 20 :40
                             font.bold: true
-                            text: qsTr("Select recipent bank destination")
+                            text: root.language == "EN" ? qsTr("Select recipient bank destination") : qsTr("Избери банката на получателя")
 
 
                         }
@@ -382,7 +383,7 @@ Item {
                         }
                         Text
                         {
-                            text: "Bank account"
+                            text: root.language == "EN" ? qsTr("Bank account") : qsTr("Банков профил")
                             Layout.preferredHeight: 20
                             font.pixelSize: 20
                             font.bold: true
@@ -648,7 +649,7 @@ Item {
                     Text
                     {
                         anchors.centerIn: parent
-                        text: "Back"
+                        text: root.language == "EN" ? qsTr("Back") : qsTr("Връщане")
                         color: "black"
                     }
 
@@ -681,7 +682,7 @@ Item {
                     Text
                     {
                         anchors.centerIn: parent
-                        text: "Continue"
+                        text: root.language == "EN" ? qsTr("Continue") : qsTr("Продължи")
                         color: "white"
                     }
                     onClicked: {

@@ -16,6 +16,7 @@ Item {
     property string sendingCurrency
     property string recipentCurrency
     property bool sending: false
+    property string language
 
     Loader
     {
@@ -65,7 +66,7 @@ Item {
                     anchors.centerIn: parent
                     color: "#2f2f2f"
                     font.pixelSize: 18
-                    text: qsTr("Personal account")
+                    text: root.language == "EN" ? qsTr("Personal account") : qsTr("Личен акаунт")
 
                 }
             }
@@ -88,7 +89,7 @@ Item {
                 border.color: "#727272"
                 border.width: 0.1
                 Text {
-                    text: qsTr("Dashboard")
+                    text: root.language == "EN" ? qsTr("Dashboard") : qsTr("Начална страница")
                     anchors.centerIn: parent
                     color: "#196e1a"
                     font.pixelSize: 18
@@ -127,7 +128,7 @@ Item {
                         Layout.alignment: Qt.AlignVCenter
                         Layout.fillWidth: true // Make it expand to fill the remaining space
 
-                        placeholderText: qsTr("Search")
+                        placeholderText: root.language == "EN" ? qsTr("Search") : qsTr("Tърсене")
                         placeholderTextColor: "grey"
                         font.pixelSize: 18
                         color: "black"
@@ -155,7 +156,7 @@ Item {
                 }
                 Text {
                     id: chatText
-                    text: qsTr("Chat")
+                    text: root.language == "EN" ? qsTr("Chat") : qsTr("Чат")
                     font.pixelSize: 15
                     anchors.centerIn: parent
                     anchors.horizontalCenterOffset: 10 // Adjust to move text to the right
@@ -227,7 +228,7 @@ Item {
                         {
                             source: "qrc:/resources/tick.svg"
                         }
-                        Text { text: "Select Recipient"
+                        Text { text: root.language == "EN" ? qsTr("Select Recipient") : qsTr("Избери получател")
                         font.pixelSize: 20
                         }
 
@@ -241,7 +242,7 @@ Item {
                         {
                             source: "qrc:/resources/tick.svg"
                         }
-                        Text { text: "Amount"
+                        Text { text: root.language == "EN" ? qsTr("Amount") : qsTr("Сума")
                         font.pixelSize: 20
                         }
 
@@ -269,7 +270,7 @@ Item {
                         {
                             source: "qrc:/resources/selectiveLine.svg"
                         }
-                        Text { text: "Transfer Type"
+                        Text { text: root.language == "EN" ? qsTr("Transfer Type") : qsTr("Тип превод")
                         font.pixelSize: 20
                         font.bold: true
                         }
@@ -284,7 +285,7 @@ Item {
                         {
                             source: "qrc:/resources/notSelectiveLine.svg"
                         }
-                        Text { text: "Overview"
+                        Text { text: root.language == "EN" ? qsTr("Dashboard") : qsTr("Начална страница")
                         font.pixelSize: 20
                         }
 
@@ -311,7 +312,7 @@ Item {
                             Text
                             {
                                 Layout.fillWidth: true
-                                text: "Send money"
+                                text: root.language == "EN" ? qsTr("Send money") : qsTr("Изпрати пари")
                                 color: "grey"
                                 font.pixelSize: 15
                                 horizontalAlignment: Text.AlignHCenter
@@ -319,7 +320,7 @@ Item {
                             Text
                             {
                                 Layout.fillWidth: true
-                                text: "4|5 Transfer Type"
+                                text: root.language == "EN" ? qsTr("4|5 Transfer Type") : qsTr("4|5 Тип превод")
                                 horizontalAlignment: Text.AlignHCenter
                                 font.pixelSize: 15
                                 font.bold: true
@@ -350,7 +351,7 @@ Item {
                             font.bold: true
                             Layout.topMargin: root.isTablet ? 0 : (root.isPhone ? 0 : 30)
                             Layout.bottomMargin: root.isTablet ? 0 : (root.isPhone ? 0 : 50)
-                            text: "Choose your transfer type"
+                            text: root.language == "EN" ? qsTr("Choose your transfer type") : qsTr("Изберeте вашия тип превод")
                         }
 
                         RowLayout
@@ -364,7 +365,7 @@ Item {
                             }
                             Text
                             {
-                                text: "Finbank+ transfer type"
+                                text: root.language == "EN" ? qsTr("Finbank+ transfer type") : qsTr("Finbank+ тип превод")
                                 font.pixelSize: 17
 
                             }
@@ -375,7 +376,7 @@ Item {
 
                             Text
                             {
-                                text: "Total fee: $0 USD"
+                                text: root.language == "EN" ? qsTr("Total fee: $0 USD") : qsTr("Taкса: $0 USD")
                                 color: "#666666"
                                 font.pixelSize: 17
 
@@ -453,7 +454,7 @@ Item {
                                         Layout.preferredWidth: parent
                                     Text {
 
-                                        text: qsTr("Finbank+ transfer types")
+                                        text: root.language == "EN" ? qsTr("Finbank+ transfer types") : qsTr("Finbank+ тип превод")
                                         color: "black"
                                         font.pixelSize: 17
 
@@ -464,7 +465,7 @@ Item {
                                         font.pixelSize:17
                                         wrapMode: Text.WordWrap
                                         Layout.fillWidth: true
-                                        text: qsTr("Use money in your Finbank+ account to pay for your transfer instantly. Should arrive in seconds.")
+                                        text: root.language == "EN" ? qsTr("Use money in your Finbank+ account to pay for your transfer instantly. Should arrive in seconds.") : qsTr("Използвайте пари във вашата Finbank сметка, за да платите за превода си незабавно. Трябва да пристигне за секунди.")
 
                                     }
                                     }
@@ -484,7 +485,7 @@ Item {
                             }
                             Text
                             {
-                                text: "Fast and easy transfer"
+                                text: root.language == "EN" ? qsTr("Fast and easy transfer") : qsTr("Лесен и бърз превод")
                                 font.pixelSize: 17
 
                             }
@@ -495,7 +496,7 @@ Item {
 
                             Text
                             {
-                                text: "Total fee: $5 USD"
+                                text: root.language == "EN" ? qsTr("Тотаl fees: 5 USD") : qsTr("Такса: 5 USD")
                                 color: "#666666"
                                 font.pixelSize: 17
 
@@ -575,7 +576,7 @@ Item {
                                         Layout.topMargin: root.isPhone ? 10 : 30
                                     Text {
 
-                                        text: qsTr("Debit card")
+                                        text: root.language == "EN" ? qsTr("Debit card") : qsTr("Дебитна карта")
                                         font.pixelSize: 17
 
                                     }
@@ -584,7 +585,7 @@ Item {
                                         Layout.preferredHeight: 50
                                         wrapMode: Text.WordWrap
                                         Layout.fillWidth: true
-                                        text: qsTr("Send from your Visa or Mastercad. Should arrive in seconds.")
+                                        text: root.language == "EN" ? qsTr("Send from your Visa or MasterCard. Should arrive in seconds.") : qsTr("Изпратете от вашия Visa или MasterCard. Пристига за секунди.")
                                         font.pixelSize: 17
 
                                     }
@@ -608,7 +609,7 @@ Item {
                             }
                             Text
                             {
-                                text: "Low cost transfer"
+                                text: root.language == "EN" ? qsTr("Low cost transfer") : qsTr("Ниско разходен превод")
                                 font.pixelSize: 17
 
                             }
@@ -619,7 +620,7 @@ Item {
 
                             Text
                             {
-                                text: "Total fee: $5 USD"
+                                text: rootdashboard.language == "EN" ? qsTr("Тотаl fee: $5 USD") : qsTr("Такса: $5 USD")
                                 color: "#666666"
                                 font.pixelSize: 17
                             }
@@ -698,7 +699,7 @@ Item {
                                         Layout.topMargin: root.isPhone ? 10 : 30
                                     Text {
 
-                                        text: qsTr("Transfer your money from your bank account")
+                                        text: rootdashboard.language == "EN" ? qsTr("Transfer your money from your bank account") : qsTr("Преведи пари от Вашия банков акаунт")
                                         font.pixelSize: 17
 
                                     }
@@ -707,7 +708,7 @@ Item {
                                         Layout.preferredHeight: 50
                                         wrapMode: Text.WordWrap
                                         Layout.fillWidth: true
-                                        text: qsTr("Transfer the money using you bank account balance. Should arrive in seconds.")
+                                        text: rootdashboard.language == "EN" ? qsTr("Transfer the money using you bank account balance. Should arrive in seconds.") : qsTr("Преведете парите, като използвате баланса на банковата си сметка. Пристига до секунди")
                                         font.pixelSize: 17
 
                                     }
@@ -739,7 +740,7 @@ Item {
                     Text
                     {
                         anchors.centerIn: parent
-                        text: "Back"
+                        text: root.language == "EN" ? qsTr("Back") : qsTr("Връщане")
                         color: "black"
                     }
 
@@ -771,7 +772,7 @@ Item {
                     Text
                     {
                         anchors.centerIn: parent
-                        text: "Continue"
+                        text: root.language == "EN" ? qsTr("Continue") : qsTr("Продължи")
                         color: "white"
                     }
                     onClicked: {

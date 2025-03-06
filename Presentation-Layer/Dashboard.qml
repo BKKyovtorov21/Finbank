@@ -589,7 +589,7 @@ Layout.preferredHeight: 50
                                 id: request_money
 
                                 color: "#367c21"
-                                text: root.language == "EN" ? qsTr("Request money") : qsTr("Поискай пари")
+                                text: root.language == "EN" ? qsTr("Request money") : qsTr("Заяви пари")
                                 anchors.left: parent.left
                                 anchors.top: parent.top
                                 anchors.leftMargin: 22

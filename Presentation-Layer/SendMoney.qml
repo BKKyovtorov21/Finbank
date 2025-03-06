@@ -21,6 +21,7 @@ Item {
     property real convertedAmount
     property real exchangeRate
     property bool sending: false
+    property string language
 
     Component.onCompleted:
     {
@@ -173,7 +174,7 @@ Item {
                     anchors.centerIn: parent
                     color: "#2f2f2f"
                     font.pixelSize: 18
-                    text: qsTr("Personal account")
+                    text: root.language == "EN" ? qsTr("Personal Account") : qsTr("Личен акаунт")
 
                 }
             }
@@ -196,7 +197,7 @@ Item {
                 border.color: "#727272"
                 border.width: 0.1
                 Text {
-                    text: qsTr("Transactions")
+                    text: root.language == "EN" ? qsTr("Transactions") : qsTr("Преводи")
                     anchors.centerIn: parent
                     color: "#196e1a"
                     font.pixelSize: 18
@@ -231,7 +232,7 @@ Layout.preferredHeight: 50
 
                     Text {
                         Layout.alignment: Qt.AlignVCenter
-                        text: "Search"
+                        text: root.language == "EN" ? qsTr("Search") : qsTr("Търсене")
                         color: "grey"
                     }
 
@@ -309,7 +310,7 @@ Layout.preferredHeight: 50
                 }
                 Text {
                     id: chatText
-                    text: qsTr("Chat")
+                    text: root.language == "EN" ? qsTr("Chat") : qsTr("Чат")
                     font.pixelSize: 15
                     anchors.centerIn: parent
                     anchors.horizontalCenterOffset: 10 // Adjust to move text to the right
@@ -390,7 +391,7 @@ Layout.preferredHeight: 50
                         {
                             source: "qrc:/resources//tick.svg"
                         }
-                        Text { text: "Select Recipient"
+                        Text { text: root.language == "EN" ? qsTr("Select Recipient") : qsTr("Избери получател")
                         font.pixelSize: 20
                         }
 
@@ -404,7 +405,7 @@ Layout.preferredHeight: 50
                         {
                             source: "qrc:/resources//selectiveLine.svg"
                         }
-                        Text { text: "Amount"
+                        Text { text: root.language == "EN" ? qsTr("Аmount") : qsTr("Сума")
                         font.pixelSize: 20
                         font.bold: true
                         }
@@ -419,7 +420,7 @@ Layout.preferredHeight: 50
                         {
                             source: "qrc:/resources//notSelectiveLine.svg"
                         }
-                        Text { text: "Details Recipent"
+                        Text { text: root.language == "EN" ? qsTr("Details Recipient") : qsTr("Детайли на получателя")
                         font.pixelSize: 20
                         }
 
@@ -433,7 +434,7 @@ Layout.preferredHeight: 50
                         {
                             source: "qrc:/resources/notSelectiveLine.svg"
                         }
-                        Text { text: "Transfer Type"
+                        Text { text: root.language == "EN" ? qsTr("Тransfer Type") : qsTr("Тип превод")
                         font.pixelSize: 20
                         }
 
@@ -447,7 +448,7 @@ Layout.preferredHeight: 50
                         {
                             source: "qrc:/resources/notSelectiveLine.svg"
                         }
-                        Text { text: "Overview"
+                        Text { text: root.language == "EN" ? qsTr("Dashboard") : qsTr("Начална страница")
                         font.pixelSize: 20
                         }
 
@@ -474,7 +475,7 @@ Layout.preferredHeight: 50
                             Text
                             {
                                 Layout.fillWidth: true
-                                text: "Send money"
+                                text: root.language == "EN" ? qsTr("Send money") : qsTr("Изпрати пари")
                                 color: "grey"
                                 font.pixelSize: 15
                                 horizontalAlignment: Text.AlignHCenter
@@ -482,7 +483,7 @@ Layout.preferredHeight: 50
                             Text
                             {
                                 Layout.fillWidth: true
-                                text: "2|5 Enter amount"
+                                text: root.language == "EN" ? qsTr("2|5 Enter amount") : qsTr("2|5 Сума")
                                 horizontalAlignment: Text.AlignHCenter
                                 font.pixelSize: 15
                                 font.bold: true
@@ -511,7 +512,7 @@ Layout.preferredHeight: 50
                             font.pixelSize: root.isTablet ? 30 :40
                             font.bold: true
                             wrapMode: Text.WordWrap
-                            text: root.isTablet ? qsTr("How much do you want to send") : "How much do you want to send"
+                            text: root.language == "EN" ? qsTr("How much do you want to send") : qsTr("Колко би желал да изпратиш")
                         }
 
                         RowLayout
@@ -545,7 +546,7 @@ Layout.preferredHeight: 50
                                     {
 
                                         anchors.centerIn: parent
-                                        text: "International"
+                                        text: root.language == "EN" ? qsTr("International") : qsTr("Международен")
                                         font.pixelSize: root.isTablet ? 20 : 25
                                     }
 
@@ -556,7 +557,7 @@ Layout.preferredHeight: 50
                                     anchors.verticalCenter: parent.verticalCenter
                                     anchors.leftMargin: parent.width / 9
                                     font.pixelSize: root.isTablet ? 20 : 25
-                                    text: "Same currency"
+                                    text: root.language == "EN" ? qsTr("Same currency") : qsTr("Същата валута")
                                 }
 
                             }
@@ -569,7 +570,7 @@ Layout.preferredHeight: 50
 
                         Text
                         {
-                            text: qsTr("You will send")
+                            text: root.language == "EN" ? qsTr("You will send") : qsTr("Ще изпратиш")
                             color: "black"
                             font.pixelSize: 20
                             Layout.leftMargin: !root.isTablet ? 150 : root.isPhone ? 10 : 50
@@ -658,7 +659,7 @@ Layout.preferredHeight: 50
                         }
                         Text
                         {
-                            text: "Recipent will get"
+                            text: root.language == "EN" ? qsTr("Recipient will get") : qsTr("Получателят ще получи")
                             Layout.leftMargin: !root.isTablet ? 150 : root.isPhone ? 10 : 50
                             font.pixelSize: 20
                         }
@@ -744,7 +745,7 @@ Layout.preferredHeight: 50
                                     {
                                         Layout.fillWidth: true
                                         Layout.alignment: Qt.AlignLeft
-                                        text: "Finbank + fees"
+                                        text: root.language == "EN" ? qsTr("Finbank+ fees") : qsTr("Finbank+ такси")
                                         color: "grey"
                                         opacity: 0.8
                                         font.pixelSize: root.isPhone ? 15 : 20
@@ -772,7 +773,7 @@ Layout.preferredHeight: 50
                                     {
                                         Layout.fillWidth: true
                                         Layout.alignment: Qt.AlignLeft
-                                        text: "You will pay"
+                                        text: root.language == "EN" ? qsTr("You will pay") : qsTr("Ще платиш")
                                         color: "grey"
                                         opacity: 0.8
                                         font.pixelSize: root.isPhone ? 15 : 20
@@ -798,7 +799,7 @@ Layout.preferredHeight: 50
                                     {
                                         Layout.fillWidth: true
                                         Layout.alignment: Qt.AlignLeft
-                                        text: "Total amount will be converted"
+                                        text: root.language == "EN" ? qsTr("Total amount will be converted") : qsTr("Цялата сума ще бъде обменена")
                                         color: "grey"
                                         opacity: 0.8
                                         font.pixelSize: root.isPhone ? 15 : 20
@@ -825,7 +826,7 @@ Layout.preferredHeight: 50
                                     {
                                         Layout.fillWidth: true
                                         Layout.alignment: Qt.AlignLeft
-                                        text: "Guaranteed Rate (12h)"
+                                        text: root.language == "EN" ? qsTr("Guaranteed Rate (12h)") : qsTr("Гарантирана ставка(12h)")
                                         color: "grey"
                                         opacity: 0.8
                                         font.pixelSize: root.isPhone ? 15 : 20
@@ -862,7 +863,7 @@ Layout.preferredHeight: 50
                     Text
                     {
                         anchors.centerIn: parent
-                        text: "Back"
+                        text: root.language == "EN" ? qsTr("Back") : qsTr("Върни се")
                         color: "black"
                     }
 
@@ -895,7 +896,7 @@ Layout.preferredHeight: 50
                     Text
                     {
                         anchors.centerIn: parent
-                        text: "Continue"
+                        text: root.language == "EN" ? qsTr("Continue") : qsTr("Продължи")
                         color: "white"
                     }
                     onClicked: {

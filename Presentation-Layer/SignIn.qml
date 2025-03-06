@@ -14,6 +14,7 @@ Window {
         property bool emailLogin
         property bool validlogin
         property int spaceCounter: 0
+        property string  language: "BG"
      onClosing: {
              Qt.quit(); // Explicitly quit the application
          }
@@ -29,7 +30,38 @@ Window {
         contentHeight: root.height
         clip: true
         visible: contentLoader.status === Loader.Null
+        Rectangle
+        {
+            width: 80
+            height: 50
+            radius: 5
+            color: "#fafafa"
 
+            RowLayout
+            {
+                anchors.fill: parent
+
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+             Image {
+                 source: "qrc:/resources/language.svg"
+             }
+             Text {
+                 text: root.language
+                 font.pixelSize: 15
+                 Layout.alignment: Qt.AlignVCenter
+             }
+            }
+
+
+            MouseArea
+            {
+                anchors.fill: parent
+                onClicked:
+                {
+                    root.language = (root.language === "EN") ? "BG" : "EN";
+                }
+            }
+        }
         ColumnLayout {
             spacing: 20
             width: Math.min(root.width * 0.8, 500) // Limit max width for better centering
@@ -47,16 +79,16 @@ Window {
 
             Text {
                 id: welcome
-                text: qsTr("Welcome back")
+                text: root.language == "EN" ? qsTr("Welcome Back!") : qsTr("Добре дошъл отново!")
                 font.pixelSize: root.isTablet ? 20 : 40
                 Layout.alignment: Qt.AlignHCenter
             }
 
             Text {
                 id: enterText
-                text: qsTr("Enter the phone number associated with your Finbank account")
+                text: root.language == "EN" ? qsTr("Enter the phone number associated with your Finbank account") : qsTr("Въведи номера, който е свързан с Finbank акаунта ти")
                 font.pixelSize: 15
-                Layout.alignment: Qt.AlignHCenter
+                horizontalAlignment: Qt.AlignHCenter
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: parent.width
                 maximumLineCount: 2
@@ -130,7 +162,7 @@ Window {
                                             }
                                             anchors.fill: parent
                                             font.pixelSize: root.isTablet ? 15 : 20
-                                            placeholderText: qsTr("Phone number")
+                                            placeholderText: root.language == "EN" ? qsTr("Phone number") : qsTr("Телефонен номер")
                                             placeholderTextColor: "gray"
                                             color: "black"
                                             inputMethodHints: Qt.ImhFormattedNumbersOnly
@@ -174,7 +206,7 @@ Window {
                                                     }
                                                     anchors.fill: parent
                                                     font.pixelSize: root.isTablet ? 15 : 20
-                                                    placeholderText: qsTr("Password")
+                                                    placeholderText: root.language == "EN" ? qsTr("Password") : qsTr("Парола")
                                                     placeholderTextColor: "gray"
                                                     color: "black"
                                                     Keys.onPressed: function(event) {
@@ -196,7 +228,7 @@ Window {
             Text {
                 font.pixelSize: 20
                 color: "#4F55F1"
-                text: root.emailLogin ? qsTr("Lost access to my email") : qsTr("Lost access to my phone")
+                text: root.emailLogin ? root.language == "EN" ? qsTr("Lost access to my email") : qsTr("Нямам достъп до имейла ми") : root.language == "EN" ? qsTr("Lost access to my phone") : qsTr("Нямам достъп до телефона си")
                 Layout.alignment: Qt.AlignHCenter
             }
 
@@ -210,7 +242,7 @@ Window {
                 Text {
                     anchors.centerIn: parent
                     color: "white"
-                    text: !root.validlogin ? qsTr("Next") : qsTr("Log In")
+                    text: !root.validlogin ? root.language == "EN" ? qsTr("Next") : qsTr("Следващ") : root.language == "EN" ? qsTr("Log in") : qsTr("Вход")
                     font.pixelSize: 20
                 }
 
@@ -262,7 +294,7 @@ Window {
                         }
 
                         Text {
-                            text: !root.emailLogin ? qsTr("Continue with email") : qsTr("Continue with phone")
+                            text: !root.emailLogin ? root.language == "EN" ? qsTr("Continue with email") : qsTr("Продължи с имейл") : root.language == "EN" ? qsTr("Continue with phone") : qsTr("Продължи с номер")
                             font.pixelSize: root.isTablet ? 15 : 20
                             font.bold: true
                             Layout.fillWidth: true
@@ -307,7 +339,7 @@ Window {
 
                         Text {
 
-                            text: qsTr("Continue with google")
+                            text: root.language == "EN" ? qsTr("Continue with Google") : qsTr("Продължи с Google")
                             font.pixelSize: root.isTablet ? 15 : 20
                             font.bold: true
                             Layout.fillWidth: true
@@ -343,7 +375,7 @@ Window {
                         }
 
                         Text {
-                            text: qsTr("Continue with apple")
+                            text: root.language == "EN" ? qsTr("Continue with Apple") : qsTr("Продължи с Apple")
                             font.pixelSize: root.isTablet ? 15 : 20
                             font.bold: true
                             Layout.fillWidth: true
@@ -358,7 +390,7 @@ Window {
                     Layout.alignment: Qt.AlignHCenter
 
 
-                        text: qsTr("Create account")
+                        text: root.language == "EN" ? qsTr("Create account") : qsTr("Създай акаунт")
                         font.pixelSize: 20
                         color: "#4F55F1"
 
@@ -388,7 +420,7 @@ Window {
 
             function onLogInSuccessful(username, fullName) {
                 contentLoader.setSource("Dashboard.qml", {
-                                    username: username,
+                                    usernameRef: username,
                                     fullName: fullName
                                 })
 

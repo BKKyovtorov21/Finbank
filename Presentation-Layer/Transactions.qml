@@ -705,7 +705,7 @@ Layout.preferredHeight: 50
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenterOffset: 0
                     anchors.horizontalCenterOffset: 8
-                    text: qsTr("Send")
+                    text: root.language == "EN" ? qsTr("Send") : qsTr("Изпрати")
                     color: "white"
                     font.pixelSize: 18
 
@@ -742,7 +742,7 @@ Layout.preferredHeight: 50
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenterOffset: 0
                     anchors.horizontalCenterOffset: 10
-                    text: root.language == "EN" ? qsTr("Request") : qsTr("Поискай")
+                    text: root.language == "EN" ? qsTr("Request") : qsTr("Заяви")
                     color: "white"
                     font.pixelSize: 18
 
@@ -1025,7 +1025,7 @@ Layout.preferredHeight: 50
 
                 model: ListModel {
                     ListElement { source: "qrc:/resources/rightArrow2.svg"; enText: "Send"; otherText: "Изпрати"; rotation: -90; method1: true }
-                    ListElement { source: "qrc:/resources/rightArrow2.svg"; enText: "Request"; otherText: "Поискай"; rotation: 90 }
+                    ListElement { source: "qrc:/resources/rightArrow2.svg"; enText: "Request"; otherText: "Заяви"; rotation: 90 }
                     ListElement { source: "qrc:/resources/convert.svg"; enText: "Convert"; otherText: "Oбмени"; rotation: 0 }
                     ListElement { source: "qrc:/resources/more.svg"; enText: "More"; otherText: "Oще"; rotation: 0 }
                 }
