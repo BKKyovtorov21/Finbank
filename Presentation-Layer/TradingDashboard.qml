@@ -41,7 +41,7 @@ Item {
             }
             Text
             {
-                text: "Trade"
+                text: root.language == "EN" ? qsTr("Invest") : qsTr("Инвестирай")
                 font.pixelSize: 25
             }
             Item
@@ -73,7 +73,7 @@ Layout.preferredHeight: 50
 
                     Text {
                         Layout.alignment: Qt.AlignVCenter
-                        text: "Search"
+                        text: root.language == "EN" ? qsTr("Search") : qsTr("Търси")
                         color: "grey"
                     }
 
@@ -231,7 +231,7 @@ Layout.preferredHeight: 50
                     }
                     Text
                     {
-                        text: "Dashboard"
+                        text: root.language == "EN" ? qsTr("Dashboard") : qsTr("Начална страница")
                         Layout.leftMargin: 10
                         font.pixelSize: 20
                     }
@@ -248,7 +248,7 @@ Layout.preferredHeight: 50
                     }
                     Text
                     {
-                        text: "Portfolio"
+                        text: root.language == "EN" ? qsTr("Portfolio") : qsTr("Портфолио")
                         Layout.leftMargin: 10
                         font.pixelSize: 20
                     }
@@ -264,7 +264,7 @@ Layout.preferredHeight: 50
                     }
                     Text
                     {
-                        text: "My Stock"
+                        text: root.language == "EN" ? qsTr("My stock") : qsTr("Моите акции")
                         Layout.leftMargin: 10
                         font.pixelSize: 20
                     }
@@ -280,7 +280,7 @@ Layout.preferredHeight: 50
                     }
                     Text
                     {
-                        text: "Deposit"
+                        text: root.language == "EN" ? qsTr("Deposit") : qsTr("Депозит")
                         Layout.leftMargin: 10
                         font.pixelSize: 20
                     }
@@ -296,7 +296,7 @@ Layout.preferredHeight: 50
                     }
                     Text
                     {
-                        text: "Insight"
+                        text: root.language == "EN" ? qsTr("Insight") : qsTr("Анализ")
                         Layout.leftMargin: 10
                         font.pixelSize: 20
                     }
@@ -322,7 +322,7 @@ Layout.preferredHeight: 50
                     }
                     Text
                     {
-                        text: "Market Stock"
+                        text: root.language == "EN" ? qsTr("Market Stock") : qsTr("Пазарни акции")
                         Layout.leftMargin: 10
                         font.pixelSize: 20
                     }
@@ -346,7 +346,7 @@ Layout.preferredHeight: 50
                     }
                     Text
                     {
-                        text: "News"
+                        text: root.language == "EN" ? qsTr("News") : qsTr("Новини")
                         Layout.leftMargin: 10
                         font.pixelSize: 20
                     }
@@ -370,7 +370,7 @@ Layout.preferredHeight: 50
                     }
                     Text
                     {
-                        text: "Help Center"
+                        text: root.language == "EN" ? qsTr("Help Center") : qsTr("Помощен център")
                         Layout.leftMargin: 10
                         font.pixelSize: 20
                     }
@@ -386,7 +386,7 @@ Layout.preferredHeight: 50
                     }
                     Text
                     {
-                        text: "Settings"
+                        text: root.language == "EN" ? qsTr("Settings") : qsTr("Настройки")
                         Layout.leftMargin: 10
                         font.pixelSize: 20
                     }
@@ -401,7 +401,7 @@ Layout.preferredHeight: 50
                     Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
                     background: Text
                     {
-                        text: "Back To Finbank"
+                        text: root.language == "EN" ? qsTr("Back to Finbank") : qsTr("Обратно към Finbank")
                         font.bold: true
                         font.pixelSize: 20
                     }
@@ -430,7 +430,7 @@ Layout.preferredHeight: 50
                         Layout.topMargin: 15
                         Text
                         {
-                            text: "Dashboard"
+                            text: root.language == "EN" ? qsTr("Dashboard") : qsTr("Начална страница")
                             font.pixelSize: 20
                             font.bold: true
                             Layout.alignment: Qt.AlignTop
@@ -454,7 +454,7 @@ Layout.preferredHeight: 50
                             Text
                             {
                                 anchors.centerIn: parent
-                                text: "Deposit"
+                                text: root.language == "EN" ? qsTr("Deposit") : qsTr("Депозирай")
                                 font.pixelSize: 17
                             }
                         }
@@ -472,7 +472,7 @@ Layout.preferredHeight: 50
                             Text
                             {
                                 anchors.centerIn: parent
-                                text: "Withdraw"
+                                text:root.language == "EN" ? qsTr("Withdraw") : qsTr("Изтегли")
                                 font.pixelSize: 17
                                 color: "white"
                             }
@@ -482,7 +482,7 @@ Layout.preferredHeight: 50
                     }
                     Text
                     {
-                        text: "Overview of notes regarding your investment"
+                        text: root.language == "EN" ? qsTr("Overview of notes regarding your investment") : qsTr("Преглед на инвестициите ти")
                         font.pixelSize: 15
 
                         Layout.alignment: Qt.AlignTop
@@ -531,7 +531,7 @@ Layout.preferredHeight: 50
                                         Layout.leftMargin: 10
                                         Text
                                         {
-                                            text: "Watchlist"
+                                            text: root.language == "EN" ? qsTr("Watchlist") : qsTr("Наблюдавани")
                                             color: "black"
                                             Layout.fillWidth: true
                                             font.bold: true
@@ -540,7 +540,7 @@ Layout.preferredHeight: 50
                                         }
                                         Text
                                         {
-                                            text: "Add New"
+                                            text: root.language == "EN" ? qsTr("Add new") : qsTr("Добави нова")
                                             font.pixelSize: 15
                                             Layout.rightMargin: 10
                                         }
@@ -886,38 +886,38 @@ Layout.preferredHeight: 50
 
                                     Text
                                     {
-                                        text: "Name Stock"
+                                        text: root.language == "EN" ? qsTr("Name Stock") : qsTr("Име на акция")
                                         color: "#797979"
                                         Layout.alignment: Qt.AlignVCenter
                                         Layout.leftMargin: 15
                                     }
                                     Text
                                     {
-                                        text: "Invest Date"
+                                        text: root.language == "EN" ? qsTr("Invest Date") : qsTr("Инвестиран от")
                                         color: "#797979"
                                         Layout.alignment: Qt.AlignVCenter
                                     }
                                     Text
                                     {
-                                        text: "Volume"
+                                        text: root.language == "EN" ? qsTr("Volume") : qsTr("Обем")
                                         color: "#797979"
                                         Layout.alignment: Qt.AlignVCenter
                                     }
                                     Text
                                     {
-                                        text: "Change"
+                                        text: root.language == "EN" ? qsTr("Change") : qsTr("Разлика")
                                         color: "#797979"
                                         Layout.alignment: Qt.AlignVCenter
                                     }
                                     Text
                                     {
-                                        text: "Price/stock"
+                                        text: root.language == "EN" ? qsTr("Price/Stock") : qsTr("Цена/Акция")
                                         color: "#797979"
                                         Layout.alignment: Qt.AlignVCenter
                                     }
                                     Text
                                     {
-                                        text: "Number of lots"
+                                        text: root.language == "EN" ? qsTr("Number of lots") : qsTr("Брой лотарии")
                                         color: "#797979"
                                         Layout.alignment: Qt.AlignVCenter
                                     }
@@ -1165,7 +1165,7 @@ Layout.preferredHeight: 50
                        Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
                        background: Text
                        {
-                           text: "Back To Finbank"
+                           text: root.language == "EN" ? qsTr("Back to Finbank") : qsTr("Обратно към Finbank")
                            font.bold: true
                            font.pixelSize: 15
                        }
@@ -1239,7 +1239,7 @@ Layout.preferredHeight: 50
                        anchors.fill: parent
                     Text{
                        visible: !root.isPhone
-                        text: "Hey, Bobur"
+                        text: root.language == "EN" ? qsTr("Hey, Boyan") : qsTr("Здравей, Боян!")
                         Layout.alignment: Qt.AlignVCenter
                         font.bold: true
                         font.pixelSize: 17
@@ -1289,7 +1289,7 @@ Layout.preferredHeight: 50
 
                            Text {
                                Layout.alignment: Qt.AlignVCenter
-                               text: "Search"
+                               text: root.language == "EN" ? qsTr("Search") : qsTr("Търсене")
                                color: "grey"
                            }
 
@@ -1371,7 +1371,7 @@ Layout.preferredHeight: 50
 
                        Text
                        {
-                           text: "Trade"
+                           text: root.language == "EN" ? qsTr("Invest") : qsTr("Инвестирай")
                            font.pixelSize: 25
                            font.bold: true
                            Layout.topMargin: 15
@@ -1379,7 +1379,7 @@ Layout.preferredHeight: 50
 
                        Text
                        {
-                           text: "RECENTLY VIEWED"
+                           text: root.language == "EN" ? qsTr("Recently Viewed") : qsTr("Скорошно разгледани")
                            color: "grey"
                            font.bold: true
                        }
@@ -1789,7 +1789,7 @@ Layout.preferredHeight: 50
                                font.pixelSize: 20
                                font.bold: true
                                Layout.topMargin: 30
-                               text: qsTr("Favorites")
+                               text: root.language == "EN" ? qsTr("Favourites") : qsTr("Харесани")
                            }
 
                            Flickable {

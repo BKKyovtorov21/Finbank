@@ -66,7 +66,7 @@ Item {
     Connections {
         target: createtransaction
         function onTransactionFound(fullname, receivingValue, receivingCurrency, isReceiving) {
-            var transaction = isReceiving ? "Receiving" : "Sending";
+            var transaction = isReceiving ? root.language == "EN" ? qsTr("Receiving") : qsTr("Получаване") : root.language == "EN" ? qsTr("Sending") : qsTr("Изпращане");
             transactionModel.append({
                 recipent: fullname,
                 value: isReceiving ? "+" + receivingValue + " " + receivingCurrency : "-" + receivingValue + " " + receivingCurrency,
@@ -105,7 +105,7 @@ Item {
                     anchors.centerIn: parent
                     color: "#2f2f2f"
                     font.pixelSize: 18
-                    text: qsTr("Personal account")
+                    text: root.language == "EN" ? qsTr("Personal account") : qsTr("Личен акаунт")
 
                 }
             }
@@ -128,7 +128,7 @@ Item {
                 border.color: "#727272"
                 border.width: 0.1
                 Text {
-                    text: qsTr("Transactions")
+                    text: root.language == "EN" ? qsTr("Transactions") : qsTr("Транзакции")
                     anchors.centerIn: parent
                     color: "#196e1a"
                     font.pixelSize: 18
@@ -163,7 +163,7 @@ Layout.preferredHeight: 50
 
                     Text {
                         Layout.alignment: Qt.AlignVCenter
-                        text: "Search"
+                        text: root.language == "EN" ? qsTr("Search") : qsTr("Търсене")
                         color: "grey"
                     }
 
@@ -272,7 +272,7 @@ Layout.preferredHeight: 50
                 }
                 Text {
                     id: chatText
-                    text: qsTr("Chat")
+                    text: root.language == "EN" ? qsTr("Chat") : qsTr("Чат")
                     font.pixelSize: 15
                     anchors.centerIn: parent
                     anchors.horizontalCenterOffset: 10 // Adjust to move text to the right
@@ -342,7 +342,7 @@ Layout.preferredHeight: 50
             Layout.topMargin: 40
 
             Text {
-                text: qsTr("Good afternoon, Boyan")
+                text:root.language == "EN" ? qsTr("Good afternoon, Boyan") : qsTr("Добър ден, Боян!")
                 font.pixelSize: !root.isTablet ? 35 : 20
                 font.bold: true
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop // Combine alignment flags
@@ -359,7 +359,7 @@ Layout.preferredHeight: 50
             Text
             {
                     id: overviewPage
-                    text: qsTr("Overview")
+                    text: root.language == "EN" ? qsTr("Dashboard") : qsTr("Начална страница")
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
@@ -380,7 +380,7 @@ Layout.preferredHeight: 50
 
 
                     id: transactions
-                    text: qsTr("Transactions")
+                    text: root.language == "EN" ? qsTr("Transactions") : qsTr("Транзакции")
                     color: "#367C21"
                     font.pixelSize: 15
 
@@ -391,7 +391,7 @@ Layout.preferredHeight: 50
 
 
                     id: walletPage
-                    text: qsTr("Wallet")
+                    text: root.language == "EN" ? qsTr("Wallet") : qsTr("Портфейл")
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
@@ -414,7 +414,7 @@ Layout.preferredHeight: 50
 
 
                     id: tradingPageButton
-                    text: qsTr("Invest")
+                    text: root.language == "EN" ? qsTr("Invest") : qsTr("Инвестирай")
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
@@ -434,7 +434,7 @@ Layout.preferredHeight: 50
             Text
             {
                     id: settingsPage
-                    text: qsTr("Settings")
+                    text:root.language == "EN" ? qsTr("Settings") : qsTr("Настройки")
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
@@ -455,7 +455,7 @@ Layout.preferredHeight: 50
             Layout.rightMargin: 30
             Text
             {
-                text: qsTr("Total balances")
+                text: root.language == "EN" ? qsTr("Total balance") : qsTr("Общ баланс")
             }
             Item
             {
@@ -514,7 +514,7 @@ Layout.preferredHeight: 50
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenterOffset: 0
                     anchors.horizontalCenterOffset: 10
-                    text: qsTr("Request")
+                    text: root.language == "EN" ? qsTr("Request") : qsTr("Поискай")
                     color: "white"
                     font.pixelSize: 18
 
@@ -551,7 +551,7 @@ Layout.preferredHeight: 50
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenterOffset: 1
                     anchors.horizontalCenterOffset: 0
-                    text: qsTr("Convert")
+                    text: root.language == "EN" ? qsTr("Convert") : qsTr("Обмени")
                     color: "white"
                     font.pixelSize: 18
                 }
@@ -601,7 +601,7 @@ Layout.preferredHeight: 50
             Layout.leftMargin: 60
             Text
             {
-                text: qsTr("1 USD = 1.78 BGN, as of today ")
+                text: qsTr("1 USD = 1.78 BGN")
             }
         }
         Item
@@ -620,7 +620,7 @@ Layout.preferredHeight: 50
 
             Layout.preferredWidth: 400 // Make it expand to fill the remaining space
             Layout.preferredHeight: 40
-            placeholderText: qsTr("Search")
+            placeholderText: root.language == "EN" ? qsTr("Search") : qsTr("Търсене")
             placeholderTextColor: "grey"
             font.pixelSize: 20
             color: "black"
@@ -652,7 +652,7 @@ Layout.preferredHeight: 50
         Text
         {
             Layout.topMargin: 20
-            text: qsTr("Today, 5 December")
+            text:root.language == "EN" ? qsTr("Tоday, 7 March") : qsTr("Днес, 7 Март")
             color: "#2F2F2F"
             opacity: 0.5
         }
@@ -782,7 +782,7 @@ Layout.preferredHeight: 50
             {
                 Layout.alignment: Qt.AlignHCenter
                 font.pixelSize: 20
-                text: "1 USD = 1,78 BGN, as of today"
+                text: "1 USD = 1,78 BGN"
             }
 
 
@@ -794,12 +794,14 @@ Layout.preferredHeight: 50
                 Layout.alignment: Qt.AlignHCenter
                 orientation: ListView.Horizontal
                 spacing: !root.isPhone ? 30 : 15
+
                 model: ListModel {
-                    ListElement {source: "qrc:/resources/rightArrow2.svg"; text: "Send";rotation: -90; method1: true}
-                    ListElement {source: "qrc:/resources/rightArrow2.svg"; text: "Request"; rotation: 90}
-                    ListElement {source: "qrc:/resources/convert.svg"; text: "Convert"; rotation: 0}
-                    ListElement {source: "qrc:/resources/more.svg"; text: "More"; rotation: 0}
+                    ListElement { source: "qrc:/resources/rightArrow2.svg"; enText: "Send"; otherText: "Изпрати"; rotation: -90; method1: true }
+                    ListElement { source: "qrc:/resources/rightArrow2.svg"; enText: "Request"; otherText: "Поискай"; rotation: 90 }
+                    ListElement { source: "qrc:/resources/convert.svg"; enText: "Convert"; otherText: "Oбмени"; rotation: 0 }
+                    ListElement { source: "qrc:/resources/more.svg"; enText: "More"; otherText: "Oще"; rotation: 0 }
                 }
+
                 delegate: Item {
                     width: 70
                     height: 70
@@ -819,11 +821,10 @@ Layout.preferredHeight: 50
                             source: model.source
                             rotation: model.rotation
                         }
-                        MouseArea
-                        {
+
+                        MouseArea {
                             anchors.fill: parent
-                            onClicked:
-                            {
+                            onClicked: {
                                 bottomDrawer.open();
                             }
                         }
@@ -833,12 +834,13 @@ Layout.preferredHeight: 50
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.top: options.bottom
                         anchors.topMargin: 5
-                        text: model.text
+                        text: root.language == "EN" ? qsTr(model.enText) : qsTr(model.otherText)
                         font.pixelSize: 12
                         color: "black"
                     }
                 }
             }
+
 
             ColumnLayout
             {
@@ -876,7 +878,8 @@ Layout.preferredHeight: 50
                         anchors.fill: parent
                         Text
                         {
-                            text: "Transactions"
+                            text: root.language == "EN" ? qsTr("Тransactions") : qsTr("Транзакции")
+
                             font.pixelSize: 25
                             font.bold:true
                         }
@@ -931,14 +934,16 @@ Layout.preferredHeight: 50
                                     anchors.left: parent.left
                                     anchors.leftMargin: 40
                                     anchors.verticalCenter: parent.verticalCenter
-                                    text: "Filter"
+                                    text: root.language == "EN" ? qsTr("Filter") : qsTr("Филтрирай")
+
                                     font.pixelSize: 20
                                 }
                             }
                         }
                         Text
                         {
-                            text: "Today 7 December"
+                            text: root.language == "EN" ? qsTr("Тransactions") : qsTr("Транзакции")
+
                         }
                         ColumnLayout
                         {
@@ -963,6 +968,7 @@ Layout.preferredHeight: 50
                                             transactionType: model.transactionType
                                             ellipseColor: model.ellipseColor
                                             arrow: model.arrow
+                                            language: root.language
                                         }
                                     }
                                 }
@@ -989,8 +995,8 @@ Layout.preferredHeight: 50
                                                         Layout.leftMargin: 30
                                                         Layout.topMargin: 15
                                                         font.bold: true
-                                                        text: qsTr("Where would you send
-the money?")
+                                                        text: root.language == "EN" ? qsTr("Where would you send the money?") : qsTr("Къде би искал да изпратиш парите?")
+
                                                     }
 
                                                     Rectangle
@@ -1037,7 +1043,8 @@ the money?")
                                                             anchors.leftMargin: 70
                                                             anchors.top: parent.top
                                                             anchors.topMargin: 5
-                                                            text: "New Recipent"
+                                                            text: root.language == "EN" ? qsTr("New Recipient") : qsTr("Нов получател")
+
                                                             font.bold: true
                                                             font.pixelSize: 18
                                                         }
@@ -1047,7 +1054,8 @@ the money?")
                                                             anchors.left: method1.left
                                                             anchors.top: method1.top
                                                             anchors.topMargin: 30
-                                                            text: "Send money to people whose contact you don't have"
+                                                            text: root.language == "EN" ? qsTr("Send money to people whose contact you don't have") : qsTr("Изпрати без да им имаш номера")
+
                                                             wrapMode: Text.Wrap
                                                             opacity: 0.5
 
@@ -1088,7 +1096,8 @@ the money?")
                                                             anchors.leftMargin: 70
                                                             anchors.top: parent.top
                                                             anchors.topMargin: 5
-                                                            text: "Contact"
+                                                            text: root.language == "EN" ? qsTr("Contact") : qsTr("Контакт")
+
                                                             font.bold: true
                                                             font.pixelSize: 18
                                                         }
@@ -1098,7 +1107,8 @@ the money?")
                                                             anchors.left: method2.left
                                                             anchors.top: method2.top
                                                             anchors.topMargin: 30
-                                                            text: "Send money to one of the contact lists I have"
+                                                            text: root.language == "EN" ? qsTr("Send money to one of the contact lists I have") : qsTr("Изпрати на тези в листа ти")
+
                                                             wrapMode: Text.Wrap
                                                             opacity: 0.5
 
@@ -1139,7 +1149,7 @@ the money?")
                                                             anchors.leftMargin: 70
                                                             anchors.top: parent.top
                                                             anchors.topMargin: 5
-                                                            text: "My Self"
+                                                            text: root.language == "EN" ? qsTr("Withdraw") : qsTr("Изтегляне")
                                                             font.bold: true
                                                             font.pixelSize: 18
                                                         }
@@ -1149,7 +1159,8 @@ the money?")
                                                             anchors.left: method3.left
                                                             anchors.top: method3.top
                                                             anchors.topMargin: 30
-                                                            text: "Withdraw the balance of money to my local bank account"
+                                                            text: root.language == "EN" ? qsTr("Withdraw the balance of money to my local bank account") : qsTr("Изтегли пари от банката си")
+
                                                             wrapMode: Text.Wrap
                                                             opacity: 0.5
 

@@ -11,6 +11,7 @@ ColumnLayout
 
     property bool isPhoneRef
     property bool screenCheckpoint1Ref
+    property string language
 
     RowLayout
     {
@@ -21,7 +22,7 @@ ColumnLayout
             Layout.leftMargin: 20
             Text
             {
-               text: "Portfolio Value"
+               text: root.language == "EN" ? qsTr("Portfolio Value") : qsTr("Стойност на акциите")
                color: "#727272"
                font.pixelSize: 20
             }
@@ -36,7 +37,7 @@ ColumnLayout
             {
                 Text
                 {
-                   text: "Your profit is"
+                   text: root.language == "EN" ? qsTr("Your profit is") : qsTr("Профитът ти е")
                    color: "#727272"
                    font.pixelSize: 20
                 }
@@ -58,7 +59,7 @@ ColumnLayout
             Layout.leftMargin: 20
             Text
             {
-               text: "Avg. Monthly Grow"
+               text: root.language == "EN" ? qsTr("Avg. Monthly Grow") : qsTr("Среден месечен разтеж")
                color: "#727272"
                font.pixelSize: 18
             }
@@ -92,7 +93,7 @@ ColumnLayout
             Layout.leftMargin: 20
             Text
             {
-               text: "Best Profit Stock"
+               text: root.language == "EN" ? qsTr("Best Profit Stock") : qsTr("Най-профитна акция")
                color: "#727272"
                font.pixelSize: 20
 
@@ -144,7 +145,7 @@ ColumnLayout
 
         LineSeries {
             id: lineSeries
-            name: "Monthly Data"
+            name: root.language == "EN" ? qsTr("Monthly Data") : qsTr("Месечни данни")
 
             Component.onCompleted: {
                 append(0, 100000)

@@ -28,10 +28,11 @@ Rectangle {
         Layout.alignment: Qt.AlignVCenter
 
         Rectangle {
-            Layout.preferredHeight: parent.height
+            Layout.fillHeight: true
             Layout.fillWidth: true
 
             ColumnLayout {
+                Layout.preferredWidth: parent.width
                 spacing: 0
 
                 Image {
@@ -39,7 +40,7 @@ Rectangle {
                     source: "qrc:/resources/homeNavbar.svg"
                 }
                 Text {
-                    text: "Home"
+                    text: root.language == "EN" ? qsTr("Home") : qsTr("Начало")
                 }
             }
             MouseArea
@@ -75,7 +76,7 @@ Rectangle {
                     source: "qrc:/resources/walletInactive.svg"
                 }
                 Text {
-                    text: "Wallet"
+                    text: root.language == "EN" ? qsTr("Wallet") : qsTr("Портфейл")
                 }
             }
         }
@@ -102,7 +103,7 @@ Rectangle {
                     source: "qrc:/resources/transactionInactive.svg"
                 }
                 Text {
-                    text: "Payments"
+                    text: root.language == "EN" ? qsTr("Payments") : qsTr("Плащания")
                 }
             }
         }
@@ -130,7 +131,7 @@ Rectangle {
                     source: "qrc:/resources/trading.svg"
                 }
                 Text {
-                    text: "Invest"
+                    text: root.language == "EN" ? qsTr("Invest") : qsTr("Инвестирай")
                 }
             }
         }
@@ -164,7 +165,7 @@ Rectangle {
                     source: "qrc:/resources/settings.svg"
                 }
                 Text {
-                    text: "Settings"
+                    text: root.language == "EN" ? qsTr("Settings") : qsTr("Настройки")
                 }
             }
         }

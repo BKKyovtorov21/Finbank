@@ -11,6 +11,8 @@ Rectangle {
     property string transactionType
     property string ellipseColor
     property string arrow
+    property string language
+
     ColumnLayout{
         anchors.fill: parent
     RowLayout {
@@ -39,7 +41,7 @@ Rectangle {
         }
         Text {
             Layout.leftMargin: 10
-            text: "Sent"
+            text: root.language == "EN" ? qsTr("Sent") : qsTr("Изпратени")
             color: "#2F2F2F"
             opacity: 0.5
         }
