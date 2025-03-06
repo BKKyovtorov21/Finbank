@@ -12,65 +12,74 @@ set(CMAKE_AUTOMOC ON)
         #set(CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE YES)
        # set(CMAKE_OSX_DEPLOYMENT_TARGET "14.0") # Adjust the version based on your requirements
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Multimedia NetworkAuth Sql Charts)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Multimedia NetworkAuth Sql Charts QuickControls2)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
 
+
 qt_add_executable(appFinbank
-        src/main.cpp
-        src/register.hpp src/register.cpp
-        src/databasemanager.hpp src/databasemanager.cpp
-        src/login.hpp src/login.cpp
-        src/googlegateway.hpp src/googlegateway.cpp
-        src/dashboard.hpp src/dashboard.cpp
-        src/searchrecipent.hpp src/searchrecipent.cpp
-        src/createtransaction.hpp src/createtransaction.cpp
-        src/stockapiclient.hpp src/stockapiclient.cpp
+        DDL/main.cpp
+        DDL/register.hpp DDL/register.cpp
+        DAL/databasemanager.hpp DAL/databasemanager.cpp
+        DDL/login.hpp DDL/login.cpp
+        DAL/googlegateway.hpp DAL/googlegateway.cpp
+        DDL/dashboard.hpp DDL/dashboard.cpp
+        DDL/searchrecipent.hpp DDL/searchrecipent.cpp
+        DDL/createtransaction.hpp DDL/createtransaction.cpp
+        DAL/stockapiclient.hpp DAL/stockapiclient.cpp
 )
 qt_add_qml_module(appFinbank
     URI Finbank
     VERSION 1.0
     QML_FILES
-            qml/LandingPage.qml
+            Presentation-Layer/LandingPage.qml
 
 
-            qml/TradingDashboard.qml
-            qml/Stock.qml
-            qml/TransactionsWindow.ui.qml
+            Presentation-Layer/TradingDashboard.qml
+            Presentation-Layer/Stock.qml
+            Presentation-Layer/TransactionsWindow.ui.qml
 
-            qml/SendMoneyWindow.ui.qml
-            qml/SelectRecipent.qml
-            qml/RecipentDescription.qml
+            Presentation-Layer/SendMoneyWindow.ui.qml
+            Presentation-Layer/SelectRecipent.qml
+            Presentation-Layer/RecipentDescription.qml
 
-            qml/RecipentDescriptionWindow.ui.qml
-            qml/TransferType.qml
-            qml/SignIn.qml
-            qml/Currencies.qml
-            qml/TradingMarket.qml
-            qml/SelectRecipentWindow.ui.qml
-            qml/TradingMarketWindow.ui.qml
-            qml/OverviewTransactionWindow.ui.qml
-            qml/CurrenciesWindow.ui.qml
-            qml/FoundUser.qml
-            qml/Dashboard.qml
-            qml/Transactions.qml
-            qml/SingleTransactionDetail.qml
-            qml/TransactionDetailsWindows.ui.qml
-            qml/SendMoney.qml
 
-            qml/SelectedRecipent.qml
-            qml/TradingDashboardWindow.ui.qml
-            qml/OverviewTransaction.qml
+            Presentation-Layer/TransferType.qml
+            Presentation-Layer/SignIn.qml
+            Presentation-Layer/Currencies.qml
+            Presentation-Layer/TradingMarket.qml
+            Presentation-Layer/SelectRecipentWindow.ui.qml
 
-            qml/TransferTypeWindow.ui.qml
-            qml/SignUp.qml
-            qml/SignUp2.qml
+
+            Presentation-Layer/CurrenciesWindow.ui.qml
+            Presentation-Layer/FoundUser.qml
+            Presentation-Layer/Dashboard.qml
+            Presentation-Layer/Transactions.qml
+            Presentation-Layer/SingleTransactionDetail.qml
+            Presentation-Layer/TransactionDetailsWindows.ui.qml
+            Presentation-Layer/SendMoney.qml
+
+            Presentation-Layer/SelectedRecipent.qml
+
+
+            Presentation-Layer/SignUp.qml
+            Presentation-Layer/SignUp2.qml
+            Presentation-Layer/TableRow.qml
         RESOURCES resources/resources.qrc
+        QML_FILES Presentation-Layer/Overview.qml
+        QML_FILES Presentation-Layer/PortfolioValue.qml
+        QML_FILES Presentation-Layer/NavbarMobile.qml
+        QML_FILES Presentation-Layer/Main.qml
+        QML_FILES Presentation-Layer/Wallet.qml
 )
 
 qt_add_ios_ffmpeg_libraries(appFinbank)
 
+target_include_directories(appFinbank PRIVATE
+    DAL
+    DDL
+)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
@@ -84,7 +93,7 @@ set_target_properties(appFinbank PROPERTIES
 )
 
 target_link_libraries(appFinbank
-    PRIVATE Qt6::Quick Qt6::Multimedia Qt6::NetworkAuth Qt6::Sql Qt6::Charts
+    PRIVATE Qt6::Quick Qt6::Multimedia Qt6::NetworkAuth Qt6::Sql Qt6::Charts Qt6::QuickControls2
 )
 
 include(GNUInstallDirs)
