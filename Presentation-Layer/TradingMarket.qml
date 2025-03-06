@@ -77,7 +77,71 @@ Item {
             stockModel.append(data[i]);
         }
     }
-    Component.onCompleted: stockAPIClient.fetchCandlestickData("AAPL") // Change ticker here
+    Component.onCompleted:
+    {
+
+        stockAPIClient.fetchCandlestickData("AAPL") // Change ticker here
+    }
+
+    Component {
+            id: stockItemComponent
+            Rectangle {
+                width: parent.width
+                height: 60
+                color: "transparent"
+                border.color: "lightgrey"
+                border.width: 1
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: console.log("Clicked: " + stockSymbol.text)
+                }
+
+                Row {
+                    anchors.fill: parent
+                    spacing: 10
+                    anchors.margins: 10
+
+                    Column {
+                        Text {
+                            id: stockSymbol
+                            font.bold: true
+                            width: 60
+                            color: "black"
+                        }
+                        Text {
+                            id: stockPrice
+                            width: 60
+                            color: "black"
+                        }
+                    }
+
+                    Text {
+                        id: stockChange
+                        anchors.right: parent.right
+                        color: "black"
+                        width: 60
+                    }
+                }
+            }
+        }
+
+        function populateStocks() {
+            let stocks = [
+                { symbol: "AAPL", price: "235.01", change: "-0.73" },
+                { symbol: "MSFT", price: "399.50", change: "-1.52" },
+                { symbol: "NVDA", price: "116.43", change: "-0.87" },
+                { symbol: "AMZN", price: "207.37", change: "-0.99" }
+            ];
+
+            for (let i = 0; i < stocks.length; i++) {
+                let stockItem = stockItemComponent.createObject(stockList);
+                stockItem.stockSymbol.text = stocks[i].symbol;
+                stockItem.stockPrice.text = stocks[i].price;
+                stockItem.stockChange.text = stocks[i].change;
+                stockItem.stockChange.color = stocks[i].change.startsWith("-") ? "red" : "green";
+            }
+        }
 
     ColumnLayout
     {
@@ -511,73 +575,127 @@ Item {
                         Layout.fillHeight: true
                         Layout.preferredWidth: 200
                         border.width: 1
-                        border.color: "lightgrey"
+                        border.color: "transparent"
 
-                        ColumnLayout {
+                        Column {
                                 anchors.fill: parent
+                                spacing: 0
 
-                                // Dropdown menu for Recent Searches
-                                ComboBox {
-                                    id: searchFilter
-                                    Layout.fillWidth: true
-                                    Layout.preferredHeight: 50
-                                    model: ["Recent Searches", "Portfolio", "Favorites", "Screener: All US Stocks"]
-                                }
-
-                                // List of stock searches
-                                ListView {
-                                    id: stockList
-                                    Layout.fillWidth: true
-                                    Layout.fillHeight: true
-                                    model: ListModel {
-                                        ListElement { symbol: "AAPL"; company: "APPLE INC"; price: "234.60"; change: "-1.33"; changeColor: "red" }
-                                        ListElement { symbol: "SPX INDEX"; company: "S&P 500 Stock Index"; price: "5805.24"; change: "+27.09"; changeColor: "green" }
-                                        ListElement { symbol: "MFG"; company: "MIZUHO FINANCIAL"; price: "5.73"; change: "+0.07"; changeColor: "green" }
-                                        ListElement { symbol: "7974"; company: "NINTENDO CO LTD"; price: "11115.0"; change: "-60.0"; changeColor: "red" }
-                                        ListElement { symbol: "NIN"; company: "NINTENDO CO LTD"; price: "C330"; change: ""; changeColor: "black" }
-                                        ListElement { symbol: "TSLA"; company: "TESLA INC"; price: "275.08"; change: "+3.04"; changeColor: "green" }
-                                        ListElement { symbol: "LNKD"; company: "LINKEDIN CORP - A"; price: "C195.96"; change: ""; changeColor: "black" }
-                                        ListElement { symbol: "BTC"; company: "GRAYSCALE BITCN M"; price: "39.82"; change: "+1.32"; changeColor: "green" }
-                                        ListElement { symbol: "AMZ"; company: "AMAZON.COM INC"; price: "192.24"; change: "+2.12"; changeColor: "green" }
-                                        ListElement { symbol: "XOM"; company: "EXXON MOBIL CORP"; price: "104.46"; change: "-3.08"; changeColor: "red" }
-                                        ListElement { symbol: "SPY5"; company: "SPDR S&P 500 UCITS"; price: "538.58"; change: "-8.36"; changeColor: "red" }
-                                        ListElement { symbol: "NVDA"; company: "NVIDIA CORP"; price: "117.63"; change: "+1.64"; changeColor: "green" }
-                                    }
-                                    delegate: Rectangle {
-                                        width: stockList.width
-                                        height: 50
-                                        color: "white"
-                                        border.width: 1
-                                        border.color: "lightgrey"
-
-                                        Column {
-                                            anchors.fill: parent
-                                            anchors.margins: 5
-                                            spacing: 2
-
+                                Rectangle {
+                                    width: parent.width
+                                    height: 50
+                                    color: "transparent"
+                                    border.width: 1
+                                    border.color: "lightgrey"
+                                    Row {
+                                        spacing: 10
+                                        anchors.fill: parent
+                                        anchors.margins: 10
+                                        Column
+                                        {
                                             Text {
-                                                text: symbol
+                                                text: "AAPL"
                                                 font.bold: true
                                             }
                                             Text {
-                                                text: company
-                                                font.pixelSize: 12
-                                                color: "grey"
+                                                text: "234.44"
                                             }
-                                            Row {
-                                                spacing: 5
-                                                Text {
-                                                    text: price
-                                                }
-                                                Text {
-                                                    text: change
-                                                    color: changeColor
-                                                }
-                                            }
+                                        }
+                                        Text {
+                                            text: "-1.30"
+                                            color: "red"
+                                            anchors.right: parent.right
+                                        }
+                                    }
+                                    MouseArea
+                                    {
+                                        anchors.fill: parent
+                                        onClicked:
+                                        {
+                                            stockAPIClient.fetchCandlestickData("AAPL") // Change ticker here
+
                                         }
                                     }
                                 }
+
+                                Rectangle {
+                                    width: parent.width
+                                    height: 50
+                                    color: "transparent"
+                                    border.width: 1
+                                    border.color: "lightgrey"
+                                    Row {
+                                        spacing: 10
+                                        anchors.fill: parent
+                                        anchors.margins: 10
+                                        Column
+                                        {
+                                            Text {
+                                                text: "MSFT"
+                                                font.bold: true
+                                            }
+                                            Text {
+                                                text: "398.80"
+                                            }
+                                        }
+                                        Text {
+                                            text: "-2.22"
+                                            color: "red"
+                                            anchors.right: parent.right
+                                        }
+                                    }
+                                    MouseArea
+                                    {
+                                        anchors.fill: parent
+                                        onClicked:
+                                        {
+                                            stockAPIClient.fetchCandlestickData("MSFT") // Change ticker here
+
+                                        }
+                                    }
+                                }
+
+                                Rectangle {
+                                    width: parent.width
+                                    height: 50
+                                    color: "transparent"
+                                    border.width: 1
+                                    border.color: "lightgrey"
+                                    Row {
+                                        spacing: 10
+                                        anchors.fill: parent
+                                        anchors.margins: 10
+                                        Column
+                                        {
+                                            Text {
+                                                text: "NVDA"
+                                                font.bold: true
+                                            }
+                                            Text {
+                                                text: "115.99"
+                                            }
+                                        }
+                                        Text {
+                                            text: "-1.31"
+                                            color: "red"
+                                            anchors.right: parent.right
+                                        }
+                                    }
+
+                                    MouseArea
+                                    {
+                                        anchors.fill: parent
+                                        onClicked:
+                                        {
+                                            stockAPIClient.fetchCandlestickData("NVDA") // Change ticker here
+
+                                        }
+                                    }
+                                }
+
+                                // Add more stock entries manually in the same format...
                             }
+
 
 
                     }
