@@ -26,7 +26,7 @@ Window {
     Flickable {
         anchors.fill: parent
         contentWidth: root.width
-        contentHeight: root.height + 300
+        contentHeight: root.height
         clip: true
         visible: contentLoader.status === Loader.Null
 

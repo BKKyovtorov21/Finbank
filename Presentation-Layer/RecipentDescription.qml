@@ -11,11 +11,11 @@ Item {
 
     property string username
     property string fullName
-    property string language: "EN" // Default language
 
     property string recipentFullname: "Boyan Kiovtorov"
     property string recipentEmail: "boyankiovtorov@gmail.com"
     property string recipentPfp: "https://lh3.googleusercontent.com/a/ACg8ocIa1jbyu-TgykKd00j16jb4N8H-tzeI4GCBsMI8BJ5OSbssUA=s96-c"
+
 
     property string sendingCurrency: "USD"
     property string recipentCurrency: "CAD"
@@ -23,32 +23,70 @@ Item {
     property real convertedAmount
     property real exchangeRate
     property bool sending: false
-    property string language: "EN"
 
-    Loader { id: loader; source: "" }
+    Loader
+    {
+        id: loader
+        source: ""
+    }
 
-    ColumnLayout {
+    Component.onCompleted:
+    {
+        var userComponent = Qt.createComponent("FoundUser.qml");
+        if (userComponent.status === Component.Ready) {
+            var userInstance = userComponent.createObject(recipentRectangle, {
+                fullName: root.recipentFullname,
+                email: root.recipentEmail,
+                pfp: root.recipentPfp,
+                "isPhone": true,
+                y: root.isPhone ? -24 : -10
+            });
+
+        }
+    }
+    ColumnLayout
+    {
         anchors.fill: parent
-        RowLayout {
+        RowLayout
+        {
             visible: !root.isTablet
-            spacing: 8
-            Image { id: name; source: !root.isTablet ? "qrc:/resources/logo1.png" : "qrc:/resources/pfp.jpg" }
-            Rectangle {
+            spacing: 8 // Adjust spacing between icon and TextField
+            Image {
+                id: name
+                source: !root.isTablet ? "qrc:/resources/logo1.png" : "qrc:/resources/pfp.jpg"
+            }
+            Rectangle
+            {
                 id: account
-                Layout.preferredWidth: 177
+
+                Layout.preferredWidth:177
                 Layout.preferredHeight: 56
                 color: "#fafafa"
                 radius: 10
                 border.color: "#727272"
                 border.width: 0.1
-                Text {
+
+                Text
+                {
                     anchors.centerIn: parent
                     color: "#2f2f2f"
                     font.pixelSize: 18
-                    text: root.language == "EN" ? qsTr("Personal account") : qsTr("Личен акаунт")
+                    text: qsTr("Personal account")
+
                 }
             }
-            Rectangle {
+
+            Image {
+                id: element2
+
+                Layout.preferredHeight: 20
+                Layout.preferredWidth: 20
+                source: "qrc:/resources/RightArrows.svg"
+                antialiasing: true
+            }
+            Rectangle
+            {
+
                 Layout.preferredWidth: 128
                 Layout.preferredHeight: 56
                 color: "#fafafa"
@@ -56,82 +94,210 @@ Item {
                 border.color: "#727272"
                 border.width: 0.1
                 Text {
-                    text: root.language == "EN" ? qsTr("Dashboard") : qsTr("Табло")
+                    text: qsTr("Dashboard")
                     anchors.centerIn: parent
                     color: "#196e1a"
                     font.pixelSize: 18
                 }
             }
-            TextField {
-                id: searchField
+
+            Item {
                 Layout.fillWidth: true
-                placeholderText: root.language == "EN" ? qsTr("Search") : qsTr("Търсене")
-                placeholderTextColor: "grey"
-                font.pixelSize: 18
-                color: "black"
+                Layout.preferredHeight: 30
+
+                RowLayout {
+
+                    anchors.fill: parent // Ensures the layout fills the space
+                    anchors.verticalCenterOffset: 50
+
+
+                    TextField {
+                        background: Rectangle
+                        {
+                            color: "#4dececec"
+                        }
+
+                        Image {
+                            id: searchIcon
+                            fillMode: Image.PreserveAspectFit
+
+
+                            source: "qrc:/resources/search.svg"
+                            anchors.top: parent.top
+                            anchors.topMargin: 5
+                            anchors.left: parent.left
+                            anchors.leftMargin: 5
+                        }
+                        id: searchField
+
+                        Layout.alignment: Qt.AlignVCenter
+                        Layout.fillWidth: true // Make it expand to fill the remaining space
+
+                        placeholderText: qsTr("Search")
+                        placeholderTextColor: "grey"
+                        font.pixelSize: 18
+                        color: "black"
+
+                        leftPadding: 30 // Adds space around the text, adjusting the padding as needed
+                    }
+
+
+                }
             }
-            Rectangle {
-                Image { id: element5; source: "qrc:/resources/chat.svg" }
+
+
+            Rectangle
+            {
+
+                Image {
+                    id: element5
+                    fillMode: Image.PreserveAspectFit
+
+                    anchors.top: parent.top
+                    anchors.left: parent.left
+                    anchors.topMargin: 15
+                    source: "qrc:/resources/chat.svg"
+                    anchors.leftMargin: 5
+                }
                 Text {
                     id: chatText
-                    text: root.language == "EN" ? qsTr("Chat") : qsTr("Чат")
+                    text: qsTr("Chat")
                     font.pixelSize: 15
                     anchors.centerIn: parent
+                    anchors.horizontalCenterOffset: 10 // Adjust to move text to the right
                 }
                 Layout.preferredWidth: 80
                 Layout.preferredHeight: 50
                 color: "#fafafa"
             }
-        }
-        ColumnLayout {
-            visible: !root.isTablet
-            spacing: 25
-            Layout.preferredWidth: 200
-            Layout.fillHeight: true
-            Layout.topMargin: 280
-            RowLayout {
-                Layout.fillWidth: true
-                Image { source: "qrc:/resources/tick.svg" }
-                Text {
-                    text: root.language == "EN" ? qsTr("Select Recipient") : qsTr("Избор на получател")
-                    font.pixelSize: 20
-                }
-            }
-            RowLayout {
-                Layout.fillWidth: true
-                Image { source: "qrc:/resources/tick.svg" }
-                Text {
-                    text: root.language == "EN" ? qsTr("Amount") : qsTr("Сума")
-                    font.pixelSize: 20
-                }
-            }
-            RowLayout {
-                Layout.fillWidth: true
-                Image { source: "qrc:/resources/selectiveLine.svg" }
-                Text {
-                    text: root.language == "EN" ? qsTr("Details Recipient") : qsTr("Данни за получателя")
-                    font.pixelSize: 20
-                    font.bold: true
-                }
-            }
-            RowLayout {
-                Layout.fillWidth: true
-                Image { source: "qrc:/resources/notSelectiveLine.svg" }
-                Text {
-                    text: root.language == "EN" ? qsTr("Transfer Type") : qsTr("Вид на превода")
-                    font.pixelSize: 20
-                }
-            }
-            RowLayout {
-                Layout.fillWidth: true
-                Image { source: "qrc:/resources/notSelectiveLine.svg" }
-                Text {
-                    text: root.language == "EN" ? qsTr("Overview") : qsTr("Преглед")
-                    font.pixelSize: 20
-                }
-            }
-        }
 
+            Rectangle
+            {
+
+                Layout.preferredWidth: 200
+                Layout.preferredHeight: 50
+
+                Image {
+                    id: userpfp
+                    x: 14
+                    source: "qrc:/resources/pfp.jpg"
+                    width:70
+                    height:70
+                    anchors.top: parent.top
+                    anchors.topMargin: 4
+                }
+                Text
+                {
+                    id: fullname
+                    width:96
+                    height: 16
+                    anchors.left: parent.right
+                    anchors.leftMargin: -96
+                    anchors.top: parent.top
+                    anchors.topMargin: 17
+                    text: root.fullName
+                }
+
+                Text {
+                    x: 112
+                    y: 39
+                    width: 69
+                    height: 16
+                    anchors.top: fullname.bottom
+                    anchors.topMargin: 10
+                    anchors.left: fullname.left
+                    text: "@" + root.username
+                }
+            }
+
+        }
+        RowLayout {
+                Layout.fillWidth: true
+                spacing: 10
+
+                ColumnLayout {
+                    visible: !root.isTablet
+                    spacing: 25
+                    Layout.preferredWidth: 200
+                    Layout.fillHeight: true
+                    Layout.alignment: Qt.AlignTop
+                    Layout.topMargin: 280
+
+                    // Sidebar tabs
+                    RowLayout
+                    {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.leftMargin: 10
+                        Image
+                        {
+                            source: "qrc:/resources/tick.svg"
+                        }
+                        Text { text: "Select Recipient"
+                        font.pixelSize: 20
+                        }
+
+                    }
+                    RowLayout
+                    {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.leftMargin: 10
+                        Image
+                        {
+                            source: "qrc:/resources/tick.svg"
+                        }
+                        Text { text: "Amount"
+                        font.pixelSize: 20
+                        }
+
+                    }
+                    RowLayout
+                    {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.leftMargin: 10
+                        Image
+                        {
+                            source: "qrc:/resources/selectiveLine.svg"
+                        }
+                        Text { text: "Details Recipent"
+                        font.pixelSize: 20
+                        font.bold: true
+                        }
+
+                    }
+                    RowLayout
+                    {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.leftMargin: 10
+                        Image
+                        {
+                            source: "qrc:/resources/notSelectiveLine.svg"
+                        }
+                        Text { text: "Transfer Type"
+                        font.pixelSize: 20
+                        }
+
+                    }
+                    RowLayout
+                    {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.leftMargin: 10
+                        Image
+                        {
+                            source: "qrc:/resources/notSelectiveLine.svg"
+                        }
+                        Text { text: "Overview"
+                        font.pixelSize: 20
+                        }
+
+                    }
+
+
+                }
 
                 // Main content
                 Rectangle {
@@ -371,7 +537,7 @@ Item {
                              Layout.alignment: Qt.AlignLeft
                              Text
                              {
-                                 text: "National bank of Bulgaria"
+                                 text: "UniCredit Bulbank"
                                  font.bold: true
                                  font.pixelSize: 20
                              }
@@ -452,7 +618,7 @@ Item {
                              Layout.alignment: Qt.AlignLeft
                              Text
                              {
-                                 text: "National bank of Bulgaria"
+                                 text: "Banka DSK"
                                  font.bold: true
                                  font.pixelSize: 20
                              }
@@ -537,4 +703,4 @@ Item {
             }
 
     }
-
+}

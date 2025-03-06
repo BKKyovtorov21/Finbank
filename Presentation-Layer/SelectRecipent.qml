@@ -8,7 +8,7 @@ Item {
     height: Screen.height
     property bool isTablet: width <= 900
     property bool isPhone: width <= 500
-property string language: "EN"
+
     property string username
     property string fullName
     property string recipentFullname
@@ -105,12 +105,10 @@ property string language: "EN"
         anchors.fill: parent
         RowLayout
         {
-            Layout.alignment: Qt.AlignTop
             spacing: 8 // Adjust spacing between icon and TextField
-            visible: !root.isTablet
             Image {
                 id: name
-                source: "qrc:/resources/logo1.png"
+                source: !root.isTablet ? "qrc:/resources/logo1.png" : "qrc:/resources/pfp.jpg"
             }
             Rectangle
             {
@@ -151,54 +149,102 @@ property string language: "EN"
                 border.color: "#727272"
                 border.width: 0.1
                 Text {
-                    text: qsTr("Dashboard")
+                    text: qsTr("Transactions")
                     anchors.centerIn: parent
                     color: "#196e1a"
                     font.pixelSize: 18
                 }
             }
 
-            Item {
+            Item
+            {
                 Layout.fillWidth: true
-                Layout.preferredHeight: 30
+            }
+            Rectangle {
+                id: searchRowRect
+Layout.preferredWidth: root.test2 ? 250 : (root.test ? 300 : 550)
+Layout.preferredHeight: 50
+                color: "#FDFDFD"
+                border.width: 1
+                border.color: "#F7F7F7"
+                radius: 5
 
                 RowLayout {
+                    id: searchRow
+                    anchors.fill: parent
+                    visible: textField.text.length === 0
 
-                    anchors.fill: parent // Ensures the layout fills the space
-                    anchors.verticalCenterOffset: 50
-
-
-                    TextField {
-                        background: Rectangle
-                        {
-                            color: "#4dececec"
-                        }
-
-                        Image {
-                            id: searchIcon
-                            fillMode: Image.PreserveAspectFit
-
-
-                            source: "qrc:/resources/search.svg"
-                            anchors.top: parent.top
-                            anchors.topMargin: 5
-                            anchors.left: parent.left
-                            anchors.leftMargin: 5
-                        }
-                        id: searchField
-                        Layout.fillWidth: true // Make it expand to fill the remaining space
-
-                        placeholderText: qsTr("Search")
-                        placeholderTextColor: "grey"
-                        font.pixelSize: 18
-                        color: "black"
-
-                        leftPadding: 30 // Adds space around the text, adjusting the padding as needed
+                    Image {
+                        source: "qrc:/resources/search.svg"
+                        Layout.preferredWidth: 20
+                        Layout.preferredHeight: 20
+                        Layout.alignment: Qt.AlignVCenter
+                        Layout.leftMargin: 10
                     }
 
+                    Text {
+                        Layout.alignment: Qt.AlignVCenter
+                        text: "Search"
+                        color: "grey"
+                    }
 
+                    Item {
+                        Layout.fillWidth: true
+                    }
+
+                    Rectangle {
+                        Layout.alignment: Qt.AlignVCenter
+                        Layout.preferredHeight: 35
+                        Layout.preferredWidth: 35
+                        Layout.rightMargin: 10
+                        color: "#F3F3F3"
+                        radius: 5
+
+                        RowLayout {
+                            anchors.fill: parent
+
+                            Image {
+                                Layout.preferredHeight: 15
+                                Layout.preferredWidth: 15
+                                source: "qrc:/resources/command.svg"
+                                Layout.leftMargin: 5
+                            }
+
+                            Text {
+                                text: "F"
+                                color: "#9D9D9D"
+                                Layout.rightMargin: 15
+                            }
+                        }
+                    }
+                }
+
+                TextField {
+                    id: textField
+                    anchors.fill: parent
+                    leftPadding: 50
+                    color: "black"  // Sets the text color to black
+
+                    background: Rectangle {
+                        color: "transparent"
+                    }
+
+                    onTextChanged: {
+                        searchRow.visible = text.length === 0 && !activeFocus;  // Hide when typing
+                    }
+
+                    onFocusChanged: {
+                        searchRow.visible = text.length === 0 && !activeFocus;  // Hide when focused, show when unfocused and empty
+                    }
                 }
             }
+
+           Item
+           {
+
+               Layout.fillWidth: true
+           }
+
 
 
             Rectangle
@@ -224,6 +270,15 @@ property string language: "EN"
                 Layout.preferredWidth: 80
                 Layout.preferredHeight: 50
                 color: "#fafafa"
+
+                MouseArea
+                {
+                    anchors.fill: parent
+                    onClicked:
+                    {
+                        chatDrawer.open()
+                    }
+                }
             }
 
             Rectangle
@@ -250,7 +305,7 @@ property string language: "EN"
                     anchors.leftMargin: -96
                     anchors.top: parent.top
                     anchors.topMargin: 17
-                    text: root.fullName
+                    text: "Boyan Kyovtorov"
                 }
 
                 Text {
@@ -261,7 +316,7 @@ property string language: "EN"
                     anchors.top: fullname.bottom
                     anchors.topMargin: 10
                     anchors.left: fullname.left
-                    text: "@" + root.username
+                    text: "@kyovtorov"
                 }
             }
 
@@ -403,7 +458,7 @@ property string language: "EN"
                         Text
                         {
 
-                            text: rootdashboard.language == "EN" ? qsTr("Who do you want to send money to?") : qsTr("На кого искаш да изпратиш пари?")
+                            text: qsTr("Who do you want to send money to?")
                             font.pixelSize: root.isTablet ? 30 : 30
                             Layout.fillWidth: true
                             Layout.topMargin: 20
@@ -425,7 +480,7 @@ property string language: "EN"
                                 anchors.leftMargin: 20
                             }
 
-                            placeholderText: "Search"
+                            placeholderText: "Recipient's name or username"
                             Layout.rightMargin: 30
                             Layout.leftMargin: 30
                             Layout.fillWidth: true
@@ -445,9 +500,10 @@ property string language: "EN"
                             Layout.fillWidth: true
                             Layout.fillHeight: true
                             Layout.rightMargin: 30
+                            Layout.topMargin: 50
                             Layout.leftMargin: 30
                             color: "white"
-                            border.color: "lightgray"
+                            border.color: "transparent"
                             radius: 8
                             Flickable {
                                 id: flickable

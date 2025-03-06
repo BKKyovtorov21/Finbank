@@ -149,5 +149,27 @@
         <file>visa3.svg</file>
         <file>more4.svg</file>
         <file>stocks.json</file>
+        <file>limits.svg</file>
+        <file>card.svg</file>
+        <file>freeze.svg</file>
+        <file>pin.svg</file>
+        <file>smallcard2.png</file>
+        <file>smallcard.png</file>
+        <file>leftArrow.svg</file>
+        <file>plus4.svg</file>
+        <file>plus3.svg</file>
+        <file>walet.svg</file>
+        <file>visaWhite.svg</file>
+        <file>settingsInactive.svg</file>
+        <file>settingsActive.svg</file>
+        <file>settings2.svg</file>
+        <file>repeat.svg</file>
+        <file>minimalistbg2.svg</file>
+        <file>menu3.svg</file>
+        <file>logowide.svg</file>
+        <file>edit2.svg</file>
+        <file>delete.svg</file>
+        <file>visa.svg</file>
+        <file>language.svg</file>
     </qresource>
 </RCC>
