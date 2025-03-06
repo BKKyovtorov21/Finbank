@@ -64,7 +64,7 @@ Item {
                     padding: 16
 
                     Text {
-                        text: "Here's your PIN"
+                        text: root.language == "EN" ? qsTr("Here's your pin") : qsTr("Твоя ПИН")
                         font.bold: true
                         font.pixelSize: 18
                         color: "black"
@@ -94,7 +94,7 @@ Item {
 
                 // Description text
                 Text {
-                    text: "Come back to the app if you forget it."
+                    text: root.language == "EN" ? qsTr("Come back to the app if you forget it.") : qsTr("Върни се в приложението ако го забравиш.")
                     font.pixelSize: 14
                     color: "#555555"
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -102,7 +102,7 @@ Item {
 
                 // Action Button
                 Button {
-                    text: "Done"
+                    text: root.language == "EN" ? qsTr("Done") : qsTr("Готово")
                     width: parent.width - 40
                     anchors.horizontalCenter: parent.horizontalCenter
                     height: 40
@@ -145,7 +145,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 Text {
-                    text: "Card details"
+                    text: root.language == "EN" ? qsTr("Card details") : qsTr("Детайли на картата")
                     font.bold: true
                     font.pixelSize: 18
                     color: "black"
@@ -167,7 +167,7 @@ Item {
             // Cardholder name
             Column {
                 spacing: 4
-                Text { text: "Cardholder name"; font.pixelSize: 14; color: "#777" }
+                Text { text: root.language == "EN" ? qsTr("Cardholder name") : qsTr("Собственик на картата"); font.pixelSize: 14; color: "#777" }
                 Text { text: "VANYA D DELCHEVA"; font.pixelSize: 16; color: "black" }
             }
 
@@ -176,11 +176,11 @@ Item {
                 spacing: 10
                 Column {
                     spacing: 4
-                    Text { text: "Card number"; font.pixelSize: 14; color: "#777" }
+                    Text { text: root.language == "EN" ? qsTr("Card number") : qsTr("Номер на картата"); font.pixelSize: 14; color: "#777" }
                     Text { text: "4569 3344 0248 8645"; font.pixelSize: 16; color: "black" }
                 }
                 Button {
-                    text: "Copy"
+                    text: root.language == "EN" ? qsTr("Copy") : qsTr("Копирай")
                     background: Rectangle { color: "#A7E063"; radius: 10 }
                 }
             }
@@ -190,11 +190,11 @@ Item {
                 spacing: 10
                 Column {
                     spacing: 4
-                    Text { text: "Expiry date"; font.pixelSize: 14; color: "#777" }
+                    Text { text: root.language == "EN" ? qsTr("Expiry date") : qsTr("Валидна до"); font.pixelSize: 14; color: "#777" }
                     Text { text: "01/30"; font.pixelSize: 16; color: "black" }
                 }
                 Button {
-                    text: "Copy"
+                    text: root.language == "EN" ? qsTr("Copy") : qsTr("Копирай")
                     background: Rectangle { color: "#A7E063"; radius: 10 }
                 }
             }
@@ -204,11 +204,11 @@ Item {
                 spacing: 10
                 Column {
                     spacing: 4
-                    Text { text: "Security code"; font.pixelSize: 14; color: "#777" }
+                    Text { text: root.language == "EN" ? qsTr("Security code") : qsTr("Код за сигурност"); font.pixelSize: 14; color: "#777" }
                     Text { text: "832"; font.pixelSize: 16; color: "black" }
                 }
                 Button {
-                    text: "Copy"
+                    text: root.language == "EN" ? qsTr("Copy") : qsTr("Копирай")
                     background: Rectangle { color: "#A7E063"; radius: 10 }
                 }
             }
@@ -216,13 +216,13 @@ Item {
             // Billing address
             Column {
                 spacing: 4
-                Text { text: "Billing address"; font.pixelSize: 14; color: "#777" }
+                Text { text: root.language == "EN" ? qsTr("Billing address") : qsTr("Адрес"); font.pixelSize: 14; color: "#777" }
                 Text { text: "жк Възраждане 16 вх.2, Бургас, 8000, Bulgaria"; font.pixelSize: 16; color: "black" }
             }
 
             // Done Button
             Button {
-                text: "Done"
+                text: root.language == "EN" ? qsTr("Done") : qsTr("Готово")
                 width: parent.width - 20
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: 40
@@ -383,7 +383,7 @@ Item {
                     anchors.centerIn: parent
                     color: "#2f2f2f"
                     font.pixelSize: 18
-                    text: qsTr("Personal account")
+                    text: root.language == "EN" ? qsTr("Personal account") : qsTr("Личен акаунт")
 
                 }
             }
@@ -406,7 +406,7 @@ Item {
                 border.color: "#727272"
                 border.width: 0.1
                 Text {
-                    text: qsTr("Wallet")
+                    text: root.language == "EN" ? qsTr("Wallet") : qsTr("Портфейл")
                     anchors.centerIn: parent
                     color: "#196e1a"
                     font.pixelSize: 18
@@ -441,7 +441,7 @@ Layout.preferredHeight: 50
 
                     Text {
                         Layout.alignment: Qt.AlignVCenter
-                        text: "Search"
+                        text: root.language == "EN" ? qsTr("Search") : qsTr("Търсене")
                         color: "grey"
                     }
 
@@ -550,7 +550,7 @@ Layout.preferredHeight: 50
                 }
                 Text {
                     id: chatText
-                    text: qsTr("Chat")
+                    text: root.language == "EN" ? qsTr("Chat") : qsTr("Чат")
                     font.pixelSize: 15
                     anchors.centerIn: parent
                     anchors.horizontalCenterOffset: 10 // Adjust to move text to the right
@@ -639,7 +639,7 @@ Layout.preferredHeight: 50
             {
 
                     id: overviewPage
-                    text: qsTr("Dashboard")
+                    text: root.language == "EN" ? qsTr("Dashboard") : qsTr("Начална страница")
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
@@ -665,7 +665,7 @@ Layout.preferredHeight: 50
 
 
                     id: transactions
-                    text: qsTr("Transactions")
+                    text: root.language == "EN" ? qsTr("Transactions") : qsTr("Транзакции")
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
@@ -691,7 +691,7 @@ Layout.preferredHeight: 50
 
 
                     id: walletPage
-                    text: qsTr("Wallet")
+                    text: root.language == "EN" ? qsTr("Wallet") : qsTr("Портфейл")
                     color: "#367C21"
                     font.bold: true
                     font.pixelSize: 15
@@ -715,7 +715,7 @@ Layout.preferredHeight: 50
 
 
                     id: tradingPageButton
-                    text: qsTr("Invest")
+                    text: root.language == "EN" ? qsTr("Invest") : qsTr("Инвестирай")
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
@@ -740,7 +740,7 @@ Layout.preferredHeight: 50
             {
 
 
-                    text: qsTr("Settings")
+                    text: root.language == "EN" ? qsTr("Settings") : qsTr("Настройки")
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
@@ -774,7 +774,7 @@ Layout.preferredHeight: 50
                 anchors.fill: parent
 
             Text{
-                text: "Your cards"
+                text: root.language == "EN" ? qsTr("Your cards") : qsTr("Твоите карт")
                 color: "gray"
                 Layout.leftMargin: 20
                 font.pixelSize: 17
@@ -866,7 +866,7 @@ Layout.preferredHeight: 50
                                                 }
                                             }
                                         Text{
-                                            text: "Digital card"
+                                            text: root.language == "EN" ? qsTr("Digital card") : qsTr("Дигитална карта")
                                             font.bold: true
                                             font.pixelSize: 25
                                         }
@@ -935,7 +935,7 @@ Layout.preferredHeight: 50
                                         }
                                     }
                                     Text{
-                                        text: "Show pin"
+                                        text: root.language == "EN" ? qsTr("Show pin") : qsTr("Покажи ПИН")
                                         Layout.alignment: Qt.AlignHCenter
                                     }
 
@@ -966,7 +966,7 @@ Layout.preferredHeight: 50
                                         }
                                     }
                                     Text{
-                                        text: "Card details"
+                                        text: root.language == "EN" ? qsTr("Card details") : qsTr("Детайли на картата")
                                         Layout.alignment: Qt.AlignHCenter
                                     }
                                     }
@@ -984,7 +984,7 @@ Layout.preferredHeight: 50
                                         }
                                     }
                                     Text{
-                                        text: "Freeze card"
+                                        text: root.language == "EN" ? qsTr("Freeze card") : qsTr("Замрази картата")
                                         Layout.alignment: Qt.AlignHCenter
                                     }
 
@@ -998,7 +998,7 @@ Layout.preferredHeight: 50
 
                                     Text
                                     {
-                                        text: "Manage Card"
+                                        text: root.language == "EN" ? qsTr("Manage cards") : qsTr("Управление на карти")
                                         font.pixelSize: 20
 
                                     }
@@ -1031,7 +1031,7 @@ Layout.preferredHeight: 50
 
                                         Text
                                         {
-                                            text: "View recent card transactions"
+                                            text: root.language == "EN" ? qsTr("View recent card transactions") : qsTr("Скорошни транзакции")
                                             font.bold: true
                                             font.pixelSize: 18
                                         }
@@ -1057,7 +1057,7 @@ Layout.preferredHeight: 50
                                         }
                                         Text
                                         {
-                                            text: "Card Controls"
+                                            text: root.language == "EN" ? qsTr("Card controls") : qsTr("Настройки на картата")
                                             font.bold: true
                                             font.pixelSize: 18
                                         }
@@ -1082,7 +1082,7 @@ Layout.preferredHeight: 50
                                         }
                                         Text
                                         {
-                                            text: "Unblock PIN"
+                                            text: root.language == "EN" ? qsTr("Unblock PIN") : qsTr("Отблокирай ПИН")
                                             font.bold: true
                                             font.pixelSize: 18
                                         }
@@ -1107,7 +1107,7 @@ Layout.preferredHeight: 50
                                         }
                                         Text
                                         {
-                                            text: "Edit Card"
+                                            text: root.language == "EN" ? qsTr("Edit Card") : qsTr("Редактирай картата")
                                             font.bold: true
                                             font.pixelSize: 18
                                         }
@@ -1132,7 +1132,7 @@ Layout.preferredHeight: 50
                                         }
                                         Text
                                         {
-                                            text: "Delete Card"
+                                            text: root.language == "EN" ? qsTr("Delete card") : qsTr("Изтрий картата")
                                             font.bold: true
                                             font.pixelSize: 18
                                         }
@@ -1191,7 +1191,7 @@ Layout.preferredHeight: 50
 
                                 Text {
 
-                                    text: qsTr("Order a new card")
+                                    text: root.language == "EN" ? qsTr("Order a new card") : qsTr("Поръчай нова карта")
                                     font.bold: true
                                     font.pixelSize: 15
 
@@ -1200,7 +1200,7 @@ Layout.preferredHeight: 50
                                 {
                                     wrapMode: Text.WordWrap
                                     Layout.fillWidth: true
-                                    text: qsTr("Get another card for this account.")
+                                    text: root.language == "EN" ? qsTr("Get another card for this account") : qsTr("Вземи нова карта за този акаунт.")
 
                                 }
                                 }
@@ -1248,7 +1248,7 @@ Layout.preferredHeight: 50
 
                                 Text {
 
-                                    text: qsTr("Digital card **** 4812")
+                                    text: root.language == "EN" ? qsTr("Digital card **** 4812") : qsTr("Дигитална карта **** 4812")
                                     font.bold: true
                                     font.pixelSize: 15
 
@@ -1257,7 +1257,7 @@ Layout.preferredHeight: 50
                                 {
                                     wrapMode: Text.WordWrap
                                     Layout.fillWidth: true
-                                    text: qsTr("Ready for use.")
+                                    text: root.language == "EN" ? qsTr("Ready for use") : qsTr("Готова за използване")
 
                                 }
                                 }
@@ -1318,7 +1318,7 @@ Layout.preferredHeight: 50
 
                                 Text {
 
-                                    text: qsTr("Digital card **** 6361")
+                                    text: root.language == "EN" ? qsTr("Digital card **** 6431") : qsTr("Дигитална карта **** 6431")
                                     font.bold: true
                                     font.pixelSize: 15
 
@@ -1327,7 +1327,7 @@ Layout.preferredHeight: 50
                                 {
                                     wrapMode: Text.WordWrap
                                     Layout.fillWidth: true
-                                    text: qsTr("Ready for use.")
+                                    text: root.language == "EN" ? qsTr("Ready for use") : qsTr("Готова за използване")
 
                                 }
                                 }
