@@ -371,7 +371,7 @@ Item {
                              Layout.alignment: Qt.AlignLeft
                              Text
                              {
-                                 text: "UniCredit Bulbank"
+                                 text: "National bank of Bulgaria"
                                  font.bold: true
                                  font.pixelSize: 20
                              }
@@ -452,7 +452,7 @@ Item {
                              Layout.alignment: Qt.AlignLeft
                              Text
                              {
-                                 text: "Banka DSK"
+                                 text: "National bank of Bulgaria"
                                  font.bold: true
                                  font.pixelSize: 20
                              }

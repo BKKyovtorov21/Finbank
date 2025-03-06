@@ -1,6 +1,0 @@
-[
-  {"name": "Tesla", "image": "qrc:/resources/teslaIcon.jpg"},
-  {"name": "Apple", "image": "qrc:/resources/appleIcon.svg"},
-  {"name": "Nike", "image": "qrc:/resources/nike.svg"},
-  {"name": "Microsoft", "image": "qrc:/resources/microsoft.svg"}
-]

@@ -1437,7 +1437,6 @@ ColumnLayout
             text: "Wallet Balance"
         }
         RowLayout{
-            Layout.preferredWidth: parent.width
             Text{
                 text: "$17,298.20"
                 font.pixelSize: 40
@@ -1449,75 +1448,6 @@ ColumnLayout
                 source:"resources/eye.svg"
                 Layout.leftMargin: 5
                 Layout.topMargin: 2
-            }
-            Item {
-                Layout.fillWidth: true
-            }
-
-            Text
-            {
-
-                    text: qsTr("Overview")
-                    color: "#367C21"
-                    font.pixelSize: 15
-                    font.bold: true
-
-
-            }
-
-            Text
-            {
-
-
-                    text: qsTr("Transactions")
-                    color: "#2F2F2F"
-                    font.pixelSize: 15
-                    opacity: 0.5
-
-
-                MouseArea
-                {
-                    anchors.fill: parent
-                    onClicked:{
-                        if (rootdashboard.stackViewRef) {
-                                    rootdashboard.stackViewRef.push(Qt.resolvedUrl("Transactions.qml"), {
-                                        username: rootdashboard.usernameRef,
-                                        fullName: rootdashboard.fullName,
-                                        stackViewRef: rootdashboard.stackViewRef
-                                    });
-                                }
-                        else {
-                            console.error("stackViewRef is undefined in SignIn.qml");
-                        }
-                    }
-                }
-            }
-            Text
-            {
-
-                    text: qsTr("Trading")
-                    color: "#2F2F2F"
-                    font.pixelSize: 15
-                    opacity: 0.5
-                    Layout.rightMargin: 20
-
-
-                MouseArea
-                {
-                    anchors.fill: parent
-                    onClicked:{
-                        if (rootdashboard.stackViewRef) {
-                                    rootdashboard.stackViewRef.push(Qt.resolvedUrl("TradingDashboard.qml"), {
-                                        username: rootdashboard.usernameRef,
-                                        fullName: rootdashboard.fullName,
-                                        stackViewRef: rootdashboard.stackViewRef
-                                    });
-                                }
-                        else {
-                            console.error("stackViewRef is undefined in SignIn.qml");
-                        }
-                    }
-                }
             }
         }
         }
@@ -1570,127 +1500,106 @@ ColumnLayout
 
 
                     clip: true
+                    Text {
+                        id: cardNumbers
 
-                    ColumnLayout
-                    {
-                        anchors.fill: parent
-                        spacing: -100
-                        Image
-                        {
-                            Layout.alignment: Qt.AlignRight | Qt.AlignTop
-
-                            source: "resources/bgn.png"
-                            Layout.preferredWidth: 30
-                            Layout.preferredHeight: 30
-                            Layout.rightMargin: 10
-                            Layout.topMargin: 10
-
-                        }
-
-                        Text {
-                            id: cardNumbers
-
-                            text: "**** 2515"
-                            font.pixelSize: rootdashboard.isPhone ? 15 : 20
-                            font.bold: true
-                            color: "white" // White text for contrast
-                            Layout.leftMargin: 10
-
-                        }
-                        RowLayout
-                        {
-                            Layout.preferredWidth: parent.width
-                            Layout.alignment: Qt.AlignBottom
-                            Layout.bottomMargin: 10
-                            Text
-                            {
-
-                                text: "BOYAN KYOVTOROV"
-                                font.bold: true
-                                color: "white"
-                                font.pixelSize: 10
-                                font.letterSpacing: 2
-                                Layout.leftMargin: 10
-                            }
-
-                            Image
-                            {
-                                Layout.alignment: Qt.AlignRight | Qt.AlignBottom
-
-                                source: "resources/visa.svg"
-
-                                Layout.rightMargin: 10
-
-
-                            }
-                        }
-
+                        text: "**** 2515"
+                        font.pixelSize: rootdashboard.isPhone ? 15 : 20
+                        font.bold: true
+                        color: "white" // White text for contrast
+                        anchors.left: parent.left
+                        anchors.bottom: parent.bottom
+                        anchors.leftMargin: 10
+                        anchors.bottomMargin: 30
                     }
 
+                    Image
+                    {
+                        anchors.right: parent.right
+                        anchors.rightMargin: -10
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: 13
 
+                        source: "resources/visa.svg"
+
+                    }
+                    Image
+                    {
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        anchors.topMargin: 10
+                        anchors.rightMargin: 10
+                        source: "resources/bulgariaflag.png"
+                        width: 25
+                        height: 25
+                        smooth: true
+                    }
+                    Text
+                    {
+
+                        anchors.left: parent.left
+                        anchors.top: cardNumbers.bottom
+                        anchors.topMargin: 2
+                        anchors.leftMargin: 12
+                        text: "BOYAN KYOVTOROV"
+                        font.bold: true
+                        color: "white"
+                        font.pixelSize: rootdashboard.isPhone ? 10 : 15
+                        font.letterSpacing: 2
+                    }
                     }
 
                 Image {
                     visible: !rootdashboard.isPhone
-                    Layout.preferredWidth: 230
-                    Layout.preferredHeight: rootdashboard.isPhone ? 120 : 150
+                    Layout.preferredWidth: rootdashboard.isPhone ? 200 : (rootdashboard.isTablet ? 230 : 230)
+                    Layout.preferredHeight: rootdashboard.isPhone ? 100 : 150
                     source: "resources/minimalistbg2.png"
 
 
                     clip: true
-                    ColumnLayout
+                    Text {
+                        id: cardNumbers2
+                        text: "**** 3411"
+                        font.pixelSize: 15
+                        font.bold: true
+                        color: "white" // White text for contrast
+                        anchors.left: parent.left
+                        anchors.bottom: parent.bottom
+                        anchors.leftMargin: 10
+                        anchors.bottomMargin: 30
+                    }
+
+                    Image
                     {
-                        anchors.fill: parent
-                        spacing: -100
-                        Image
-                        {
-                            Layout.alignment: Qt.AlignRight | Qt.AlignTop
-
-                            source: "resources/usd.png"
-                            Layout.preferredWidth: 30
-                            Layout.preferredHeight: 30
-                            Layout.rightMargin: 10
-                            Layout.topMargin: 10
-
-                        }
-
-                        Text {
-
-                            text: "**** 2515"
-                            font.pixelSize: rootdashboard.isPhone ? 15 : 20
-                            font.bold: true
-                            color: "white" // White text for contrast
-                            Layout.leftMargin: 10
-
-                        }
-                        RowLayout
-                        {
-                            Layout.preferredWidth: parent.width
-                            Layout.alignment: Qt.AlignBottom
-                            Layout.bottomMargin: 10
-                            Text
-                            {
-
-                                text: "VICHO VICHEV"
-                                font.bold: true
-                                color: "white"
-                                font.pixelSize: 10
-                                font.letterSpacing: 2
-                                Layout.leftMargin: 10
-                            }
-
-                            Image
-                            {
-                                Layout.alignment: Qt.AlignRight | Qt.AlignBottom
-
-                                source: "resources/mastercard.svg"
-
-                                Layout.rightMargin: 10
-
-
-                            }
-                        }
-
+                        anchors.right: parent.right
+                        anchors.bottom: parent.bottom
+                            anchors.bottomMargin: 20
+                        source: "resources/mastercard_logo.png"
+                        width: 80
+                        height: 50
+                    }
+                    Image
+                    {
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        anchors.topMargin: 10
+                        anchors.rightMargin: 10
+                        source: "resources/usaflag.png"
+                        width: 25
+                        height: 25
+                        smooth: true
+                    }
+                    Text
+                    {
+                        anchors.left: parent.left
+                        anchors.top: cardNumbers2.bottom
+                        anchors.topMargin: 0
+                        anchors.leftMargin: 10
+                        text: "VICHO VICHEV"
+                        font.bold: true
+                        color: "white"
+                        font.pixelSize: 10
+                        font.letterSpacing: 2
                     }
                     }
             }

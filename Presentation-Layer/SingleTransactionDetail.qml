@@ -11,12 +11,11 @@ Rectangle {
     property string transactionType
     property string ellipseColor
     property string arrow
-    ColumnLayout{
-        anchors.fill: parent
+
     RowLayout {
         id: rowLayout
-        Layout.fillWidth: true
-        Layout.fillHeight:true
+        anchors.fill: parent
+
         Image {
             id: ellipse
             source: root.ellipseColor
@@ -28,14 +27,12 @@ Rectangle {
         Text {
             id: transactionType
             text: root.transactionType
-            font.pixelSize: 16
         }
         Text {
             Layout.leftMargin: 5
             font.bold: true
             id: recipent
             text: root.recipent
-            font.pixelSize: 18
         }
         Text {
             Layout.leftMargin: 10
@@ -49,18 +46,6 @@ Rectangle {
         Text {
             text: root.value
             Layout.alignment: Qt.AlignRight
-            font.pixelSize: 16
-            font.bold: true
-            Layout.rightMargin: 50
         }
-    }
-
-    Rectangle
-    {
-        Layout.fillWidth:true
-        Layout.preferredHeight: 1
-        color: "grey"
-        Layout.rightMargin: 50
-    }
     }
 }

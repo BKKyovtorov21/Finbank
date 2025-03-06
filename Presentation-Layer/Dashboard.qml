@@ -5,6 +5,7 @@ import QtQuick.Timeline
 import QtCharts
 Item {
     id: rootdashboard
+    property var stackViewRef
     width: Screen.width
     height: Screen.height
     visible: true
@@ -22,8 +23,6 @@ Item {
        property var pfp
     property bool textfieldActive
     property string language: "EN"
-
-
     MouseArea
     {
         anchors.fill: parent
@@ -39,14 +38,16 @@ Item {
         balanceAnimation.running = true
         incomeAnimation.running = true
         expenseAnimation.running = true
+        pie1Animation.running = true
+        pie2Animation.running = true
 
-                balance = dashboard.getDbVariable(rootdashboard.usernameRef, "balance");
-                income = dashboard.getDbVariable(rootdashboard.usernameRef, "income");
-                expenses = dashboard.getDbVariable(rootdashboard.usernameRef, "expenses");
-                rootdashboard.cardInfo = dashboard.getDbVariable(rootdashboard.usernameRef, "cardNumber");
-                rootdashboard.firstName = dashboard.getDbVariable(rootdashboard.usernameRef, "first_name");
-                rootdashboard.lastName = dashboard.getDbVariable(rootdashboard.usernameRef, "last_name");
-                rootdashboard.pfp = dashboard.getDbVariable(rootdashboard.usernameRef, "pfp");
+                balance = dashboard.getDbVariable(rootdashboard.usernameRef, rootdashboard.language == "EN" ? qsTr("balance") : qsTr("баланс"));
+                income = dashboard.getDbVariable(rootdashboard.usernameRef, rootdashboard.language == "EN" ? qsTr("income") : qsTr("доходи"));
+                expenses = dashboard.getDbVariable(rootdashboard.usernameRef, rootdashboard.language == "EN" ? qsTr("expenses") : qsTr("разходи"));
+                rootdashboard.cardInfo = dashboard.getDbVariable(rootdashboard.usernameRef, rootdashboard.language == "EN" ? qsTr("cardNumber") : qsTr("номер на карта"));
+                rootdashboard.firstName = dashboard.getDbVariable(rootdashboard.usernameRef, rootdashboard.language == "EN" ? qsTr("first_name") : qsTr("име"));
+                rootdashboard.lastName = dashboard.getDbVariable(rootdashboard.usernameRef, rootdashboard.language == "EN" ? qsTr("last_name") : qsTr("фамилия"));
+                rootdashboard.pfp = dashboard.getDbVariable(rootdashboard.usernameRef, rootdashboard.language == "EN" ? qsTr("pfp") : qsTr("профилна"));
 
 
 
@@ -82,7 +83,7 @@ Item {
                     anchors.centerIn: parent
                     color: "#2f2f2f"
                     font.pixelSize: 18
-                    text: qsTr("Personal account")
+                    text: rootdashboard.language == "EN" ? qsTr("Personal account") : qsTr("Личен акаунт")
 
                 }
             }
@@ -105,7 +106,7 @@ Item {
                 border.color: "#727272"
                 border.width: 0.1
                 Text {
-                    text: qsTr("Dashboard")
+                    text: rootdashboard.language == "EN" ? qsTr("Dashboard") : qsTr("Табло за управление")
                     anchors.centerIn: parent
                     color: "#196e1a"
                     font.pixelSize: 18
@@ -200,41 +201,12 @@ Layout.preferredHeight: 50
 
                Layout.fillWidth: true
            }
-           Rectangle
-           {
-               Layout.preferredWidth: 80
-               Layout.preferredHeight: 50
-               radius: 5
-               color: "#fafafa"
-
-               RowLayout
-               {
-                   anchors.fill: parent
-
-                   Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                Image {
-                    source: "qrc:/resources/language.svg"
-                }
-                Text {
-                    text: rootdashboard.language
-                    font.pixelSize: 15
-                    Layout.alignment: Qt.AlignVCenter
-                }
-               }
 
 
-               MouseArea
-               {
-                   anchors.fill: parent
-                   onClicked:
-                   {
-                       rootdashboard.language = (rootdashboard.language === "EN") ? "BG" : "EN";
-                   }
-               }
-           }
+
             Rectangle
             {
-                radius: 5
+
                 Image {
                     id: element5
                     fillMode: Image.PreserveAspectFit
@@ -247,7 +219,7 @@ Layout.preferredHeight: 50
                 }
                 Text {
                     id: chatText
-                    text: qsTr("Chat")
+                    text: rootdashboard.language == "EN" ? qsTr("Chat") : qsTr("Чат")
                     font.pixelSize: 15
                     anchors.centerIn: parent
                     anchors.horizontalCenterOffset: 10 // Adjust to move text to the right
@@ -313,7 +285,7 @@ Layout.preferredHeight: 50
             Layout.topMargin: 40
 
             Text {
-                text: qsTr("Good afternoon, Boyan")
+                text: rootdashboard.language == "EN" ? qsTr("Good afternoon, Boyan!") : qsTr("Добър ден, Боян!")
                 font.pixelSize: !rootdashboard.isTablet ? 35 : 15
                 font.bold: true
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop // Combine alignment flags
@@ -331,7 +303,7 @@ Layout.preferredHeight: 50
             {
 
                     id: overviewPage
-                    text: qsTr("Overview")
+                    text: rootdashboard.language == "EN" ? qsTr("Overview") : qsTr("Преглед")
                     color: "#367C21"
                     font.pixelSize: 15
                     font.bold: true
@@ -344,7 +316,7 @@ Layout.preferredHeight: 50
 
 
                     id: transactions
-                    text: qsTr("Transactions")
+                    text: rootdashboard.language == "EN" ? qsTr("Transactions") : qsTr("Транзакция")
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
@@ -354,71 +326,47 @@ Layout.preferredHeight: 50
                 {
                     anchors.fill: parent
                     onClicked:{
-                        contentLoader.setSource("Transactions.qml", {
-                                            username: rootdashboard.usernameRef,
-                                            fullName: rootdashboard .fullName
-                                        })
+                        if (rootdashboard.stackViewRef) {
+                                    rootdashboard.stackViewRef.push(Qt.resolvedUrl("Transactions.qml"), {
+                                        username: rootdashboard.usernameRef,
+                                        fullName: rootdashboard.fullName,
+                                        stackViewRef: rootdashboard.stackViewRef
+                                    });
+                                }
+                        else {
+                            console.error("stackViewRef is undefined in SignIn.qml");
+                        }
                     }
                 }
             }
-            Text
-            {
-
-
-                    id: walletPage
-                    text: qsTr("Wallet")
-                    color: "#2F2F2F"
-                    font.pixelSize: 15
-                    opacity: 0.5
-
-                    MouseArea
-                    {
-                        anchors.fill: parent
-                        onClicked:{
-                            contentLoader.setSource("Wallet.qml", {
-                                                username: rootdashboard.usernameRef,
-                                                fullName: rootdashboard .fullName
-                                            })
-                        }
-                    }
-
-
-            }
-
             Text
             {
 
 
                     id: tradingPageButton
-                    text: qsTr("Invest")
-                    color: "#2F2F2F"
-                    font.pixelSize: 15
-                    opacity: 0.5
-
-
-                MouseArea
-                {
-                    anchors.fill: parent
-                    onClicked:{
-                        contentLoader.setSource("TradingDashboard.qml", {
-                                            username: rootdashboard.usernameRef,
-                                            fullName: rootdashboard .fullName
-                                        })
-                    }
-                }
-            }
-            Text
-            {
-
-
-                    text: qsTr("Settings")
+                    text: rootdashboard.language == "EN" ? qsTr("Trading") : qsTr("Инвестиране")
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
                     Layout.rightMargin: 20
 
 
-
+                MouseArea
+                {
+                    anchors.fill: parent
+                    onClicked:{
+                        if (rootdashboard.stackViewRef) {
+                                    rootdashboard.stackViewRef.push(Qt.resolvedUrl("TradingDashboard.qml"), {
+                                        username: rootdashboard.usernameRef,
+                                        fullName: rootdashboard.fullName,
+                                        stackViewRef: rootdashboard.stackViewRef
+                                    });
+                                }
+                        else {
+                            console.error("stackViewRef is undefined in SignIn.qml");
+                        }
+                    }
+                }
             }
         }
         RowLayout
@@ -426,7 +374,7 @@ Layout.preferredHeight: 50
 
             Text
             {
-               text: qsTr("This is your finance report")
+               text: rootdashboard.language == "EN" ? qsTr("This is your finance report!") : qsTr("Това е Вашия финансов отчет!")
                Layout.alignment: Qt.AlignTop | Qt.AlignLeft
                Layout.topMargin: 10
                Layout.leftMargin: 20
@@ -457,7 +405,7 @@ Layout.preferredHeight: 50
                     Text {
 
                         color: "#b3000000"
-                        text: qsTr("My balance")
+                        text:rootdashboard.language == "EN" ? qsTr("My balance") : qsTr("Моят баланс")
                         font.pointSize: 16
                         anchors.top: parent.top
                         anchors.topMargin: 10
@@ -506,7 +454,7 @@ Layout.preferredHeight: 50
                             Layout.alignment: Qt.AlignRight
                         }
                         Text {
-                               text: qsTr("Compared to last month")
+                               text: rootdashboard.language == "EN" ? qsTr("Compare to the last month") : qsTr("В сравнение с миналия месец")
                                font.pixelSize: 15
                                color: "#2f2f2f" // Optional for styling
                                Layout.leftMargin: 10
@@ -551,17 +499,23 @@ Layout.preferredHeight: 50
                             {
                                 anchors.fill: parent
                                 onClicked:{
-                                    contentLoader.setSource("Transactions.qml", {
-                                                        username: rootdashboard.usernameRef,
-                                                        fullName: rootdashboard .fullName
-                                                    })
+                                    if (rootdashboard.stackViewRef) {
+                                                rootdashboard.stackViewRef.push(Qt.resolvedUrl("Transactions.qml"), {
+                                                    username: rootdashboard.usernameRef,
+                                                    fullName: rootdashboard.fullName,
+                                                    stackViewRef: rootdashboard.stackViewRef
+                                                });
+                                            }
+                                    else {
+                                        console.error("stackViewRef is undefined in SignIn.qml");
+                                    }
                                 }
                             }
                             Text {
                                 id: send_money
 
                                 color: "#ececec"
-                                text: qsTr("Send money")
+                                text: rootdashboard.language == "EN" ? qsTr("Send Money") : qsTr("Изпрати пари")
                                 font.pixelSize: 22
                                 anchors.centerIn: parent
                                 wrapMode: Text.NoWrap
@@ -588,7 +542,7 @@ Layout.preferredHeight: 50
                                 id: request_money
 
                                 color: "#367c21"
-                                text: qsTr("Request money")
+                                text: rootdashboard.language == "EN" ? qsTr("Request money") : qsTr("Поискай пари")
                                 anchors.left: parent.left
                                 anchors.top: parent.top
                                 anchors.leftMargin: 22
@@ -676,7 +630,7 @@ Layout.preferredHeight: 50
                         width: parent.width
                         height: 23
                         color: "#000000"
-                        text: qsTr("Monthly Income")
+                        text: rootdashboard.language == "EN" ? qsTr("Monthly income") : qsTr("Месечен доход")
                         anchors.top: parent.top
                         anchors.topMargin: 63
                         font.pixelSize: 17
@@ -733,7 +687,7 @@ Layout.preferredHeight: 50
                         width: 141
                         height: 17
                         color: "#b22f2f2f"
-                        text: qsTr("Compared to last month")
+                        text: rootdashboard.language == "EN" ? qsTr("Compare to the last month") : qsTr("В сравнение с миналия месец")
                         anchors.left: parent.left
                         anchors.top: parent.top
                         anchors.leftMargin: 74
@@ -780,7 +734,7 @@ Layout.preferredHeight: 50
                         width: 141
                         height: 17
                         color: "#b22f2f2f"
-                        text: qsTr("Compared to last month")
+                        text: rootdashboard.language == "EN" ? qsTr("Compare to the last month") : qsTr("В сравнение с миналия месец")
                         anchors.left: parent.left
                         anchors.top: parent.top
                         anchors.leftMargin: 74
@@ -850,7 +804,7 @@ Layout.preferredHeight: 50
                         height: 23
                         color: "#000000"
 
-                        text: qsTr("Monthly Expenses")
+                        text: rootdashboard.language == "EN" ? qsTr("Monthly expenses") : qsTr("Месечни разходи")
                         anchors.left: parent.left
                         anchors.top: parent.top
                         anchors.topMargin: 63
@@ -937,7 +891,7 @@ Layout.preferredHeight: 50
                             id: mySeries
                             barWidth: 0.8  // Adjust width for rounded effect
                             axisX: BarCategoryAxis {
-                                categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                                categories: [rootdashboard.language == "EN" ? qsTr("Jan") : qsTr("Яну"), rootdashboard.language == "EN" ? qsTr("Feb") : qsTr("Феб"), rootdashboard.language == "EN" ? qsTr("Mar") : qsTr("Maр"), rootdashboard.language == "EN" ? qsTr("Apr") : qsTr("Aпр"), rootdashboard.language == "EN" ? qsTr("May") : qsTr("Май"), rootdashboard.language == "EN" ? qsTr("Jun") : qsTr("Юни"), rootdashboard.language == "EN" ? qsTr("Jul") : qsTr("Юли"), rootdashboard.language == "EN" ? qsTr("Аug") : qsTr("Авг"), rootdashboard.language == "EN" ? qsTr("Sep") : qsTr("Сеп"), rootdashboard.language == "EN" ? qsTr("Оct") : qsTr("Oкт"), rootdashboard.language == "EN" ? qsTr("Nov") : qsTr("Ное"), rootdashboard.language == "EN" ? qsTr("Dec") : qsTr("Дек")]
                             }
                             axisY: ValuesAxis { min: 0; max: 20000 }
 
@@ -969,6 +923,35 @@ Layout.preferredHeight: 50
                                 y: chart.height - height
                             }
                         }
+
+                        // Tooltip for Hover
+                        Rectangle {
+                            id: tooltip
+                            visible: false
+                            width: 120
+                            height: 50
+                            radius: 8
+                            color: "black"
+                            opacity: 0.85
+                            Text {
+                                id: tooltipText
+                                color: "white"
+                                anchors.centerIn: parent
+                            }
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            onPositionChanged: {
+                                var index = Math.floor(mouseX / (chart.width / 12)); // Find the hovered month
+                                tooltipText.text = "Income: $" + mySeries.barSets[0].values[index] + "\nExpense: $" + mySeries.barSets[1].values[index];
+                                tooltip.x = mouseX - tooltip.width / 2;
+                                tooltip.y = mouseY - 60;
+                                tooltip.visible = true;
+                            }
+                            onExited: tooltip.visible = false
+                        }
                     }
 
                 }
@@ -996,7 +979,7 @@ ColumnLayout
             anchors.fill: parent
 
             Text {
-                text: "My Card"
+                text: rootdashboard.language == "EN" ? qsTr("My card") : qsTr("Моята карта")
                 font.pixelSize: 20
                 Layout.leftMargin: 10
                 Layout.topMargin: 10
@@ -1109,7 +1092,7 @@ ColumnLayout
             }
 
             Text {
-                text: "Spending Limit"
+                text: rootdashboard.language == "EN" ? qsTr("Spending limit") : qsTr("Ограничение за харчене")
                 Layout.leftMargin: 15
                 color: "#3F4149"
             }
@@ -1122,7 +1105,7 @@ ColumnLayout
                     font.bold: true
                 }
                 Text {
-                    text: "used from 12,645.00"
+                    text: rootdashboard.language == "EN" ? qsTr("used from 12,645.00") : qsTr("използвани от 12,645.00")
                     font.pixelSize: 8
                     color: "grey"
                 }
@@ -1166,7 +1149,7 @@ ColumnLayout
 
                             Text
                             {
-                                text: "All Expenses"
+                                text: rootdashboard.language == "EN" ? qsTr("All expenses") : qsTr("Всички разходи")
                                 font.pixelSize: 20
                                 font.bold: true
                                 Layout.leftMargin: 15
@@ -1175,7 +1158,7 @@ ColumnLayout
 
                         Text
                         {
-                            text: "Total"
+                            text: rootdashboard.language == "EN" ? qsTr("Total") : qsTr("Тотално")
                             font.bold: true
                             color: "#92949E"
                             Layout.leftMargin: 15
@@ -1199,15 +1182,15 @@ ColumnLayout
                             Layout.preferredWidth: parent.width
                             Text
                             {
-                                text: "Daily"
+                                text: rootdashboard.language == "EN" ? qsTr("Daily") : qsTr("Дневно")
                             }
                             Text
                             {
-                                text: "Weekly"
+                                text: rootdashboard.language == "EN" ? qsTr("Weekly") : qsTr("Седмично")
                             }
                             Text
                             {
-                                text: "Monthly"
+                                text: rootdashboard.language == "EN" ? qsTr("Monthly") : qsTr("Месечно")
                             }
                         }
                         RowLayout
@@ -1285,7 +1268,7 @@ ColumnLayout
                             }
                             Text
                             {
-                                text: "Food & Health"
+                                text: rootdashboard.language == "EN" ? qsTr("Food & Health") : qsTr("Храна и Здраве")
                                 Layout.fillWidth: true
                             }
 
@@ -1312,7 +1295,7 @@ ColumnLayout
                             }
                             Text
                             {
-                                text: "Entertainments"
+                                text: rootdashboard.language == "EN" ? qsTr("Entertainment") : qsTr("Забавления")
                                 Layout.fillWidth: true
                             }
 
@@ -1338,7 +1321,7 @@ ColumnLayout
                             }
                             Text
                             {
-                                text: "Shopping"
+                                text: rootdashboard.language == "EN" ? qsTr("Shopping") : qsTr("Пазаруване")
                                 Layout.fillWidth: true
                             }
 
@@ -1364,7 +1347,7 @@ ColumnLayout
                             }
                             Text
                             {
-                                text: "Investment"
+                                text: rootdashboard.language == "EN" ? qsTr("Investment") : qsTr("Инвестиране")
                                 Layout.fillWidth: true
                             }
 
@@ -1407,11 +1390,11 @@ ColumnLayout
             ColumnLayout
             {
                 Text{
-                text: "Hi, Boyan"
+                text: rootdashboard.language == "EN" ? qsTr("Hi, Boyan") : qsTr("Здравей, Боян")
                 font.pixelSize: 30
                 }
                 Text{
-                    text:"Welcome back!"
+                    text:rootdashboard.language == "EN" ? qsTr("Welcome Back") : qsTr("Здравей отново")
                     font.pixelSize: 20
                     color: "#C6C6C6"
                 }
@@ -1450,10 +1433,9 @@ ColumnLayout
             font.pixelSize: 20
             color: "#C6C6C6"
             font.bold: true
-            text: "Wallet Balance"
+            text: rootdashboard.language == "EN" ? qsTr("Wallet Balance") : qsTr("Баланс на портфейла")
         }
         RowLayout{
-            Layout.preferredWidth: parent.width
             Text{
                 text: "$17,298.20"
                 font.pixelSize: 40
@@ -1466,110 +1448,6 @@ ColumnLayout
                 Layout.leftMargin: 5
                 Layout.topMargin: 2
             }
-            Item
-            {
-                Layout.fillWidth:true
-            }
-
-
-
-            Item
-            {
-
-                Layout.fillWidth: true
-            }
-            Text
-            {
-                visible: !rootdashboard.isPhone
-                    text: qsTr("Overview")
-                    color: "#367C21"
-                    font.pixelSize: 15
-                    font.bold: true
-
-
-            }
-
-            Text
-            {
-                visible: !rootdashboard.isPhone
-
-                    text: qsTr("Transactions")
-                    color: "#2F2F2F"
-                    font.pixelSize: 15
-                    opacity: 0.5
-
-
-                MouseArea
-                {
-                    anchors.fill: parent
-                    onClicked:{
-                        contentLoader.setSource("Transactions.qml", {
-                                            username: rootdashboard.usernameRef,
-                                            fullName: rootdashboard .fullName
-                                        })
-                    }
-                }
-            }
-            Text
-            {
-
-                visible: !rootdashboard.isPhone
-
-                    text: qsTr("Wallet")
-                    color: "#2F2F2F"
-                    font.pixelSize: 15
-                    opacity: 0.5
-
-                    MouseArea
-                    {
-                        anchors.fill: parent
-                        onClicked:{
-                            console.log("wallet clicked")
-                            contentLoader.setSource("Wallet.qml", {
-                                                username: rootdashboard.usernameRef,
-                                                fullName: rootdashboard .fullName
-                                            })
-                        }
-                    }
-
-            }
-
-            Text
-            {
-
-                visible: !rootdashboard.isPhone
-
-                    text: qsTr("Trading")
-                    color: "#2F2F2F"
-                    font.pixelSize: 15
-                    opacity: 0.5
-
-
-                MouseArea
-                {
-                    anchors.fill: parent
-                    onClicked:{
-                        contentLoader.setSource("TradingDashboard.qml", {
-                                            username: rootdashboard.usernameRef,
-                                            fullName: rootdashboard .fullName
-                                        })
-                    }
-                }
-            }
-            Text
-            {
-
-                visible: !rootdashboard.isPhone
-
-                    text: qsTr("Settings")
-                    color: "#2F2F2F"
-                    font.pixelSize: 15
-                    opacity: 0.5
-                    Layout.rightMargin: 20
-
-
-
-            }
         }
         }
         RowLayout {
@@ -1579,7 +1457,7 @@ ColumnLayout
 
 
             Text {
-                text: "Cards"
+                text: rootdashboard.language == "EN" ? qsTr("Cards") : qsTr("Карти")
                 font.pixelSize: 15
                 font.bold: true
                 color: "#144618"
@@ -1612,139 +1490,118 @@ ColumnLayout
 
             // Credit Cards
 
-                RowLayout {
-                    spacing: 20 // Space between credit cards
-                    Image {
-                        Layout.preferredWidth: 230
-                        Layout.preferredHeight: rootdashboard.isPhone ? 120 : 150
-                        source: "resources/minimalistbg1.png"
+            RowLayout {
+                spacing: 20 // Space between credit cards
+                Image {
+                    Layout.preferredWidth: 230
+                    Layout.preferredHeight: rootdashboard.isPhone ? 120 : 150
+                    source: "qrc:/resources/minimalistbg1.png"
 
 
-                        clip: true
+                    clip: true
+                    Text {
+                        id: cardNumbers
 
-                        ColumnLayout
-                        {
-                            anchors.fill: parent
-                            spacing: -100
-                            Image
-                            {
-                                Layout.alignment: Qt.AlignRight | Qt.AlignTop
+                        text: "**** 2515"
+                        font.pixelSize: rootdashboard.isPhone ? 15 : 20
+                        font.bold: true
+                        color: "white" // White text for contrast
+                        anchors.left: parent.left
+                        anchors.bottom: parent.bottom
+                        anchors.leftMargin: 10
+                        anchors.bottomMargin: 30
+                    }
 
-                                source: "resources/bgn.png"
-                                Layout.preferredWidth: 30
-                                Layout.preferredHeight: 30
-                                Layout.rightMargin: 10
-                                Layout.topMargin: 10
+                    Image
+                    {
+                        anchors.right: parent.right
+                        anchors.rightMargin: -10
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: 13
 
-                            }
+                        source: "qrc:/resources/visa.svg"
 
-                            Text {
-                                id: cardNumbers
+                    }
+                    Image
+                    {
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        anchors.topMargin: 10
+                        anchors.rightMargin: 10
+                        source: "qrc:/resources/bulgariaflag.png"
+                        width: 25
+                        height: 25
+                        smooth: true
+                    }
+                    Text
+                    {
 
-                                text: "**** 2515"
-                                font.pixelSize: rootdashboard.isPhone ? 15 : 20
-                                font.bold: true
-                                color: "white" // White text for contrast
-                                Layout.leftMargin: 10
+                        anchors.left: parent.left
+                        anchors.top: cardNumbers.bottom
+                        anchors.topMargin: 2
+                        anchors.leftMargin: 12
+                        text: "BOYAN KYOVTOROV"
+                        font.bold: true
+                        color: "white"
+                        font.pixelSize: rootdashboard.isPhone ? 10 : 15
+                        font.letterSpacing: 2
+                    }
+                    }
 
-                            }
-                            RowLayout
-                            {
-                                Layout.preferredWidth: parent.width
-                                Layout.alignment: Qt.AlignBottom
-                                Layout.bottomMargin: 10
-                                Text
-                                {
-
-                                    text: "BOYAN KYOVTOROV"
-                                    font.bold: true
-                                    color: "white"
-                                    font.pixelSize: 10
-                                    font.letterSpacing: 2
-                                    Layout.leftMargin: 10
-                                }
-
-                                Image
-                                {
-                                    Layout.alignment: Qt.AlignRight | Qt.AlignBottom
-
-                                    source: "resources/visa.svg"
-
-                                    Layout.rightMargin: 10
-
-
-                                }
-                            }
-
-                        }
+                Image {
+                    visible: !rootdashboard.isPhone
+                    Layout.preferredWidth: rootdashboard.isPhone ? 200 : (rootdashboard.isTablet ? 230 : 230)
+                    Layout.preferredHeight: rootdashboard.isPhone ? 100 : 150
+                    source: "qrc:/resources/minimalistbg2.png"
 
 
-                        }
+                    clip: true
+                    Text {
+                        id: cardNumbers2
+                        text: "**** 3411"
+                        font.pixelSize: 15
+                        font.bold: true
+                        color: "white" // White text for contrast
+                        anchors.left: parent.left
+                        anchors.bottom: parent.bottom
+                        anchors.leftMargin: 10
+                        anchors.bottomMargin: 30
+                    }
 
-                    Image {
-                        visible: !rootdashboard.isPhone
-                        Layout.preferredWidth: 230
-                        Layout.preferredHeight: rootdashboard.isPhone ? 120 : 150
-                        source: "resources/minimalistbg2.png"
-
-
-                        clip: true
-                        ColumnLayout
-                        {
-                            anchors.fill: parent
-                            spacing: -100
-                            Image
-                            {
-                                Layout.alignment: Qt.AlignRight | Qt.AlignTop
-
-                                source: "resources/usd.png"
-                                Layout.preferredWidth: 30
-                                Layout.preferredHeight: 30
-                                Layout.rightMargin: 10
-                                Layout.topMargin: 10
-
-                            }
-
-                            Text {
-
-                                text: "**** 2515"
-                                font.pixelSize: rootdashboard.isPhone ? 15 : 20
-                                font.bold: true
-                                color: "white" // White text for contrast
-                                Layout.leftMargin: 10
-
-                            }
-                            RowLayout
-                            {
-                                Layout.preferredWidth: parent.width
-                                Layout.alignment: Qt.AlignBottom
-                                Layout.bottomMargin: 10
-                                Text
-                                {
-
-                                    text: "VICHO VICHEV"
-                                    font.bold: true
-                                    color: "white"
-                                    font.pixelSize: 10
-                                    font.letterSpacing: 2
-                                    Layout.leftMargin: 10
-                                }
-
-                                Image
-                                {
-                                    Layout.alignment: Qt.AlignRight | Qt.AlignBottom
-
-                                    source: "resources/mastercard.svg"
-
-                                    Layout.rightMargin: 10
-
-
-                                }
-                            }
-
-                        }
-                        }
-                }
+                    Image
+                    {
+                        anchors.right: parent.right
+                        anchors.bottom: parent.bottom
+                            anchors.bottomMargin: 20
+                        source: "qrc:/resources/mastercard_logo.png"
+                        width: 80
+                        height: 50
+                    }
+                    Image
+                    {
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        anchors.topMargin: 10
+                        anchors.rightMargin: 10
+                        source: "qrc:/resources/usaflag.png"
+                        width: 25
+                        height: 25
+                        smooth: true
+                    }
+                    Text
+                    {
+                        anchors.left: parent.left
+                        anchors.top: cardNumbers2.bottom
+                        anchors.topMargin: 0
+                        anchors.leftMargin: 10
+                        text: "VICHO VICHEV"
+                        font.bold: true
+                        color: "white"
+                        font.pixelSize: 10
+                        font.letterSpacing: 2
+                    }
+                    }
+            }
 
 
         }
@@ -1764,10 +1621,16 @@ ColumnLayout
                 {
                     anchors.fill: parent
                     onClicked:{
-                        contentLoader.setSource("Transactions.qml", {
-                                            username: rootdashboard.usernameRef,
-                                            fullName: rootdashboard .fullName
-                                        })
+                        if (rootdashboard.stackViewRef) {
+                                    rootdashboard.stackViewRef.push(Qt.resolvedUrl("Transactions.qml"), {
+                                        username: rootdashboard.usernameRef,
+                                        fullName: rootdashboard.fullName,
+                                        stackViewRef: rootdashboard.stackViewRef
+                                    });
+                                }
+                        else {
+                            console.error("stackViewRef is undefined in SignIn.qml");
+                        }
                     }
                 }
                 Image
@@ -1785,7 +1648,7 @@ ColumnLayout
                     anchors.left: receive.right
                     anchors.leftMargin: rootdashboard.isPhone ? 15 : 25
                     anchors.verticalCenter: parent.verticalCenter
-                    text: "Send"
+                    text: rootdashboard.language == "EN" ? qsTr("Send") : qsTr("Изпрати")
                     font.pixelSize: rootdashboard.isPhone ? 18 : 25
                     color: "#AEE780"
                 }
@@ -1798,8 +1661,6 @@ ColumnLayout
                 Layout.preferredWidth: rootdashboard.isPhone ? 130 : 180
                 color: "#AEE780"
                 radius: 30
-               // TO DO:
-                 //   aj naprawi go neshtastnik
                 Image
                 {
                     id:send
@@ -1815,7 +1676,7 @@ ColumnLayout
                     anchors.left: send.right
                     anchors.leftMargin: 10
                     anchors.verticalCenter: parent.verticalCenter
-                    text: "Receive"
+                    text: rootdashboard.language == "EN" ? qsTr("Receive") : qsTr("Получи")
                     font.pixelSize: rootdashboard.isPhone ? 18 : 25
                     color: "#144618"
                 }
@@ -1849,7 +1710,7 @@ ColumnLayout
                     anchors.leftMargin: 5
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.verticalCenterOffset: 0
-                    text: "Add money"
+                    text: rootdashboard.language == "EN" ? qsTr("Add money") : qsTr("Добави пари")
                     color: "#144618"
                     font.pixelSize: rootdashboard.isPhone ? 15 : 25
 
@@ -1875,13 +1736,13 @@ ColumnLayout
 
                     Text
                     {
-                        text: "Recent Activity"
+                        text: rootdashboard.language == "EN" ? qsTr("Recent activity") : qsTr("Скорошни дейности")
                         font.pixelSize: 20
                     }
 
                     Text
                     {
-                        text: "See Details"
+                        text: rootdashboard.language == "EN" ? qsTr("See details") : qsTr("Виж детайли")
                         font.pixelSize: 20
                         Layout.alignment: Qt.AlignRight
                     }
@@ -2080,10 +1941,10 @@ ColumnLayout
             Repeater {
                 width: parent.width
                 model: ListModel {
-                    ListElement { menuText: "Personal" }
-                    ListElement { menuText: "Business" }
-                    ListElement { menuText: "Company" }
-                    ListElement { menuText: "Help" }
+                    ListElement { menuText: rootdashboard.language == "EN" ? qsTr("Personal") : qsTr("Персонален") }
+                    ListElement { menuText: rootdashboard.language == "EN" ? qsTr("Business") : qsTr("Бизнес") }
+                    ListElement { menuText: rootdashboard.language == "EN" ? qsTr("Company") : qsTr("Компания")}
+                    ListElement { menuText: rootdashboard.language == "EN" ? qsTr("Help") : qsTr("Помощ") }
                 }
 
                 delegate: Item {

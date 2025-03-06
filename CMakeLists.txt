@@ -71,7 +71,6 @@ qt_add_qml_module(appFinbank
         QML_FILES Presentation-Layer/PortfolioValue.qml
         QML_FILES Presentation-Layer/NavbarMobile.qml
         QML_FILES Presentation-Layer/Main.qml
-        QML_FILES Presentation-Layer/Wallet.qml
 )
 
 qt_add_ios_ffmpeg_libraries(appFinbank)
