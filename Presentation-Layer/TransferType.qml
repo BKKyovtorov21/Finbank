@@ -10,8 +10,11 @@ Item {
     property bool isPhone: width <= 500
 
     property string username
-    property string fullName
+    property string firstName
+    property string lastName
+    property var pfp
     property var stackViewRef
+    property string language: "EN"
 
     property string sendingCurrency
     property string recipentCurrency
@@ -44,7 +47,6 @@ Item {
         anchors.fill: parent
         RowLayout
         {
-            visible: !root.isTablet
             spacing: 8 // Adjust spacing between icon and TextField
             Image {
                 id: name
@@ -96,35 +98,28 @@ Item {
                 }
             }
 
-            Item {
+            Item
+            {
                 Layout.fillWidth: true
-                Layout.preferredHeight: 30
+            }
+            Rectangle {
+                id: searchRowRect
+Layout.preferredWidth: root.test2 ? 250 : (root.test ? 300 : 550)
+Layout.preferredHeight: 50
+                color: "#FDFDFD"
+                border.width: 1
+                border.color: "#F7F7F7"
+                radius: 5
 
                 RowLayout {
+                    id: searchRow
+                    anchors.fill: parent
+                    visible: textField.text.length === 0
 
-                    anchors.fill: parent // Ensures the layout fills the space
-                    anchors.verticalCenterOffset: 50
-
-
-                    TextField {
-                        background: Rectangle
-                        {
-                            color: "#4dececec"
-                        }
-
-                        Image {
-                            id: searchIcon
-                            fillMode: Image.PreserveAspectFit
-
-
-                            source: "qrc:/resources/search.svg"
-                            anchors.top: parent.top
-                            anchors.topMargin: 5
-                            anchors.left: parent.left
-                            anchors.leftMargin: 5
-                        }
-                        id: searchField
-
+                    Image {
+                        source: "qrc:/resources/search.svg"
+                        Layout.preferredWidth: 20
+                        Layout.preferredHeight: 20
                         Layout.alignment: Qt.AlignVCenter
                         Layout.fillWidth: true // Make it expand to fill the remaining space
 
@@ -136,11 +131,102 @@ Item {
                         leftPadding: 30 // Adds space around the text, adjusting the padding as needed
                     }
 
+                    Text {
+                        Layout.alignment: Qt.AlignVCenter
+                        text: root.language == "EN" ? qsTr("Search") : qsTr("Търсене")
+                        color: "grey"
+                    }
 
+                    Item {
+                        Layout.fillWidth: true
+                    }
+
+                    Rectangle {
+                        Layout.alignment: Qt.AlignVCenter
+                        Layout.preferredHeight: 35
+                        Layout.preferredWidth: 35
+                        Layout.rightMargin: 10
+                        color: "#F3F3F3"
+                        radius: 5
+
+                        RowLayout {
+                            anchors.fill: parent
+
+                            Image {
+                                Layout.preferredHeight: 15
+                                Layout.preferredWidth: 15
+                                source: "qrc:/resources/command.svg"
+                                Layout.leftMargin: 5
+                            }
+
+                            Text {
+                                text: "F"
+                                color: "#9D9D9D"
+                                Layout.rightMargin: 15
+                            }
+                        }
+                    }
+                }
+
+                TextField {
+                    id: textField
+                    anchors.fill: parent
+                    leftPadding: 50
+                    color: "black"  // Sets the text color to black
+
+                    background: Rectangle {
+                        color: "transparent"
+                    }
+
+                    onTextChanged: {
+                        searchRow.visible = text.length === 0 && !activeFocus;  // Hide when typing
+                    }
+
+                    onFocusChanged: {
+                        searchRow.visible = text.length === 0 && !activeFocus;  // Hide when focused, show when unfocused and empty
+                    }
                 }
             }
 
+           Item
+           {
 
+               Layout.fillWidth: true
+           }
+
+
+           Rectangle
+           {
+               Layout.preferredWidth: 80
+               Layout.preferredHeight: 50
+               radius: 5
+               color: "#fafafa"
+
+               RowLayout
+               {
+                   anchors.fill: parent
+
+                   Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                Image {
+                    source: "qrc:/resources/language.svg"
+                }
+                Text {
+                    text: root.language
+                    font.pixelSize: 15
+                    Layout.alignment: Qt.AlignVCenter
+                }
+               }
+
+
+               MouseArea
+               {
+                   anchors.fill: parent
+                   onClicked:
+                   {
+                       root.language = (root.language === "EN") ? "BG" : "EN";
+                   }
+               }
+           }
             Rectangle
             {
 
@@ -164,6 +250,15 @@ Item {
                 Layout.preferredWidth: 80
                 Layout.preferredHeight: 50
                 color: "#fafafa"
+
+                MouseArea
+                {
+                    anchors.fill: parent
+                    onClicked:
+                    {
+                        chatDrawer.open()
+                    }
+                }
             }
 
             Rectangle
@@ -175,7 +270,7 @@ Item {
                 Image {
                     id: userpfp
                     x: 14
-                    source: "qrc:/resources/pfp.jpg"
+                    source: root.pfp
                     width:70
                     height:70
                     anchors.top: parent.top
@@ -190,7 +285,7 @@ Item {
                     anchors.leftMargin: -96
                     anchors.top: parent.top
                     anchors.topMargin: 17
-                    text: root.fullName
+                    text: root.firstName + " " + root.lastName
                 }
 
                 Text {
@@ -775,10 +870,13 @@ Item {
                         text: root.language == "EN" ? qsTr("Continue") : qsTr("Продължи")
                         color: "white"
                     }
-                    onClicked: {
+                    onClicked:{
                         contentLoader.setSource("Overview.qml", {
                                             username: root.username,
-                                            fullName: root.fullName
+                                            language: root.language,
+                                            firstName: root.firstName,
+                                            lastName: root.lastName,
+                                            pfp: root.pfp
                                         })
                     }
                 }

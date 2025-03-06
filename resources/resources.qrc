@@ -174,5 +174,6 @@
         <file>IDR.svg</file>
         <file>CAD.svg</file>
         <file>GBP.svg</file>
+        <file>done.gif</file>
     </qresource>
 </RCC>

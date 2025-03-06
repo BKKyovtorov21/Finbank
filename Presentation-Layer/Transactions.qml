@@ -12,9 +12,11 @@ Item {
     property bool isTablet: width <= 900
     property bool isPhone: width <= 500
 
-    property string fullName
+    property string firstName
+    property string lastName
     property string username
     property string language: "EN"
+    property var pfp
     property int dynamicWidth: 1600
     Loader
     {
@@ -528,7 +530,7 @@ Layout.preferredHeight: 50
                 Image {
                     id: userpfp
                     x: 14
-                    source: "qrc:/resources/pfp.jpg"
+                    source: root.pfp
                     width:70
                     height:70
                     anchors.top: parent.top
@@ -543,7 +545,7 @@ Layout.preferredHeight: 50
                     anchors.leftMargin: -96
                     anchors.top: parent.top
                     anchors.topMargin: 17
-                    text: "Boyan Kyovtorov"
+                    text: root.firstName + " " + root.lastName
                 }
 
                 Text {
@@ -554,7 +556,7 @@ Layout.preferredHeight: 50
                     anchors.top: fullname.bottom
                     anchors.topMargin: 10
                     anchors.left: fullname.left
-                    text: "@kyovtorov"
+                    text: "@" + root.username
                 }
             }
 
@@ -595,10 +597,14 @@ Layout.preferredHeight: 50
                     MouseArea
                     {
                         anchors.fill: parent
-                        onClicked: {
+                        onClicked:{
                             contentLoader.setSource("Dashboard.qml", {
                                                 username: root.username,
-                                                fullName: root .fullName
+                                                fullName: root .fullName,
+                                                language: root.language,
+                                                firstName: root.firstName,
+                                                lastName: root.lastName,
+                                                pfp: root.pfp
                                             })
                         }
                     }
@@ -628,10 +634,16 @@ Layout.preferredHeight: 50
                     {
                         anchors.fill: parent
                         onClicked: {
-                            contentLoader.setSource("Wallet.qml", {
-                                                username: root.username,
-                                                fullName: root .fullName
-                                            })
+                            onClicked:{
+                                contentLoader.setSource("Wallet.qml", {
+                                                    username: root.username,
+                                                    fullName: root .fullName,
+                                                    language: root.language,
+                                                    firstName: root.firstName,
+                                                    lastName: root.lastName,
+                                                    pfp: root.pfp
+                                                })
+                            }
                         }
                     }
 
@@ -651,10 +663,14 @@ Layout.preferredHeight: 50
                 MouseArea
                 {
                     anchors.fill: parent
-                    onClicked: {
+                    onClicked:{
                         contentLoader.setSource("TradingDashboard.qml", {
                                             username: root.username,
-                                            fullName: root .fullName
+                                            fullName: root .fullName,
+                                            language: root.language,
+                                            firstName: root.firstName,
+                                            lastName: root.lastName,
+                                            pfp: root.pfp
                                         })
                     }
                 }
@@ -681,10 +697,7 @@ Layout.preferredHeight: 50
         RowLayout
         {
             Layout.rightMargin: 30
-            Text
-            {
-                text: root.language == "EN" ? qsTr("Total balance") : qsTr("Общ баланс")
-            }
+
             Item
             {
                 Layout.fillWidth: true
@@ -720,10 +733,14 @@ Layout.preferredHeight: 50
                     height: 15
                     rotation: -90
                 }
-                onClicked: {
+                onClicked:{
                     contentLoader.setSource("SelectRecipent.qml", {
                                         username: root.username,
-                                        fullName: root .fullName
+                                        fullName: root .fullName,
+                                        language: root.language,
+                                        firstName: root.firstName,
+                                        lastName: root.lastName,
+                                        pfp: root.pfp
                                     })
                 }
             }
@@ -813,25 +830,8 @@ Layout.preferredHeight: 50
                 }
             }
         }
-        RowLayout
-        {
-            Image
-            {
-                source: "qrc:/resources/usd.png"
-            }
-            Text
-            {
-                text: qsTr("1000.00 USD")
-            }
-        }
-        RowLayout
-        {
-            Layout.leftMargin: 60
-            Text
-            {
-                text: qsTr("1 USD = 1.78 BGN")
-            }
-        }
+
+
         Item
         {
             Layout.preferredHeight: 10
@@ -867,11 +867,8 @@ Layout.preferredHeight: 50
             Image {
                 id: searchIcon2
                 fillMode: Image.PreserveAspectFit
-
-
                 source: "qrc:/resources/search.svg"
-                anchors.top: parent.top
-                anchors.topMargin: 5
+                anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: 5
             }

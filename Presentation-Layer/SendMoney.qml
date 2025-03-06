@@ -10,7 +10,10 @@ Item {
     property bool isPhone: width <= 500
 
     property string username
-    property string fullName
+    property string firstName
+    property string lastName
+    property var pfp
+    property string language: "EN"
 
     property string recipentFullName
     property string recipentPfp
@@ -153,7 +156,6 @@ Item {
         RowLayout
         {
             spacing: 8 // Adjust spacing between icon and TextField
-            visible: !root.isTablet
             Image {
                 id: name
                 source: !root.isTablet ? "qrc:/resources/logo1.png" : "qrc:/resources/pfp.jpg"
@@ -294,7 +296,38 @@ Layout.preferredHeight: 50
            }
 
 
+           Rectangle
+           {
+               Layout.preferredWidth: 80
+               Layout.preferredHeight: 50
+               radius: 5
+               color: "#fafafa"
 
+               RowLayout
+               {
+                   anchors.fill: parent
+
+                   Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                Image {
+                    source: "qrc:/resources/language.svg"
+                }
+                Text {
+                    text: root.language
+                    font.pixelSize: 15
+                    Layout.alignment: Qt.AlignVCenter
+                }
+               }
+
+
+               MouseArea
+               {
+                   anchors.fill: parent
+                   onClicked:
+                   {
+                       root.language = (root.language === "EN") ? "BG" : "EN";
+                   }
+               }
+           }
             Rectangle
             {
 
@@ -338,7 +371,7 @@ Layout.preferredHeight: 50
                 Image {
                     id: userpfp
                     x: 14
-                    source: "qrc:/resources/pfp.jpg"
+                    source: root.pfp
                     width:70
                     height:70
                     anchors.top: parent.top
@@ -353,7 +386,7 @@ Layout.preferredHeight: 50
                     anchors.leftMargin: -96
                     anchors.top: parent.top
                     anchors.topMargin: 17
-                    text: "Boyan Kyovtorov"
+                    text: root.firstName + " " + root.lastName
                 }
 
                 Text {
@@ -364,7 +397,7 @@ Layout.preferredHeight: 50
                     anchors.top: fullname.bottom
                     anchors.topMargin: 10
                     anchors.left: fullname.left
-                    text: "@kyovtorov"
+                    text: "@" + root.username
                 }
             }
 
@@ -899,12 +932,15 @@ Layout.preferredHeight: 50
                         text: root.language == "EN" ? qsTr("Continue") : qsTr("Продължи")
                         color: "white"
                     }
-                    onClicked: {
+                    onClicked:{
                         contentLoader.setSource("RecipentDescription.qml", {
                                             username: root.username,
-                                            fullName: root.fullName
+                                            language: root.language,
+                                            firstName: root.firstName,
+                                            lastName: root.lastName,
+                                            pfp: root.pfp
                                         })
-                            }
+                    }
                 }
 
 

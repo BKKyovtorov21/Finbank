@@ -20,6 +20,8 @@ Item {
     property var cardInfo: ""
     property var fullName: ""
     property var pfp: ""
+    property var firstName: ""
+    property var lastName: ""
     property bool textfieldActive
     property string language: "EN"
 
@@ -41,6 +43,8 @@ Item {
         root.income = dashboard.getDbVariable(root.username, "income") || 0;
         root.expenses = dashboard.getDbVariable(root.username, "expenses") || 0;
         root.cardInfo = dashboard.getDbVariable(root.username, "cardNumber") || "";
+        root.firstName = dashboard.getDbVariable(root.username, "first_name") || "";
+        root.lastName = dashboard.getDbVariable(root.username, "last_name") || "";
         root.pfp = dashboard.getDbVariable(root.username, "pfp") || "";
 
         console.log("Balance:", root.balance);
@@ -287,7 +291,7 @@ Layout.preferredHeight: 50
                     anchors.leftMargin: -96
                     anchors.top: parent.top
                     anchors.topMargin: 17
-                    text: root.pfp
+                    text: root.firstName + " " + root.lastName
                 }
 
                 Text {
@@ -354,7 +358,10 @@ Layout.preferredHeight: 50
                         contentLoader.setSource("Transactions.qml", {
                                             username: root.username,
                                             fullName: root .fullName,
-                                            language: root.language
+                                            language: root.language,
+                                            firstName: root.firstName,
+                                            lastName: root.lastName,
+                                            pfp: root.pfp
                                         })
                     }
                 }
@@ -376,7 +383,10 @@ Layout.preferredHeight: 50
                             contentLoader.setSource("Wallet.qml", {
                                                 username: root.username,
                                                 fullName: root .fullName,
-                                                language: root.language
+                                                language: root.language,
+                                                firstName: root.firstName,
+                                                lastName: root.lastName,
+                                                pfp: root.pfp
                                             })
                         }
                     }
@@ -402,7 +412,10 @@ Layout.preferredHeight: 50
                         contentLoader.setSource("TradingDashboard.qml", {
                                             username: root.username,
                                             fullName: root .fullName,
-                                            language: root.language
+                                            language: root.language,
+                                            firstName: root.firstName,
+                                            lastName: root.lastName,
+                                            pfp: root.pfp
                                         })
                     }
                 }
@@ -480,7 +493,7 @@ Layout.preferredHeight: 50
                             visible: !root.isPhone
                             id: balance
                             color: "black"
-                            text: "$" + balanceValue.toFixed(2)
+                            text: balanceValue.toFixed(2) + " BGN"
                             font.pixelSize: 40
                             Layout.alignment: Qt.AlignLeft
                             SequentialAnimation on balanceValue {
@@ -495,21 +508,6 @@ Layout.preferredHeight: 50
                             }
 
 
-                        }
-
-                        Text {
-
-                            id: percent
-                            text: qsTr("+6.7%")
-                            color: "#249226"
-                            font.pixelSize: 20
-                            Layout.alignment: Qt.AlignRight
-                        }
-                        Text {
-                               text: root.language == "EN" ? qsTr("Compare to the last month") : qsTr("Сравнение с миналия месец")
-                               font.pixelSize: 15
-                               color: "#2f2f2f" // Optional for styling
-                               Layout.leftMargin: 10
                         }
                     }
 
@@ -691,7 +689,7 @@ Layout.preferredHeight: 50
                         id: income
                         width: parent.width
                         color: "#000000"
-                        text: "$" + incomeValue.toFixed(2)
+                        text: incomeValue.toFixed(2) + " BGN"
                         anchors.top: parent.top
                         anchors.topMargin: 92
                         font.pixelSize: width > 1000 ? 32 : 25
@@ -868,7 +866,7 @@ Layout.preferredHeight: 50
                         width: parent.width
 
                         color: "#000000"
-                        text: "$" + expensesValue.toFixed(2)
+                        text: expensesValue.toFixed(2) + " BGN"
                         anchors.left: parent.left
                         anchors.top: parent.top
                         anchors.leftMargin: 8
@@ -1121,7 +1119,7 @@ ColumnLayout
 
             RowLayout {
                 Text {
-                    text: "$4,654.00"
+                    text: "4,654.00 BGN"
                     Layout.leftMargin: 15
                     font.pixelSize: root.test2 ? 14 : 20
                     font.bold: true
@@ -1190,7 +1188,7 @@ ColumnLayout
 
                         Text
                         {
-                            text: "$24,645"
+                            text: "24,645 BGN"
                             font.bold: true
                             font.pixelSize: 30
                             font.letterSpacing: 1
@@ -1198,38 +1196,52 @@ ColumnLayout
 
                         }
 
-                        RowLayout
-                        {
+                        ColumnLayout {
+                            Layout.fillWidth: true
                             Layout.leftMargin: 10
-                            Layout.preferredWidth: parent.width
-                            Text
-                            {
-                                text: root.language == "EN" ? qsTr("Daily") : qsTr("Дневно")
+
+                            // Row for time period labels
+                            RowLayout {
+                                Layout.preferredWidth: parent.width
+                                Layout.alignment: Qt.AlignLeft
+
+                                Text {
+                                    text: root.language == "EN" ? qsTr("Daily") : qsTr("Дневно")
+                                    Layout.preferredWidth: parent.width / 3
+                                    horizontalAlignment: Text.AlignHCenter
+                                }
+                                Text {
+                                    text: root.language == "EN" ? qsTr("Weekly") : qsTr("Седмично")
+                                    Layout.preferredWidth: parent.width / 3
+                                    horizontalAlignment: Text.AlignHCenter
+                                }
+                                Text {
+                                    text: root.language == "EN" ? qsTr("Monthly") : qsTr("Месечно")
+                                    Layout.preferredWidth: parent.width / 3
+                                    horizontalAlignment: Text.AlignHCenter
+                                }
                             }
-                            Text
-                            {
-                                text: root.language == "EN" ? qsTr("Weekly") : qsTr("Седмично")
-                            }
-                            Text
-                            {
-                                text: root.language == "EN" ? qsTr("Monthly") : qsTr("Месечно")
-                            }
-                        }
-                        RowLayout
-                        {
-                            Layout.leftMargin: 10
-                            Layout.preferredWidth: parent.width
-                            Text
-                            {
-                                text: "$1,345"
-                            }
-                            Text
-                            {
-                                text: "$7,136"
-                            }
-                            Text
-                            {
-                                text: "$14,927"
+
+                            // Row for values (aligned below the labels)
+                            RowLayout {
+                                Layout.preferredWidth: parent.width
+                                Layout.alignment: Qt.AlignLeft
+
+                                Text {
+                                    text: "1,345 BGN"
+                                    Layout.preferredWidth: parent.width / 3
+                                    horizontalAlignment: Text.AlignHCenter
+                                }
+                                Text {
+                                    text: "7,136 BGN"
+                                    Layout.preferredWidth: parent.width / 3
+                                    horizontalAlignment: Text.AlignHCenter
+                                }
+                                Text {
+                                    text: "14,927 BGN"
+                                    Layout.preferredWidth: parent.width / 3
+                                    horizontalAlignment: Text.AlignHCenter
+                                }
                             }
                         }
                         RowLayout
@@ -1297,7 +1309,7 @@ ColumnLayout
                             Text
                             {
                                 Layout.alignment: Qt.AlignRight
-                                text: "7,320"
+                                text: "7,320 BGN"
                                 Layout.rightMargin: 10
                             }
                         }
@@ -1324,7 +1336,7 @@ ColumnLayout
                             Text
                             {
                                 Layout.alignment: Qt.AlignRight
-                                text: "4,875"
+                                text: "4,875 BGN"
                                 Layout.rightMargin: 10
                             }
                         }
@@ -1350,7 +1362,7 @@ ColumnLayout
                             Text
                             {
                                 Layout.alignment: Qt.AlignRight
-                                text: "6,150"
+                                text: "6,150 BGN"
                                 Layout.rightMargin: 10
                             }
                         }
@@ -1376,7 +1388,7 @@ ColumnLayout
                             Text
                             {
                                 Layout.alignment: Qt.AlignRight
-                                text: "6,300"
+                                text: "6,300 BGN"
                                 Layout.rightMargin: 10
                             }
                         }

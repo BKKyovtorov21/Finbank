@@ -10,12 +10,15 @@ Item {
     property bool isPhone: width <= 500
 
     property string username
-    property string fullName
+    property string firstName
+    property string lastName
+    property var pfp
     property string recipentFullname
     property string recipentUsername
     property string recipentPfp
     property string recipentEmail
     property var stackViewRef
+    property string language
     property alias searchBar: searchBar
     property var foundUsers: []  // Holds created user instances
     property string language
@@ -56,7 +59,9 @@ Item {
                         // Load the SendMoney.qml and pass the data
                         contentLoader.setSource("SendMoney.qml");
                         contentLoader.item.username = root.username;
-                        contentLoader.item.fullName = root.fullName;
+                        contentLoader.item.firstName = root.firstName;
+                        contentLoader.item.lastName = root.lastName;
+                        contentLoader.item.pfp = root.pfp;
                         contentLoader.item.recipentFullName = root.recipentFullname;
                         contentLoader.item.recipentEmail = root.recipentEmail;
                         contentLoader.item.recipentPfp = root.recipentPfp;
@@ -106,7 +111,6 @@ Item {
         RowLayout
         {
             spacing: 8 // Adjust spacing between icon and TextField
-            visible: !root.isTablet
             Image {
                 id: name
                 source: !root.isTablet ? "qrc:/resources/logo1.png" : "qrc:/resources/pfp.jpg"
@@ -128,7 +132,6 @@ Item {
                     color: "#2f2f2f"
                     font.pixelSize: 18
                     text: root.language == "EN" ? qsTr("Personal Account") : qsTr("Личен акаунт")
-
                 }
             }
 
@@ -247,7 +250,38 @@ Layout.preferredHeight: 50
            }
 
 
+           Rectangle
+           {
+               Layout.preferredWidth: 80
+               Layout.preferredHeight: 50
+               radius: 5
+               color: "#fafafa"
 
+               RowLayout
+               {
+                   anchors.fill: parent
+
+                   Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                Image {
+                    source: "qrc:/resources/language.svg"
+                }
+                Text {
+                    text: root.language
+                    font.pixelSize: 15
+                    Layout.alignment: Qt.AlignVCenter
+                }
+               }
+
+
+               MouseArea
+               {
+                   anchors.fill: parent
+                   onClicked:
+                   {
+                       root.language = (root.language === "EN") ? "BG" : "EN";
+                   }
+               }
+           }
             Rectangle
             {
 
@@ -291,7 +325,7 @@ Layout.preferredHeight: 50
                 Image {
                     id: userpfp
                     x: 14
-                    source: "qrc:/resources/pfp.jpg"
+                    source: root.pfp
                     width:70
                     height:70
                     anchors.top: parent.top
@@ -306,7 +340,7 @@ Layout.preferredHeight: 50
                     anchors.leftMargin: -96
                     anchors.top: parent.top
                     anchors.topMargin: 17
-                    text: "Boyan Kyovtorov"
+                    text: root.firstName + " " + root.lastName
                 }
 
                 Text {
@@ -317,7 +351,7 @@ Layout.preferredHeight: 50
                     anchors.top: fullname.bottom
                     anchors.topMargin: 10
                     anchors.left: fullname.left
-                    text: "@kyovtorov"
+                    text: "@" + root.username
                 }
             }
 

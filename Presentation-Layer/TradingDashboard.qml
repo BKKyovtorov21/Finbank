@@ -13,8 +13,9 @@ Item {
     property bool isSmallPhone: width <= 500
     property string username
     property bool screenCheckpoint1: width <= 1200
-    property string fullName
-    property string pfp: ""
+    property string firstName
+    property string lastName
+    property var pfp
     property var stackViewRef
     property string language: "EN"
     ColumnLayout
@@ -173,7 +174,7 @@ Layout.preferredHeight: 50
                     Image {
                         id: pfp
 
-                        source: "qrc:/resources/pfp.jpg"
+                        source: root.pfp
                         Layout.preferredWidth: 80
                         Layout.preferredHeight: 80
                     }
@@ -185,14 +186,14 @@ Layout.preferredHeight: 50
                         Layout.rightMargin: 60
                         Layout.bottomMargin: 15
                         Text {
-                            text: "Boyan Kyovtorov"
+
                             Layout.alignment: Qt.AlignLeft
                             font.pixelSize: 15
                         }
 
                         Text {
                             Layout.topMargin: 5
-                            text: "@kyovtorov" + root.username
+                            text: "@" + root.username
                             Layout.alignment: Qt.AlignLeft
                             color: "gray"
                             font.pixelSize: 15
@@ -644,7 +645,7 @@ Layout.preferredHeight: 50
 
                                             Text
                                             {
-                                                text: "$193.6"
+                                                text: "$53.40"
                                                 font.pixelSize: 15
                                                 Layout.rightMargin: 10
                                             }
@@ -656,7 +657,7 @@ Layout.preferredHeight: 50
                                                 }
                                                 Text
                                                 {
-                                                    text: "0.76%"
+                                                    text: "0.66%"
                                                     color: "#FE1019"
                                                     font.pixelSize: 15
                                                     Layout.rightMargin: 10
@@ -703,7 +704,7 @@ Layout.preferredHeight: 50
 
                                             Text
                                             {
-                                                text: "$193.6"
+                                                text: "$86,98"
                                                 font.pixelSize: 15
                                             }
                                             RowLayout
@@ -714,7 +715,7 @@ Layout.preferredHeight: 50
                                                 }
                                                 Text
                                                 {
-                                                    text: "0.76%"
+                                                    text: "4.34%"
                                                     color: "#04CB2E"
                                                     font.pixelSize: 15
                                                 }
@@ -761,7 +762,7 @@ Layout.preferredHeight: 50
                                             Layout.rightMargin: 10
                                             Text
                                             {
-                                                text: "$193.6"
+                                                text: "$241.20"
                                                 font.pixelSize: 15
                                             }
                                             RowLayout
@@ -772,7 +773,7 @@ Layout.preferredHeight: 50
                                                 }
                                                 Text
                                                 {
-                                                    text: "0.76%"
+                                                    text: "1.34%"
                                                     color: "#04CB2E"
                                                     font.pixelSize: 15
                                                 }
@@ -819,7 +820,7 @@ Layout.preferredHeight: 50
                                             Layout.rightMargin: 10
                                             Text
                                             {
-                                                text: "$193.6"
+                                                text: "$263.45"
                                                 font.pixelSize: 15
                                             }
                                             RowLayout
@@ -830,8 +831,8 @@ Layout.preferredHeight: 50
                                                 }
                                                 Text
                                                 {
-                                                    text: "0.76%"
-                                                    color: "#04CB2E"
+                                                    text: "5.61%"
+                                                    color: "#FE1019"
                                                     font.pixelSize: 15
                                                 }
                                             }

@@ -16,13 +16,10 @@ Item {
     property bool isTablet: width <= 1000
     property bool isPhone: width <= 620
 
-        property var username
-       property var balance
-       property var income
-       property var expenses
-       property var cardInfo
-       property var fullName
-       property var pfp
+    property string username
+    property var pfp
+    property string firstName
+    property string lastName
     property bool stackviewActive: false
     property bool textfieldActive
     property string language: "EN"
@@ -581,7 +578,7 @@ Layout.preferredHeight: 50
                 Image {
                     id: userpfp
                     x: 14
-                    source: "qrc:/resources/pfp.jpg"
+                    source: root.pfp
                     width:70
                     height:70
                     anchors.top: parent.top
@@ -596,7 +593,7 @@ Layout.preferredHeight: 50
                     anchors.leftMargin: -96
                     anchors.top: parent.top
                     anchors.topMargin: 17
-                    text: "Boyan Kyovtorov"
+                    text: root.firstName + " " + root.lastName
                 }
 
                 Text {
@@ -607,7 +604,7 @@ Layout.preferredHeight: 50
                     anchors.top: fullname.bottom
                     anchors.topMargin: 10
                     anchors.left: fullname.left
-                    text: "@kyovtorov"
+                    text: "@" + root.username
                 }
             }
 
@@ -654,7 +651,10 @@ Layout.preferredHeight: 50
                             contentLoader.setSource("Dashboard.qml", {
                                                 username: root.username,
                                                 fullName: root .fullName,
-                                                language: root.language
+                                                language: root.language,
+                                                firstName: root.firstName,
+                                                lastName: root.lastName,
+                                                pfp: root.pfp
                                             })
                         }
                     }
@@ -677,7 +677,11 @@ Layout.preferredHeight: 50
                     onClicked:{
                         contentLoader.setSource("Transactions.qml", {
                                             username: root.username,
-                                            fullName: root .fullName
+                                            fullName: root .fullName,
+                                            language: root.language,
+                                            firstName: root.firstName,
+                                            lastName: root.lastName,
+                                            pfp: root.pfp
                                         })
                     }
                 }
@@ -723,7 +727,11 @@ Layout.preferredHeight: 50
                     onClicked:{
                         contentLoader.setSource("TradingDashboard.qml", {
                                             username: root.username,
-                                            fullName: root .fullName
+                                            fullName: root .fullName,
+                                            language: root.language,
+                                            firstName: root.firstName,
+                                            lastName: root.lastName,
+                                            pfp: root.pfp
                                         })
                     }
                 }
