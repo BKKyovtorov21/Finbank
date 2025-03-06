@@ -21,6 +21,7 @@ Item {
     property real convertedAmount
     property real exchangeRate
     property bool sending: false
+    property string language: "EN"
 
     Component.onCompleted:
     {
@@ -76,7 +77,7 @@ Item {
                     anchors.centerIn: parent
                     color: "#2f2f2f"
                     font.pixelSize: 18
-                    text: qsTr("Personal account")
+                    text: rootdashboard.language == "EN" ? qsTr("Personal account") : qsTr("Личен акаунт")
 
                 }
             }
@@ -99,7 +100,7 @@ Item {
                 border.color: "#727272"
                 border.width: 0.1
                 Text {
-                    text: qsTr("Dashboard")
+                    text: rootdashboard.language == "EN" ? qsTr("Dashboard") : qsTr("Табло за управление")
                     anchors.centerIn: parent
                     color: "#196e1a"
                     font.pixelSize: 18
@@ -138,7 +139,7 @@ Item {
                         Layout.alignment: Qt.AlignVCenter
                         Layout.fillWidth: true // Make it expand to fill the remaining space
 
-                        placeholderText: qsTr("Search")
+                        placeholderText: rootdashboard.language == "EN" ? qsTr("Search") : qsTr("Търсене")
                         placeholderTextColor: "grey"
                         font.pixelSize: 18
                         color: "black"
@@ -166,7 +167,7 @@ Item {
                 }
                 Text {
                     id: chatText
-                    text: qsTr("Chat")
+                    text: rootdashboard.language == "EN" ? qsTr("Chat") : qsTr("Чат")
                     font.pixelSize: 15
                     anchors.centerIn: parent
                     anchors.horizontalCenterOffset: 10 // Adjust to move text to the right

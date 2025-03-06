@@ -8,7 +8,7 @@ Item {
     height: Screen.height
     property bool isTablet: width <= 900
     property bool isPhone: width <= 500
-
+property string language: "EN"
     property string username
     property string fullName
     property string recipentFullname
@@ -403,7 +403,7 @@ Item {
                         Text
                         {
 
-                            text: qsTr("Who do you want to send money to?")
+                            text: rootdashboard.language == "EN" ? qsTr("Who do you want to send money to?") : qsTr("На кого искаш да изпратиш пари?")
                             font.pixelSize: root.isTablet ? 30 : 30
                             Layout.fillWidth: true
                             Layout.topMargin: 20

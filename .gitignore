@@ -10,6 +10,7 @@
 *.dll
 *.dylib
 *.user
+/build
 /Qt_6_7_1_for_macOS-Release
 /Qt_6_7_1_for_macOS-Debug
 /Qt_6_7_1_for_macOS-Profile

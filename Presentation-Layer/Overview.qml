@@ -21,6 +21,7 @@ Item {
     property string recipentCurrency
     property bool sending: false
     property var stackViewRef
+    property string language: "EN"
 
     Loader
     {
@@ -71,7 +72,7 @@ Item {
                     anchors.centerIn: parent
                     color: "#2f2f2f"
                     font.pixelSize: 18
-                    text: qsTr("Personal account")
+                    text: rootdashboard.language == "EN" ? qsTr("Personal account") : qsTr("Персонален акаунт")
 
                 }
             }
@@ -94,7 +95,7 @@ Item {
                 border.color: "#727272"
                 border.width: 0.1
                 Text {
-                    text: qsTr("Dashboard")
+                    text: rootdashboard.language == "EN" ? qsTr("Dashboard") : qsTr("Табло за управление")
                     anchors.centerIn: parent
                     color: "#196e1a"
                     font.pixelSize: 18
@@ -133,7 +134,7 @@ Item {
                         Layout.alignment: Qt.AlignVCenter
                         Layout.fillWidth: true // Make it expand to fill the remaining space
 
-                        placeholderText: qsTr("Search")
+                        placeholderText: rootdashboard.language == "EN" ? qsTr("Search") : qsTr("Търсене")
                         placeholderTextColor: "grey"
                         font.pixelSize: 18
                         color: "black"
@@ -161,7 +162,7 @@ Item {
                 }
                 Text {
                     id: chatText
-                    text: qsTr("Chat")
+                    text: rootdashboard.language == "EN" ? qsTr("Chat") : qsTr("Чат")
                     font.pixelSize: 15
                     anchors.centerIn: parent
                     anchors.horizontalCenterOffset: 10 // Adjust to move text to the right
@@ -233,7 +234,7 @@ Item {
                         {
                             source: "qrc:/resources/tick.svg"
                         }
-                        Text { text: "Select Recipient"
+                        Text { text: rootdashboard.language == "EN" ? qsTr("Select recipient") : qsTr("Избери получател")
                         font.pixelSize: 20
                         }
 
@@ -247,7 +248,7 @@ Item {
                         {
                             source: "qrc:/resources/tick.svg"
                         }
-                        Text { text: "Amount"
+                        Text { text: rootdashboard.language == "EN" ? qsTr("Amount") : qsTr("Сума")
                         font.pixelSize: 20
                         }
 
@@ -261,7 +262,7 @@ Item {
                         {
                             source: "qrc:/resources/tick.svg"
                         }
-                        Text { text: "Details Recipent"
+                        Text { text: rootdashboard.language == "EN" ? qsTr("Details recipient") : qsTr("Детайли на получателя")
                         font.pixelSize: 20
                         }
 
@@ -275,7 +276,7 @@ Item {
                         {
                             source: "qrc:/resources/tick.svg"
                         }
-                        Text { text: "Transfer Type"
+                        Text { text:rootdashboard.language == "EN" ? qsTr("Transfer type") : qsTr("Вид превод")
                         font.pixelSize: 20
                         }
 
@@ -289,7 +290,7 @@ Item {
                         {
                             source: "qrc:/resources/selectiveLine.svg"
                         }
-                        Text { text: "Overview"
+                        Text { text: rootdashboard.language == "EN" ? qsTr("Overview") : qsTr("Преглед")
                         font.pixelSize: 20
                         font.bold: true
                         }
@@ -317,7 +318,7 @@ Item {
                             Text
                             {
                                 Layout.fillWidth: true
-                                text: "Send money"
+                                text: rootdashboard.language == "EN" ? qsTr("Send money") : qsTr("Изпрати пари")
                                 color: "grey"
                                 font.pixelSize: 15
                                 horizontalAlignment: Text.AlignHCenter
@@ -325,7 +326,7 @@ Item {
                             Text
                             {
                                 Layout.fillWidth: true
-                                text: "5|5 Overview"
+                                text: rootdashboard.language == "EN" ? qsTr("5|5 Оverview") : qsTr("5|5 Преглед")
                                 horizontalAlignment: Text.AlignHCenter
                                 font.pixelSize: 15
                                 font.bold: true
@@ -357,7 +358,7 @@ Item {
                             font.bold: true
                             Layout.topMargin: root.isTablet ? 0 : (root.isPhone ? 0 : 30)
                             Layout.bottomMargin: root.isTablet ? 0 : (root.isPhone ? 0 : 50)
-                            text: "Review details of your transfer"
+                            text: rootdashboard.language == "EN" ? qsTr("Review details of your transfer") : qsTr("Преглед на детайли за превода")
                         }
 
                         Rectangle
@@ -392,7 +393,7 @@ Item {
                             Text
                             {
 
-                                text: "Transfer details"
+                                text: rootdashboard.language == "EN" ? qsTr("Transfer details") : qsTr("Детайл за превод")
                                 font.bold: true
                                 font.pixelSize: 20
                             }
@@ -405,7 +406,7 @@ Item {
                             Text
                             {
 
-                                text: "Edit"
+                                text: rootdashboard.language == "EN" ? qsTr("Еdit") : qsTr("Редактирай")
                                 color: "#6D9CDF"
                                 font.pixelSize: 17
                             }
@@ -534,7 +535,7 @@ Item {
                             Text
                             {
                                 font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
-                                text: "You will pay"
+                                text: rootdashboard.language == "EN" ? qsTr("You will pay") : qsTr("Ще платиш")
                             }
                             Item
                             {
@@ -569,7 +570,7 @@ Item {
                                 }
                                 Text {
                                     Layout.leftMargin: 15
-                                    text: "Vicho will get"
+                                    text: rootdashboard.language == "EN" ? qsTr("Boyan will get") : qsTr("Боян ще получи ")
                                     font.pixelSize: 17
                                 }
                                 Text {
@@ -604,7 +605,7 @@ Item {
                             Text
                             {
 
-                                text: "Recipient details"
+                                text: rootdashboard.language == "EN" ? qsTr("Recipient details") : qsTr("Детайли за получателя")
                                 font.bold: true
                                 font.pixelSize: 20
                             }
@@ -617,7 +618,7 @@ Item {
                             Text
                             {
 
-                                text: "Edit"
+                                text: rootdashboard.language == "EN" ? qsTr("Еdit") : qsTr("Редактирай")
                                 color: "#6D9CDF"
                                 font.pixelSize: 17
                             }
@@ -665,7 +666,7 @@ Item {
                             Text
                             {
                                 font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
-                                text: "vichovichev07@gmail.com"
+                                text: "bkyovtorov07@gmail.com"
                             }
                             Item
                             {
@@ -685,7 +686,7 @@ Item {
                             Text
                             {
                                 font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
-                                text: "Account Holder"
+                                text: rootdashboard.language == "EN" ? qsTr("Account Holder") : qsTr("Собственик на профила")
                             }
                             Item
                             {
@@ -696,7 +697,7 @@ Item {
                             Text
                             {
                                 font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
-                                text: "Vicho Vichev"
+                                text: "Boyan Kyovtorov"
                             }
                             Item
                             {
@@ -747,7 +748,7 @@ Item {
                             Text
                             {
                                 font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
-                                text: "Bank name"
+                                text: rootdashboard.language == "EN" ? qsTr("Bank name") : qsTr("Име на банката")
                             }
                             Item
                             {
@@ -758,7 +759,7 @@ Item {
                             Text
                             {
                                 font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
-                                text: "Bulgarian National Bank"
+                                text: "DSK bank"
                             }
                             Item
                             {
@@ -819,7 +820,7 @@ Item {
                     Text
                     {
                         anchors.centerIn: parent
-                        text: "Continue"
+                        text: rootdashboard.language == "EN" ? qsTr("Continue") : qsTr("Продължи")
                         color: "white"
                     }
                     onClicked: {
