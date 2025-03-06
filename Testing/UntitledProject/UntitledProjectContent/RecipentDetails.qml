@@ -1,29 +1,20 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import QtQuick.Timeline 1.0
-Window {
+Item {
     id: root
     visible: true
     width: Screen.width
     height: Screen.height
     property bool isTablet: width <= 900
     property bool isPhone: width <= 500
-    minimumWidth: 400
-    minimumHeight: 800
 
     property string username
     property string fullName
+    property var stackViewRef
 
-    property string recipentFullname: "Boyan Kiovtorov"
-    property string recipentEmail: "boyankiovtorov@gmail.com"
-    property string recipentPfp: "https://lh3.googleusercontent.com/a/ACg8ocIa1jbyu-TgykKd00j16jb4N8H-tzeI4GCBsMI8BJ5OSbssUA=s96-c"
-
-
-    property string sendingCurrency: "USD"
-    property string recipentCurrency: "CAD"
-    property real convertedAmount
-    property real exchangeRate
+    property string sendingCurrency
+    property string recipentCurrency
     property bool sending: false
 
     Loader
@@ -32,20 +23,21 @@ Window {
         source: ""
     }
 
-    Component.onCompleted:
-    {
-        var userComponent = Qt.createComponent("FoundUser.qml");
-        if (userComponent.status === Component.Ready) {
-            var userInstance = userComponent.createObject(recipentRectangle, {
-                fullName: root.recipentFullname,
-                email: root.recipentEmail,
-                pfp: root.recipentPfp,
-                "isPhone": true,
-                                                              y: root.isPhone ? -24 : -10
-            });
 
-        }
-    }
+    Connections {
+                target: stockAPIClient
+
+                onExchangeRatesUpdated: {
+                    console.log("Exchange rates updated:", exchangeRates);
+                    // Here you can update the UI with the fetched exchange rates
+                }
+
+                onErrorOccurred: {
+                    console.log("Error occurred:", errorMessage);
+                    // You can show an error message or perform other actions
+                }
+            }
+
     ColumnLayout
     {
         anchors.fill: parent
@@ -55,7 +47,7 @@ Window {
             spacing: 8 // Adjust spacing between icon and TextField
             Image {
                 id: name
-                source: !root.isTablet ? "qrc:/resources/logo1.png" : "qrc:/resources/pfp.jpg"
+                source: !root.isTablet ? "resources/logo1.png" : "resources/pfp.jpg"
             }
             Rectangle
             {
@@ -83,7 +75,7 @@ Window {
 
                 Layout.preferredHeight: 20
                 Layout.preferredWidth: 20
-                source: "qrc:/resources/RightArrows.svg"
+                source: "resources/RightArrows.svg"
                 antialiasing: true
             }
             Rectangle
@@ -124,7 +116,7 @@ Window {
                             fillMode: Image.PreserveAspectFit
 
 
-                            source: "qrc:/resources/search.svg"
+                            source: "resources/search.svg"
                             anchors.top: parent.top
                             anchors.topMargin: 5
                             anchors.left: parent.left
@@ -158,7 +150,7 @@ Window {
                     anchors.top: parent.top
                     anchors.left: parent.left
                     anchors.topMargin: 15
-                    source: "qrc:/resources/chat.svg"
+                    source: "resources/chat.svg"
                     anchors.leftMargin: 5
                 }
                 Text {
@@ -182,7 +174,7 @@ Window {
                 Image {
                     id: userpfp
                     x: 14
-                    source: "qrc:/resources/pfp.jpg"
+                    source: "resources/pfp.jpg"
                     width:70
                     height:70
                     anchors.top: parent.top
@@ -220,7 +212,7 @@ Window {
                 ColumnLayout {
                     visible: !root.isTablet
                     spacing: 25
-                    Layout.preferredWidth: 200
+                    Layout.preferredWidth: 280
                     Layout.fillHeight: true
                     Layout.alignment: Qt.AlignTop
                     Layout.topMargin: 280
@@ -233,7 +225,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "qrc:/resources/tick.svg"
+                            source: "resources/tick.svg"
                         }
                         Text { text: "Select Recipient"
                         font.pixelSize: 20
@@ -247,7 +239,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "qrc:/resources/tick.svg"
+                            source: "resources/tick.svg"
                         }
                         Text { text: "Amount"
                         font.pixelSize: 20
@@ -261,9 +253,23 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "qrc:/resources/SelectiveLine.svg"
+                            source: "resources/tick.svg"
                         }
                         Text { text: "Details Recipent"
+                        font.pixelSize: 20
+                        }
+
+                    }
+                    RowLayout
+                    {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.leftMargin: 10
+                        Image
+                        {
+                            source: "resources/selectiveLine.svg"
+                        }
+                        Text { text: "Transfer Type"
                         font.pixelSize: 20
                         font.bold: true
                         }
@@ -276,21 +282,7 @@ Window {
                         Layout.leftMargin: 10
                         Image
                         {
-                            source: "qrc:/resources/notSelectiveLine.svg"
-                        }
-                        Text { text: "Transfer Type"
-                        font.pixelSize: 20
-                        }
-
-                    }
-                    RowLayout
-                    {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        Layout.leftMargin: 10
-                        Image
-                        {
-                            source: "qrc:/resources/notSelectiveLine.svg"
+                            source: "resources/notSelectiveLine.svg"
                         }
                         Text { text: "Overview"
                         font.pixelSize: 20
@@ -301,13 +293,13 @@ Window {
 
                 }
 
-
                 // Main content
                 Rectangle {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     Layout.bottomMargin: 20
                     color: "transparent"
+
 
                     ColumnLayout {
                         spacing: 16
@@ -327,10 +319,11 @@ Window {
                             Text
                             {
                                 Layout.fillWidth: true
-                                text: "2|5 Enter amount"
+                                text: "4|5 Transfer Type"
                                 horizontalAlignment: Text.AlignHCenter
                                 font.pixelSize: 15
                                 font.bold: true
+
                             }
                             Rectangle
                             {
@@ -339,7 +332,7 @@ Window {
                                 color: "lightgrey"
                                 Rectangle
                                 {
-                                    width: parent.width / 5 * 2
+                                    width: parent.width / 5 * 4
                                     height: 3
                                     color: "#016DFC"
                                 }
@@ -351,148 +344,200 @@ Window {
 
                         Text
                         {
-                            Layout.topMargin: 50
-                            horizontalAlignment: root.isTablet? Qt.AlignLeft :Qt.AlignHCenter
+                            horizontalAlignment: Qt.AlignHCenter
                             Layout.fillWidth: true
                             font.pixelSize: root.isTablet ? 30 :40
                             font.bold: true
-                            text: root.isPhone ? qsTr("Select recipent bank
-destination") : qsTr("Select recipent bank destination")
-
+                            Layout.topMargin: root.isTablet ? 0 : (root.isPhone ? 0 : 30)
+                            Layout.bottomMargin: root.isTablet ? 0 : (root.isPhone ? 0 : 50)
+                            text: "Choose your transfer type"
                         }
 
-                        Rectangle
+                        RowLayout
                         {
-                            id: recipentRectangle
-                            Layout.preferredWidth: root.isPhone ? 380 : (root.isTablet ? 530 : 650)
-                            Layout.preferredHeight: root.isPhone ? 65 : (root.isTablet ? 75 : 85)
-                            radius: 20
-
-                            Layout.alignment: root.isPhone ? Qt.AlignLeft : Qt.AlignHCenter
-
-
-                            Layout.topMargin: 30
-                            color: "#F6F7F9"
-
-                            Layout.leftMargin: root.isPhone ? 10 : 0
-
-
-
-                        }
-
-                        Item
-                        {
+                            Layout.topMargin: 15
+                            Layout.fillWidth: true
                             Layout.preferredHeight: 10
-                        }
-                        Text
-                        {
-                            text: "Bank account"
-                            Layout.preferredWidth: root.isPhone ? 470 : (root.isTablet ? 530 : 650)
-                            Layout.preferredHeight: 20
-                            font.pixelSize: 20
-                            font.bold: true
-                            Layout.alignment: Qt.AlignHCenter
+                            Item
+                            {
+                                Layout.preferredWidth: !root.isTablet ? 100 : 0
+                            }
+                            Text
+                            {
+                                text: "Finbank+ transfer type"
+                                font.pixelSize: 17
 
+                            }
+                            Item
+                            {
+                                Layout.fillWidth: true
+                            }
+
+                            Text
+                            {
+                                text: "Total fee: $0 USD"
+                                color: "#666666"
+                                font.pixelSize: 17
+
+                            }
+                            Item
+                            {
+                                Layout.preferredWidth: !root.isTablet ? 100 : 0
+                            }
                         }
                         Rectangle
                         {
-                            id: rectangle
+                            Layout.preferredWidth: root.isTablet ? parent.width : parent.width - 200
 
-                            Layout.preferredWidth: root.isPhone ? 380 : (root.isTablet ? 530 : 650)
-                            Layout.preferredHeight: root.isPhone ? 65 : (root.isTablet ? 75 : 85)
-                            Layout.topMargin: 10
-                            Layout.leftMargin: root.isPhone ? 10 : 0
+                            Layout.alignment: !root.isTablet ? Qt.AlignHCenter : Qt.AlignLeft
+
+                            Layout.preferredHeight: 1
+                            color: "#B2B2B2"
+
+                        }
+
+                        Rectangle
+                        {
+                            id: rectangle1
+                            Layout.preferredWidth: root.isTablet ? parent.width : parent.width - 200
+
+                            Layout.alignment: !root.isTablet ? Qt.AlignHCenter : Qt.AlignLeft
+
+                            Layout.preferredHeight: 100
                             radius: 20
-                            Layout.alignment: root.isPhone ? Qt.AlignLeft : Qt.AlignHCenter
 
-
-                            color: "transparent"
                             border.width: 1
-                            border.color: "#F2F2F2"
+                            border.color: "white"
 
                             MouseArea
                             {
                                 anchors.fill: parent
-                                onClicked: animation1.start()
+                                onClicked: animation1.start();
                             }
+
                             SequentialAnimation {
                                         id: animation1
                                         loops: 1
                                         running: false // Start this manually
                                         PropertyAnimation {
-                                            target: rectangle
+                                            target: rectangle1
                                             property: "border.color"
-                                            from: "#F2F2F2"
+                                            from: "white"
                                             to: "#2ea46d"
                                             duration: 1000
                                         }
 
                                     }
-                            RowLayout
-                            {
-                                anchors.fill: parent
-
-
-                            Rectangle
-                            {
-                                id: circle1
-                                Layout.preferredWidth:  40
-                                Layout.preferredHeight:  40
-
-                                radius: 40
-                                color: "#F7F8FC"
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
-                                anchors.leftMargin: 15
-
-                                Image
-                                {
-                                    source: "qrc:/resources/bank2.svg"
-                                    anchors.centerIn: parent
-                                    width: 20
-                                    height: 20
-                                }
-                            }
-
                             ColumnLayout
                             {
-                             Layout.preferredWidth: parent.width
-                             Layout.preferredHeight: 30
-                             Layout.leftMargin: 50
-                             Layout.alignment: Qt.AlignLeft
-                             Text
-                             {
-                                 text: "National bank of Bulgaria"
-                                 font.bold: true
-                                 font.pixelSize: 20
-                             }
-                             Text
-                             {
-                                 text: "**** 2345"
-                                 color: "lightgrey"
-                                 font.pixelSize: 15
-                             }
+                                anchors.fill: parent
+                                spacing : -30
+
+                                RowLayout
+                                {
+                                    Layout.leftMargin:  15
+                                    Layout.fillWidth: true
+                                    Layout.preferredHeight: 10
+
+                                    Rectangle
+                                    {
+                                     Layout.rightMargin: root.isTablet ? 10 : (root.isPhone ? 0 : 12)
+                                     Layout.preferredWidth: 40
+                                     Layout.preferredHeight: 40
+                                     Layout.alignment: Qt.AlignVCenter
+                                     radius: 40
+                                     color: "#EDEFEC"
+                                     Image
+                                     {
+                                         anchors.centerIn: parent
+                                         source: "resources/wallet.svg"
+                                     }
+                                    }
+                                    ColumnLayout{
+                                        Layout.topMargin: 30
+                                        Layout.preferredHeight: parent.height
+                                    Text {
+
+                                        text: qsTr("Finbank+ transfer types")
+                                        color: "black"
+                                        font.pixelSize: 17
+
+                                    }
+                                    Text
+                                    {
+                                        Layout.fillHeight:true
+                                        font.pixelSize:17
+                                        wrapMode: Text.WordWrap
+                                        Layout.fillWidth: true
+                                        text: qsTr("Use money in your Finbank+ account to pay for your transfer instantly. Should arrive in seconds.")
+
+                                    }
+                                    }
+                                }
+
                             }
+                        }
+
+                        RowLayout
+                        {
+                            Layout.topMargin: 15
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 10
+                            Item
+                            {
+                                Layout.preferredWidth: !root.isTablet ? 100 : 0
+                            }
+                            Text
+                            {
+                                text: "Fast and easy transfer"
+                                font.pixelSize: 17
+
+                            }
+                            Item
+                            {
+                                Layout.fillWidth: true
                             }
 
+                            Text
+                            {
+                                text: "Total fee: $5 USD"
+                                color: "#666666"
+                                font.pixelSize: 17
+
+                            }
+                            Item
+                            {
+                                Layout.preferredWidth: !root.isTablet ? 100 : 0
+                            }
                         }
                         Rectangle
                         {
-                            id: rectangle2
-                            Layout.preferredWidth: root.isPhone ? 380 : (root.isTablet ? 530 : 650)
-                            Layout.preferredHeight: root.isPhone ? 65 : (root.isTablet ? 75 : 85)
-                            radius: 20
+                            Layout.preferredWidth: root.isTablet ? parent.width : parent.width - 200
 
-                            color: "transparent"
+                            Layout.alignment: !root.isTablet ? Qt.AlignHCenter : Qt.AlignLeft
+
+                            Layout.preferredHeight: 1
+                            color: "#B2B2B2"
+
+                        }
+
+                        Rectangle
+                        {
+                            id: rectangle2
+                            Layout.preferredWidth: root.isTablet ? parent.width : parent.width - 200
+
+                            Layout.alignment: !root.isTablet ? Qt.AlignHCenter : Qt.AlignLeft
+
+                            Layout.preferredHeight: 100
+
                             border.width: 1
-                            border.color: "#F2F2F2"
-                            Layout.alignment: root.isPhone ? Qt.AlignLeft : Qt.AlignHCenter
-                            Layout.leftMargin: root.isPhone ? 10 : 0
+                            border.color: "white"
+                            radius: 20
 
                             MouseArea
                             {
                                 anchors.fill: parent
-                                onClicked: animation2.start()
+                                onClicked: animation2.start();
                             }
 
                             SequentialAnimation {
@@ -502,71 +547,122 @@ destination") : qsTr("Select recipent bank destination")
                                         PropertyAnimation {
                                             target: rectangle2
                                             property: "border.color"
-                                            from: "#F2F2F2"
+                                            from: "white"
                                             to: "#2ea46d"
                                             duration: 1000
                                         }
+
                                     }
-                            RowLayout
-                            {
-
-                            Layout.alignment: Qt.AlignHCenter
-                            anchors.fill: parent
-
-                            Rectangle
-                            {
-                                width: 40
-                                height: 40
-
-                                radius: 40
-                                color: "#F7F8FC"
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
-                                anchors.leftMargin: 15
-
-                                Image
-                                {
-                                    source: "qrc:/resources/bank2.svg"
-                                    anchors.centerIn: parent
-                                    width: 20
-                                    height: 20
-                                }
-                            }
-
                             ColumnLayout
                             {
-                             Layout.preferredWidth: parent.width
-                             Layout.preferredHeight: 30
-                             Layout.leftMargin: 50
-                             Layout.alignment: Qt.AlignLeft
-                             Text
-                             {
-                                 text: "National bank of Bulgaria"
-                                 font.bold: true
-                                 font.pixelSize: 20
-                             }
-                             Text
-                             {
-                                 text: "**** 2345"
-                                 color: "lightgrey"
-                                 font.pixelSize: 15
-                             }
-                            }
+                                anchors.fill: parent
+                                spacing : -30
+
+                                RowLayout
+                                {
+                                    Layout.leftMargin:  15
+                                    Layout.fillWidth: true
+                                    Layout.preferredHeight: 10
+
+                                    Rectangle
+                                    {
+                                        Layout.rightMargin: root.isTablet ? 10 : (root.isPhone ? 0 : 12)
+                                     Layout.preferredWidth: 40
+                                     Layout.preferredHeight: 40
+                                     radius: 40
+                                     color: "#EDEFEC"
+                                     Image
+                                     {
+                                         anchors.centerIn: parent
+                                         source: "resources/card.svg"
+                                     }
+                                    }
+                                    ColumnLayout{
+                                        Layout.topMargin: 30
+                                    Text {
+
+                                        text: qsTr("Debit card")
+                                        font.pixelSize: 17
+
+                                    }
+                                    Text
+                                    {
+                                        Layout.preferredHeight: 50
+                                        wrapMode: Text.WordWrap
+                                        Layout.fillWidth: true
+                                        text: qsTr("Send from your Visa or Mastercad. Should arrive in seconds.")
+                                        font.pixelSize: 17
+
+                                    }
+                                    }
+                                }
+
+
+
                             }
 
+
+                        }
+                        RowLayout
+                        {
+                            Layout.topMargin: 15
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 10
+                            Item
+                            {
+                                Layout.preferredWidth: !root.isTablet ? 100 : 0
+                            }
+                            Text
+                            {
+                                text: "Low cost transfer"
+                                font.pixelSize: 17
+
+                            }
+                            Item
+                            {
+                                Layout.fillWidth: true
+                            }
+
+                            Text
+                            {
+                                text: "Total fee: $5 USD"
+                                color: "#666666"
+                                font.pixelSize: 17
+                            }
+                            Item
+                            {
+                                Layout.preferredWidth: !root.isTablet ? 100 : 0
+                            }
                         }
                         Rectangle
                         {
+                            Layout.preferredWidth: root.isTablet ? parent.width : parent.width - 200
+
+                            Layout.alignment: !root.isTablet ? Qt.AlignHCenter : Qt.AlignLeft
+
+                            Layout.preferredHeight: 1
+                            color: "#B2B2B2"
+
+                        }
+
+                        Rectangle
+                        {
                             id: rectangle3
-                            Layout.preferredWidth: root.isPhone ? 380 : (root.isTablet ? 530 : 650)
-                            Layout.preferredHeight: root.isPhone ? 65 : (root.isTablet ? 75 : 85)
+                            Layout.preferredWidth: root.isTablet ? parent.width : parent.width - 200
+
+                            Layout.alignment: !root.isTablet ? Qt.AlignHCenter : Qt.AlignLeft
+
+                            Layout.preferredHeight: 100
+
+                            border.width: 1
+                            border.color: "white"
                             radius: 20
 
-                            color: "transparent"
-                            border.width: 1
-                            border.color: "#F2F2F2"
-                            Layout.alignment: root.isPhone ? Qt.AlignLeft : Qt.AlignHCenter
-                            Layout.leftMargin: root.isPhone ? 10 : 0
+                            MouseArea
+                            {
+                                anchors.fill: parent
+                                onClicked: animation3.start();
+                            }
 
                             SequentialAnimation {
                                         id: animation3
@@ -575,67 +671,62 @@ destination") : qsTr("Select recipent bank destination")
                                         PropertyAnimation {
                                             target: rectangle3
                                             property: "border.color"
-                                            from: "#F2F2F2"
+                                            from: "white"
                                             to: "#2ea46d"
                                             duration: 1000
                                         }
+
                                     }
-
-                            MouseArea
-                            {
-                                anchors.fill: parent
-                                onClicked: animation3.start()
-                            }
-
-
-                            RowLayout
-                            {
-
-                            Layout.alignment: Qt.AlignHCenter
-                            anchors.fill: parent
-
-                            Rectangle
-                            {
-                                width: 40
-                                height: 40
-
-                                radius: 40
-                                color: "#F7F8FC"
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
-                                anchors.leftMargin: 15
-
-                                Image
-                                {
-                                    source: "qrc:/resources/bank2.svg"
-                                    anchors.centerIn: parent
-                                    width: 20
-                                    height: 20
-                                }
-                            }
 
                             ColumnLayout
                             {
-                             Layout.preferredWidth: parent.width
-                             Layout.preferredHeight: 30
-                             Layout.leftMargin: 50
-                             Layout.alignment: Qt.AlignLeft
-                             Text
-                             {
-                                 text: "National bank of Bulgaria"
-                                 font.bold: true
-                                 font.pixelSize: 20
-                             }
-                             Text
-                             {
-                                 text: "**** 2345"
-                                 color: "lightgrey"
-                                 font.pixelSize: 15
-                             }
-                            }
-                            }
+                                anchors.fill: parent
+                                spacing : -30
 
+                                RowLayout
+                                {
+                                    Layout.leftMargin:  15
+                                    Layout.fillWidth: true
+                                    Layout.preferredHeight: 10
+
+                                    Rectangle
+                                    {
+                                    Layout.rightMargin: root.isTablet ? 10 : (root.isPhone ? 0 : 12)
+                                     Layout.preferredWidth: 40
+                                     Layout.preferredHeight: 40
+                                     radius: 40
+                                     color: "#EDEFEC"
+                                     Image
+                                     {
+                                         anchors.centerIn: parent
+                                         source: "resources/bank.svg"
+                                         anchors.verticalCenterOffset: -1
+
+                                     }
+                                    }
+                                    ColumnLayout{
+                                        Layout.topMargin: 30
+                                    Text {
+
+                                        text: qsTr("Transfer your money from your bank account")
+                                        font.pixelSize: 17
+
+                                    }
+                                    Text
+                                    {
+                                        Layout.preferredHeight: 50
+                                        wrapMode: Text.WordWrap
+                                        Layout.fillWidth: true
+                                        text: qsTr("Transfer the money using you bank account balance. Should arrive in seconds.")
+                                        font.pixelSize: 17
+
+                                    }
+                                    }
+                                }
+
+                            }
                         }
+
                         Item
                         {
                             Layout.fillHeight: true
@@ -669,12 +760,11 @@ destination") : qsTr("Select recipent bank destination")
                         border.width: 1
                         radius: 20
                     }
-                    onClicked:
-                    {
-                        loader.source = "Dashboard.qml"
-                        loader.item.usernameRef = root.username
-                        loader.item.fullName = root.fullName
-                        root.visible = false;
+                    onClicked: {
+                        contentLoader.setSource("RecipentDescription.qml", {
+                                            username: root.username,
+                                            fullName: root.fullName
+                                        })
                     }
                 }
                 Button {
@@ -695,8 +785,10 @@ destination") : qsTr("Select recipent bank destination")
                         color: "white"
                     }
                     onClicked: {
-
-
+                        contentLoader.setSource("Overview.qml", {
+                                            username: root.username,
+                                            fullName: root.fullName
+                                        })
                     }
                 }
 
@@ -704,6 +796,4 @@ destination") : qsTr("Select recipent bank destination")
             }
 
     }
-
-
 }
