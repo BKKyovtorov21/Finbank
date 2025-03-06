@@ -313,10 +313,10 @@ Item {
                         ColumnLayout
                         {
                             visible: root.isTablet | root.isPhone
-                            Layout.fillWidth: true
+                            Layout.preferredWidth: parent.width
                             Text
                             {
-                                Layout.fillWidth: true
+                                Layout.preferredWidth: parent.width
                                 text: "Send money"
                                 color: "grey"
                                 font.pixelSize: 15
@@ -324,7 +324,7 @@ Item {
                             }
                             Text
                             {
-                                Layout.fillWidth: true
+                                Layout.preferredWidth: parent.width
                                 text: "3|5 Recipent Details"
                                 horizontalAlignment: Text.AlignHCenter
                                 font.pixelSize: 15
@@ -332,7 +332,7 @@ Item {
                             }
                             Rectangle
                             {
-                                Layout.fillWidth: true
+                                Layout.preferredWidth: parent.width
                                 Layout.preferredHeight: 3
                                 color: "lightgrey"
                                 Rectangle
@@ -351,11 +351,11 @@ Item {
                         {
                             Layout.topMargin: 50
                             horizontalAlignment: Qt.AlignHCenter
-                            Layout.fillWidth: true
-                            font.pixelSize: root.isTablet ? 30 :40
+                            Layout.preferredWidth: parent.width
+                            font.pixelSize: root.isTablet ? 20 :40
                             font.bold: true
                             text: qsTr("Select recipent bank destination")
-                            wrapMode: Text.WordWrap
+
 
                         }
 
@@ -366,12 +366,10 @@ Item {
                             Layout.preferredHeight: root.isPhone ? 65 : (root.isTablet ? 75 : 85)
                             radius: 20
 
-                            Layout.alignment: root.isPhone ? Qt.AlignLeft : Qt.AlignHCenter
-
 
                             Layout.topMargin: 30
                             color: "#F6F7F9"
-
+                            Layout.alignment: Qt.AlignHCenter
                             Layout.leftMargin: root.isPhone ? 10 : 0
 
 
@@ -385,7 +383,6 @@ Item {
                         Text
                         {
                             text: "Bank account"
-                            Layout.preferredWidth: root.isPhone ? 470 : (root.isTablet ? 530 : 650)
                             Layout.preferredHeight: 20
                             font.pixelSize: 20
                             font.bold: true
@@ -437,9 +434,8 @@ Item {
 
                                 radius: 40
                                 color: "#F7F8FC"
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
-                                anchors.leftMargin: 15
+                                Layout.alignment: Qt.AlignVCenter
+                                Layout.leftMargin: 15
 
                                 Image
                                 {
@@ -454,7 +450,7 @@ Item {
                             {
                              Layout.preferredWidth: parent.width
                              Layout.preferredHeight: 30
-                             Layout.leftMargin: 50
+                             Layout.leftMargin: 15
                              Layout.alignment: Qt.AlignLeft
                              Text
                              {
@@ -516,9 +512,8 @@ Item {
 
                                 radius: 40
                                 color: "#F7F8FC"
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
-                                anchors.leftMargin: 15
+                                Layout.alignment: Qt.AlignVCenter
+                                Layout.leftMargin: 15
 
                                 Image
                                 {
@@ -533,7 +528,7 @@ Item {
                             {
                              Layout.preferredWidth: parent.width
                              Layout.preferredHeight: 30
-                             Layout.leftMargin: 50
+                             Layout.leftMargin: 15
                              Layout.alignment: Qt.AlignLeft
                              Text
                              {
@@ -597,9 +592,8 @@ Item {
 
                                 radius: 40
                                 color: "#F7F8FC"
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.left: parent.left
-                                anchors.leftMargin: 15
+                                Layout.alignment: Qt.AlignVCenter
+                                Layout.leftMargin: 15
 
                                 Image
                                 {
@@ -614,7 +608,7 @@ Item {
                             {
                              Layout.preferredWidth: parent.width
                              Layout.preferredHeight: 30
-                             Layout.leftMargin: 50
+                             Layout.leftMargin: 15
                              Layout.alignment: Qt.AlignLeft
                              Text
                              {

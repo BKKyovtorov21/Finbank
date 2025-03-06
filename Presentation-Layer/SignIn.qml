@@ -388,7 +388,7 @@ Window {
 
             function onLogInSuccessful(username, fullName) {
                 contentLoader.setSource("Dashboard.qml", {
-                                    usernameRef: username,
+                                    username: username,
                                     fullName: fullName
                                 })
 

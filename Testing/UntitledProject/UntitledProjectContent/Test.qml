@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import QtQuick.Timeline
 import QtCharts
 
 pragma ComponentBehavior: Bound
@@ -17,7 +16,7 @@ Item {
     property bool isTablet: width <= 1000
     property bool isPhone: width <= 620
 
-        property var usernameRef
+        property var username
        property var balance
        property var income
        property var expenses
@@ -26,6 +25,7 @@ Item {
        property var pfp
     property bool stackviewActive: false
     property bool textfieldActive
+    property string language: "EN"
 
 
     MouseArea
@@ -38,20 +38,323 @@ Item {
     }
 
     Dialog {
-            id: myDialog
-            title: "My Dialog"
+            id: pinDialog
             modal: true
-            standardButtons: Dialog.Ok | Dialog.Cancel
-            width: 200
-            height: 200
-            contentItem: Text {
-                text: "This is a dialog box!"
-                anchors.centerIn: parent
+            dim: true
+            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+
+            width: 320
+            height: 220
+
+            anchors.centerIn: parent
+            background: Rectangle {
+                color: "white"
+                radius: 20 // Rounded corners
+                border.color: "#DDDDDD"
+                border.width: 1
             }
 
-            onAccepted: console.log("OK clicked")
-            onRejected: console.log("Cancel clicked")
+            contentItem: Column {
+                spacing: 10
+                width: parent.width
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                // Header with title and close button
+                Row {
+                    width: parent.width
+                    spacing: 10
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    padding: 16
+
+                    Text {
+                        text: "Here's your PIN"
+                        font.bold: true
+                        font.pixelSize: 18
+                        color: "black"
+                    }
+
+                    Item {
+                        width: 1
+                        height: 1
+                        Layout.fillWidth: true
+                    }
+
+                    Button {
+                        text: "✕"
+                        flat: true
+                        onClicked: pinDialog.close()
+                    }
+                }
+
+                // Centered PIN
+                Text {
+                    text: "7484"
+                    font.bold: true
+                    font.pixelSize: 28
+                    color: "black"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+
+                // Description text
+                Text {
+                    text: "Come back to the app if you forget it."
+                    font.pixelSize: 14
+                    color: "#555555"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+
+                // Action Button
+                Button {
+                    text: "Done"
+                    width: parent.width - 40
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    height: 40
+                    background: Rectangle {
+                        color: "#A7E063"
+                        radius: 20
+                    }
+                    onClicked: pinDialog.close()
+                }
+            }
         }
+
+    Dialog {
+        id: cardDialog
+        modal: true
+        dim: true
+        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+
+        width: 360
+        height: 400
+
+        anchors.centerIn: parent
+        background: Rectangle {
+            color: "white"
+            radius: 20
+            border.color: "#DDDDDD"
+            border.width: 1
+        }
+
+        contentItem: Column {
+            spacing: 12
+            width: parent.width - 32
+            anchors.horizontalCenter: parent.horizontalCenter
+            padding: 16
+
+            // Header with title and close button
+            Row {
+                width: parent.width
+                spacing: 10
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                Text {
+                    text: "Card details"
+                    font.bold: true
+                    font.pixelSize: 18
+                    color: "black"
+                }
+
+                Item {
+                    width: 1
+                    height: 1
+                    Layout.fillWidth: true
+                }
+
+                Button {
+                    text: "✕"
+                    flat: true
+                    onClicked: cardDialog.close()
+                }
+            }
+
+            // Cardholder name
+            Column {
+                spacing: 4
+                Text { text: "Cardholder name"; font.pixelSize: 14; color: "#777" }
+                Text { text: "VANYA D DELCHEVA"; font.pixelSize: 16; color: "black" }
+            }
+
+            // Card number
+            Row {
+                spacing: 10
+                Column {
+                    spacing: 4
+                    Text { text: "Card number"; font.pixelSize: 14; color: "#777" }
+                    Text { text: "4569 3344 0248 8645"; font.pixelSize: 16; color: "black" }
+                }
+                Button {
+                    text: "Copy"
+                    background: Rectangle { color: "#A7E063"; radius: 10 }
+                }
+            }
+
+            // Expiry date
+            Row {
+                spacing: 10
+                Column {
+                    spacing: 4
+                    Text { text: "Expiry date"; font.pixelSize: 14; color: "#777" }
+                    Text { text: "01/30"; font.pixelSize: 16; color: "black" }
+                }
+                Button {
+                    text: "Copy"
+                    background: Rectangle { color: "#A7E063"; radius: 10 }
+                }
+            }
+
+            // Security code
+            Row {
+                spacing: 10
+                Column {
+                    spacing: 4
+                    Text { text: "Security code"; font.pixelSize: 14; color: "#777" }
+                    Text { text: "832"; font.pixelSize: 16; color: "black" }
+                }
+                Button {
+                    text: "Copy"
+                    background: Rectangle { color: "#A7E063"; radius: 10 }
+                }
+            }
+
+            // Billing address
+            Column {
+                spacing: 4
+                Text { text: "Billing address"; font.pixelSize: 14; color: "#777" }
+                Text { text: "жк Възраждане 16 вх.2, Бургас, 8000, Bulgaria"; font.pixelSize: 16; color: "black" }
+            }
+
+            // Done Button
+            Button {
+                text: "Done"
+                width: parent.width - 20
+                anchors.horizontalCenter: parent.horizontalCenter
+                height: 40
+                background: Rectangle {
+                    color: "#A7E063"
+                    radius: 20
+                }
+                onClicked: cardDialog.close()
+            }
+        }
+    }
+
+    // Dialog {
+    //        id: passwordDialog
+    //        modal: true
+    //        dim: true
+    //        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+
+    //        anchors.centerIn: parent
+    //        width: 360
+    //        height: 320
+
+    //        background: Rectangle {
+    //            color: "white"
+    //            radius: 20 // Rounded corners
+    //            border.color: "#DDDDDD"
+    //            border.width: 1
+    //        }
+
+    //        contentItem: Column {
+    //            spacing: 16
+    //            width: parent.width - 40
+    //            anchors.horizontalCenter: parent.horizontalCenter
+    //            padding: 16
+
+    //            // Header with title and close button
+    //            Row {
+    //                width: parent.width
+    //                spacing: 10
+
+    //                Text {
+    //                    text: "Here's your PIN"
+    //                    font.bold: true
+    //                    font.pixelSize: 18
+    //                    color: "black"
+    //                }
+
+    //                Item {
+    //                    width: 1
+    //                    height: 1
+    //                    Layout.fillWidth: true
+    //                }
+
+    //                Button {
+    //                    text: "✕"
+    //                    flat: true
+    //                    onClicked: passwordDialog.close()
+    //                }
+    //            }
+
+    //            // Title & Description
+    //            Column {
+    //                spacing: 6
+    //                width: parent.width
+
+    //                Text {
+    //                    text: "Enter your password to show your card PIN"
+    //                    font.bold: true
+    //                    font.pixelSize: 16
+    //                    color: "black"
+    //                    wrapMode: Text.Wrap
+    //                }
+
+    //                Text {
+    //                    text: "This is a security check to keep your account safe."
+    //                    font.pixelSize: 14
+    //                    color: "#555555"
+    //                    wrapMode: Text.Wrap
+    //                }
+    //            }
+
+    //            // Password Input Field with Eye Toggle
+    //            Row {
+    //                width: parent.width
+    //                spacing: 8
+    //                Rectangle {
+    //                    width: parent.width - 50
+    //                    height: 40
+    //                    radius: 8
+    //                    color: "#EEF2FF"
+
+    //                    TextInput {
+    //                        id: passwordField
+    //                        width: parent.width - 10
+    //                        anchors.verticalCenter: parent.verticalCenter
+    //                        leftPadding: 10
+    //                        echoMode: TextInput.Password
+    //                    }
+    //                }
+    //            }
+
+    //            // Done Button
+    //            Button {
+    //                text: "Done"
+    //                width: parent.width
+    //                height: 45
+    //                background: Rectangle {
+    //                    color: "#A7E063"
+    //                    radius: 22
+    //                }
+    //                onClicked: passwordDialog.close()
+    //            }
+
+    //            // Forgot Password Link
+    //            Text {
+    //                text: "Forgot password?"
+    //                font.underline: true               }
+    //        }
+    //    }
+
+    Flickable
+    {
+        id: flickable
+               anchors.fill: parent
+               clip: true
+               contentWidth: width
+               contentHeight: height + 200
+
+
     ColumnLayout
     {
         visible: !root.isTablet
@@ -202,7 +505,38 @@ Layout.preferredHeight: 50
                Layout.fillWidth: true
            }
 
+           Rectangle
+           {
+               Layout.preferredWidth: 80
+               Layout.preferredHeight: 50
+               radius: 5
+               color: "#fafafa"
 
+               RowLayout
+               {
+                   anchors.fill: parent
+
+                   Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                Image {
+                    source: "resources/language.svg"
+                }
+                Text {
+                    text: root.language
+                    font.pixelSize: 15
+                    Layout.alignment: Qt.AlignVCenter
+                }
+               }
+
+
+               MouseArea
+               {
+                   anchors.fill: parent
+                   onClicked:
+                   {
+                       root.language = (root.language === "EN") ? "BG" : "EN";
+                   }
+               }
+           }
 
             Rectangle
             {
@@ -308,12 +642,22 @@ Layout.preferredHeight: 50
             {
 
                     id: overviewPage
-                    text: qsTr("Overview")
+                    text: qsTr("Dashboard")
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
 
-
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        onClicked:{
+                            contentLoader.setSource("Dashboard.qml", {
+                                                username: root.username,
+                                                fullName: root .fullName,
+                                                language: root.language
+                                            })
+                        }
+                    }
             }
 
             Text
@@ -332,7 +676,7 @@ Layout.preferredHeight: 50
                     anchors.fill: parent
                     onClicked:{
                         contentLoader.setSource("Transactions.qml", {
-                                            username: root.usernameRef,
+                                            username: root.username,
                                             fullName: root .fullName
                                         })
                     }
@@ -353,7 +697,7 @@ Layout.preferredHeight: 50
                         anchors.fill: parent
                         onClicked:{
                             contentLoader.setSource("Wallet.qml", {
-                                                username: root.usernameRef,
+                                                username: root.username,
                                                 fullName: root .fullName
                                             })
                         }
@@ -367,7 +711,7 @@ Layout.preferredHeight: 50
 
 
                     id: tradingPageButton
-                    text: qsTr("Trading")
+                    text: qsTr("Invest")
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
@@ -378,7 +722,7 @@ Layout.preferredHeight: 50
                     anchors.fill: parent
                     onClicked:{
                         contentLoader.setSource("TradingDashboard.qml", {
-                                            username: root.usernameRef,
+                                            username: root.username,
                                             fullName: root .fullName
                                         })
                     }
@@ -458,14 +802,7 @@ Layout.preferredHeight: 50
                     anchors.verticalCenterOffset: -5
                     font.pixelSize: 40
                 }
-                MouseArea
-                {
-                    anchors.fill: parent
-                    onClicked:
-                    {
-                        myDialog.open();
-                    }
-                }
+
             }
         }
                 }
@@ -484,8 +821,8 @@ Layout.preferredHeight: 50
                 {
                     id: stackview
                     anchors.fill: parent
-                    initialItem: firstPage
-                    visible: true
+                    //initialItem: firstPage
+                    visible: false
                 }
                 Component {
                         id: firstPage
@@ -540,34 +877,33 @@ Layout.preferredHeight: 50
                                         Layout.preferredWidth: parent.width
                                         spacing: 50
 
-                                    Image{
-                                        source: "resources/minimalistbg1.png"
-                                        Layout.preferredHeight: 250
-                                        Layout.preferredWidth: 450
+                                        Image{
+                                            source: "resources/minimalistbg1.png"
+                                            Layout.preferredHeight: 250
+                                            Layout.preferredWidth: 450
 
-                                        Layout.alignment: Qt.AlignLeft
+                                            Layout.alignment: Qt.AlignLeft
 
-                                        ColumnLayout
-                                        {
-                                            anchors.fill: parent
-
-                                            Image
+                                            ColumnLayout
                                             {
-                                            Layout.alignment: Qt.AlignTop | Qt.AlignRight
-                                            Layout.rightMargin:  20
-                                            Layout.topMargin: 20
-                                                source: "resources/logoWide.svg"
-                                            }
-                                            Image
-                                            {
-                                            Layout.alignment: Qt.AlignBottom | Qt.AlignRight
-                                            Layout.rightMargin:  20
-                                            Layout.bottomMargin: 20
-                                                source: "resources/visaWhite.svg"
+                                                anchors.fill: parent
+
+                                                Image
+                                                {
+                                                Layout.alignment: Qt.AlignTop | Qt.AlignRight
+                                                Layout.rightMargin:  20
+                                                Layout.topMargin: 20
+                                                    source: "resources/logowide.svg"
+                                                }
+                                                Image
+                                                {
+                                                Layout.alignment: Qt.AlignBottom | Qt.AlignRight
+                                                Layout.rightMargin:  20
+                                                Layout.bottomMargin: 20
+                                                    source: "resources/visaWhite.svg"
+                                                }
                                             }
                                         }
-                                    }
-
                                     ColumnLayout{
                                         Layout.preferredWidth: 70
 
@@ -581,12 +917,21 @@ Layout.preferredHeight: 50
                                             source: "resources/pin.svg"
 
                                         }
+                                        MouseArea
+                                        {
+                                            anchors.fill: parent
+                                            onClicked:
+                                            {
+                                                pinDialog.open();
+                                            }
+                                        }
                                     }
-
                                     Text{
                                         text: "Show pin"
                                         Layout.alignment: Qt.AlignHCenter
                                     }
+
+
                                     }
                                     ColumnLayout{
                                         Layout.preferredWidth: 70
@@ -601,6 +946,15 @@ Layout.preferredHeight: 50
                                             height: 30
                                             width: 35
                                             source: "resources/card.svg"
+                                        }
+
+                                        MouseArea
+                                        {
+                                            anchors.fill: parent
+                                            onClicked:
+                                            {
+                                                cardDialog.open();
+                                            }
                                         }
                                     }
                                     Text{
@@ -625,6 +979,7 @@ Layout.preferredHeight: 50
                                         text: "Freeze card"
                                         Layout.alignment: Qt.AlignHCenter
                                     }
+
                                     }
                                     Item
                                     {
@@ -787,7 +1142,7 @@ Layout.preferredHeight: 50
                 {
                     id: cardsLayout
                     anchors.fill: parent
-                    visible: false
+                    visible: true
                     Rectangle
                     {
                         Layout.topMargin: 30
@@ -1017,12 +1372,263 @@ Layout.preferredHeight: 50
         }
 
     }
+
+
     }
+
+    ColumnLayout
+    {
+
+            anchors.fill: parent
+            visible: root.isTablet
+
+
+
+            RowLayout
+            {
+
+                spacing: 10
+                Layout.topMargin: 50
+                Layout.leftMargin: 30
+                Image
+                {
+                    Layout.preferredHeight: 100
+                    Layout.preferredWidth: 100
+                    source: "resources/pfp.png"
+
+                }
+                Item
+                {
+
+                    Layout.fillWidth: true
+                }
+
+
+
+                Item
+                {
+
+                    Layout.preferredWidth: 350
+                }
+
+                Text
+                {
+                        text: qsTr("Dashboard")
+                        color: "#2F2F2F"
+                        font.pixelSize: 15
+                        opacity: 0.5
+
+                        MouseArea
+                        {
+                            anchors.fill: parent
+                            onClicked:{
+                                contentLoader.setSource("Dashboard.qml", {
+                                                    username: root.username,
+                                                    fullName: root .fullName,
+                                                    language: root.language
+                                                })
+                            }
+                        }
+                }
+
+                Text
+                {
+
+                        text: qsTr("Transactions")
+                        color: "#2F2F2F"
+                        font.pixelSize: 15
+                        opacity: 0.5
+
+
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        onClicked:{
+                            contentLoader.setSource("Transactions.qml", {
+                                                username: root.username,
+                                                fullName: root .fullName
+                                            })
+                        }
+                    }
+                }
+                Text
+                {
+
+
+                        text: qsTr("Wallet")
+                        color: "#367C21"
+                        font.bold: true
+                        font.pixelSize: 15
+
+                        MouseArea
+                        {
+                            anchors.fill: parent
+                            onClicked:{
+                                contentLoader.setSource("Wallet.qml", {
+                                                    username: root.username,
+                                                    fullName: root .fullName
+                                                })
+                            }
+                        }
+
+
+                }
+
+                Text
+                {
+
+
+                        text: qsTr("Invest")
+                        color: "#2F2F2F"
+                        font.pixelSize: 15
+                        opacity: 0.5
+
+
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        onClicked:{
+                            contentLoader.setSource("TradingDashboard.qml", {
+                                                username: root.username,
+                                                fullName: root .fullName
+                                            })
+                        }
+                    }
+                }
+                Text
+                {
+
+
+                        text: qsTr("Settings")
+                        color: "#2F2F2F"
+                        font.pixelSize: 15
+                        opacity: 0.5
+                        Layout.rightMargin: 20
+
+
+
+                }
+            }
+
+            Flickable {
+                id: flickable2
+                Layout.preferredHeight: root.test2 ? 115 : (root.test ? 130 : 160)
+                Layout.preferredWidth: parent.width
+                contentWidth: (cardRepeater.count + 1) * (cardWidth + spacing) + spacing // +1 for the "Add Card" button
+                flickableDirection: Flickable.HorizontalFlick
+                clip: true
+
+                Layout.alignment: Qt.AlignHCenter
+
+                property int cardWidth: root.test2 ? 180 : (root.test ? 230 : 300)
+                property int cardHeight: root.test2 ? 115 : (root.test ? 135 : 170)
+                property int spacing: 10
+
+                ListModel {
+                    id: cardModel
+                    ListElement { cardImage: "resources/minimalistbg1.png"; cardNumber: "5435 2735 0037 0015"; cardHolder: "BOYAN KYOVTOROV"; logo: "resources/visa.svg" }
+                    ListElement { cardImage: "resources/minimalistbg2.png"; cardNumber: "1234 5678 9101 1121"; cardHolder: "ALEXANDER PETROV"; logo: "resources/mastercard.svg" }
+                }
+
+                Row {
+                    spacing: flickable2.spacing
+
+                    Repeater {
+                        id: cardRepeater
+                        model: cardModel
+                        delegate: Item {
+                            width: flickable2.cardWidth
+                            height: flickable2.cardHeight
+
+                            Image {
+                                width: parent.width
+                                height: parent.height
+                                source: model.cardImage
+                                fillMode: Image.Stretch
+
+                                ColumnLayout {
+                                    anchors.fill: parent
+
+                                    Item { Layout.fillHeight: true }
+
+                                    Text {
+                                        text: model.cardNumber
+                                        font.letterSpacing: 2
+                                        color: "white"
+                                        Layout.leftMargin: root.test2 ? 5 : 10
+                                        font.pixelSize: root.test2 ? 9 : 14
+                                        Layout.bottomMargin: 5
+                                    }
+
+                                    RowLayout {
+                                        Layout.preferredWidth: parent.width
+                                        Text {
+                                            text: model.cardHolder
+                                            color: "white"
+                                            Layout.leftMargin: 10
+                                            font.pixelSize: 14
+                                            Layout.bottomMargin: 5
+                                        }
+
+                                        Image {
+                                            visible: !root.test2
+                                            Layout.alignment: Qt.AlignRight
+                                            source: model.logo
+                                            Layout.rightMargin: 15
+                                            Layout.bottomMargin: 5
+                                        }
+                                    }
+                                }
+
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onClicked: {
+                                        flickable2.contentX = x - (flickable2.width - flickable2.cardWidth) / 2
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // "Add Card" Button
+                    Rectangle {
+                        width: flickable2.cardWidth
+                        height: flickable2.cardHeight
+                        color: "#EDEFF1"
+                        radius: 10
+                        border.color: "#CCCCCC"
+
+                        Text {
+                            text: "+"
+                            font.pixelSize: 40
+                            font.bold: true
+                            color: "#888888"
+                            anchors.centerIn: parent
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                console.log("Add New Card Clicked!")
+                                // You can add functionality here to open a form or add a new card dynamically
+                            }
+                        }
+                    }
+                }
+            }
+
+            Item {
+                Layout.fillHeight: true
+            }
+        }
+    }
+
+
 
     NavbarMobile
     {
         isPhone: root.isPhone
-        usernameRef: root.usernameRef
+        usernameRef: root.username
         fullName: root.fullName
     }
 

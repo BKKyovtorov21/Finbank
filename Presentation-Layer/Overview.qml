@@ -544,7 +544,7 @@ Item {
 
                             Text
                             {
-                                text: "$1.010 USD"
+                                text: "$1,010.00 USD"
                                 font.bold: true
                                 font.pixelSize: 20
                             }
@@ -583,7 +583,7 @@ Item {
                             }
 
                             Text {
-                                text: "$1,361.61 CAD"
+                                text: "$1,435.6 CAD"
                                 font.pixelSize: 17
                                 anchors.verticalCenter: parent.verticalCenter
                                 anchors.right: parent.right
@@ -665,7 +665,7 @@ Item {
                             Text
                             {
                                 font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
-                                text: "vichovichev07@gmail.com"
+                                text: "boyankiovtorov@gmail.com"
                             }
                             Item
                             {
@@ -696,7 +696,7 @@ Item {
                             Text
                             {
                                 font.pixelSize: root.isPhone ? 15 :(root.isTablet ? 17 : 18)
-                                text: "Vicho Vichev"
+                                text: "Boyan Kiovtorov"
                             }
                             Item
                             {

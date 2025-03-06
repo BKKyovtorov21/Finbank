@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import QtQuick.Timeline
 import QtCharts
 
 pragma ComponentBehavior: Bound
@@ -17,7 +16,7 @@ Item {
     property bool isTablet: width <= 1000
     property bool isPhone: width <= 620
 
-        property var usernameRef
+        property var username
        property var balance
        property var income
        property var expenses
@@ -346,6 +345,16 @@ Item {
     //                font.underline: true               }
     //        }
     //    }
+
+    Flickable
+    {
+        id: flickable
+               anchors.fill: parent
+               clip: true
+               contentWidth: width
+               contentHeight: height + 200
+
+
     ColumnLayout
     {
         visible: !root.isTablet
@@ -633,12 +642,22 @@ Layout.preferredHeight: 50
             {
 
                     id: overviewPage
-                    text: qsTr("Overview")
+                    text: qsTr("Dashboard")
                     color: "#2F2F2F"
                     font.pixelSize: 15
                     opacity: 0.5
 
-
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        onClicked:{
+                            contentLoader.setSource("Dashboard.qml", {
+                                                username: root.username,
+                                                fullName: root .fullName,
+                                                language: root.language
+                                            })
+                        }
+                    }
             }
 
             Text
@@ -657,7 +676,7 @@ Layout.preferredHeight: 50
                     anchors.fill: parent
                     onClicked:{
                         contentLoader.setSource("Transactions.qml", {
-                                            username: root.usernameRef,
+                                            username: root.username,
                                             fullName: root .fullName
                                         })
                     }
@@ -678,7 +697,7 @@ Layout.preferredHeight: 50
                         anchors.fill: parent
                         onClicked:{
                             contentLoader.setSource("Wallet.qml", {
-                                                username: root.usernameRef,
+                                                username: root.username,
                                                 fullName: root .fullName
                                             })
                         }
@@ -703,7 +722,7 @@ Layout.preferredHeight: 50
                     anchors.fill: parent
                     onClicked:{
                         contentLoader.setSource("TradingDashboard.qml", {
-                                            username: root.usernameRef,
+                                            username: root.username,
                                             fullName: root .fullName
                                         })
                     }
@@ -960,10 +979,11 @@ Layout.preferredHeight: 50
                                         text: "Freeze card"
                                         Layout.alignment: Qt.AlignHCenter
                                     }
+
+                                    }
                                     Item
                                     {
                                         Layout.fillWidth: true
-                                    }
                                     }
 
                                     }
@@ -1098,7 +1118,7 @@ Layout.preferredHeight: 50
                                             color: "#EDEFEC"
                                             Image
                                             {
-                                                anchors.centerIn: parentdo
+                                                anchors.centerIn: parent
                                                 source: "qrc:/resources/delete.svg"
                                             }
                                         }
@@ -1353,11 +1373,12 @@ Layout.preferredHeight: 50
 
     }
     }
+    }
 
     NavbarMobile
     {
         isPhone: root.isPhone
-        usernameRef: root.usernameRef
+        username: root.username
         fullName: root.fullName
     }
 

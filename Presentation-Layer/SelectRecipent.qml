@@ -106,6 +106,7 @@ Item {
         RowLayout
         {
             spacing: 8 // Adjust spacing between icon and TextField
+            visible: !root.isTablet
             Image {
                 id: name
                 source: !root.isTablet ? "qrc:/resources/logo1.png" : "qrc:/resources/pfp.jpg"

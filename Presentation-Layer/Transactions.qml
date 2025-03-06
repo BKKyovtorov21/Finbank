@@ -29,6 +29,234 @@ Item {
     ListModel {
         id: transactionModel
     }
+
+    Drawer
+    {
+        id: bottomDrawer
+                width: parent.width
+                height: 550
+                edge: Qt.BottomEdge
+                Rectangle {
+                            width: parent.width
+                            height: parent.height
+                            color: "white"
+
+                            ColumnLayout
+                            {
+                                anchors.fill: parent
+                                Text
+                                {
+                                    font.pixelSize: 20
+                                    Layout.preferredHeight: 30
+                                    Layout.leftMargin: 30
+                                    Layout.topMargin: 15
+                                    font.bold: true
+                                    text: root.language == "EN" ? qsTr("Where would you send the money?") : qsTr("Къде би искал да изпратиш парите?")
+
+                                }
+
+                                Rectangle
+                                {
+                                    id:newContactRect
+                                    border.width: 1
+                                    Layout.fillWidth: true
+                                    Layout.rightMargin: 25
+                                    Layout.leftMargin: 25
+                                    Layout.topMargin: 40
+
+                                    Layout.preferredHeight: 80
+                                    radius:20
+                                    MouseArea
+                                    {
+                                        anchors.fill: parent
+                                        onClicked:
+                                        {
+                                            timelineAnimation.running = true
+                                        }
+                                    }
+                                    Rectangle
+                                    {
+                                        width: 50
+                                        height: 50
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        anchors.left: parent.left
+                                        anchors.leftMargin: 10
+                                        color: "grey"
+                                        opacity: 0.5
+                                        radius: 30
+                                        Image
+                                        {
+                                            anchors.centerIn: parent
+                                            source: "qrc:/resources/contact.svg"
+
+                                        }
+
+                                    }
+                                    Text
+                                    {
+                                        id:method1
+                                        anchors.left: parent.left
+                                        anchors.leftMargin: 70
+                                        anchors.top: parent.top
+                                        anchors.topMargin: 5
+                                        text: root.language == "EN" ? qsTr("New Recipient") : qsTr("Нов получател")
+
+                                        font.bold: true
+                                        font.pixelSize: 18
+                                    }
+                                    Text
+                                    {
+                                        width: parent.width - 100
+                                        anchors.left: method1.left
+                                        anchors.top: method1.top
+                                        anchors.topMargin: 30
+                                        text: root.language == "EN" ? qsTr("Send money to people whose contact you don't have") : qsTr("Изпрати без да им имаш номера")
+
+                                        wrapMode: Text.Wrap
+                                        opacity: 0.5
+
+                                        font.pixelSize: 18
+                                    }
+
+                                }
+                                Rectangle
+                                {
+                                    border.width: 1
+                                    Layout.fillWidth: true
+                                    Layout.rightMargin: 25
+                                    Layout.leftMargin: 25
+                                    Layout.preferredHeight: 80
+                                    radius:20
+                                    Rectangle
+                                    {
+                                        width: 50
+                                        height: 50
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        anchors.left: parent.left
+                                        anchors.leftMargin: 10
+                                        color: "grey"
+                                        opacity: 0.5
+                                        radius: 30
+                                        Image
+                                        {
+                                            anchors.centerIn: parent
+                                            source: "qrc:/resources/contact.svg"
+
+                                        }
+
+                                    }
+                                    Text
+                                    {
+                                        id:method2
+                                        anchors.left: parent.left
+                                        anchors.leftMargin: 70
+                                        anchors.top: parent.top
+                                        anchors.topMargin: 5
+                                        text: root.language == "EN" ? qsTr("Contact") : qsTr("Контакт")
+
+                                        font.bold: true
+                                        font.pixelSize: 18
+                                    }
+                                    Text
+                                    {
+                                        width: parent.width - 100
+                                        anchors.left: method2.left
+                                        anchors.top: method2.top
+                                        anchors.topMargin: 30
+                                        text: root.language == "EN" ? qsTr("Send money to one of the contact lists I have") : qsTr("Изпрати на тези в листа ти")
+
+                                        wrapMode: Text.Wrap
+                                        opacity: 0.5
+
+                                        font.pixelSize: 18
+                                    }
+                                }
+                                Rectangle
+                                {
+                                    border.width: 1
+                                    Layout.fillWidth: true
+                                    Layout.rightMargin: 25
+                                    Layout.leftMargin: 25
+                                    Layout.preferredHeight: 80
+
+                                    radius:20
+                                    Rectangle
+                                    {
+                                        width: 50
+                                        height: 50
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        anchors.left: parent.left
+                                        anchors.leftMargin: 10
+                                        color: "grey"
+                                        opacity: 0.5
+                                        radius: 30
+                                        Image
+                                        {
+                                            id: icon3
+                                            anchors.centerIn: parent
+                                            source: "qrc:/resources/contact.svg"
+                                        }
+
+                                    }
+                                    Text
+                                    {
+                                        id:method3
+                                        anchors.left: parent.left
+                                        anchors.leftMargin: 70
+                                        anchors.top: parent.top
+                                        anchors.topMargin: 5
+                                        text: root.language == "EN" ? qsTr("Withdraw") : qsTr("Изтегляне")
+                                        font.bold: true
+                                        font.pixelSize: 18
+                                    }
+                                    Text
+                                    {
+                                        width: parent.width - 100
+                                        anchors.left: method3.left
+                                        anchors.top: method3.top
+                                        anchors.topMargin: 30
+                                        text: root.language == "EN" ? qsTr("Withdraw the balance of money to my local bank account") : qsTr("Изтегли пари от банката си")
+
+                                        wrapMode: Text.Wrap
+                                        opacity: 0.5
+
+                                        font.pixelSize: 18
+                                    }
+                                }
+
+                                Button
+                                {
+                                    Layout.topMargin: 30
+                                    Layout.bottomMargin: 30
+                                    Layout.preferredHeight: 60
+                                    Layout.fillWidth: true
+                                    Layout.rightMargin: 5
+                                    Layout.leftMargin: 5
+                                    background: Rectangle
+                                    {
+                                        id: continueButton
+                                        color: "#B7C2CA"
+                                        radius: 20
+                                        Text
+                                        {
+                                            anchors.centerIn: parent
+                                            text: "Continue"
+                                            color: "white"
+                                        }
+
+                                    }
+
+                                    onClicked: {
+                                        contentLoader.setSource("SelectRecipent.qml", {
+                                                            username: root.username,
+                                                            fullName: root .fullName
+                                                        })
+                                    }
+                                }
+
+                            }
+                        }
+    }
     Timeline {
         id: timeline
         animations: [
@@ -369,7 +597,7 @@ Layout.preferredHeight: 50
                         anchors.fill: parent
                         onClicked: {
                             contentLoader.setSource("Dashboard.qml", {
-                                                usernameRef: root.usernameRef,
+                                                username: root.username,
                                                 fullName: root .fullName
                                             })
                         }
@@ -974,233 +1202,6 @@ Layout.preferredHeight: 50
                                 }
                             }
                         }
-                        Drawer
-                        {
-                            id: bottomDrawer
-                                    width: parent.width
-                                    height: 550
-                                    edge: Qt.BottomEdge
-                                    Rectangle {
-                                                width: parent.width
-                                                height: parent.height
-                                                color: "white"
-
-                                                ColumnLayout
-                                                {
-                                                    anchors.fill: parent
-                                                    Text
-                                                    {
-                                                        font.pixelSize: 25
-                                                        Layout.preferredHeight: 30
-                                                        Layout.leftMargin: 30
-                                                        Layout.topMargin: 15
-                                                        font.bold: true
-                                                        text: root.language == "EN" ? qsTr("Where would you send the money?") : qsTr("Къде би искал да изпратиш парите?")
-
-                                                    }
-
-                                                    Rectangle
-                                                    {
-                                                        id:newContactRect
-                                                        border.width: 1
-                                                        Layout.fillWidth: true
-                                                        Layout.rightMargin: 25
-                                                        Layout.leftMargin: 25
-                                                        Layout.topMargin: 40
-
-                                                        Layout.preferredHeight: 80
-                                                        radius:20
-                                                        MouseArea
-                                                        {
-                                                            anchors.fill: parent
-                                                            onClicked:
-                                                            {
-                                                                timelineAnimation.running = true
-                                                            }
-                                                        }
-                                                        Rectangle
-                                                        {
-                                                            width: 50
-                                                            height: 50
-                                                            anchors.verticalCenter: parent.verticalCenter
-                                                            anchors.left: parent.left
-                                                            anchors.leftMargin: 10
-                                                            color: "grey"
-                                                            opacity: 0.5
-                                                            radius: 30
-                                                            Image
-                                                            {
-                                                                anchors.centerIn: parent
-                                                                source: "qrc:/resources/contact.svg"
-
-                                                            }
-
-                                                        }
-                                                        Text
-                                                        {
-                                                            id:method1
-                                                            anchors.left: parent.left
-                                                            anchors.leftMargin: 70
-                                                            anchors.top: parent.top
-                                                            anchors.topMargin: 5
-                                                            text: root.language == "EN" ? qsTr("New Recipient") : qsTr("Нов получател")
-
-                                                            font.bold: true
-                                                            font.pixelSize: 18
-                                                        }
-                                                        Text
-                                                        {
-                                                            width: parent.width - 100
-                                                            anchors.left: method1.left
-                                                            anchors.top: method1.top
-                                                            anchors.topMargin: 30
-                                                            text: root.language == "EN" ? qsTr("Send money to people whose contact you don't have") : qsTr("Изпрати без да им имаш номера")
-
-                                                            wrapMode: Text.Wrap
-                                                            opacity: 0.5
-
-                                                            font.pixelSize: 18
-                                                        }
-
-                                                    }
-                                                    Rectangle
-                                                    {
-                                                        border.width: 1
-                                                        Layout.fillWidth: true
-                                                        Layout.rightMargin: 25
-                                                        Layout.leftMargin: 25
-                                                        Layout.preferredHeight: 80
-                                                        radius:20
-                                                        Rectangle
-                                                        {
-                                                            width: 50
-                                                            height: 50
-                                                            anchors.verticalCenter: parent.verticalCenter
-                                                            anchors.left: parent.left
-                                                            anchors.leftMargin: 10
-                                                            color: "grey"
-                                                            opacity: 0.5
-                                                            radius: 30
-                                                            Image
-                                                            {
-                                                                anchors.centerIn: parent
-                                                                source: "qrc:/resources/contact.svg"
-
-                                                            }
-
-                                                        }
-                                                        Text
-                                                        {
-                                                            id:method2
-                                                            anchors.left: parent.left
-                                                            anchors.leftMargin: 70
-                                                            anchors.top: parent.top
-                                                            anchors.topMargin: 5
-                                                            text: root.language == "EN" ? qsTr("Contact") : qsTr("Контакт")
-
-                                                            font.bold: true
-                                                            font.pixelSize: 18
-                                                        }
-                                                        Text
-                                                        {
-                                                            width: parent.width - 100
-                                                            anchors.left: method2.left
-                                                            anchors.top: method2.top
-                                                            anchors.topMargin: 30
-                                                            text: root.language == "EN" ? qsTr("Send money to one of the contact lists I have") : qsTr("Изпрати на тези в листа ти")
-
-                                                            wrapMode: Text.Wrap
-                                                            opacity: 0.5
-
-                                                            font.pixelSize: 18
-                                                        }
-                                                    }
-                                                    Rectangle
-                                                    {
-                                                        border.width: 1
-                                                        Layout.fillWidth: true
-                                                        Layout.rightMargin: 25
-                                                        Layout.leftMargin: 25
-                                                        Layout.preferredHeight: 80
-
-                                                        radius:20
-                                                        Rectangle
-                                                        {
-                                                            width: 50
-                                                            height: 50
-                                                            anchors.verticalCenter: parent.verticalCenter
-                                                            anchors.left: parent.left
-                                                            anchors.leftMargin: 10
-                                                            color: "grey"
-                                                            opacity: 0.5
-                                                            radius: 30
-                                                            Image
-                                                            {
-                                                                id: icon3
-                                                                anchors.centerIn: parent
-                                                                source: "qrc:/resources/contact.svg"
-                                                            }
-
-                                                        }
-                                                        Text
-                                                        {
-                                                            id:method3
-                                                            anchors.left: parent.left
-                                                            anchors.leftMargin: 70
-                                                            anchors.top: parent.top
-                                                            anchors.topMargin: 5
-                                                            text: root.language == "EN" ? qsTr("Withdraw") : qsTr("Изтегляне")
-                                                            font.bold: true
-                                                            font.pixelSize: 18
-                                                        }
-                                                        Text
-                                                        {
-                                                            width: parent.width - 100
-                                                            anchors.left: method3.left
-                                                            anchors.top: method3.top
-                                                            anchors.topMargin: 30
-                                                            text: root.language == "EN" ? qsTr("Withdraw the balance of money to my local bank account") : qsTr("Изтегли пари от банката си")
-
-                                                            wrapMode: Text.Wrap
-                                                            opacity: 0.5
-
-                                                            font.pixelSize: 18
-                                                        }
-                                                    }
-
-                                                    Button
-                                                    {
-                                                        Layout.topMargin: 30
-                                                        Layout.bottomMargin: 30
-                                                        Layout.preferredHeight: 60
-                                                        Layout.fillWidth: true
-                                                        Layout.rightMargin: 5
-                                                        Layout.leftMargin: 5
-                                                        background: Rectangle
-                                                        {
-                                                            id: continueButton
-                                                            color: "#B7C2CA"
-                                                            radius: 20
-                                                            Text
-                                                            {
-                                                                anchors.centerIn: parent
-                                                                text: "Continue"
-                                                                color: "white"
-                                                            }
-
-                                                        }
-
-                                                        onClicked: {
-                                                            contentLoader.setSource("SelectRecipent.qml", {
-                                                                                username: root.username,
-                                                                                fullName: root .fullName
-                                                                            })
-                                                        }
-                                                    }
-
-                                                }
-                                            }
-                        }
                     }
                 }
 
@@ -1211,7 +1212,7 @@ Layout.preferredHeight: 50
     NavbarMobile
     {
         isPhone: root.isPhone
-        usernameRef: root.username
+        username: root.username
         fullName: root.fullName
         transactionImage.source: "qrc:/resources/transactionActive.svg"
         homeImage.source: "qrc:/resources/homeNavbarInactive.svg"

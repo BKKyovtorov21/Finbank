@@ -428,20 +428,14 @@ Item {
                                         }
 
                                     }
-                            ColumnLayout
+                            RowLayout
                             {
                                 anchors.fill: parent
-                                spacing : -30
-
-                                RowLayout
-                                {
-                                    Layout.leftMargin:  15
-                                    Layout.fillWidth: true
-                                    Layout.preferredHeight: 10
+                                spacing : 10
 
                                     Rectangle
                                     {
-                                     Layout.rightMargin: root.isTablet ? 10 : (root.isPhone ? 0 : 12)
+                                     Layout.leftMargin: root.isTablet ? 10 : (root.isPhone ? 0 : 15)
                                      Layout.preferredWidth: 40
                                      Layout.preferredHeight: 40
                                      Layout.alignment: Qt.AlignVCenter
@@ -454,8 +448,9 @@ Item {
                                      }
                                     }
                                     ColumnLayout{
-                                        Layout.topMargin: 30
+                                        Layout.topMargin: root.isPhone ? 10 : 30
                                         Layout.preferredHeight: parent.height
+                                        Layout.preferredWidth: parent
                                     Text {
 
                                         text: qsTr("Finbank+ transfer types")
@@ -475,7 +470,7 @@ Item {
                                     }
                                 }
 
-                            }
+
                         }
 
                         RowLayout
@@ -553,20 +548,19 @@ Item {
                                         }
 
                                     }
-                            ColumnLayout
+                            RowLayout
                             {
                                 anchors.fill: parent
-                                spacing : -30
+                                spacing : 10
 
-                                RowLayout
-                                {
+
                                     Layout.leftMargin:  15
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: 10
 
                                     Rectangle
                                     {
-                                        Layout.rightMargin: root.isTablet ? 10 : (root.isPhone ? 0 : 12)
+                                        Layout.leftMargin: root.isTablet ? 10 : (root.isPhone ? 0 : 12)
                                      Layout.preferredWidth: 40
                                      Layout.preferredHeight: 40
                                      radius: 40
@@ -578,7 +572,7 @@ Item {
                                      }
                                     }
                                     ColumnLayout{
-                                        Layout.topMargin: 30
+                                        Layout.topMargin: root.isPhone ? 10 : 30
                                     Text {
 
                                         text: qsTr("Debit card")
@@ -595,7 +589,7 @@ Item {
 
                                     }
                                     }
-                                }
+
 
 
 
@@ -678,20 +672,16 @@ Item {
 
                                     }
 
-                            ColumnLayout
+                            RowLayout
                             {
                                 anchors.fill: parent
-                                spacing : -30
+                                spacing : 10
 
-                                RowLayout
-                                {
-                                    Layout.leftMargin:  15
-                                    Layout.fillWidth: true
-                                    Layout.preferredHeight: 10
+
 
                                     Rectangle
                                     {
-                                    Layout.rightMargin: root.isTablet ? 10 : (root.isPhone ? 0 : 12)
+                                    Layout.leftMargin: root.isTablet ? 10 : (root.isPhone ? 0 : 12)
                                      Layout.preferredWidth: 40
                                      Layout.preferredHeight: 40
                                      radius: 40
@@ -705,7 +695,7 @@ Item {
                                      }
                                     }
                                     ColumnLayout{
-                                        Layout.topMargin: 30
+                                        Layout.topMargin: root.isPhone ? 10 : 30
                                     Text {
 
                                         text: qsTr("Transfer your money from your bank account")
@@ -724,7 +714,7 @@ Item {
                                     }
                                 }
 
-                            }
+
                         }
 
                         Item

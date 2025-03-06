@@ -25,8 +25,8 @@ Button {
         Image {
             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
             source: root.pfp
-            Layout.preferredWidth: 80
-            Layout.preferredHeight: 80
+            Layout.preferredWidth: 60
+            Layout.preferredHeight: 60
             Layout.leftMargin: 20
         }
         ColumnLayout {

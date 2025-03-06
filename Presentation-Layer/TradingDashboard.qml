@@ -330,7 +330,7 @@ Layout.preferredHeight: 50
 
                     onClicked: {
                         contentLoader.setSource("TradingMarket.qml", {
-                                            username: root.usernameRef,
+                                            username: root.username,
                                             fullName: root .fullName
                                         })
                     }
@@ -407,7 +407,7 @@ Layout.preferredHeight: 50
                     }
                     onClicked: {
                         contentLoader.setSource("Dashboard.qml", {
-                                            username: root.usernameRef,
+                                            username: root.username,
                                             fullName: root .fullName
                                         })
                     }
@@ -1896,8 +1896,11 @@ Layout.preferredHeight: 50
     NavbarMobile
     {
         isPhone: root.isPhone
-        usernameRef: root.username
+        username: root.username
         fullName: root.fullName
+        homeImage.source: "qrc:/resources/homeNavbarInactive.svg"
+        tradingImage.source: "qrc:/resources/tradingActive.svg"
+
     }
 }
 

@@ -17,7 +17,7 @@ Item {
     property string recipentEmail
 
     property string sendingCurrency: "USD"
-    property string recipentCurrency: "CAD"
+    property string recipentCurrency: "GBP"
     property real convertedAmount
     property real exchangeRate
     property bool sending: false
@@ -26,6 +26,103 @@ Item {
     {
         console.log(root.recipentFullName)
         console.log(root.recipentPfp)
+    }
+
+    Dialog {
+        id: currencyPopup
+        modal: true
+        dim: false
+        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+
+        width: 250
+        height: 300
+
+        background: Rectangle {
+            color: "white"
+            radius: 10
+            border.color: "#DDDDDD"
+            border.width: 1
+        }
+
+        contentItem: Column {
+            spacing: 10
+            width: parent.width
+            anchors.horizontalCenter: parent.horizontalCenter
+            padding: 16
+
+            // Search Bar
+            TextField {
+                id: searchField
+                width: parent.width - 20
+                placeholderText: "Type currency or country"
+                leftPadding: 10
+                color: "black"
+                background: Rectangle {
+                    color: "#F5F5F5"
+                    radius: 10
+                    border.color: "#CCCCCC"
+                    border.width: 1
+                }
+            }
+
+            // Currency List
+            ListView {
+                id: currencyList
+                width: parent.width
+                height: 300
+                model: ListModel {
+                    ListElement { flag: "qrc:/resources/CAD.svg"; name: "Canadian Dollar"; code: "CAD" }
+                    ListElement { flag: "qrc:/resources/GBP.svg"; name: "Great Britain Pound"; code: "GBP" }
+                    ListElement { flag: "qrc:/resources/IDR.svg"; name: "Indonesian Rupiah"; code: "IDR" }
+                    ListElement { flag: "qrc:/resources/JPY.svg"; name: "Japanese Yen"; code: "JPY" }
+                    ListElement { flag: "qrc:/resources/USD.svg"; name: "United States Dollar"; code: "USD" }
+                }
+                delegate: Item {
+                    width: parent.width
+                    height: 50
+                    Row {
+                        spacing: 10
+                        anchors.verticalCenter: parent.verticalCenter
+                        padding: 10
+
+                        Image {
+                            source: model.flag
+                            fillMode: Image.PreserveAspectFit
+                        }
+                        Column {
+                            Text {
+                                text: model.name
+                                font.pixelSize: 16
+                                color: "black"
+                            }
+                            Text {
+                                id: code
+                                text: model.code
+                                font.pixelSize: 12
+                                color: "gray"
+                            }
+                        }
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            currencyPopup.visible = false;
+                            console.log(code.text)
+                            if(root.sending){
+                                root.sendingCurrency = code.text
+                                stockAPIClient.fetchExchangeRates(sendingCurrencyRef.text);
+                            }
+                            else
+                            {
+                                root.recipentCurrency = code.text
+                                stockAPIClient.fetchExchangeRates(recipentCurrency.text);
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
     }
 
     Connections {
@@ -55,6 +152,7 @@ Item {
         RowLayout
         {
             spacing: 8 // Adjust spacing between icon and TextField
+            visible: !root.isTablet
             Image {
                 id: name
                 source: !root.isTablet ? "qrc:/resources/logo1.png" : "qrc:/resources/pfp.jpg"
@@ -509,128 +607,7 @@ Layout.preferredHeight: 50
                                 }
                             }
 
-                            Popup {
-                                id: currencyPopup
-                                visible: false
-                                width: 300
-                                height: 300
-                                clip: true
 
-
-                                closePolicy: Popup.NoAutoClose
-                                Column {
-                                    anchors.fill: parent
-
-                                    TextField {
-                                        id: searchField3
-                                        width: parent.width
-                                        height: 30
-                                        anchors.left: parent.left
-                                        anchors.right: parent.right
-                                        anchors.leftMargin: 5
-                                        anchors.rightMargin: 5
-                                        placeholderText: "Search currency"
-
-                                        onTextChanged: {
-                                                        currencyList.filterModel(searchField3.text); // Filter model when text changes
-                                                    }
-                                    }
-
-                                    ListView {
-                                        id: currencyList
-                                        anchors.left: parent.left
-                                        anchors.right: parent.right
-                                        anchors.bottom: parent.bottom
-                                        anchors.topMargin: 5
-                                        height: parent.height - searchField3.height - 10
-                                        clip: true // Ensure content stays within the ListView boundaries
-
-                                        model: filteredModel
-
-                                        delegate: Rectangle {
-                                            width: parent.width
-                                            height: 70
-                                            z: 10
-
-                                            Image {
-                                                id: currencyImagePopup
-                                                anchors.left: parent.left
-                                                anchors.leftMargin: 5
-                                                width: 40
-                                                height: 40
-                                                source: model.image
-                                            }
-
-                                            Text {
-                                                id: currencyTextPopup
-                                                anchors.left: currencyImagePopup.right
-                                                anchors.leftMargin: 20
-                                                anchors.verticalCenter: parent.verticalCenter
-                                                anchors.verticalCenterOffset: -25
-                                                text: model.text
-                                            }
-
-                                            Text {
-                                                id:currencyTicker
-                                                anchors.top: currencyTextPopup.bottom
-                                                anchors.topMargin: 5
-                                                anchors.left: currencyTextPopup.left
-                                                color: "#BBBBC0"
-                                                text: model.text
-                                            }
-
-                                            MouseArea {
-                                                anchors.fill: parent
-                                                onClicked: {
-                                                    currencyPopup.visible = false;
-                                                    console.log(currencyTicker.text)
-                                                    if(root.sending){
-                                                        root.sendingCurrency = currencyTicker.text
-                                                        stockAPIClient.fetchExchangeRates(sendingCurrencyRef.text);
-                                                    }
-                                                    else
-                                                    {
-                                                        root.recipentCurrency = currencyTicker.text
-                                                        stockAPIClient.fetchExchangeRates(recipentCurrency.text);
-                                                    }
-                                                }
-                                            }
-                                        }
-
-                                        ListModel {
-                                                id: currencyModel
-                                                ListElement { image: "qrc:/resources/usd.png"; text: "USD" }
-                                                ListElement { image: "qrc:/resources/cad.png"; text: "CAD" }
-                                                ListElement { image: "qrc:/resources/jpy.png"; text: "JPY" }
-                                                ListElement { image: "qrc:/resources/usd.png"; text: "More" }
-                                                ListElement { image: "qrc:/resources/usd.png"; text: "More" }
-                                            }
-
-                                            // Filtered data model
-                                            ListModel {
-                                                id: filteredModel
-                                            }
-
-                                            // Filtering function
-                                            function filterModel(query) {
-                                                filteredModel.clear(); // Clear the current filtered model
-
-                                                for (var i = 0; i < currencyModel.count; i++) {
-                                                    var item = currencyModel.get(i);
-                                                    if (item.text.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
-                                                        filteredModel.append(item); // Add matching items to filteredModel
-                                                    }
-                                                }
-                                            }
-
-                                            // Initialize the filtered model with all items
-                                            Component.onCompleted: {
-                                                filterModel(""); // Populate filteredModel with all items initially
-                                            }
-
-                                    }
-                                }
-                            }
                             Rectangle
                             {
                                 id:sendingInfo
@@ -645,7 +622,7 @@ Layout.preferredHeight: 50
                                 Image
                                 {
                                     id: currencyImage
-                                    property string resourceRef: "qrc:/resources/" + root.sendingCurrency.toLocaleLowerCase() + ".png"
+                                    property string resourceRef: "qrc:/resources/" + root.sendingCurrency + ".svg"
 
                                     Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                                     source: resourceRef
@@ -665,17 +642,18 @@ Layout.preferredHeight: 50
                                 }
                                 }
 
-                                MouseArea
-                                {
+                                MouseArea {
                                     anchors.fill: parent
-                                    onClicked:
-                                    {
-                                        root.sending = true
-                                        currencyPopup.visible = true
-                                        currencyPopup.x = sendingInfo.x - sendingInfo.width * 2
-                                        currencyPopup.y = sendingInfo.y + 70
+                                    onClicked: {
+                                        root.sending = true;
+                                        currencyPopup.visible = true;
+
+                                        // Position it directly below the currency TextField
+                                        currencyPopup.x = currency.mapToItem(root, currency.width - 150, 0).x;
+                                        currencyPopup.y = currency.mapToItem(root, 0, currency.height).y + 5; // Small gap
                                     }
                                 }
+
                             }
                         }
                         Text
@@ -718,7 +696,7 @@ Layout.preferredHeight: 50
 
                                 Image
                                 {
-                                    property string resourceRef: "qrc:/resources/" + root.recipentCurrency.toLowerCase() + ".png"
+                                    property string resourceRef: "qrc:/resources/" + root.recipentCurrency + ".svg"
                                     id: currencyImage2
                                     Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
                                     source: resourceRef
@@ -733,15 +711,15 @@ Layout.preferredHeight: 50
 
                                 }
                                 }
-                                MouseArea
-                                {
+                                MouseArea {
                                     anchors.fill: parent
-                                    onClicked:
-                                    {
-                                        root.sending = false
-                                        currencyPopup.visible = true
-                                        currencyPopup.x = receivingInfo.x - receivingInfo.width * 2
-                                        currencyPopup.y = receivingInfo.y + 200
+                                    onClicked: {
+                                        root.sending = false;
+                                        currencyPopup.visible = true;
+
+                                        // Position it directly below the currency TextField
+                                        currencyPopup.x = currency.mapToItem(root, currency2.width - 150, 0).x;
+                                        currencyPopup.y = currency.mapToItem(root, 0, currency2.height).y + 170; // Small gap
                                     }
                                 }
                             }

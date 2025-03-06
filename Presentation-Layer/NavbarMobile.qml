@@ -6,7 +6,7 @@ Rectangle {
     id: root
 
     property bool isPhone: true
-    property var usernameRef
+    property var username
     property var fullName
     property alias transactionImage: transactionsRef
     property alias homeImage: home
@@ -88,7 +88,7 @@ Rectangle {
             {
                 anchors.fill: parent
                 onClicked:{
-                    contentLoader.setSource("Transactions.qml", {
+                    contentLoader.setSource("Wallet.qml", {
                                         username: root.username,
                                         fullName: root.fullName
                                     })
@@ -145,7 +145,7 @@ Rectangle {
                 onClicked:{
                     if (root.stackViewRef) {
                                 root.stackViewRef.push(Qt.resolvedUrl("Settings.qml"), {
-                                    username: root.usernameRef,
+                                    username: root.username,
                                     fullName: root.fullName,
                                     stackViewRef: root.stackViewRef
                                 });
