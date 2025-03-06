@@ -37,7 +37,7 @@ ColumnLayout
             {
                 Text
                 {
-                   text: root.language == "EN" ? qsTr("Your profit is") : qsTr("Профитът ти е")
+                   text: root.language == "EN" ? qsTr("Your profit is") : qsTr("Профитa е")
                    color: "#727272"
                    font.pixelSize: 20
                 }

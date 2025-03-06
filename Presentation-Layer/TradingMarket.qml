@@ -167,7 +167,7 @@ Item {
             }
             Text
             {
-                text: "Trade"
+                text: root.language == "EN" ? qsTr("Invest") : qsTr("Инвестирай")
                 font.pixelSize: 25
             }
 
@@ -177,7 +177,7 @@ Item {
                 Layout.preferredWidth: 500
                 Layout.preferredHeight: 50
 
-                placeholderText: qsTr("Enter symbol or Company Name")
+                placeholderText: root.language == "EN" ? qsTr("Enter symbol or Company Name") : qsTr("Име на компания")
                 placeholderTextColor: "grey"
                 font.pixelSize: 18
                 color: "black"
@@ -362,7 +362,7 @@ Item {
                     }
                     Text
                     {
-                        text: "Dashboard"
+                        text: root.language == "EN" ? qsTr("Dashboard") : qsTr("Начална страница")
                         Layout.leftMargin: 10
                         font.pixelSize: 20
 
@@ -397,7 +397,7 @@ Item {
                     }
                     Text
                     {
-                        text: "Portfolio"
+                        text: root.language == "EN" ? qsTr("Portfolio") : qsTr("Портфолио")
                         Layout.leftMargin: 10
                         font.pixelSize: 20
                     }
@@ -413,7 +413,7 @@ Item {
                     }
                     Text
                     {
-                        text: "My Stock"
+                        text: root.language == "EN" ? qsTr("My Stock") : qsTr("Моите акции")
                         Layout.leftMargin: 10
                         font.pixelSize: 20
                     }
@@ -429,7 +429,7 @@ Item {
                     }
                     Text
                     {
-                        text: "Deposit"
+                        text: root.language == "EN" ? qsTr("Deposit") : qsTr("Депозит")
                         Layout.leftMargin: 10
                         font.pixelSize: 20
                     }
@@ -445,7 +445,7 @@ Item {
                     }
                     Text
                     {
-                        text: "Insight"
+                        text: root.language == "EN" ? qsTr("Insight") : qsTr("Анализ")
                         Layout.leftMargin: 10
                         font.pixelSize: 20
                     }
@@ -473,7 +473,7 @@ Item {
                     }
                     Text
                     {
-                        text: "Market Stock"
+                        text: root.language == "EN" ? qsTr("Market Stock") : qsTr("Пазарни акции")
                         Layout.leftMargin: 10
                         font.bold: true
 
@@ -492,7 +492,7 @@ Item {
                     }
                     Text
                     {
-                        text: "News"
+                        text: root.language == "EN" ? qsTr("News") : qsTr("Новини")
                         Layout.leftMargin: 10
                         font.pixelSize: 20
                     }
@@ -516,7 +516,7 @@ Item {
                     }
                     Text
                     {
-                        text: "Help Center"
+                        text: root.language == "EN" ? qsTr("Help Center") : qsTr("Помощен център")
                         Layout.leftMargin: 10
                         font.pixelSize: 20
                     }
@@ -532,7 +532,7 @@ Item {
                     }
                     Text
                     {
-                        text: "Settings"
+                        text: root.language == "EN" ? qsTr("Settings") : qsTr("Настройки")
                         Layout.leftMargin: 10
                         font.pixelSize: 20
                     }
@@ -547,7 +547,7 @@ Item {
                     Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
                     background: Text
                     {
-                        text: "Back To Finbank"
+                        text: root.language == "EN" ? qsTr("Back to Finbank") : qsTr("Обратно към Finbank")
                         font.bold: true
                         font.pixelSize: 15
                     }
@@ -873,7 +873,7 @@ Item {
                                 Layout.topMargin: 10
                                 leftPadding: 20
                                 Layout.preferredWidth: parent.width
-                                text: "REALTIME PRICE: NON CONSOLIDATED"
+                                text: root.language == "EN" ? qsTr("REALTIME PRICE: NON CONSOLIDATED") : qsTr("Всички цени в реално време")
                                 color: "grey"
                             }
 
@@ -890,7 +890,7 @@ Item {
                                     color: "#1256BF"
                                     Text {
                                         anchors.centerIn: parent
-                                        text: 'Buy Order'
+                                        text: root.language == "EN" ? qsTr("Buy Order") : qsTr("Купи акция")
                                         color: "white"
                                     }
 
@@ -910,7 +910,7 @@ Item {
                                     color: "#C4313D"
                                     Text {
                                         anchors.centerIn: parent
-                                        text: 'Sell Order'
+                                        text: root.language == "EN" ? qsTr("Sell order") : qsTr("Продай акция")
                                         color: "white"
                                     }
                                     MouseArea
@@ -1060,11 +1060,11 @@ Item {
             ColumnLayout
             {
                 Text{
-                text: "Hi, Boyan"
+                text: root.language == "EN" ? qsTr("Hi, Boyan") : qsTr("Здравей Боян")
                 font.pixelSize: 30
                 }
                 Text{
-                    text:"Welcome back!"
+                    text:root.language == "EN" ? qsTr("Welcome back!") : qsTr("Добре дошъл!")
                     font.pixelSize: 20
                     color: "#C6C6C6"
                 }
@@ -1234,7 +1234,7 @@ Item {
                        Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
                        background: Text
                        {
-                           text: "Back To Finbank"
+                           text: root.language == "EN" ? qsTr("Back to Finbank") : qsTr("Обратно към Finbank")
                            font.pixelSize: 10
                        }
                    }
@@ -1256,7 +1256,7 @@ Item {
 
                        anchors.fill: parent
                    Text{
-                    text: "Hey, Bobur"
+                    text: root.language == "EN" ? qsTr("Hey, Boyan!") : qsTr("Здравей, Боян!")
                     anchors.verticalCenter: parent.verticalCenter
                     font.bold: true
                     font.pixelSize: 17
@@ -1306,7 +1306,7 @@ Item {
 
                            Text {
                                Layout.alignment: Qt.AlignVCenter
-                               text: "Search"
+                               text: root.language == "EN" ? qsTr("Search") : qsTr("Tърсене")
                                color: "grey"
                            }
 
@@ -1409,7 +1409,7 @@ Item {
 
                    Text{
                        Layout.alignment: Qt.AlignHCenter
-                   text: "REALTIME PRICE: NON CONSOLIDATED"
+                   text: root.language == "EN" ? qsTr("REALTIME PRICE: NON CONSOLIDATED") : qsTr("ВСИЧКИ ЦЕНИ СА В РЕАЛНО ВРЕМЕ")
                    color: "gray"
                    font.pixelSize: 10
                    }
@@ -1426,7 +1426,7 @@ Item {
                            color: "#1256BF"
                            Text {
                                anchors.centerIn: parent
-                               text: 'Buy Order'
+                               text: root.language == "EN" ? qsTr("Buy Order") : qsTr("Купи акция")
                                color: "white"
                            }
 
@@ -1446,7 +1446,7 @@ Item {
                            color: "#C4313D"
                            Text {
                                anchors.centerIn: parent
-                               text: 'Sell Order'
+                               text: root.language == "EN" ? qsTr("Sell Order") : qsTr("Продай акция")
                                color: "white"
                            }
                            MouseArea
