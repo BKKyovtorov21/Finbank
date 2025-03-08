@@ -395,7 +395,7 @@ Window {
                         color: "#4F55F1"
 
                     MouseArea{
-
+                        anchors.fill: parent
                         onClicked:{
                         contentLoader.source = "SignUp.qml"
                         }
