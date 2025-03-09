@@ -12,7 +12,7 @@ set(CMAKE_AUTOMOC ON)
         #set(CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE YES)
        # set(CMAKE_OSX_DEPLOYMENT_TARGET "14.0") # Adjust the version based on your requirements
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Multimedia NetworkAuth Sql Charts QuickControls2)
+find_package(Qt6 6.8.2 REQUIRED COMPONENTS Quick Multimedia NetworkAuth Sql Charts QuickControls2)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
@@ -73,8 +73,6 @@ qt_add_qml_module(appFinbank
         QML_FILES Presentation-Layer/Main.qml
         QML_FILES Presentation-Layer/Wallet.qml
 )
-
-qt_add_ios_ffmpeg_libraries(appFinbank)
 
 target_include_directories(appFinbank PRIVATE
     DAL

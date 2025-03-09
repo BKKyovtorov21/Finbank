@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/">
+    <file alias="/qt/qml/Finbank">/Users/boyankiovtorov/Documents/Finbank/build/Qt_6_8_2_for_macOS-Release/Finbank</file>
+
+  </qresource>
+</RCC>
